@@ -1,14 +1,22 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Alert, Col, Container } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Alert,
+  Col,
+  Container,
+  Navbar,
+  Nav,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from './components/Message';
-import Loader from './components/Loader';
-import FormContainer from './components/FormContainer';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import FormContainer from '../components/FormContainer';
 import { resetPassword } from 'state/ducks/auth/actions';
 import * as types from 'state/ducks/auth/types';
 
-const ResetPassword = ({ location, history }) => {
+const Register = ({ location, history }) => {
   const query = new URLSearchParams(location.search);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,16 +41,15 @@ const ResetPassword = ({ location, history }) => {
 
   return (
     <Fragment>
-      <div className="bg-black text-center">
-        <a href="infocard.me">
-          <p
-            className="text-white"
-            style={{ fontSize: '1.4rem', padding: '0.5rem 0' }}
-          >
-            infocard.me
-          </p>
-        </a>
-      </div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="">Info Card</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="">Home</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
       {!success ? (
         <FormContainer>
           <h3>Reset Password</h3>
@@ -96,4 +103,4 @@ const ResetPassword = ({ location, history }) => {
   );
 };
 
-export default ResetPassword;
+export default Register;

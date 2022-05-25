@@ -19,18 +19,7 @@ const Profile = ({ history, match }) => {
         <meta charSet="utf-8" />
         <title>{username} - Info Card</title>
       </Helmet>
-      <div
-        className="bg-black text-center"
-        style={{ padding: '10px 10px 10px 10px' }}
-      >
-        <a href="https://infocard.me" target="_blank" rel="noreferrer">
-          <img
-            src={process.env.PUBLIC_URL + '/logo.png'}
-            style={{ height: '40px' }}
-            alt=""
-          />
-        </a>
-      </div>
+
       {user ? <ProfileDescription history={history} /> : <></>}
     </Fragment>
   );
