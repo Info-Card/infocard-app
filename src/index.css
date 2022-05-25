@@ -1,0 +1,45 @@
+main {
+  min-height: 80vh;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
+      box-shadow: 0 0 10px rgb(200, 200, 200);
+
+margin: 30px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+.connect-button{
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: 0px;
+  box-sizing: content-box;
+  height: 1.4375em;
+  margin: 0px;
+  min-width: 0px;
+  width: 250px;
+  height: 40px;
+  padding: 8.5px 14px;
+}

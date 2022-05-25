@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "27WN6WBXB6.com.devprotocols.chapy",
+                "paths": ["*", "NOT /reset-password/*"]
+            }
+        ]
+    }
+}
