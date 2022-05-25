@@ -17,13 +17,13 @@ const Profile = ({ history, match }) => {
     <Fragment>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{username} - Chapy</title>
+        <title>{username} - Info Card</title>
       </Helmet>
       <div
         className="bg-black text-center"
         style={{ padding: '10px 10px 10px 10px' }}
       >
-        <a href="https://chapysocial.com" target="_blank" rel="noreferrer">
+        <a href="https://infocard.me" target="_blank" rel="noreferrer">
           <img
             src={process.env.PUBLIC_URL + '/logo.png'}
             style={{ height: '40px' }}

@@ -37,8 +37,7 @@ const ProfileDescription = ({ history }) => {
   }, [history, user]);
 
   const connectHandler = () => {
-    var urlString =
-      'https://api.chapysocial.com/v1/profile/contact/' + profile.id;
+    var urlString = 'https://api.infocard.me/v1/profile/contact/' + profile.id;
     window.open(urlString, '_self');
   };
 

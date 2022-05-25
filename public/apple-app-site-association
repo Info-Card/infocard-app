@@ -3,7 +3,7 @@
         "apps": [],
         "details": [
             {
-                "appID": "27WN6WBXB6.com.devprotocols.chapy",
+                "appID": "27WN6WBXB6.com.devprotocols.infocard",
                 "paths": ["*", "NOT /reset-password/*"]
             }
         ]

@@ -34,12 +34,12 @@ const ResetPassword = ({ location, history }) => {
   return (
     <Fragment>
       <div className="bg-black text-center">
-        <a href="chapysocial.com">
+        <a href="infocard.me">
           <p
             className="text-white"
             style={{ fontSize: '1.4rem', padding: '0.5rem 0' }}
           >
-            chapysocial.com
+            infocard.me
           </p>
         </a>
       </div>
