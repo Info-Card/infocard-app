@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-
+import { Link } from 'react-router-dom';
 import { Form, Button, Container, Navbar, Nav } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -24,10 +24,10 @@ const Login = ({ location, history }) => {
     <Fragment>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="">Info Card</Navbar.Brand>
+          <Navbar.Brand href="#">Info Card</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="">Home</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Link to="/">Home</Link>
+            <Link to="/login">Login</Link>
           </Nav>
         </Container>
       </Navbar>

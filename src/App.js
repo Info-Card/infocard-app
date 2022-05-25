@@ -1,6 +1,7 @@
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import ResetPassword from 'pages/auth/ResetPassword';
+import Home from 'pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
@@ -24,11 +25,8 @@ function App() {
           path={process.env.PUBLIC_URL + '/reset-password'}
           component={ResetPassword}
         />
-        <Route
-          exact
-          path={process.env.PUBLIC_URL + '/:username'}
-          component={Profile}
-        />
+
+        <Route exact path={process.env.PUBLIC_URL + '/'} component={Home} />
         <Route component={NotFound} />
       </Switch>
     </Router>
