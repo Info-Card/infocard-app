@@ -1,8 +1,31 @@
 import api from './api';
+import TokenService from './token.service';
 
 class AuthService {
-  resetPassword(token, password) {
-    return api.post(`auth/reset-password?token=${token}`, { password });
+  login(creadentials) {
+    return api.post('auth/login', creadentials).then((response) => {
+      if (response.data && response.data.user.role === 'admin') {
+        TokenService.setAuthInfo(response.data);
+        return response.data;
+      } else {
+        throw new Error('unauthorized');
+      }
+    });
+  }
+
+  register(creadentials) {
+    return api.post('auth/register', creadentials).then((response) => {
+      if (response.data && response.data.user.role === 'admin') {
+        TokenService.setAuthInfo(response.data);
+        return response.data;
+      } else {
+        throw new Error('unauthorized');
+      }
+    });
+  }
+
+  logout() {
+    TokenService.removeAuthInfo();
   }
 }
 

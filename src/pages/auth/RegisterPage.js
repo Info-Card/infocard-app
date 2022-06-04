@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
+import Message from 'components/Message';
+import Loader from 'components/Loader';
+import FormContainer from 'components/FormContainer';
 // import { register } from '../actions/userActions'
 
-const Register = ({ location, history }) => {
+const RegisterPage = ({ location, history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,4 +101,4 @@ const Register = ({ location, history }) => {
   );
 };
 
-export default Register;
+export default RegisterPage;

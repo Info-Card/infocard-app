@@ -2,7 +2,7 @@ import * as types from './types';
 
 const initialState = {};
 
-export default (state = initialState, action) => {
+export default function foo(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -14,17 +14,28 @@ export default (state = initialState, action) => {
     case types.USER_FAIL:
       return {
         ...state,
-        loading: false,
         error: payload,
+        loading: false,
+      };
+    case types.GET_USERS_SUCCESS:
+      return payload;
+    case types.CREATE_USER_SUCCESS:
+      return {
+        success: true,
+      };
+    case types.UPDATE_USER_SUCCESS:
+      return {
+        success: true,
       };
     case types.GET_USER_SUCCESS:
+      let profile = payload.isPersonal ? payload.personal : payload.business;
       return {
-        loading: false,
-        data: payload,
+        user: payload,
+        profile,
       };
     case types.USER_RESET:
       return {};
     default:
       return state;
   }
-};
+}

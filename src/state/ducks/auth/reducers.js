@@ -1,30 +1,32 @@
 import * as types from './types';
 
-const initialState = {};
+const authInfo = JSON.parse(localStorage.getItem('authInfo'));
 
-export default (state = initialState, action) => {
+const initialState = authInfo ? { ...authInfo } : {};
+
+export default function foo(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
     case types.AUTH_REQUEST:
       return {
-        ...state,
         loading: true,
       };
+    case types.AUTH_SUCCESS:
+      return payload;
     case types.AUTH_FAIL:
       return {
-        ...state,
-        loading: false,
         error: payload,
       };
-    case types.AUTH_SUCCESS:
-      return {
-        loading: false,
-        success: true,
-      };
-    case types.AUTH_RESET:
+    case types.LOGOUT:
       return {};
+    case types.REFRESH_TOKEN:
+      return {
+        ...state,
+        ...authInfo,
+        tokens: payload,
+      };
     default:
       return state;
   }
-};
+}

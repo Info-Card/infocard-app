@@ -5,11 +5,17 @@ import './index.css';
 import './bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './state/store';
 
+import { DataProvider } from './context/DataContext';
+import { store } from './state/store';
+
+import setupInterceptors from './state/services/setupInterceptors';
+setupInterceptors(store);
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <DataProvider>
+      <App />
+    </DataProvider>
   </Provider>,
   document.getElementById('root')
 );
