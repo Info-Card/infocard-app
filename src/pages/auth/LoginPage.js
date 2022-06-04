@@ -32,7 +32,6 @@ const LoginPage = ({ location, history }) => {
     <FormContainer>
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
-      {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
@@ -55,7 +54,7 @@ const LoginPage = ({ location, history }) => {
         </Form.Group>
 
         <Button type="submit" variant="primary">
-          Sign In
+          {loading ? <Loader /> : 'Sign In'}
         </Button>
       </Form>
 

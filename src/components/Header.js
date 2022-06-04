@@ -1,18 +1,17 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-// import SearchBox from './SearchBox';
-// import { logout } from '../actions/userActions';
+import { logout } from 'state/ducks/auth/actions';
 
-const Header = () => {
+const Header = ({ history }) => {
   const dispatch = useDispatch();
 
   const { user: authUser } = useSelector((state) => state.auth);
-  const userInfo = null;
+
   const logoutHandler = () => {
-    // dispatch(logout());
+    dispatch(logout());
+    history.push('/login');
   };
 
   return (

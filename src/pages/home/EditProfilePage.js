@@ -9,16 +9,15 @@ import { getUser, updateProfile } from 'state/ducks/users/actions';
 import { getLinks } from 'state/ducks/links/actions';
 import Platform from 'components/Platform';
 import { Link } from 'react-router-dom';
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Toggle from 'components/Toggle';
 
 const EditProfilePage = ({ location, history }) => {
-  const imageRef = useRef();
+  const inputFile = useRef(null);
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
+  const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
 
   const dispatch = useDispatch();
@@ -50,69 +49,82 @@ const EditProfilePage = ({ location, history }) => {
     dispatch(updateProfile(profile.id, { name, bio, image }));
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(getUser(authUser.username, `?isPersonal=${!user.isPersonal}`));
-  };
   function chooseFile() {
-    console.log('chooseFile');
+    inputFile.current.click();
     // const { current } = imageRef(current || { click: () => {} }).click();
+  }
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files);
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setFile(e.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
+  function toggleChanged(event) {
+    event.preventDefault();
+    dispatch(getUser(authUser.username, `?isPersonal=${event.target.value}`));
   }
 
   return (
     <MainLayout>
       <Row>
+        <Col md={12}>
+          {user ? (
+            <Toggle
+              isPersonal={user.isPersonal}
+              toggleChanged={toggleChanged}
+            />
+          ) : (
+            <></>
+          )}
+        </Col>
+      </Row>
+      <Row>
         <Col md={4}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingLeft: '10px',
-              paddingRight: '10px',
-            }}
-          >
-            <FontAwesomeIcon
-              onClick={handleClick}
-              icon={faChevronLeft}
-              size="2x"
-              color="grey"
-            />
-            <div className="text-center">
-              <input
-                onChange={(e) => {
-                  setImage(e.target.files);
-                }}
-                id="select-file"
-                type="file"
-                ref={imageRef}
-              />
-              <div onClick={chooseFile}>
-                {profile && profile.image && profile.image !== '' ? (
-                  <img
-                    src={process.env.REACT_APP_API_URL + profile.image}
-                    alt=""
-                    className="profile-image"
-                  />
+          <div className="text-center">
+            <Row>
+              <Col>
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  style={{ display: 'none' }}
+                  onChange={onImageChange}
+                />
+                <FontAwesomeIcon
+                  icon={faPen}
+                  size="2x"
+                  className="edit-profile-image"
+                  onClick={chooseFile}
+                />
+
+                {file ? (
+                  <img src={file} alt="" className="profile-image" />
                 ) : (
-                  <img
-                    src={process.env.PUBLIC_URL + '/user.png'}
-                    alt=""
-                    className="profile-image"
-                  />
+                  <>
+                    {profile && profile.image && profile.image !== '' ? (
+                      <img
+                        src={process.env.REACT_APP_API_URL + profile.image}
+                        alt=""
+                        className="profile-image"
+                      />
+                    ) : (
+                      <img
+                        src={process.env.PUBLIC_URL + '/user.png'}
+                        alt=""
+                        className="profile-image"
+                      />
+                    )}
+                  </>
                 )}
-              </div>
-
-              <p>@{user ? user.username : ''}</p>
-            </div>
-
-            <FontAwesomeIcon
-              onClick={handleClick}
-              icon={faChevronRight}
-              size="2x"
-              color="grey"
-            />
+              </Col>
+            </Row>
+            <p>@{user ? user.username : ''}</p>
           </div>
           {error && <Message variant="danger">{error}</Message>}
           {success && <Message variant="success">Profile Updated</Message>}

@@ -24,37 +24,41 @@ const HomePage = ({ history }) => {
   }, [history, authUser, user, dispatch]);
   return (
     <MainLayout>
-      <Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>{authUser.username} - Info Card</title>
-        </Helmet>
+      {authUser ? (
+        <Fragment>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{authUser.username} - Info Card</title>
+          </Helmet>
 
-        <div className="row">
-          <div className="col-md-6 m-auto text-center shadow p-3 mb-5 bg-white rounded">
-            <div className="">
-              {profile && profile.image && profile.image !== '' ? (
-                <img
-                  src={process.env.REACT_APP_API_URL + profile.image}
-                  alt=""
-                  className="profile-image"
-                />
-              ) : (
-                <img
-                  src={process.env.PUBLIC_URL + '/user.png'}
-                  alt=""
-                  className="profile-image"
-                />
-              )}
+          <div className="row">
+            <div className="col-md-6 m-auto text-center shadow p-3 mb-5 bg-white rounded">
+              <div className="">
+                {profile && profile.image && profile.image !== '' ? (
+                  <img
+                    src={process.env.REACT_APP_API_URL + profile.image}
+                    alt=""
+                    className="profile-image"
+                  />
+                ) : (
+                  <img
+                    src={process.env.PUBLIC_URL + '/user.png'}
+                    alt=""
+                    className="profile-image"
+                  />
+                )}
+              </div>
+              <h4>{profile ? profile.name : ''}</h4>
+              <p>@{user ? user.username : ''}</p>
+              <p style={{ wordWrap: 'break-word' }}>
+                {profile ? profile.bio : ''}
+              </p>
             </div>
-            <h4>{profile ? profile.name : ''}</h4>
-            <p>@{user ? user.username : ''}</p>
-            <p style={{ wordWrap: 'break-word' }}>
-              {profile ? profile.bio : ''}
-            </p>
           </div>
-        </div>
-      </Fragment>
+        </Fragment>
+      ) : (
+        <></>
+      )}
     </MainLayout>
   );
 };

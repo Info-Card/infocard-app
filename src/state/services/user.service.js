@@ -19,6 +19,7 @@ class UserService {
         'Content-Type': 'multipart/form-data',
       },
     };
+    console.log(data);
     const formData = new FormData();
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
