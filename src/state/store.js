@@ -12,7 +12,7 @@ const rootReducer = (state, action) => {
 const persistConfig = {
   key: 'root',
   storage: storage,
-  blacklist: ['auth'],
+  blacklist: ['auth', 'tags'],
 };
 
 const middleware = [thunk];

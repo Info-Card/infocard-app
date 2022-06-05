@@ -9,6 +9,10 @@ class UserService {
     return api.get(`users/${id}${query ? query : ''}`);
   }
 
+  getProfile(username, user) {
+    return api.get(`users/${user ? username : `public/${username}`}`);
+  }
+
   create(data) {
     return api.post('users', data);
   }

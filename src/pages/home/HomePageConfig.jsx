@@ -1,5 +1,6 @@
 import EditProfilePage from './EditProfilePage';
 import HomePage from './HomePage';
+import ProfilePage from './ProfilePage';
 
 export const HomePageConfig = {
   routes: [
@@ -7,6 +8,11 @@ export const HomePageConfig = {
       path: '/',
       exact: true,
       component: HomePage,
+    },
+    {
+      path: '/:username',
+      exact: true,
+      component: ProfilePage,
     },
     {
       path: '/profile',

@@ -4,7 +4,7 @@ import TokenService from './token.service';
 class AuthService {
   login(creadentials) {
     return api.post('auth/login', creadentials).then((response) => {
-      if (response.data && response.data.user.role === 'admin') {
+      if (response.data) {
         TokenService.setAuthInfo(response.data);
         return response.data;
       } else {
@@ -15,7 +15,7 @@ class AuthService {
 
   register(creadentials) {
     return api.post('auth/register', creadentials).then((response) => {
-      if (response.data && response.data.user.role === 'admin') {
+      if (response.data) {
         TokenService.setAuthInfo(response.data);
         return response.data;
       } else {

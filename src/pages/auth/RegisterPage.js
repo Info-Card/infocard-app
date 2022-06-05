@@ -5,36 +5,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from 'components/Message';
 import Loader from 'components/Loader';
 import FormContainer from 'components/FormContainer';
-// import { register } from '../actions/userActions'
+import { register } from 'state/ducks/auth/actions';
 
 const RegisterPage = ({ location, history }) => {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState(null);
-
+  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
-  // const userRegister = useSelector((state) => state.userRegister)
-  // const { loading, error, userInfo } = userRegister
-  const error = '';
-  const loading = false;
+  const { loading, error, user: authUser } = useSelector((state) => state.auth);
+
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     history.push(redirect)
-  //   }
-  // }, [history, userInfo, redirect])
+  useEffect(() => {
+    if (authUser) {
+      history.push(redirect);
+    }
+  }, [history, authUser, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   setMessage('Passwords do not match')
-    // } else {
-    //   dispatch(register(name, email, password))
-    // }
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match');
+    } else {
+      dispatch(register({ username, email, password }));
+    }
   };
 
   return (
@@ -45,12 +42,12 @@ const RegisterPage = ({ location, history }) => {
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
-            type="name"
-            placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            type="username"
+            placeholder="Enter Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -85,7 +82,7 @@ const RegisterPage = ({ location, history }) => {
         </Form.Group>
 
         <Button type="submit" variant="primary">
-          Register
+          {loading ? <Loader /> : 'Sign Up'}
         </Button>
       </Form>
 
