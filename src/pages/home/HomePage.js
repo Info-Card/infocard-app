@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { getUser } from 'state/ducks/users/actions';
 import { Col, Row } from 'react-bootstrap';
 import Message from 'components/Message';
+import Platform from 'components/Platform';
 
 const HomePage = ({ history }) => {
   const { user: authUser } = useSelector((state) => state.auth);
@@ -16,7 +17,7 @@ const HomePage = ({ history }) => {
     } else {
       dispatch(getUser(authUser.username));
     }
-  }, [history, authUser, user, dispatch]);
+  }, [history, authUser, dispatch]);
   return (
     <MainLayout>
       {authUser ? (
@@ -48,6 +49,17 @@ const HomePage = ({ history }) => {
                     <p>@{authUser.username ?? ''}</p>
                     <h4>{profile.name ?? ''}</h4>
                     <p>{profile.bio ?? ''}</p>
+                    <Row>
+                      {profile.platforms.map((platform, key) => {
+                        return (
+                          <Col key={key} xs={4}>
+                            <a href={platform.web}>
+                              <Platform platform={platform} />
+                            </a>
+                          </Col>
+                        );
+                      })}
+                    </Row>
                   </div>
                 ) : (
                   <></>

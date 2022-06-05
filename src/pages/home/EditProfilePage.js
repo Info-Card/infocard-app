@@ -174,7 +174,7 @@ const EditProfilePage = ({ location, history }) => {
                         return (
                           <Col xs={4} md={2}>
                             <Link to={`/links/${platform.platform}`}>
-                              <Platform platform={platform} />
+                              <Platform platform={platform} showCheck={true} />
                             </Link>
                           </Col>
                         );

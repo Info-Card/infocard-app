@@ -2,10 +2,10 @@ import React from 'react';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Platform = ({ platform }) => {
+const Platform = ({ platform, showCheck }) => {
   return (
     <div className="">
-      {platform.value ? (
+      {showCheck && platform.value ? (
         <div style={{ position: 'absolute', top: 0, right: 0 }}>
           <FontAwesomeIcon icon={faCheckCircle} size="1x" color="green" />
         </div>
