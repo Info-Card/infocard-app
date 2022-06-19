@@ -27,6 +27,8 @@ export default function foo(state = initialState, action) {
       return {
         success: true,
       };
+    case types.UPDATE_SHARED_LINK_SUCCESS:
+      return state;
     case types.DELETE_LINK_SUCCESS:
       return {
         success: true,

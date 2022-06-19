@@ -6,7 +6,13 @@ import { GET_LINK_SUCCESS, LINK_RESET } from 'state/ducks/links/types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import Message from 'components/Message';
 import Loader from 'components/Loader';
-import { createLink, deleteLink, updateLink } from 'state/ducks/links/actions';
+import {
+  createLink,
+  deleteLink,
+  updateLink,
+  updateSharedLink,
+} from 'state/ducks/links/actions';
+import ContactPlatform from './components/ContactPlatform';
 
 const LinkPage = ({ history, match }) => {
   const linkId = match.params.linkId;
@@ -30,7 +36,7 @@ const LinkPage = ({ history, match }) => {
       } else if (!link) {
         dispatch({ type: GET_LINK_SUCCESS, payload: linkId });
       } else if (link) {
-        setPath(link.value);
+        setPath(link.type === 'contact' ? profile.id : link.value);
       }
     }
   }, [
@@ -42,6 +48,7 @@ const LinkPage = ({ history, match }) => {
     dispatch,
     rehydrated,
     success,
+    profile,
   ]);
 
   const submitHandler = (e) => {
@@ -62,6 +69,10 @@ const LinkPage = ({ history, match }) => {
   const handleDeleteClick = (e) => {
     e.preventDefault();
     dispatch(deleteLink(link.id));
+  };
+
+  const handleShare = (id, isShared) => {
+    dispatch(updateSharedLink(id, { isShared }, authUser.username));
   };
 
   return (
@@ -95,12 +106,26 @@ const LinkPage = ({ history, match }) => {
 
                   <h4>{link.title ?? ''}</h4>
                   <p>{link.headline ?? ''}</p>
-
+                  {link.type === 'contact' && (
+                    <Row>
+                      {profile.platforms.map((platform, key) => {
+                        return (
+                          <Col key={key} xs={12}>
+                            <ContactPlatform
+                              platform={platform}
+                              handleShare={handleShare}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  )}
                   <Form onSubmit={submitHandler}>
                     <Form.Group controlId="value">
                       <Form.Control
                         type="text"
                         placeholder=""
+                        hidden={link.type === 'contact'}
                         value={path}
                         onChange={(e) => setPath(e.target.value)}
                       ></Form.Control>

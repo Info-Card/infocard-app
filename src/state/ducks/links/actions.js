@@ -1,6 +1,7 @@
 import * as types from './types';
 
 import LinkService from 'state/services/link.service';
+import { getUser } from '../users/actions';
 
 export const getLinks = (profileId) => async (dispatch) => {
   try {
@@ -78,6 +79,29 @@ export const updateLink = (id, data) => async (dispatch) => {
 
     dispatch({
       type: types.UPDATE_LINK_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.LINK_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateSharedLink = (id, data, username) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.LINK_REQUEST,
+    });
+    const res = await LinkService.update(id, data);
+    dispatch(getUser(username));
+    dispatch({
+      type: types.UPDATE_SHARED_LINK_SUCCESS,
       payload: res.data,
     });
   } catch (error) {
