@@ -14,11 +14,10 @@ export const HomePageConfig = {
       exact: true,
       component: EditProfilePage,
     },
+    {
+      path: '/:username',
+      exact: true,
+      component: ProfilePage,
+    },
   ],
 };
-
-// {
-//   path: '/:username',
-//   exact: true,
-//   component: ProfilePage,
-// },

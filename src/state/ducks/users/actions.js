@@ -76,7 +76,7 @@ export const updateProfile = (id, data) => async (dispatch) => {
     dispatch({
       type: types.USER_REQUEST,
     });
-    const res = await UserService.update(id, data);
+    const res = await UserService.updateProfile(id, data);
 
     dispatch({
       type: types.UPDATE_USER_SUCCESS,

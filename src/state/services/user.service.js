@@ -17,7 +17,7 @@ class UserService {
     return api.post('users', data);
   }
 
-  update(id, data) {
+  updateProfile(id, data) {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',

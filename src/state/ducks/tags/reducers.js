@@ -19,7 +19,11 @@ export default function foo(state = initialState, action) {
       return {
         tag: payload,
       };
-    case types.ACTIVATE_TAG_SUCCESS:
+    case types.GET_TAGS_SUCCESS:
+      return payload;
+    case (types.ACTIVATE_TAG_SUCCESS,
+    types.DELETE_TAG_SUCCESS,
+    types.UPDATE_TAG_SUCCESS):
       return {
         success: true,
       };
