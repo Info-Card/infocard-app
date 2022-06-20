@@ -25,14 +25,28 @@ const Header = ({ history }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {authUser ? (
-                <NavDropdown title={authUser.username} id="username">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                <>
+                  <LinkContainer to="/qr">
+                    <Nav.Link>
+                      <i className="fas fa-qrcode"></i> My QR
+                    </Nav.Link>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                  <NavDropdown
+                    title={
+                      <>
+                        <i className="fas fa-user"></i> {authUser.username}
+                      </>
+                    }
+                    id="username"
+                  >
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>

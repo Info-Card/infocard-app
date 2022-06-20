@@ -1,6 +1,7 @@
 import EditProfilePage from './EditProfilePage';
 import HomePage from './HomePage';
 import ProfilePage from './ProfilePage';
+import QRPage from './QRPage';
 
 export const HomePageConfig = {
   routes: [
@@ -13,6 +14,11 @@ export const HomePageConfig = {
       path: '/profile',
       exact: true,
       component: EditProfilePage,
+    },
+    {
+      path: '/qr',
+      exact: true,
+      component: QRPage,
     },
     {
       path: '/:username',

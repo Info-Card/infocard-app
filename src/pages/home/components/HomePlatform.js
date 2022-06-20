@@ -9,7 +9,7 @@ const HomePlatform = ({ platform, showMakeDirect, handleDirectOn }) => {
           alt={platform.image}
           className="platform-image"
         />
-        {platform.title} (taps: {platform.taps})
+        {platform.title} (views: {platform.taps})
       </div>
       {showMakeDirect && (
         <button

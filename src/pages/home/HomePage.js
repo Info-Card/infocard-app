@@ -86,56 +86,34 @@ const HomePage = ({ history }) => {
               )}
             </Col>
           </Row>
-          <Row>
+          <Row className="">
             <Col md={4} />
             <Col md={4}>
               <div className="text-center">
                 {error ? <Message variant="danger">{error}</Message> : <></>}
                 {profile ? (
                   <div className="">
-                    {profile.image && profile.image !== '' ? (
-                      <img
-                        src={process.env.REACT_APP_API_URL + profile.image}
-                        alt=""
-                        className="profile-image"
-                      />
-                    ) : (
-                      <img
-                        src={process.env.PUBLIC_URL + '/user.png'}
-                        alt=""
-                        className="profile-image"
-                      />
-                    )}
-                    <p>@{authUser.username ?? ''}</p>
-                    <h4>{profile.name ?? ''}</h4>
-                    <p>{profile.bio ?? ''}</p>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <p>taps: {profile.taps}</p>&nbsp;&nbsp;&nbsp;
-                      <p>views: {profile.views}</p>
+                    <div className="">
+                      {profile.image && profile.image !== '' ? (
+                        <img
+                          src={process.env.REACT_APP_API_URL + profile.image}
+                          alt=""
+                          className="profile-image m-3"
+                        />
+                      ) : (
+                        <img
+                          src={process.env.PUBLIC_URL + '/user.png'}
+                          alt=""
+                          className="profile-image m-3"
+                        />
+                      )}
+                      <h4>{profile.name ?? ''}</h4>
+                      <p>@{authUser.username ?? ''}</p>
+                      <p>{profile.bio ?? ''}</p>
+                      {/* <div className="d-flex align-items-center justify-content-center">
+                        <p>views: {profile.views}</p>
+                      </div> */}
                     </div>
-                    <Row>
-                      <Col xs={12}>
-                        <Button
-                          type="submit"
-                          variant="primary"
-                          className="mb-2"
-                          onClick={(e) => setShowAddVideo(true)}
-                        >
-                          Upload Video
-                        </Button>
-                        {profile.videos &&
-                          profile.videos.map((video, key) => {
-                            return (
-                              <Col key={key} xs={12}>
-                                <VideoPlayer video={video} />
-                              </Col>
-                            );
-                          })}
-                        {/* <Col xs={12}>
-                          <VideoPlayer video="https://www.youtube.com/watch?v=nNZvaMoiATE" />
-                        </Col> */}
-                      </Col>
-                    </Row>
                     <div className="d-flex flex-row">
                       <div className="custom-control custom-switch">
                         <input
