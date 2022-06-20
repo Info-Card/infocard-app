@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
 import { getUser, updateProfile } from 'state/ducks/users/actions';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
 import { activateTag } from 'state/ducks/tags/actions';
 import { TAG_RESET } from 'state/ducks/tags/types';
@@ -11,8 +11,12 @@ import { LOGOUT } from 'state/ducks/auth/types';
 import HomePlatform from './components/HomePlatform';
 import Toggle from 'components/Toggle';
 import { USER_RESET } from 'state/ducks/users/types';
+import VideoPlayer from './components/VideoPlayer';
 
 const HomePage = ({ history }) => {
+  const [showAddVideo, setShowAddVideo] = useState(false);
+  const [videoURL, setVideoURL] = useState('');
+
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, success } = useSelector((state) => state.users);
   const { tag, success: tagSuccess } = useSelector((state) => state.tags);
@@ -56,6 +60,11 @@ const HomePage = ({ history }) => {
     event.preventDefault();
     dispatch(getUser(authUser.username, `?isPersonal=${event.target.value}`));
   }
+
+  const handleAddVideo = (event) => {
+    dispatch(updateProfile(profile.id, { videos: [videoURL] }));
+    setVideoURL('');
+  };
 
   return (
     <MainLayout>
@@ -104,6 +113,28 @@ const HomePage = ({ history }) => {
                       <p>taps: {profile.taps}</p>&nbsp;&nbsp;&nbsp;
                       <p>views: {profile.views}</p>
                     </div>
+                    <Row>
+                      <Col xs={12}>
+                        <Button
+                          type="submit"
+                          variant="primary"
+                          className="mb-2"
+                          onClick={(e) => setShowAddVideo(true)}
+                        >
+                          Upload Video
+                        </Button>
+                        {profile.videos.map((video, key) => {
+                          return (
+                            <Col key={key} xs={12}>
+                              <VideoPlayer video={video} />
+                            </Col>
+                          );
+                        })}
+                        {/* <Col xs={12}>
+                          <VideoPlayer video="https://www.youtube.com/watch?v=nNZvaMoiATE" />
+                        </Col> */}
+                      </Col>
+                    </Row>
                     <div className="d-flex flex-row">
                       <div className="custom-control custom-switch">
                         <input
@@ -190,6 +221,28 @@ const HomePage = ({ history }) => {
                 Close
               </Button>
             </Modal.Footer>
+          </Modal>
+          <Modal show={showAddVideo}>
+            <Modal.Header closeButton onHide={(e) => setShowAddVideo(false)}>
+              <Modal.Title>Add Youtube Video</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleAddVideo}>
+                <Form.Group controlId="name">
+                  <Form.Label>URL</Form.Label>
+                  <Form.Control
+                    type="url"
+                    placeholder="Enter url"
+                    value={videoURL}
+                    onChange={(e) => setVideoURL(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Button type="submit" variant="primary">
+                  ADD
+                </Button>
+              </Form>
+            </Modal.Body>
           </Modal>
         </Fragment>
       ) : (

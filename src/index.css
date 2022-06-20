@@ -68,6 +68,13 @@ a {
   border-radius: 12px;
 }
 
+.player-card{
+  height: 200px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  background-color: black;
+}
+
 .direct-button {
   background-color: #ddd;
   border: none;

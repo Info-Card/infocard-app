@@ -111,10 +111,12 @@ const LinkPage = ({ history, match }) => {
                       {profile.platforms.map((platform, key) => {
                         return (
                           <Col key={key} xs={12}>
-                            <ContactPlatform
-                              platform={platform}
-                              handleShare={handleShare}
-                            />
+                            {platform.type !== 'contact' && (
+                              <ContactPlatform
+                                platform={platform}
+                                handleShare={handleShare}
+                              />
+                            )}
                           </Col>
                         );
                       })}
