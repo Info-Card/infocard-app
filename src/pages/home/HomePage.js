@@ -123,13 +123,14 @@ const HomePage = ({ history }) => {
                         >
                           Upload Video
                         </Button>
-                        {profile.videos.map((video, key) => {
-                          return (
-                            <Col key={key} xs={12}>
-                              <VideoPlayer video={video} />
-                            </Col>
-                          );
-                        })}
+                        {profile.videos &&
+                          profile.videos.map((video, key) => {
+                            return (
+                              <Col key={key} xs={12}>
+                                <VideoPlayer video={video} />
+                              </Col>
+                            );
+                          })}
                         {/* <Col xs={12}>
                           <VideoPlayer video="https://www.youtube.com/watch?v=nNZvaMoiATE" />
                         </Col> */}
