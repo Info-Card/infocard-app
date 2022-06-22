@@ -2,7 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
-import { getUser, updateProfile } from 'state/ducks/users/actions';
+import {
+  getUser,
+  updateProfile,
+  updateVideos,
+} from 'state/ducks/users/actions';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
 import { activateTag } from 'state/ducks/tags/actions';
@@ -62,8 +66,12 @@ const HomePage = ({ history }) => {
   }
 
   const handleAddVideo = (event) => {
-    dispatch(updateProfile(profile.id, { videos: [videoURL] }));
+    event.preventDefault();
+    const videos = profile.videos ?? [];
+    videos.push(videoURL);
+    dispatch(updateVideos(profile.id, { videos: videos }));
     setVideoURL('');
+    setShowAddVideo(false);
   };
 
   return (
@@ -114,6 +122,31 @@ const HomePage = ({ history }) => {
                         <p>views: {profile.views}</p>
                       </div> */}
                     </div>
+                    <Row>
+                      <Col xs={12}>
+                        <Button
+                          type="submit"
+                          variant="primary"
+                          className="mb-2"
+                          onClick={(e) => setShowAddVideo(true)}
+                        >
+                          Upload Video
+                        </Button>
+                        <div className="scrolling-wrapper">
+                          {profile.videos.map((video) => {
+                            return (
+                              <div
+                                style={{ display: 'inline-block' }}
+                                className="mr-1"
+                                key={video}
+                              >
+                                <VideoPlayer video={video} />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </Col>
+                    </Row>
                     <div className="d-flex flex-row">
                       <div className="custom-control custom-switch">
                         <input

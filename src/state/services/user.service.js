@@ -38,6 +38,10 @@ class UserService {
     return api.patch(`profile/${id}`, formData, config);
   }
 
+  updateVideos(id, data) {
+    return api.patch(`profile/${id}`, data);
+  }
+
   delete(id) {
     return api.delete(`users/${id}`);
   }

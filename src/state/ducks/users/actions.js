@@ -94,6 +94,29 @@ export const updateProfile = (id, data) => async (dispatch) => {
   }
 };
 
+export const updateVideos = (id, data) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.USER_REQUEST,
+    });
+    const res = await UserService.updateVideos(id, data);
+
+    dispatch({
+      type: types.UPDATE_USER_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.USER_FAIL,
+      payload: message,
+    });
+  }
+};
+
 export const deleteUser = (id) => async (dispatch) => {
   try {
     await UserService.delete(id);
