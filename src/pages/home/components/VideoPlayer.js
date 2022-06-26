@@ -2,14 +2,13 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 
 const VideoPlayer = ({ video }) => {
-  console.log(video);
   return (
     <div className="player-card">
       <ReactPlayer
         url={video}
         config={{
           youtube: {
-            playerVars: { showinfo: 0, origin: 'https://app.vitacode.io' },
+            playerVars: { showinfo: 0, origin: 'https://app.infocard.me' },
           },
         }}
         width="100%"

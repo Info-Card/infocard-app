@@ -6,11 +6,14 @@ import { getProfile } from 'state/ducks/profile/actions';
 import { getTag } from 'state/ducks/tags/actions';
 import ProfileDetail from './components/ProfileDetail';
 import { Link } from 'react-router-dom';
+import Loader from 'components/Loader';
 
 const ProfilePage = ({ history, match }) => {
   const username = match.params.username;
   const { user: authUser } = useSelector((state) => state.auth);
-  const { error, profile, user } = useSelector((state) => state.profile);
+  const { error, profile, user, loading } = useSelector(
+    (state) => state.profile
+  );
   const { tag, error: tagError } = useSelector((state) => state.tags);
   const { rehydrated } = useSelector((state) => state._persist);
 
@@ -19,7 +22,11 @@ const ProfilePage = ({ history, match }) => {
     if (rehydrated) {
       if (error) {
         if (!tag) {
-          dispatch(getTag(username));
+          if (tagError) {
+            history.push('/not-found');
+          } else {
+            dispatch(getTag(username));
+          }
         } else if (authUser) {
           history.push('/');
         }
@@ -27,23 +34,23 @@ const ProfilePage = ({ history, match }) => {
         dispatch(getProfile(username, authUser));
       }
     }
-  }, [history, authUser, dispatch, username, rehydrated, error, tag]);
+  }, [history, authUser, dispatch, username, rehydrated, error, tag, tagError]);
 
   return (
     <Container>
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{user ? user.username : ''} - Info Card</title>
+          <title>{user ? user.username : ''} - Vita Code</title>
         </Helmet>
         <Row>
           <Col md={4} />
           <Col md={4}>
-            <div className="text-center">
-              {profile ? (
-                <ProfileDetail user={user} profile={profile} />
+            <div className="">
+              {loading ? (
+                <Loader />
               ) : (
-                <>Profile Not found</>
+                <ProfileDetail user={user} profile={profile} />
               )}
             </div>
           </Col>

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Platform = ({ platform, showCheck }) => {
   return (
-    <div className="">
+    <div className="text-center">
       {showCheck && platform.value ? (
         <div style={{ position: 'absolute', top: 0, right: 0 }}>
           <FontAwesomeIcon icon={faCheckCircle} size="1x" color="green" />

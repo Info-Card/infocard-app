@@ -16,6 +16,8 @@ import HomePlatform from './components/HomePlatform';
 import Toggle from 'components/Toggle';
 import { USER_RESET } from 'state/ducks/users/types';
 import VideoPlayer from './components/VideoPlayer';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HomePage = ({ history }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
@@ -66,12 +68,16 @@ const HomePage = ({ history }) => {
   }
 
   const handleAddVideo = (event) => {
-    event.preventDefault();
     const videos = profile.videos ?? [];
     videos.push(videoURL);
     dispatch(updateVideos(profile.id, { videos: videos }));
     setVideoURL('');
-    setShowAddVideo(false);
+  };
+
+  const deleteVideo = (video) => {
+    let videos = profile.videos ?? [];
+    videos = videos.filter((e) => e !== video);
+    dispatch(updateVideos(profile.id, { videos: videos }));
   };
 
   return (
@@ -80,7 +86,7 @@ const HomePage = ({ history }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Info Card</title>
+            <title>{authUser.username} - Vita Code</title>
           </Helmet>
           <Row>
             <Col md={12}>
@@ -97,98 +103,136 @@ const HomePage = ({ history }) => {
           <Row className="">
             <Col md={4} />
             <Col md={4}>
-              <div className="text-center">
+              <div className="mt-2">
                 {error ? <Message variant="danger">{error}</Message> : <></>}
                 {profile ? (
                   <div className="">
-                    <div className="">
-                      {profile.image && profile.image !== '' ? (
-                        <img
-                          src={process.env.REACT_APP_API_URL + profile.image}
-                          alt=""
-                          className="profile-image m-3"
-                        />
-                      ) : (
-                        <img
-                          src={process.env.PUBLIC_URL + '/user.png'}
-                          alt=""
-                          className="profile-image m-3"
-                        />
-                      )}
-                      <h4>{profile.name ?? ''}</h4>
-                      <p>@{authUser.username ?? ''}</p>
-                      <p>{profile.bio ?? ''}</p>
-                      {/* <div className="d-flex align-items-center justify-content-center">
-                        <p>views: {profile.views}</p>
-                      </div> */}
-                    </div>
-                    <Row>
+                    <Row className="g-2">
                       <Col xs={12}>
-                        <Button
-                          type="submit"
-                          variant="primary"
-                          className="mb-2"
-                          onClick={(e) => setShowAddVideo(true)}
-                        >
-                          Upload Video
-                        </Button>
+                        <div class="profile-card">
+                          <div
+                            class="profile-card-bg"
+                            style={{ backgroundColor: profile.color ?? 'grey' }}
+                          ></div>
+                          <div>
+                            {profile.image && profile.image !== '' ? (
+                              <img
+                                src={
+                                  process.env.REACT_APP_API_URL + profile.image
+                                }
+                                alt=""
+                                class="twPc-avatarLink twPc-avatarImg"
+                              />
+                            ) : (
+                              <img
+                                src={process.env.PUBLIC_URL + '/user.png'}
+                                alt=""
+                                class="twPc-avatarLink twPc-avatarImg"
+                              />
+                            )}
+                            <div class="twPc-divUser">
+                              <div class="twPc-divName">{profile.name}</div>
+                              <span>
+                                @<span>{user.username}</span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="twPc-divStats">
+                            <strong>About:</strong>
+                            <p>{profile.bio}</p>
+                            <ul class="twPc-Arrange text-center">
+                              <li class="twPc-ArrangeSizeFit">
+                                <Button type="submit" variant="" disabled>
+                                  views: {profile.views}
+                                </Button>
+                              </li>
+                              <li class="twPc-ArrangeSizeFit">
+                                <Button
+                                  type="submit"
+                                  variant=""
+                                  onClick={(e) => setShowAddVideo(true)}
+                                >
+                                  Upload Video
+                                </Button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col xs={12}>
                         <div className="scrolling-wrapper">
                           {profile.videos.map((video) => {
                             return (
                               <div
-                                style={{ display: 'inline-block' }}
+                                style={{
+                                  display: 'inline-block',
+                                }}
                                 className="mr-1"
-                                key={video}
                               >
+                                <div className="text-right mr-2" style={{}}>
+                                  <FontAwesomeIcon
+                                    icon={faTrash}
+                                    size="1x"
+                                    className="delete-video"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      deleteVideo(video);
+                                    }}
+                                  />
+                                </div>
                                 <VideoPlayer video={video} />
                               </div>
                             );
                           })}
                         </div>
                       </Col>
-                    </Row>
-                    <div className="d-flex flex-row">
-                      <div className="custom-control custom-switch">
-                        <input
-                          type="checkbox"
-                          className="custom-control-input"
-                          id="customSwitches"
-                          value="off"
-                          checked={
-                            user.direct !== '' && user.direct !== undefined
-                          }
-                          onChange={() => {
-                            const link = profile.platforms[0];
-                            if (
-                              user.direct === '' ||
-                              user.direct === undefined
-                            ) {
-                              handleDirectOn(link.id);
-                            } else {
-                              handleDirectOn('');
-                            }
-                          }}
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customSwitches"
-                        >
-                          Direct On
-                        </label>
-                      </div>
-                    </div>
-                    <Row>
-                      {profile.platforms.map((platform, key) => {
-                        return (
-                          <Col key={key} xs={12}>
-                            <HomePlatform
-                              platform={platform}
-                              showMakeDirect={platform.id !== user.direct}
-                              handleDirectOn={handleDirectOn}
+                      <Col xs={12}>
+                        <div className="d-flex flex-row">
+                          <div className="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              className="custom-control-input"
+                              id="customSwitches"
+                              value="off"
+                              checked={
+                                user.direct !== '' && user.direct !== undefined
+                              }
+                              onChange={() => {
+                                const link = profile.platforms[0];
+                                if (
+                                  user.direct === '' ||
+                                  user.direct === undefined
+                                ) {
+                                  handleDirectOn(link.id);
+                                } else {
+                                  handleDirectOn('');
+                                }
+                              }}
                             />
-                          </Col>
-                        );
-                      })}
+                            <label
+                              className="custom-control-label"
+                              htmlFor="customSwitches"
+                            >
+                              Direct On
+                            </label>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col xs={12}>
+                        <Row className="g-2">
+                          {profile.platforms.map((platform, key) => {
+                            return (
+                              <Col key={key} xs={12}>
+                                <HomePlatform
+                                  platform={platform}
+                                  showMakeDirect={platform.id !== user.direct}
+                                  handleDirectOn={handleDirectOn}
+                                />
+                              </Col>
+                            );
+                          })}
+                        </Row>
+                      </Col>
                     </Row>
                   </div>
                 ) : (
@@ -227,7 +271,7 @@ const HomePage = ({ history }) => {
             <Modal.Header closeButton>
               <Modal.Title>Activation Completed</Modal.Title>
             </Modal.Header>
-            <Modal.Body>You have successfully activated Info Card</Modal.Body>
+            <Modal.Body>You have successfully activated Vita Code</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose1}>
                 Close

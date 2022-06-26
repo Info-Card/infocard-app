@@ -24,17 +24,17 @@ h2 {
       box-shadow: 0 0 10px rgb(200, 200, 200);
 
 }
-.edit-profile-image {
+
+
+.delete-video {
   border-radius: 50%;
-  -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
-      box-shadow: 0 0 10px rgb(200, 200, 200);
-background-color: white;
-margin-right: 100px;
-margin-bottom: 30px;
-padding: 15px;
-position: absolute;
-  bottom: 0;
-  right: 0;
+  -webkit-box-shadow: 0 0 5px rgb(200, 200, 200);
+  box-shadow: 0 0 5px rgb(200, 200, 200);
+  background-color: red;
+padding: 5px;
+margin-top: 3px;
+
+color: white;
 }
 
 a {
@@ -62,7 +62,6 @@ a {
 }
 
 .platform-card {
-  margin-top: 10px;
   box-shadow: 0 0 10px rgb(200, 200, 200);
   border-radius: 12px;
 }
@@ -70,9 +69,8 @@ a {
 
 .player-card{
   height: 200px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 10px rgb(200, 200, 200);
-  background-color: black;
+  margin-right: 10px;
+  background-color: black;;
 }
 
 .direct-button {
@@ -101,5 +99,164 @@ a {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+}
 
+
+.profile_header {
+  width: 100%;
+  height: auto 13;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 4px 4px 4px 4px;
+  overflow:hidden;
+}
+
+.profile_cover div {
+  width: 970px;
+  height: 115px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-radius: 4px 4px 4px 4px;
+}
+
+.profile_photo img{
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  margin: -50px 0px 10px 0px;
+  position:relative;
+  z-index:111;
+  background-color:white;
+  -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
+  box-shadow: 0 0 2px rgb(200, 200, 200);
+}
+
+.edit-profile-image {
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  background-color: white;
+  margin-right: 120px;
+  margin-bottom: 30px;
+  padding: 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index:112;
+}
+
+/* .profile_card div{
+  width: 130px;
+  height: 130px;
+  margin: -50px 0px 10px 0px;
+  position:relative;
+  z-index:111;
+  background-color:white;
+  -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
+  box-shadow: 0 0 2px rgb(200, 200, 200);
+} */
+
+
+
+.profile-card{
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  border-radius: 12px;
+}
+.profile-card-bg{
+  border-bottom: 1px solid #e1e8ed;
+  border-radius: 12px;
+  height: 120px;
+}
+
+.twPc-button {
+  margin: -35px -10px 0;
+  text-align: right;
+  width: 100%;
+}
+.twPc-avatarLink {
+  background-color: #fff;
+  border-radius: 6px;
+  display: inline-block !important;
+  float: left;
+  margin: -50px 5px 0 8px;
+  max-width: 100%;
+  padding: 1px;
+  vertical-align: bottom;
+}
+.twPc-avatarImg1 {
+  background-color: #fff;
+  border-radius: 6px;
+  display: inline-block !important;
+  float: left;
+  margin: 5px 5px 0 8px;
+  max-width: 100%;
+  padding: 1px;
+  vertical-align: bottom;
+  border: 2px solid #fff;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #fff;
+  height: 100px;
+  width: 100px;
+}
+.twPc-avatarImg {
+  border: 2px solid #fff;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #fff;
+  height: 100px;
+  width: 100px;
+}
+.twPc-divUser {
+  margin: 5px 0 0;
+}
+.twPc-divName {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+.twPc-divName a {
+  color: inherit !important;
+}
+.twPc-divStats {
+  margin-left: 11px;
+  padding: 10px 10px 10px 0px;
+}
+.twPc-Arrange {
+  box-sizing: border-box;
+  display: table;
+  margin: 0;
+  min-width: 100%;
+  padding: 0;
+  table-layout: auto;
+}
+ul.twPc-Arrange {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.twPc-ArrangeSizeFit {
+  display: table-cell;
+  padding: 0;
+  vertical-align: top;
+}
+.twPc-ArrangeSizeFit a:hover {
+  text-decoration: none;
+}
+.twPc-StatValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out 0s;
+}
+.twPc-StatLabel {
+  color: #8899a6;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: color 0.15s ease-in-out 0s;
 }

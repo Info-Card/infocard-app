@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { logout } from 'state/ducks/auth/actions';
 
 const Header = ({ history }) => {
@@ -19,7 +19,10 @@ const Header = ({ history }) => {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Info Card</Navbar.Brand>
+            <Navbar.Brand>
+              {/* <img src="logo.png" alt="" style={{ width: '120px' }} /> */}
+              info card
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -31,21 +34,13 @@ const Header = ({ history }) => {
                       <i className="fas fa-qrcode"></i> My QR
                     </Nav.Link>
                   </LinkContainer>
-                  <NavDropdown
-                    title={
-                      <>
-                        <i className="fas fa-user"></i> {authUser.username}
-                      </>
-                    }
-                    id="username"
-                  >
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <LinkContainer to="/profile">
+                    <Nav.Link>
+                      <i className="fas fa-user"></i> Profile
+                    </Nav.Link>
+                  </LinkContainer>
+
+                  <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
                 </>
               ) : (
                 <LinkContainer to="/login">
