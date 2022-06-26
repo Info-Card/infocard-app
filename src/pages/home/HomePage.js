@@ -86,7 +86,7 @@ const HomePage = ({ history }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Vita Code</title>
+            <title>{authUser.username} - Info Card</title>
           </Helmet>
           <Row>
             <Col md={12}>
@@ -271,7 +271,7 @@ const HomePage = ({ history }) => {
             <Modal.Header closeButton>
               <Modal.Title>Activation Completed</Modal.Title>
             </Modal.Header>
-            <Modal.Body>You have successfully activated Vita Code</Modal.Body>
+            <Modal.Body>You have successfully activated Info Card</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose1}>
                 Close

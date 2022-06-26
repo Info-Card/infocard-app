@@ -1,6 +1,7 @@
+import ForgotPasswordPage from './ForgotPasswordPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
-import ResetPasswordPage from './ResetPassword';
+import ResetPasswordPage from './ResetPasswordPage';
 
 export const AuthPageConfig = {
   routes: [
@@ -14,10 +15,15 @@ export const AuthPageConfig = {
       exact: true,
       component: RegisterPage,
     },
-    // {
-    //   path: '/reset-password',
-    //   exact: true,
-    //   component: ResetPasswordPage,
-    // },
+    {
+      path: '/forgot-password',
+      exact: true,
+      component: ForgotPasswordPage,
+    },
+    {
+      path: '/reset-password',
+      exact: true,
+      component: ResetPasswordPage,
+    },
   ],
 };

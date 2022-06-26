@@ -13,7 +13,7 @@ export default function foo(state = initialState, action) {
         loading: true,
       };
     case types.AUTH_SUCCESS:
-      return payload;
+      return { ...payload, success: true };
     case types.AUTH_FAIL:
       return {
         error: payload,
@@ -26,6 +26,8 @@ export default function foo(state = initialState, action) {
         ...authInfo,
         tokens: payload,
       };
+    case types.AUTH_RESET:
+      return {};
     default:
       return state;
   }

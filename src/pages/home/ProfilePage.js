@@ -41,7 +41,7 @@ const ProfilePage = ({ history, match }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{user ? user.username : ''} - Vita Code</title>
+          <title>{user ? user.username : ''} - Info Card</title>
         </Helmet>
         <Row>
           <Col md={4} />

@@ -56,6 +56,60 @@ export const register = (creadentials) => (dispatch) => {
   );
 };
 
+export const forgotPassword = (email) => (dispatch) => {
+  dispatch({
+    type: types.AUTH_REQUEST,
+  });
+  return AuthService.forgotPassword(email).then(
+    ({ data }) => {
+      dispatch({
+        type: types.AUTH_SUCCESS,
+        payload: data,
+      });
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: types.AUTH_FAIL,
+        payload: message,
+      });
+    }
+  );
+};
+
+export const resetPassword = (token, password) => (dispatch) => {
+  dispatch({
+    type: types.AUTH_REQUEST,
+  });
+  return AuthService.resetPassword(token, password).then(
+    ({ data }) => {
+      dispatch({
+        type: types.AUTH_SUCCESS,
+        payload: data,
+      });
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: types.AUTH_FAIL,
+        payload: message,
+      });
+    }
+  );
+};
+
 export const logout = () => (dispatch) => {
   AuthService.logout();
 

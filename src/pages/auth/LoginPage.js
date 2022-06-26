@@ -52,7 +52,10 @@ const LoginPage = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
+        <Link to="/forgot-password" className="float-right">
+          forgot password?
+        </Link>
+        <br />
         <Button type="submit" variant="primary">
           {loading ? <Loader /> : 'Sign In'}
         </Button>
