@@ -1,3 +1,4 @@
+import ChangePasswordPage from './ChangePasswordPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
@@ -24,6 +25,11 @@ export const AuthPageConfig = {
       path: '/reset-password',
       exact: true,
       component: ResetPasswordPage,
+    },
+    {
+      path: '/change-password',
+      exact: true,
+      component: ChangePasswordPage,
     },
   ],
 };

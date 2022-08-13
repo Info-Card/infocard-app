@@ -3,39 +3,51 @@ import { CirclePicker } from 'react-color';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER_RESET } from 'state/ducks/users/types';
-import { updateProfile } from 'state/ducks/users/actions';
+import { updateProfile } from 'state/ducks/profile/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Message from 'components/Message';
 import Loader from 'components/Loader';
+import { multilanguage } from 'redux-multilanguage';
+import { PROFILE_RESET } from 'state/ducks/profile/types';
+import { getUser } from 'state/ducks/users/actions';
 
-const ProfileForm = () => {
+const ProfileForm = ({ strings }) => {
   const inputFile = useRef(null);
 
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
   const [address, setAddress] = useState('');
-  const [color, setColor] = useState('gray');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [color, setColor] = useState('');
 
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
 
   const dispatch = useDispatch();
 
-  const { success, loading, profile, error } = useSelector(
-    (state) => state.users
-  );
+  const { user: authUser } = useSelector((state) => state.auth);
+  const { profile, error } = useSelector((state) => state.users);
+  const {
+    success,
+    loading,
+    error: profileError,
+  } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    if (success) {
-      dispatch({ type: USER_RESET });
-    } else if (profile) {
-      setName(profile.name ?? '');
-      setBio(profile.bio ?? '');
-      setAddress(profile.address ?? '');
-      setColor(profile.color ?? 'grey');
+    if (authUser) {
+      if (success) {
+        dispatch({ type: PROFILE_RESET });
+        dispatch(getUser(authUser.username));
+      } else if (profile) {
+        setName(profile.name ?? '');
+        setBio(profile.bio ?? '');
+        setAddress(profile.address ?? '');
+        setDateOfBirth(profile.dateOfBirth ?? '');
+        setColor(profile.color ?? '');
+      }
     }
-  }, [dispatch, success, profile]);
+  }, [dispatch, success, profile, authUser]);
 
   function chooseFile() {
     inputFile.current.click();
@@ -54,7 +66,16 @@ const ProfileForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateProfile(profile.id, { name, bio, address, image, color }));
+    dispatch(
+      updateProfile(profile.id, {
+        name,
+        bio,
+        address,
+        image,
+        color,
+        dateOfBirth,
+      })
+    );
   };
 
   return (
@@ -102,46 +123,66 @@ const ProfileForm = () => {
         </Row>
       </div>
       {error && <Message variant="danger">{error}</Message>}
-      {success && <Message variant="success">Profile Updated</Message>}
+      {success && (
+        <Message variant="success">{strings['Profile Updated']}</Message>
+      )}
       {!profile ? (
         <></>
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : error || profileError ? (
+        <Message variant="danger">{error ? error : profileError}</Message>
       ) : (
         <Form onSubmit={submitHandler} key={profile.id} className="p-2">
           <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>{strings['Name']}</Form.Label>
             <Form.Control
               type="name"
-              placeholder="Enter name"
+              placeholder={strings['Enter name']}
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
 
           <Form.Group controlId="bio">
-            <Form.Label>Bio</Form.Label>
+            <Form.Label>{strings['Bio']}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter bio"
+              placeholder={strings['Enter bio']}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="bio">
-            <Form.Label>Address</Form.Label>
+          <Form.Group controlId="dateOfBirth">
+            <Form.Label>Date Of Birth</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Enter date of birth"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="address">
+            <Form.Label>{strings['Address']}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Address"
+              placeholder={strings['Enter Address']}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="bio">
-            <Form.Label>Color</Form.Label>
+          <Form.Group controlId="color">
+            <Form.Label>{strings['Color']}</Form.Label>
             <CirclePicker
               className="mb-2"
-              colors={['#D9E3F0', '#F47373', '#697689', '#37D67A', '#2CCCE4']}
+              colors={[
+                '#81D8D0',
+                '#F5F5DC',
+                '#F7E7CE',
+                '#000000',
+                '#FDD7E4',
+                '#F70D1A',
+                '#E6E6FA',
+                '#BAB86C',
+              ]}
               onChangeComplete={(color, event) => {
                 const { hex } = color;
                 setColor(hex);
@@ -149,7 +190,7 @@ const ProfileForm = () => {
             />
           </Form.Group>
           <Button type="submit" variant="primary" className="">
-            {loading ? <Loader /> : 'Update'}
+            {loading ? <Loader /> : strings['Update']}
           </Button>
         </Form>
       )}
@@ -157,4 +198,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+export default multilanguage(ProfileForm);

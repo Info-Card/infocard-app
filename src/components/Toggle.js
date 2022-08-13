@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import { multilanguage } from 'redux-multilanguage';
 
-const Toggle = ({ isPersonal, toggleChanged }) => {
+const Toggle = ({ isPersonal, toggleChanged, strings }) => {
   return (
     <div className="text-center">
       <ButtonGroup aria-label="">
@@ -10,18 +11,18 @@ const Toggle = ({ isPersonal, toggleChanged }) => {
           value={true}
           onClick={toggleChanged}
         >
-          Personal
+          {strings['Personal']}
         </Button>
         <Button
           variant={isPersonal ? 'outline-secondary' : 'dark'}
           value={false}
           onClick={toggleChanged}
         >
-          Business
+          {strings['Business']}
         </Button>
       </ButtonGroup>
     </div>
   );
 };
 
-export default Toggle;
+export default multilanguage(Toggle);

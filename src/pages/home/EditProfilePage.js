@@ -3,30 +3,24 @@ import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { getUser } from 'state/ducks/users/actions';
-import { getLinks } from 'state/ducks/links/actions';
-import Platform from 'components/Platform';
-import { Link } from 'react-router-dom';
 import Toggle from 'components/Toggle';
 import LinkedCards from './components/LinkedCards';
 import ProfileForm from './components/ProfileForm';
+import { multilanguage } from 'redux-multilanguage';
+import Categories from './components/Categories';
 
-const EditProfilePage = ({ location, history }) => {
+const EditProfilePage = ({ location, history, strings }) => {
   const dispatch = useDispatch();
   const { user: authUser } = useSelector((state) => state.auth);
-  const { user, profile } = useSelector((state) => state.users);
-  const { categories } = useSelector((state) => state.links);
-  const { rehydrated } = useSelector((state) => state._persist);
+  const { user } = useSelector((state) => state.users);
+
   useEffect(() => {
     if (!authUser) {
       history.push('/login');
-    } else if (rehydrated) {
-      if (profile) {
-        dispatch(getLinks(profile.id));
-      } else {
-        dispatch(getUser(authUser.username));
-      }
+    } else {
+      dispatch(getUser(authUser.username));
     }
-  }, [dispatch, history, authUser, rehydrated, profile]);
+  }, [dispatch, history, authUser]);
 
   function toggleChanged(event) {
     event.preventDefault();
@@ -47,37 +41,13 @@ const EditProfilePage = ({ location, history }) => {
           )}
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-2">
         <Col md={4}>
           <ProfileForm />
         </Col>
 
         <Col md={8} style={{ paddingTop: '20px' }}>
-          {categories ? (
-            <>
-              {categories.map((category, key) => {
-                return (
-                  <div className="text-center" key={key}>
-                    <h4>{category.name}</h4>
-
-                    <Row>
-                      {category.platforms.map((platform, key) => {
-                        return (
-                          <Col xs={4} md={2} key={key}>
-                            <Link to={`/links/${platform.platform}`}>
-                              <Platform platform={platform} showCheck={true} />
-                            </Link>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </div>
-                );
-              })}
-            </>
-          ) : (
-            <></>
-          )}
+          <Categories />
         </Col>
       </Row>
       <Row>
@@ -89,4 +59,4 @@ const EditProfilePage = ({ location, history }) => {
   );
 };
 
-export default EditProfilePage;
+export default multilanguage(EditProfilePage);

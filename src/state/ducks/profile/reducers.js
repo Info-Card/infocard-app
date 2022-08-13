@@ -21,6 +21,12 @@ export default function foo(state = initialState, action) {
         user: payload,
         profile,
       };
+    case types.UPDATE_PROFILE_SUCCESS:
+      return {
+        success: true,
+      };
+    case types.EXCHANGE_CONTACT_SUCCESS:
+      return payload;
     case types.PROFILE_RESET:
       return {};
     default:

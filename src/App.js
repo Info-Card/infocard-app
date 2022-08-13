@@ -1,16 +1,35 @@
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { multilanguage, loadLanguages } from 'redux-multilanguage';
+import { connect, useDispatch } from 'react-redux';
 import routes from './config/routesConfig';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const { rehydrated } = useSelector((state) => state._persist);
+  useEffect(() => {
+    dispatch(
+      loadLanguages({
+        languages: {
+          en: require('./translations/en.json'),
+          es: require('./translations/es.json'),
+        },
+      })
+    );
+  });
+
   return (
     <Router>
-      <Switch>
-        {routes.map((route, index) => (
-          <Route key={index} {...route} />
-        ))}
-      </Switch>
+      {rehydrated && (
+        <Switch>
+          {routes.map((route, index) => (
+            <Route key={index} {...route} />
+          ))}
+        </Switch>
+      )}
     </Router>
   );
-}
+};
 
-export default App;
+export default connect()(multilanguage(App));

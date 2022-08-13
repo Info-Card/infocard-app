@@ -1,6 +1,12 @@
 import React from 'react';
+import { multilanguage } from 'redux-multilanguage';
 
-const HomePlatform = ({ platform, showMakeDirect, handleDirectOn }) => {
+const HomePlatform = ({
+  platform,
+  showMakeDirect,
+  handleDirectOn,
+  strings,
+}) => {
   return (
     <div className="platform-card d-flex align-items-center justify-content-between p-2">
       <div className="d-flex align-items-center">
@@ -9,18 +15,18 @@ const HomePlatform = ({ platform, showMakeDirect, handleDirectOn }) => {
           alt={platform.image}
           className="platform-image"
         />
-        {platform.title} <br /> views: {platform.taps}
+        {platform.title} <br /> {strings['visits:']} {platform.taps}
       </div>
       {showMakeDirect && (
         <button
           className="direct-button"
           onClick={(e) => handleDirectOn(platform.id)}
         >
-          Make Direct
+          {strings['Go Direct']}
         </button>
       )}
     </div>
   );
 };
 
-export default HomePlatform;
+export default multilanguage(HomePlatform);

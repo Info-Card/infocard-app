@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Platform from 'components/Platform';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { getLink } from 'state/ducks/links/actions';
 import VideoPlayer from './VideoPlayer';
+import { exchangeContact } from 'state/ducks/profile/actions';
+import { multilanguage } from 'redux-multilanguage';
 
-const ProfileDetail = ({ user, profile }) => {
+const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
   const [form, setForm] = useState({
     name: '',
     email: '',
     message: '',
+    number: '',
   });
   const dispatch = useDispatch();
 
@@ -27,7 +29,6 @@ const ProfileDetail = ({ user, profile }) => {
         );
         platforms.forEach((platform) => {
           if (platform.id === user.direct) {
-            dispatch(getLink(platform.id));
             var urlString =
               platform.type === 'url' && !platform.value.startsWith('http')
                 ? 'https://' + platform.value
@@ -43,7 +44,6 @@ const ProfileDetail = ({ user, profile }) => {
   }, [user, dispatch]);
 
   const getURL = (platform) => {
-    dispatch(getLink(platform.id));
     var urlString =
       platform.type === 'url' && !platform.value.startsWith('http')
         ? 'https://' + platform.value
@@ -57,7 +57,8 @@ const ProfileDetail = ({ user, profile }) => {
   const handleExchange = (event) => {
     event.preventDefault();
     console.log(form);
-    setForm({ name: '', email: '', message: '' });
+    dispatch(exchangeContact(profile.id, form));
+    setForm({ name: '', email: '', message: '', number: '' });
     setShowExchange(false);
   };
 
@@ -94,7 +95,7 @@ const ProfileDetail = ({ user, profile }) => {
                   </div>
                 </div>
                 <div class="twPc-divStats">
-                  <strong>About:</strong>
+                  <strong>{strings['About:']}</strong>
                   <p>{profile.bio}</p>
                   <ul class="twPc-Arrange text-center">
                     <li class="twPc-ArrangeSizeFit">
@@ -106,7 +107,7 @@ const ProfileDetail = ({ user, profile }) => {
                           variant="primary"
                           style={{ width: '90%', marginRight: '2px' }}
                         >
-                          Save Contact
+                          {strings['Save Contact']}
                         </Button>
                       </a>
                     </li>
@@ -123,7 +124,7 @@ const ProfileDetail = ({ user, profile }) => {
                           setShowExchange(true);
                         }}
                       >
-                        Exchange
+                        {strings['Exchange']}
                       </Button>
                     </li>
                   </ul>
@@ -132,7 +133,7 @@ const ProfileDetail = ({ user, profile }) => {
             </Col>
 
             <Col xs={12}>
-              <div className="scrolling-wrapper">
+              <div className="scrolling-wrapper text-center">
                 {profile.videos.map((video) => {
                   return (
                     <div style={{ display: 'inline-block' }}>
@@ -164,33 +165,45 @@ const ProfileDetail = ({ user, profile }) => {
           </Row>
           <Modal show={showExchange}>
             <Modal.Header closeButton onHide={(e) => setShowExchange(false)}>
-              <Modal.Title>Exchange Contact with {profile.name}</Modal.Title>
+              <Modal.Title>
+                {strings['Exchange Contact with']} {profile.name}
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleExchange}>
                 <Form.Group controlId="name">
-                  <Form.Label>Your Name</Form.Label>
+                  <Form.Label>{strings['Your Name']}</Form.Label>
                   <Form.Control
                     type="name"
-                    placeholder="Enter name"
+                    placeholder={strings['Enter name']}
                     value={form.name}
                     required
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                   ></Form.Control>
-                  <Form.Label>Your Email</Form.Label>
+                  <Form.Label>{strings['Your Email']}</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Enter email"
+                    placeholder={strings['Enter email']}
                     value={form.email}
                     required
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
                     }
                   ></Form.Control>
-                  <Form.Label>Message</Form.Label>
+                  <Form.Label>{strings['Your Number']}</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Enter message"
+                    placeholder={strings['Enter number']}
+                    value={form.number}
+                    required
+                    onChange={(e) =>
+                      setForm({ ...form, number: e.target.value })
+                    }
+                  ></Form.Control>
+                  <Form.Label>{strings['Message']}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder={strings['Enter message']}
                     value={form.message}
                     required
                     onChange={(e) =>
@@ -200,7 +213,7 @@ const ProfileDetail = ({ user, profile }) => {
                 </Form.Group>
 
                 <Button type="submit" variant="primary">
-                  Exchange
+                  {strings['Exchange']}
                 </Button>
               </Form>
             </Modal.Body>
@@ -213,4 +226,4 @@ const ProfileDetail = ({ user, profile }) => {
   );
 };
 
-export default ProfileDetail;
+export default multilanguage(ProfileDetail);

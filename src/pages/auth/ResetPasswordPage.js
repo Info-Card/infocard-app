@@ -6,8 +6,9 @@ import Loader from 'components/Loader';
 import FormContainer from 'components/FormContainer';
 import { resetPassword } from 'state/ducks/auth/actions';
 import * as types from 'state/ducks/auth/types';
+import { multilanguage } from 'redux-multilanguage';
 
-const ResetPasswordPage = ({ location, history }) => {
+const ResetPasswordPage = ({ location, history, strings }) => {
   const query = new URLSearchParams(location.search);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +33,7 @@ const ResetPasswordPage = ({ location, history }) => {
     } else {
       dispatch({
         type: types.AUTH_FAIL,
-        payload: "Password doesn't match",
+        payload: strings['Password doesnt match'],
       });
     }
   };
@@ -40,30 +41,30 @@ const ResetPasswordPage = ({ location, history }) => {
   return (
     <Fragment>
       <FormContainer>
-        <h3>Reset Password</h3>
+        <h3>{strings['Reset Password']}</h3>
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{strings['Password']}</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter password"
+              placeholder={strings['Enter password']}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>{strings['Confirm Password']}</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter confirm password"
+              placeholder={strings['Enter confirm password']}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">
-            Sign In
+            {strings['Update']}
           </Button>
         </Form>
 
@@ -80,4 +81,4 @@ const ResetPasswordPage = ({ location, history }) => {
   );
 };
 
-export default ResetPasswordPage;
+export default multilanguage(ResetPasswordPage);

@@ -28,12 +28,24 @@ export default function foo(state = initialState, action) {
         success: true,
       };
     case types.UPDATE_SHARED_LINK_SUCCESS:
-      return state;
+      return { ...state, loading: false };
     case types.DELETE_LINK_SUCCESS:
       return {
         success: true,
       };
     case types.GET_LINK_SUCCESS:
+      let medicalCard = {};
+      if (payload.type === 'medical') {
+        medicalCard =
+          payload.value !== undefined && payload.value !== ''
+            ? JSON.parse(payload.value)
+            : {};
+      }
+      return {
+        medicalCard,
+        link: payload,
+      };
+    case types.GET_LINK_SUCCESS1:
       let link = {};
       if (state.categories) {
         state.categories.forEach((category) => {

@@ -8,9 +8,9 @@ import { ErrorPageConfig } from '../pages/error/ErrorPageConfig';
 
 const routeConfigs = [
   ...AuthPageConfig.routes,
-  ...HomePageConfig.routes,
   ...LinkPageConfig.routes,
   ...ErrorPageConfig.routes,
+  ...HomePageConfig.routes,
 ];
 
 const routes = [

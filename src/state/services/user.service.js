@@ -17,42 +17,17 @@ class UserService {
     return api.post('users', data);
   }
 
-  updateProfile(id, data) {
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
-    console.log(data);
-    const formData = new FormData();
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      if (key === 'image') {
-        if (value && value[0]) {
-          formData.append('image', value[0]);
-        }
-      } else {
-        formData.append(key, value);
-      }
-    });
-    return api.patch(`profile/${id}`, formData, config);
-  }
-
-  updateVideos(id, data) {
-    return api.patch(`profile/${id}`, data);
-  }
-
   delete(id) {
     return api.delete(`users/${id}`);
   }
 
-  // deleteAll() {
-  //   return http.delete(`/tutorials`);
-  // }
+  exchangeContact(profileId, data) {
+    return api.post(`profile/exchange/${profileId}`, data);
+  }
 
-  // findByTitle(title) {
-  //   return http.get(`/tutorials?title=${title}`);
-  // }
+  update(data) {
+    return api.patch('users/', data);
+  }
 }
 
 export default new UserService();

@@ -7355,7 +7355,7 @@
     "prop-types" "^15.7.2"
     "qr.js" "0.0.0"
 
-"react-redux@^7.2.1":
+"react-redux@*", "react-redux@^7.2.1":
   "integrity" "sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-7.2.6.tgz"
   "version" "7.2.6"
@@ -7541,6 +7541,11 @@
   "integrity" "sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A=="
   "resolved" "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz"
   "version" "2.13.9"
+
+"redux-multilanguage@^0.1.2":
+  "integrity" "sha512-KZBzq+AWi7OT1tNTRGl85ajcTXwwe/Lwi3uXRfXKU20dFAifdShyku2aByo1wXuRLUIAVoVpCp/vnEc6vS3ajA=="
+  "resolved" "https://registry.npmjs.org/redux-multilanguage/-/redux-multilanguage-0.1.2.tgz"
+  "version" "0.1.2"
 
 "redux-persist@^6.0.0":
   "integrity" "sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ=="

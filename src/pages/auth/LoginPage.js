@@ -6,8 +6,9 @@ import Message from 'components/Message';
 import Loader from 'components/Loader';
 import FormContainer from 'components/FormContainer';
 import { login } from 'state/ducks/auth/actions';
+import { multilanguage } from 'redux-multilanguage';
 
-const LoginPage = ({ location, history }) => {
+const LoginPage = ({ location, history, strings }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,34 +31,34 @@ const LoginPage = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1>{strings['Sign In']}</h1>
       {error && <Message variant="danger">{error}</Message>}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>{strings['Email Address']}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder={strings['Enter email']}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{strings['Password']}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter password"
+            placeholder={strings['Enter password']}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Link to="/forgot-password" className="float-right">
-          forgot password?
+          {strings['forgot password?']}
         </Link>
         <br />
         <Button type="submit" variant="primary">
-          {loading ? <Loader /> : 'Sign In'}
+          {loading ? <Loader /> : strings['Sign In']}
         </Button>
       </Form>
 
@@ -73,4 +74,4 @@ const LoginPage = ({ location, history }) => {
   );
 };
 
-export default LoginPage;
+export default multilanguage(LoginPage);

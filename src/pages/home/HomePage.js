@@ -2,11 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
-import {
-  getUser,
-  updateProfile,
-  updateVideos,
-} from 'state/ducks/users/actions';
+import { getUser } from 'state/ducks/users/actions';
+import { updateProfile, updateVideos } from 'state/ducks/profile/actions';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
 import { activateTag } from 'state/ducks/tags/actions';
@@ -14,17 +11,20 @@ import { TAG_RESET } from 'state/ducks/tags/types';
 import { LOGOUT } from 'state/ducks/auth/types';
 import HomePlatform from './components/HomePlatform';
 import Toggle from 'components/Toggle';
-import { USER_RESET } from 'state/ducks/users/types';
 import VideoPlayer from './components/VideoPlayer';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { multilanguage } from 'redux-multilanguage';
+import { PROFILE_RESET } from 'state/ducks/profile/types';
+import Loader from 'components/Loader';
 
-const HomePage = ({ history }) => {
+const HomePage = ({ history, strings }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
   const [videoURL, setVideoURL] = useState('');
 
   const { user: authUser } = useSelector((state) => state.auth);
-  const { error, profile, user, success } = useSelector((state) => state.users);
+  const { error, profile, user, loading } = useSelector((state) => state.users);
+  const { success } = useSelector((state) => state.profile);
   const { tag, success: tagSuccess } = useSelector((state) => state.tags);
   const { rehydrated } = useSelector((state) => state._persist);
   const dispatch = useDispatch();
@@ -34,7 +34,8 @@ const HomePage = ({ history }) => {
         history.push('/login');
       } else {
         if (success) {
-          dispatch({ type: USER_RESET });
+          setShowAddVideo(false);
+          dispatch({ type: PROFILE_RESET });
         } else {
           dispatch(getUser(authUser.username));
         }
@@ -62,12 +63,20 @@ const HomePage = ({ history }) => {
     dispatch(updateProfile(profile.id, { direct: id }));
   };
 
+  const handlePrivateChange = (event) => {
+    event.preventDefault();
+    dispatch(
+      updateProfile(profile.id, { isPrivate: !(profile.isPrivate || false) })
+    );
+  };
+
   function toggleChanged(event) {
     event.preventDefault();
     dispatch(getUser(authUser.username, `?isPersonal=${event.target.value}`));
   }
 
   const handleAddVideo = (event) => {
+    event.preventDefault();
     const videos = profile.videos ?? [];
     videos.push(videoURL);
     dispatch(updateVideos(profile.id, { videos: videos }));
@@ -86,8 +95,9 @@ const HomePage = ({ history }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Info Card</title>
+            <title>Vita Code</title>
           </Helmet>
+          {loading && <Loader />}
           <Row>
             <Col md={12}>
               {user ? (
@@ -104,14 +114,14 @@ const HomePage = ({ history }) => {
             <Col md={4} />
             <Col md={4}>
               <div className="mt-2">
-                {error ? <Message variant="danger">{error}</Message> : <></>}
+                {error && <Message variant="danger">{error}</Message>}
                 {profile ? (
                   <div className="">
                     <Row className="g-2">
                       <Col xs={12}>
-                        <div class="profile-card">
+                        <div className="profile-card">
                           <div
-                            class="profile-card-bg"
+                            className="profile-card-bg"
                             style={{ backgroundColor: profile.color ?? 'grey' }}
                           ></div>
                           <div>
@@ -121,46 +131,54 @@ const HomePage = ({ history }) => {
                                   process.env.REACT_APP_API_URL + profile.image
                                 }
                                 alt=""
-                                class="twPc-avatarLink twPc-avatarImg"
+                                className="twPc-avatarLink twPc-avatarImg"
                               />
                             ) : (
                               <img
                                 src={process.env.PUBLIC_URL + '/user.png'}
                                 alt=""
-                                class="twPc-avatarLink twPc-avatarImg"
+                                className="twPc-avatarLink twPc-avatarImg"
                               />
                             )}
-                            <div class="twPc-divUser">
-                              <div class="twPc-divName">{profile.name}</div>
+                            <div className="twPc-divUser">
+                              <div className="twPc-divName">{profile.name}</div>
                               <span>
                                 @<span>{user.username}</span>
                               </span>
                             </div>
                           </div>
-                          <div class="twPc-divStats">
-                            <strong>About:</strong>
+                          <div className="twPc-divStats">
+                            <strong>{strings['About:']}</strong>
                             <p>{profile.bio}</p>
-                            <ul class="twPc-Arrange text-center">
-                              <li class="twPc-ArrangeSizeFit">
-                                <Button type="submit" variant="" disabled>
-                                  views: {profile.views}
-                                </Button>
-                              </li>
-                              <li class="twPc-ArrangeSizeFit">
+                            <div className="d-flex justify-content-around">
+                              <p>
+                                <strong>Views: </strong>
+                                {profile.views}
+                              </p>
+                              <p>
+                                <strong>Info Shared: </strong>
+                                {profile.infoShared}
+                              </p>
+                            </div>
+
+                            <ul className="twPc-Arrange text-center">
+                              <li className="twPc-ArrangeSizeFit">
                                 <Button
                                   type="submit"
                                   variant=""
                                   onClick={(e) => setShowAddVideo(true)}
                                 >
-                                  Upload Video
+                                  {strings['upload video']}
                                 </Button>
                               </li>
                             </ul>
                           </div>
                         </div>
                       </Col>
+                      <h5 style={{ paddingTop: '10px' }}>Links</h5>
+                      <h5 style={{ paddingTop: '10px' }}>Videos</h5>
                       <Col xs={12}>
-                        <div className="scrolling-wrapper">
+                        <div className="scrolling-wrapper text-center">
                           {profile.videos.map((video) => {
                             return (
                               <div
@@ -187,7 +205,7 @@ const HomePage = ({ history }) => {
                         </div>
                       </Col>
                       <Col xs={12}>
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row justify-content-between">
                           <div className="custom-control custom-switch">
                             <input
                               type="checkbox"
@@ -200,8 +218,9 @@ const HomePage = ({ history }) => {
                               onChange={() => {
                                 const link = profile.platforms[0];
                                 if (
-                                  user.direct === '' ||
-                                  user.direct === undefined
+                                  (user.direct === '' ||
+                                    user.direct === undefined) &&
+                                  link
                                 ) {
                                   handleDirectOn(link.id);
                                 } else {
@@ -213,11 +232,28 @@ const HomePage = ({ history }) => {
                               className="custom-control-label"
                               htmlFor="customSwitches"
                             >
-                              Direct On
+                              {strings['Direct']}
+                            </label>
+                          </div>
+                          <div className="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              className="custom-control-input"
+                              id="customSwitches1"
+                              value="off"
+                              checked={profile.isPrivate}
+                              onChange={handlePrivateChange}
+                            />
+                            <label
+                              className="custom-control-label"
+                              htmlFor="customSwitches1"
+                            >
+                              {strings['Private']}
                             </label>
                           </div>
                         </div>
                       </Col>
+                      <h5 style={{ paddingTop: '10px' }}>Platforms</h5>
                       <Col xs={12}>
                         <Row className="g-2">
                           {profile.platforms.map((platform, key) => {
@@ -244,48 +280,59 @@ const HomePage = ({ history }) => {
           </Row>
           <Modal show={tag}>
             <Modal.Header closeButton onHide={handleClose}>
-              <Modal.Title>Activate your product</Modal.Title>
+              <Modal.Title>{strings['Activate your product']}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <p>
-                If you want to link it with current account please select{' '}
+                {
+                  strings[
+                    'If you want to link it with current account please select'
+                  ]
+                }{' '}
                 <span>
-                  <strong>"Activate to {authUser.username}"</strong>
+                  <strong>
+                    "{strings['Activate to']} {authUser.username}"
+                  </strong>
                 </span>{' '}
-                or If you want to link it with different account please select
-                "Switch Account"
+                {
+                  strings[
+                    "or If you want to link it with different account please select 'Switch Account'"
+                  ]
+                }
               </p>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleSwitch}>
-                Switch Account
+                {strings['Switch Account']}
               </Button>
               {authUser && (
                 <Button variant="primary" onClick={handleActivate}>
-                  Activate to {authUser.username}
+                  {strings['Activate to']} {authUser.username}
                 </Button>
               )}
             </Modal.Footer>
           </Modal>
           <Modal show={tagSuccess}>
             <Modal.Header closeButton>
-              <Modal.Title>Activation Completed</Modal.Title>
+              <Modal.Title>{strings['Activation Completed']}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>You have successfully activated Info Card</Modal.Body>
+            <Modal.Body>
+              {strings['You have successfully activated Vita Code']}
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose1}>
-                Close
+                {strings['Close']}
               </Button>
             </Modal.Footer>
           </Modal>
           <Modal show={showAddVideo}>
             <Modal.Header closeButton onHide={(e) => setShowAddVideo(false)}>
-              <Modal.Title>Add Youtube Video</Modal.Title>
+              <Modal.Title>{strings['Add Youtube Video']}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleAddVideo}>
                 <Form.Group controlId="name">
-                  <Form.Label>URL</Form.Label>
+                  <Form.Label>{strings['URL']}</Form.Label>
                   <Form.Control
                     type="url"
                     placeholder="Enter url"
@@ -295,7 +342,7 @@ const HomePage = ({ history }) => {
                 </Form.Group>
 
                 <Button type="submit" variant="primary">
-                  ADD
+                  {strings['ADD']}
                 </Button>
               </Form>
             </Modal.Body>
@@ -308,4 +355,4 @@ const HomePage = ({ history }) => {
   );
 };
 
-export default HomePage;
+export default multilanguage(HomePage);

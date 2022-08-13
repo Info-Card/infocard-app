@@ -4,8 +4,9 @@ import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
 import { Col, Row } from 'react-bootstrap';
 import QRCode from 'react-qr-code';
+import { multilanguage } from 'redux-multilanguage';
 
-const QRPage = ({ history }) => {
+const QRPage = ({ history, strings }) => {
   const { user: authUser } = useSelector((state) => state.auth);
   const { rehydrated } = useSelector((state) => state._persist);
   const dispatch = useDispatch();
@@ -23,22 +24,24 @@ const QRPage = ({ history }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Info Card</title>
+            <title>{authUser.username} - Vita Code</title>
           </Helmet>
 
           <Row className="mt-2">
             <Col md={4} />
             <Col md={4} className="text-center">
-              {/* <img src="logo.png" alt="" style={{ width: '300px' }} /> */}
-              <h4>Info card</h4>
-              <p>Share QR Code</p>
-
+              <img
+                src="logo.png"
+                alt=""
+                style={{ width: '120px', marginBottom: '50px' }}
+              />
+              <h3>{strings['Share QR Code']}</h3>
               <div
                 style={{
                   background: 'white',
                   padding: '16px',
                 }}
-                className="mt-3"
+                className="mt-5"
               >
                 <QRCode
                   value={`https://app.infocard.me/${authUser.username}`}
@@ -57,4 +60,4 @@ const QRPage = ({ history }) => {
   );
 };
 
-export default QRPage;
+export default multilanguage(QRPage);

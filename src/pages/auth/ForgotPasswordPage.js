@@ -6,8 +6,9 @@ import Loader from 'components/Loader';
 import FormContainer from 'components/FormContainer';
 import { forgotPassword } from 'state/ducks/auth/actions';
 import * as types from 'state/ducks/auth/types';
+import { multilanguage } from 'redux-multilanguage';
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage = ({ strings }) => {
   const [email, setEmail] = useState('');
 
   const dispatch = useDispatch();
@@ -30,30 +31,34 @@ const ForgotPasswordPage = () => {
   return (
     <Fragment>
       <FormContainer>
-        <h1>Forgot Password</h1>
+        <h1>{strings['Forgot Password']}</h1>
         <p>
-          Please enter email address we will send you a reset password link.
+          {
+            strings[
+              'Please enter email address we will send you a reset password link.'
+            ]
+          }
         </p>
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>{strings['Email Address']}</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder={strings['Enter email']}
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">
-            {loading ? <Loader /> : 'Send Link'}
+            {loading ? <Loader /> : strings['Send Link']}
           </Button>
         </Form>
       </FormContainer>
       <Modal show={success}>
         <Modal.Header closeButton>
-          <Modal.Title>Email Sent</Modal.Title>
+          <Modal.Title>{strings['Email Sent']}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
@@ -64,7 +69,7 @@ const ForgotPasswordPage = () => {
               dispatch({ type: types.AUTH_RESET });
             }}
           >
-            Close
+            {strings['Close']}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -72,4 +77,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default multilanguage(ForgotPasswordPage);
