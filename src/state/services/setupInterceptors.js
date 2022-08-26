@@ -5,6 +5,7 @@ import { refreshToken } from '../ducks/auth/actions';
 const setup = (store) => {
   axiosInstance.interceptors.request.use(
     (config) => {
+      console.log('URL: ', config.url);
       const token = TokenService.getLocalAccessToken();
       if (token) {
         config.headers['Authorization'] = 'Bearer ' + token; // for Spring Boot back-end

@@ -15,6 +15,8 @@ import {
 import ContactPlatform from './components/ContactPlatform';
 import { multilanguage } from 'redux-multilanguage';
 import api from 'state/services/api';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const LinkPage = ({ history, match, strings }) => {
   const linkId = match.params.linkId;
@@ -126,7 +128,7 @@ const LinkPage = ({ history, match, strings }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{authUser.username} - Vita Code</title>
+          <title>{authUser.username} - Info Card</title>
         </Helmet>
 
         <Row>
@@ -295,29 +297,41 @@ const LinkPage = ({ history, match, strings }) => {
                         </Form.Group>
                       </div>
                     )}
-                    <Form.Group controlId="image">
-                      <Form.File
-                        type="file"
-                        id="inputGroupFile01"
-                        label={fileName}
-                        onChange={uploadFileHandler}
-                        custom
-                        hidden={link.type !== 'file'}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId="value">
-                      <Form.Control
-                        type="text"
-                        placeholder=""
-                        hidden={
-                          link.type === 'contact' ||
-                          link.type === 'medical' ||
-                          link.type === 'file'
-                        }
-                        value={path}
-                        onChange={(e) => setPath(e.target.value)}
-                      ></Form.Control>
-                    </Form.Group>
+                    {link.type === 'file' && (
+                      <Form.Group controlId="image">
+                        <Form.File
+                          type="file"
+                          id="inputGroupFile01"
+                          label={fileName}
+                          onChange={uploadFileHandler}
+                          custom
+                        />
+                      </Form.Group>
+                    )}
+                    {link.type === 'phone' && (
+                      <Form.Group controlId="value">
+                        <PhoneInput
+                          placeholder="Enter phone number"
+                          country={'us'}
+                          value={path}
+                          onChange={(phone) => setPath(phone)}
+                        />
+                      </Form.Group>
+                    )}
+                    {link.type !== 'contact' &&
+                      link.type !== 'medical' &&
+                      link.type !== 'file' &&
+                      link.type !== 'phone' && (
+                        <Form.Group controlId="value">
+                          <Form.Control
+                            type="text"
+                            placeholder=""
+                            value={path}
+                            onChange={(e) => setPath(e.target.value)}
+                          ></Form.Control>
+                        </Form.Group>
+                      )}
+
                     {loading || uploading ? (
                       <Loader />
                     ) : (

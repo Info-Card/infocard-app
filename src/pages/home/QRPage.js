@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import QRCode from 'react-qr-code';
 import { multilanguage } from 'redux-multilanguage';
 
@@ -24,7 +24,7 @@ const QRPage = ({ history, strings }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Vita Code</title>
+            <title>{authUser.username} - Info Card</title>
           </Helmet>
 
           <Row className="mt-2">
@@ -49,6 +49,18 @@ const QRPage = ({ history, strings }) => {
                 />
               </div>
               <p>{`app.infocard.me/${authUser.username}`}</p>
+              <Button
+                type="submit"
+                variant="primary"
+                className="mt-5"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    `https://app.infocard.me/${authUser.username}`
+                  );
+                }}
+              >
+                Copy to Clipboard
+              </Button>
             </Col>
             <Col md={4} />
           </Row>

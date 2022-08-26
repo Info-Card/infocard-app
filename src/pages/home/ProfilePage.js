@@ -54,7 +54,7 @@ const ProfilePage = ({ history, match, strings }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{user ? user.username : ''} - Vita Code</title>
+          <title>{user ? user.username : ''} - Info Card</title>
         </Helmet>
         <Row>
           <Col xs={12} className="bg-dark text-light text-center">

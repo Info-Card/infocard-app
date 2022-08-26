@@ -64,8 +64,20 @@ a {
 .platform-card {
   box-shadow: 0 0 10px rgb(200, 200, 200);
   border-radius: 12px;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 
+.max-lines {
+  word-break: break-word;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px; /* fallback */
+   max-height: 32px; /* fallback */
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
 
 .player-card{
   height: 200px;
@@ -259,4 +271,18 @@ ul.twPc-Arrange {
   overflow: hidden;
   text-transform: uppercase;
   transition: color 0.15s ease-in-out 0s;
+}
+
+.zstack {
+	display: grid;
+	align-items: start;
+	justify-items: end;
+}
+.zstack > * {
+	grid-area: 1/1/1/1;
+}
+
+.form-control {
+  height: 55px !important;
+  width: 350px !important;
 }

@@ -33,7 +33,7 @@ const MedicalCardPage = ({ history, match, strings }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Vita Code</title>
+          <title>Info Card</title>
         </Helmet>
         <Row>
           <Col md={4} />

@@ -29,6 +29,31 @@ class ProfileService {
   exchangeContact(profileId, data) {
     return api.post(`profile/exchange/${profileId}`, data);
   }
+
+  addCustomLink(id, data) {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    console.log(data);
+    const formData = new FormData();
+    Object.entries(data).forEach((entry) => {
+      const [key, value] = entry;
+      if (key === 'image') {
+        if (value && value[0]) {
+          formData.append('image', value[0]);
+        }
+      } else {
+        formData.append(key, value);
+      }
+    });
+    return api.post(`profile/${id}/links/`, formData, config);
+  }
+
+  deleteCustomLink(profileId, id) {
+    return api.delete(`profile/${profileId}/links/${id}`);
+  }
 }
 
 export default new ProfileService();

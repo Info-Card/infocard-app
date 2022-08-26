@@ -94,3 +94,47 @@ export const exchangeContact = (profileId, data) => async (dispatch) => {
     });
   }
 };
+
+export const addCustomLink = (id, data) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.PROFILE_REQUEST,
+    });
+    const res = await ProfileService.addCustomLink(id, data);
+
+    dispatch({
+      type: types.UPDATE_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.PROFILE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const deleteCustomLink = (profileId, id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.PROFILE_REQUEST,
+    });
+    await ProfileService.deleteCustomLink(profileId, id);
+    dispatch({
+      type: types.UPDATE_PROFILE_SUCCESS,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.PROFILE_FAIL,
+      payload: message,
+    });
+  }
+};

@@ -30,6 +30,7 @@ export const getUser = (id, query) => async (dispatch) => {
     dispatch({
       type: types.USER_REQUEST,
     });
+
     const res = await UserService.get(id, query);
 
     dispatch({

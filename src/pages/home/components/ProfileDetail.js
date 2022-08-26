@@ -131,37 +131,87 @@ const ProfileDetail = ({ user, profile, strings }) => {
                 </div>
               </div>
             </Col>
-
-            <Col xs={12}>
-              <div className="scrolling-wrapper text-center">
-                {profile.videos.map((video) => {
-                  return (
-                    <div style={{ display: 'inline-block' }}>
-                      <VideoPlayer video={video} />
-                    </div>
-                  );
-                })}
-              </div>
-            </Col>
-            <Col xs={12}>
-              <div className="platform-card p-3">
-                <Row>
-                  {profile.platforms.map((platform, key) => {
-                    return (
-                      <Col key={key} xs={3}>
-                        <a
-                          href={getURL(platform)}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <Platform platform={platform} />
+            {profile.customLinks && profile.customLinks.length > 0 ? (
+              <>
+                <h5 style={{ paddingTop: '10px' }}>Links</h5>
+                <Col xs={12}>
+                  <div className="scrolling-wrapper bg-transparent">
+                    {profile.customLinks.map((link) => {
+                      return (
+                        <a href={link.url} target="_blank" rel="noreferrer">
+                          <div
+                            className="platform-card p-3 m-2"
+                            style={{
+                              display: 'inline-block',
+                              width: '290px',
+                            }}
+                          >
+                            <div className="d-flex align-items-center">
+                              <img
+                                src={process.env.REACT_APP_API_URL + link.image}
+                                alt=""
+                                className="platform-image"
+                              />
+                              <div>
+                                <h6>{link.title}</h6>
+                                <span className="max-lines">{link.url}</span>
+                              </div>
+                            </div>
+                          </div>
                         </a>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </div>
-            </Col>
+                      );
+                    })}
+                  </div>
+                </Col>
+              </>
+            ) : (
+              <></>
+            )}
+            {profile.videos && profile.videos.length > 0 ? (
+              <>
+                <h5 style={{ paddingTop: '10px' }}>Videos</h5>
+                <Col xs={12}>
+                  <div className="scrolling-wrapper text-center">
+                    {profile.videos.map((video) => {
+                      return (
+                        <div style={{ display: 'inline-block' }}>
+                          <VideoPlayer video={video} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Col>
+              </>
+            ) : (
+              <></>
+            )}
+
+            {profile.platforms && profile.platforms.length > 0 ? (
+              <>
+                <h5 style={{ paddingTop: '10px' }}>Platforms</h5>
+                <Col xs={12}>
+                  <div className="platform-card p-3">
+                    <Row>
+                      {profile.platforms.map((platform, key) => {
+                        return (
+                          <Col key={key} xs={3}>
+                            <a
+                              href={getURL(platform)}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <Platform platform={platform} />
+                            </a>
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  </div>
+                </Col>
+              </>
+            ) : (
+              <></>
+            )}
           </Row>
           <Modal show={showExchange}>
             <Modal.Header closeButton onHide={(e) => setShowExchange(false)}>

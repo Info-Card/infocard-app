@@ -3,8 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from 'components/MainLayout';
 import { Helmet } from 'react-helmet';
 import { getUser } from 'state/ducks/users/actions';
-import { updateProfile, updateVideos } from 'state/ducks/profile/actions';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import {
+  addCustomLink,
+  deleteCustomLink,
+  updateProfile,
+  updateVideos,
+} from 'state/ducks/profile/actions';
+import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
 import { activateTag } from 'state/ducks/tags/actions';
 import { TAG_RESET } from 'state/ducks/tags/types';
@@ -17,10 +22,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { multilanguage } from 'redux-multilanguage';
 import { PROFILE_RESET } from 'state/ducks/profile/types';
 import Loader from 'components/Loader';
+import { deleteLink } from 'state/ducks/links/actions';
 
 const HomePage = ({ history, strings }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
+  const [showCustomLink, setShowCustomLink] = useState(false);
   const [videoURL, setVideoURL] = useState('');
+
+  const [customLink, setCustomLink] = useState({ title: '', url: '' });
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
@@ -89,13 +98,24 @@ const HomePage = ({ history, strings }) => {
     dispatch(updateVideos(profile.id, { videos: videos }));
   };
 
+  const deleteLink = (link) => {
+    dispatch(deleteCustomLink(profile.id, link.id));
+  };
+
+  const handleAddCustomLink = (event) => {
+    event.preventDefault();
+    dispatch(addCustomLink(profile.id, customLink));
+    setCustomLink({ title: '', url: '' });
+    setShowCustomLink(false);
+  };
+
   return (
     <MainLayout>
       {authUser ? (
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>Vita Code</title>
+            <title>Info Card</title>
           </Helmet>
           {loading && <Loader />}
           <Row>
@@ -166,6 +186,15 @@ const HomePage = ({ history, strings }) => {
                                 <Button
                                   type="submit"
                                   variant=""
+                                  onClick={(e) => setShowCustomLink(true)}
+                                >
+                                  Add links
+                                </Button>
+                              </li>
+                              <li className="twPc-ArrangeSizeFit">
+                                <Button
+                                  type="submit"
+                                  variant=""
                                   onClick={(e) => setShowAddVideo(true)}
                                 >
                                   {strings['upload video']}
@@ -175,10 +204,67 @@ const HomePage = ({ history, strings }) => {
                           </div>
                         </div>
                       </Col>
-                      <h5 style={{ paddingTop: '10px' }}>Links</h5>
+                      {profile.customLinks && profile.customLinks.length > 0 ? (
+                        <>
+                          <h5 style={{ paddingTop: '10px' }}>Links</h5>
+                          <Col xs={12}>
+                            <div className="scrolling-wrapper bg-transparent">
+                              {profile.customLinks.map((link) => {
+                                return (
+                                  <div
+                                    className="platform-card p-3 m-2"
+                                    style={{
+                                      display: 'inline-block',
+                                      width: '290px',
+                                      height: '90px',
+                                    }}
+                                  >
+                                    <div className="d-flex align-items-start justify-content-between">
+                                      <div className="d-flex align-items-start">
+                                        <img
+                                          src={
+                                            process.env.REACT_APP_API_URL +
+                                            link.image
+                                          }
+                                          alt=""
+                                          className="platform-image"
+                                        />
+                                        <div>
+                                          <div class="d-flex justify-content-between align-items-start">
+                                            <h6>{link.title}</h6>
+                                          </div>
+
+                                          <span
+                                            className="max-lines"
+                                            style={{ width: '100%' }}
+                                          >
+                                            {link.url}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <FontAwesomeIcon
+                                        icon={faTrash}
+                                        size="1x"
+                                        className="delete-video"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          deleteLink(link);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </Col>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+
                       <h5 style={{ paddingTop: '10px' }}>Videos</h5>
                       <Col xs={12}>
-                        <div className="scrolling-wrapper text-center">
+                        <div className="scrolling-wrapper text-center ">
                           {profile.videos.map((video) => {
                             return (
                               <div
@@ -317,7 +403,7 @@ const HomePage = ({ history, strings }) => {
               <Modal.Title>{strings['Activation Completed']}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {strings['You have successfully activated Vita Code']}
+              {strings['You have successfully activated Info Card']}
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose1}>
@@ -341,6 +427,57 @@ const HomePage = ({ history, strings }) => {
                   ></Form.Control>
                 </Form.Group>
 
+                <Button type="submit" variant="primary">
+                  {strings['ADD']}
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
+          <Modal show={showCustomLink}>
+            <Modal.Header closeButton onHide={(e) => setShowCustomLink(false)}>
+              <Modal.Title>Add Custom Link</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleAddCustomLink}>
+                <Form.Group controlId="title">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter title"
+                    value={customLink.title}
+                    onChange={(e) =>
+                      setCustomLink({ ...customLink, title: e.target.value })
+                    }
+                  ></Form.Control>
+                </Form.Group>
+                <Form.Group controlId="name">
+                  <Form.Label>{strings['URL']}</Form.Label>
+                  <Form.Control
+                    type="url"
+                    placeholder="Enter url"
+                    value={customLink.url}
+                    onChange={(e) =>
+                      setCustomLink({ ...customLink, url: e.target.value })
+                    }
+                  ></Form.Control>
+                </Form.Group>
+                <Form.Group controlId="image">
+                  <Form.Label>Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    placeholder="Choose image"
+                    // value={customLink.image}
+                    onChange={(event) => {
+                      if (event.target.files && event.target.files[0]) {
+                        console.log();
+                        setCustomLink({
+                          ...customLink,
+                          image: event.target.files,
+                        });
+                      }
+                    }}
+                  ></Form.Control>
+                </Form.Group>
                 <Button type="submit" variant="primary">
                   {strings['ADD']}
                 </Button>
