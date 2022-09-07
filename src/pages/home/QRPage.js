@@ -5,11 +5,14 @@ import { Helmet } from 'react-helmet';
 import { Button, Col, Row } from 'react-bootstrap';
 import QRCode from 'react-qr-code';
 import { multilanguage } from 'redux-multilanguage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const QRPage = ({ history, strings }) => {
   const { user: authUser } = useSelector((state) => state.auth);
   const { rehydrated } = useSelector((state) => state._persist);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (rehydrated) {
       if (!authUser) {
@@ -57,10 +60,16 @@ const QRPage = ({ history, strings }) => {
                   navigator.clipboard.writeText(
                     `https://app.infocard.me/${authUser.username}`
                   );
+                  toast('Link copied');
                 }}
               >
                 Copy to Clipboard
               </Button>
+              <ToastContainer
+                bodyClassName={() => 'text-sm font-med block p-3'}
+                position="bottom-left"
+                autoClose={2000}
+              />
             </Col>
             <Col md={4} />
           </Row>

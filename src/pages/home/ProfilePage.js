@@ -57,11 +57,6 @@ const ProfilePage = ({ history, match, strings }) => {
           <title>{user ? user.username : ''} - Info Card</title>
         </Helmet>
         <Row>
-          <Col xs={12} className="bg-dark text-light text-center">
-            <a href="https://infocard.me" target="_blank" rel="noreferrer">
-              <h3 className="text-light">Get your card</h3>
-            </a>
-          </Col>
           <Col md={4} />
           <Col md={4}>
             <div className="">

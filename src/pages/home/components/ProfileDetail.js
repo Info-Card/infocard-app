@@ -65,72 +65,84 @@ const ProfileDetail = ({ user, profile, strings }) => {
   return (
     <>
       {profile && user && (user.direct === '' || user.direct === undefined) ? (
-        <div className="mt-1">
+        <div className="mb-5">
           <Row className="g-2">
+            <div className="d-flex align-items-center justify-content-between">
+              <img src="logo.png" alt="" style={{ width: '80px' }} />
+              <a href={`https://infocard.me`}>
+                <Button type="submit" variant="outline-dark">
+                  Get Your Card
+                </Button>
+              </a>
+            </div>
             <Col xs={12} className="">
-              <div class="profile-card">
-                <div
-                  class="profile-card-bg"
-                  style={{ backgroundColor: profile.color ?? 'grey' }}
-                ></div>
-                <div>
+              <Row
+                className="user-card"
+                style={{
+                  backgroundColor: profile.color ?? 'grey',
+                }}
+              >
+                <Col xs={6} className="p-0">
                   {profile.image && profile.image !== '' ? (
                     <img
                       src={process.env.REACT_APP_API_URL + profile.image}
                       alt=""
-                      class="twPc-avatarLink twPc-avatarImg"
+                      className="img-fluid"
                     />
                   ) : (
                     <img
                       src={process.env.PUBLIC_URL + '/user.png'}
                       alt=""
-                      class="twPc-avatarLink twPc-avatarImg"
+                      className="img-fluid"
                     />
                   )}
-                  <div class="twPc-divUser">
-                    <div class="twPc-divName">{profile.name}</div>
-                    <span>
-                      @<span>{user.username}</span>
-                    </span>
-                  </div>
-                </div>
-                <div class="twPc-divStats">
-                  <strong>{strings['About:']}</strong>
-                  <p>{profile.bio}</p>
-                  <ul class="twPc-Arrange text-center">
-                    <li class="twPc-ArrangeSizeFit">
-                      <a
-                        href={`https://api.infocard.me/v1/profile/contact/${profile.id}`}
-                      >
-                        <Button
-                          type="submit"
-                          variant="primary"
-                          style={{ width: '90%', marginRight: '2px' }}
-                        >
-                          {strings['Save Contact']}
-                        </Button>
-                      </a>
-                    </li>
-                    <li class="twPc-ArrangeSizeFit">
-                      <Button
-                        type="submit"
-                        variant=""
-                        style={{
-                          backgroundColor: profile.color ?? 'grey',
-                          width: '92%',
-                          color: 'white',
-                        }}
-                        onClick={(e) => {
-                          setShowExchange(true);
-                        }}
-                      >
-                        {strings['Exchange']}
-                      </Button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                </Col>
+
+                <Col xs={6}>
+                  <h5>{profile.name}</h5>
+                  <p>@{user.username}</p>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col xs={6}>
+                  <a
+                    href={`https://api.infocard.me/v1/profile/contact/${profile.id}`}
+                  >
+                    <Button
+                      type="submit"
+                      style={{
+                        backgroundColor: 'white',
+                        color: 'grey',
+                        width: '100%',
+                        border: '2px solid grey',
+                      }}
+                    >
+                      {strings['Save Contact']}
+                    </Button>
+                  </a>
+                </Col>
+                <Col xs={6}>
+                  <Button
+                    type="submit"
+                    style={{
+                      backgroundColor: profile.color ?? 'grey',
+                      color: 'white',
+                      width: '100%',
+                      border: `2px solid ${profile.color ?? 'grey'}`,
+                    }}
+                    onClick={(e) => {
+                      setShowExchange(true);
+                    }}
+                  >
+                    {strings['Exchange']}
+                  </Button>
+                </Col>
+              </Row>
             </Col>
+            <>
+              <h5 style={{ paddingTop: '20px' }}>About</h5>
+              <Col xs={12}>{profile.bio}</Col>
+            </>
             {profile.customLinks && profile.customLinks.length > 0 ? (
               <>
                 <h5 style={{ paddingTop: '10px' }}>Links</h5>

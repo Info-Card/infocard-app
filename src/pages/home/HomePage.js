@@ -137,73 +137,79 @@ const HomePage = ({ history, strings }) => {
                 {error && <Message variant="danger">{error}</Message>}
                 {profile ? (
                   <div className="">
-                    <Row className="g-2">
-                      <Col xs={12}>
-                        <div className="profile-card">
-                          <div
-                            className="profile-card-bg"
-                            style={{ backgroundColor: profile.color ?? 'grey' }}
-                          ></div>
-                          <div>
+                    <Row className="">
+                      <Col xs={12} className="">
+                        <Row
+                          className="user-card"
+                          style={{
+                            backgroundColor: profile.color ?? 'grey',
+                          }}
+                        >
+                          <Col xs={6} className="p-0">
                             {profile.image && profile.image !== '' ? (
                               <img
                                 src={
                                   process.env.REACT_APP_API_URL + profile.image
                                 }
                                 alt=""
-                                className="twPc-avatarLink twPc-avatarImg"
+                                className="img-fluid"
                               />
                             ) : (
                               <img
                                 src={process.env.PUBLIC_URL + '/user.png'}
                                 alt=""
-                                className="twPc-avatarLink twPc-avatarImg"
+                                className="img-fluid"
                               />
                             )}
-                            <div className="twPc-divUser">
-                              <div className="twPc-divName">{profile.name}</div>
-                              <span>
-                                @<span>{user.username}</span>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="twPc-divStats">
-                            <strong>{strings['About:']}</strong>
-                            <p>{profile.bio}</p>
-                            <div className="d-flex justify-content-around">
-                              <p>
-                                <strong>Views: </strong>
-                                {profile.views}
-                              </p>
-                              <p>
-                                <strong>Info Shared: </strong>
-                                {profile.infoShared}
-                              </p>
-                            </div>
+                          </Col>
 
-                            <ul className="twPc-Arrange text-center">
-                              <li className="twPc-ArrangeSizeFit">
-                                <Button
-                                  type="submit"
-                                  variant=""
-                                  onClick={(e) => setShowCustomLink(true)}
-                                >
-                                  Add links
-                                </Button>
-                              </li>
-                              <li className="twPc-ArrangeSizeFit">
-                                <Button
-                                  type="submit"
-                                  variant=""
-                                  onClick={(e) => setShowAddVideo(true)}
-                                >
-                                  {strings['upload video']}
-                                </Button>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                          <Col xs={6}>
+                            <h5>{profile.name}</h5>
+                            <p>@{user.username}</p>
+                            <p>
+                              <strong>Views: </strong>
+                              {profile.views}
+                              <br />
+                              <strong>Info Shared: </strong>
+                              {profile.infoShared}
+                            </p>
+                          </Col>
+                        </Row>
+                        <Row className="mt-3">
+                          <Col xs={6}>
+                            <Button
+                              type="submit"
+                              style={{
+                                backgroundColor: 'white',
+                                color: 'grey',
+                                width: '100%',
+                                border: '2px solid grey',
+                              }}
+                              onClick={(e) => setShowCustomLink(true)}
+                            >
+                              Add links
+                            </Button>
+                          </Col>
+                          <Col xs={6}>
+                            <Button
+                              type="submit"
+                              style={{
+                                backgroundColor: profile.color ?? 'grey',
+                                color: 'white',
+                                width: '100%',
+                                border: `2px solid ${profile.color ?? 'grey'}`,
+                              }}
+                              onClick={(e) => setShowAddVideo(true)}
+                            >
+                              {strings['upload video']}
+                            </Button>
+                          </Col>
+                        </Row>
                       </Col>
+                      <>
+                        <h5 style={{ paddingTop: '20px' }}>About</h5>
+                        <Col xs={12}>{profile.bio}</Col>
+                      </>
                       {profile.customLinks && profile.customLinks.length > 0 ? (
                         <>
                           <h5 style={{ paddingTop: '10px' }}>Links</h5>

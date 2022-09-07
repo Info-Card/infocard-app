@@ -52,9 +52,9 @@ const Header = ({ history, strings }) => {
                       </NavDropdown.Item>
                     </LinkContainer>
 
-                    <NavDropdown.Item onClick={buyHandler}>
+                    {/* <NavDropdown.Item onClick={buyHandler}>
                       {strings['Buy Info Card']}
-                    </NavDropdown.Item>
+                    </NavDropdown.Item> */}
 
                     <NavDropdown.Item onClick={logoutHandler}>
                       {strings['Logout']}

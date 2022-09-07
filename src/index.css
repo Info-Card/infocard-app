@@ -59,6 +59,7 @@ a {
   width: 50px;
   height: 50px;
   margin-right: 8px;
+  object-fit: cover;
 }
 
 .platform-card {
@@ -282,7 +283,8 @@ ul.twPc-Arrange {
 	grid-area: 1/1/1/1;
 }
 
-.form-control {
+/* .form-control {
   height: 55px !important;
   width: 350px !important;
-}
+} */
+
