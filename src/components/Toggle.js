@@ -7,14 +7,14 @@ const Toggle = ({ isPersonal, toggleChanged, strings }) => {
     <div className="text-center">
       <ButtonGroup aria-label="">
         <Button
-          variant={isPersonal ? 'dark' : 'outline-secondary'}
+          variant={isPersonal ? 'primary' : 'outline-primary'}
           value={true}
           onClick={toggleChanged}
         >
           {strings['Personal']}
         </Button>
         <Button
-          variant={isPersonal ? 'outline-secondary' : 'dark'}
+          variant={isPersonal ? 'outline-primary' : 'primary'}
           value={false}
           onClick={toggleChanged}
         >

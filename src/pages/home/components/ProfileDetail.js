@@ -67,10 +67,10 @@ const ProfileDetail = ({ user, profile, strings }) => {
       {profile && user && (user.direct === '' || user.direct === undefined) ? (
         <div className="mb-5">
           <Row className="g-2">
-            <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center justify-content-between  mt-3 mb-1">
               <img src="logo.png" alt="" style={{ width: '80px' }} />
               <a href={`https://infocard.me`}>
-                <Button type="submit" variant="outline-dark">
+                <Button type="submit" variant="outline-primary">
                   Get Your Card
                 </Button>
               </a>
@@ -100,7 +100,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
 
                 <Col xs={6}>
                   <h5>{profile.name}</h5>
-                  <p>@{user.username}</p>
+                  <h6>{profile.jobTitle}</h6>
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -110,11 +110,9 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   >
                     <Button
                       type="submit"
+                      variant="outline-primary"
                       style={{
-                        backgroundColor: 'white',
-                        color: 'grey',
                         width: '100%',
-                        border: '2px solid grey',
                       }}
                     >
                       {strings['Save Contact']}

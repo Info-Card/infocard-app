@@ -165,7 +165,7 @@ const HomePage = ({ history, strings }) => {
 
                           <Col xs={6}>
                             <h5>{profile.name}</h5>
-                            <p>@{user.username}</p>
+                            <h6>{profile.jobTitle}</h6>
                             <p>
                               <strong>Views: </strong>
                               {profile.views}
@@ -179,11 +179,9 @@ const HomePage = ({ history, strings }) => {
                           <Col xs={6}>
                             <Button
                               type="submit"
+                              variant="outline-primary"
                               style={{
-                                backgroundColor: 'white',
-                                color: 'grey',
                                 width: '100%',
-                                border: '2px solid grey',
                               }}
                               onClick={(e) => setShowCustomLink(true)}
                             >
@@ -194,10 +192,10 @@ const HomePage = ({ history, strings }) => {
                             <Button
                               type="submit"
                               style={{
-                                backgroundColor: profile.color ?? 'grey',
+                                backgroundColor: profile.color ?? 'black',
                                 color: 'white',
                                 width: '100%',
-                                border: `2px solid ${profile.color ?? 'grey'}`,
+                                border: `2px solid ${profile.color ?? 'black'}`,
                               }}
                               onClick={(e) => setShowAddVideo(true)}
                             >

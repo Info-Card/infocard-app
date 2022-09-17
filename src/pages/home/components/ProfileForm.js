@@ -20,6 +20,7 @@ const ProfileForm = ({ strings }) => {
   const [address, setAddress] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [color, setColor] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
 
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
@@ -45,6 +46,7 @@ const ProfileForm = ({ strings }) => {
         setAddress(profile.address ?? '');
         setDateOfBirth(profile.dateOfBirth ?? '');
         setColor(profile.color ?? '');
+        setJobTitle(profile.jobTitle ?? '');
       }
     }
   }, [dispatch, success, profile, authUser]);
@@ -74,6 +76,7 @@ const ProfileForm = ({ strings }) => {
         image,
         color,
         dateOfBirth,
+        jobTitle,
       })
     );
   };
@@ -167,6 +170,15 @@ const ProfileForm = ({ strings }) => {
               placeholder={strings['Enter Address']}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="jobTitle">
+            <Form.Label>{strings['Job Title']}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={strings['Enter Job Title']}
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="color">
