@@ -46,12 +46,14 @@ const setup = (store) => {
 
             return axiosInstance(originalConfig);
           } catch (_error) {
+            TokenService.removeAuthInfo();
+            window.open('/login', '_self');
             return Promise.reject(_error);
           }
         }
       } else if (originalConfig.url === 'auth/refresh-tokens') {
         TokenService.removeAuthInfo();
-        window.open('/login', '_blank');
+        window.open('/login', '_self');
       }
       return Promise.reject(err);
     }

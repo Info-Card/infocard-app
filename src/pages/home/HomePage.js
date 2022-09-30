@@ -153,12 +153,20 @@ const HomePage = ({ history, strings }) => {
                                 }
                                 alt=""
                                 className="img-fluid"
+                                style={{
+                                  height: '200px',
+                                  objectFit: 'contain',
+                                }}
                               />
                             ) : (
                               <img
                                 src={process.env.PUBLIC_URL + '/user.png'}
                                 alt=""
                                 className="img-fluid"
+                                style={{
+                                  height: '200px',
+                                  objectFit: 'contain',
+                                }}
                               />
                             )}
                           </Col>

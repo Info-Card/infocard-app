@@ -88,12 +88,20 @@ const ProfileDetail = ({ user, profile, strings }) => {
                       src={process.env.REACT_APP_API_URL + profile.image}
                       alt=""
                       className="img-fluid"
+                      style={{
+                        height: '200px',
+                        objectFit: 'contain',
+                      }}
                     />
                   ) : (
                     <img
                       src={process.env.PUBLIC_URL + '/user.png'}
                       alt=""
                       className="img-fluid"
+                      style={{
+                        height: '200px',
+                        objectFit: 'contain',
+                      }}
                     />
                   )}
                 </Col>
