@@ -2,12 +2,12 @@ import * as types from './types';
 
 import TagService from '../../services/tag.service';
 
-export const getTags = (user) => async (dispatch) => {
+export const getTags = () => async (dispatch) => {
   try {
     dispatch({
       type: types.TAG_REQUEST,
     });
-    const res = await TagService.getAll(user);
+    const res = await TagService.getAll();
 
     dispatch({
       type: types.GET_TAGS_SUCCESS,
@@ -31,32 +31,8 @@ export const getTag = (id) => async (dispatch) => {
       type: types.TAG_REQUEST,
     });
     const res = await TagService.get(id);
-
     dispatch({
       type: types.GET_TAG_SUCCESS,
-      payload: res.data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: types.TAG_FAIL,
-      payload: message,
-    });
-  }
-};
-
-export const activateTag = (id) => async (dispatch) => {
-  try {
-    dispatch({
-      type: types.TAG_REQUEST,
-    });
-    const res = await TagService.activate(id);
-    localStorage.removeItem('tagId');
-    dispatch({
-      type: types.ACTIVATE_TAG_SUCCESS,
       payload: res.data,
     });
   } catch (error) {
@@ -93,15 +69,36 @@ export const updateTag = (id, data) => async (dispatch) => {
   }
 };
 
-export const deleteTag = (id) => async (dispatch) => {
+export const linkTag = (id) => async (dispatch) => {
   try {
     dispatch({
       type: types.TAG_REQUEST,
     });
-    const res = await TagService.delete(id);
+    await TagService.link(id);
+    localStorage.removeItem('tagId');
     dispatch({
-      type: types.DELETE_TAG_SUCCESS,
-      payload: res.data,
+      type: types.LINK_TAG_SUCCESS,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.TAG_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const unlinkTag = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.TAG_REQUEST,
+    });
+    await TagService.unlink(id);
+    dispatch({
+      type: types.UNLINK_TAG_SUCCESS,
     });
   } catch (error) {
     const message =

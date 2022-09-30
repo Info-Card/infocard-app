@@ -9,9 +9,9 @@ import {
   updateProfile,
   updateVideos,
 } from 'state/ducks/profile/actions';
-import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
-import { activateTag } from 'state/ducks/tags/actions';
+import { linkTag } from 'state/ducks/tags/actions';
 import { TAG_RESET } from 'state/ducks/tags/types';
 import { LOGOUT } from 'state/ducks/auth/types';
 import HomePlatform from './components/HomePlatform';
@@ -22,7 +22,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { multilanguage } from 'redux-multilanguage';
 import { PROFILE_RESET } from 'state/ducks/profile/types';
 import Loader from 'components/Loader';
-import { deleteLink } from 'state/ducks/links/actions';
 
 const HomePage = ({ history, strings }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
@@ -62,7 +61,7 @@ const HomePage = ({ history, strings }) => {
   };
 
   const handleActivate = () => {
-    dispatch(activateTag(tag.id));
+    dispatch(linkTag(tag.id));
   };
   const handleClose1 = () => {
     dispatch({ type: TAG_RESET });

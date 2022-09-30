@@ -1,39 +1,37 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Modal, Table } from 'react-bootstrap';
 import { TAG_RESET } from 'state/ducks/tags/types';
-import { deleteTag, getTags, updateTag } from 'state/ducks/tags/actions';
+import { unlinkTag, getTags, updateTag } from 'state/ducks/tags/actions';
 import { multilanguage } from 'redux-multilanguage';
 
 const LinkedCards = ({ strings }) => {
   const [showDeleteTag, setShowDeleteTag] = useState('');
-  const [showUpdateTag, setShowUpdateTag] = useState('');
+  const [selectedTag, setSelectedTag] = useState(null);
   const [tagName, setTagName] = useState('');
 
   const dispatch = useDispatch();
 
   const { profile } = useSelector((state) => state.users);
-  const { results: tags, success: tagSuccess } = useSelector(
-    (state) => state.tags
-  );
+  const { tags, success: tagSuccess } = useSelector((state) => state.tags);
 
   useEffect(() => {
     if (tagSuccess) {
       dispatch({ type: TAG_RESET });
     } else if (profile) {
-      dispatch(getTags(profile.user));
+      dispatch(getTags());
     }
   }, [dispatch, profile, tagSuccess]);
 
   const handleUpdateTag = (event) => {
     event.preventDefault();
-    dispatch(updateTag(showUpdateTag, { name: tagName }));
-    setShowUpdateTag('');
+    dispatch(updateTag(selectedTag.id, { name: tagName }));
+    setSelectedTag(null);
   };
 
   const handleDeleteTag = (event) => {
     event.preventDefault();
-    dispatch(deleteTag(showDeleteTag));
+    dispatch(unlinkTag(showDeleteTag));
     setShowDeleteTag('');
   };
 
@@ -52,15 +50,14 @@ const LinkedCards = ({ strings }) => {
           <tbody>
             {tags.map((tag) => (
               <tr key={tag.id}>
-                <td>{tag.name || tag.id}</td>
-                <td>https://app.infocard.me/{tag.id}</td>
-
+                <td>{tag.name || 'N/A'}</td>
+                <td>{tag.url}</td>
                 <td>
                   <Button
                     className="btn-sm mr-2"
                     variant="primary"
                     onClick={(e) => {
-                      setShowUpdateTag(tag.id);
+                      setSelectedTag(tag);
                     }}
                   >
                     {strings['Edit']}
@@ -78,8 +75,8 @@ const LinkedCards = ({ strings }) => {
           </tbody>
         )}
       </Table>
-      <Modal show={showUpdateTag !== ''}>
-        <Modal.Header closeButton onHide={(e) => setShowUpdateTag('')}>
+      <Modal show={selectedTag !== null}>
+        <Modal.Header closeButton onHide={(e) => setSelectedTag(null)}>
           <Modal.Title>{strings['Update Tag information']}</Modal.Title>
         </Modal.Header>
         <Modal.Body>

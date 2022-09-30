@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CirclePicker } from 'react-color';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { USER_RESET } from 'state/ducks/users/types';
 import { updateProfile } from 'state/ducks/profile/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
@@ -125,14 +124,16 @@ const ProfileForm = ({ strings }) => {
           </Col>
         </Row>
       </div>
-      {error && <Message variant="danger">{error}</Message>}
+      {error || profileError ? (
+        <Message variant="danger">{error ? error : profileError}</Message>
+      ) : (
+        <></>
+      )}
       {success && (
         <Message variant="success">{strings['Profile Updated']}</Message>
       )}
       {!profile ? (
         <></>
-      ) : error || profileError ? (
-        <Message variant="danger">{error ? error : profileError}</Message>
       ) : (
         <Form onSubmit={submitHandler} key={profile.id} className="p-2">
           <Form.Group controlId="name">
