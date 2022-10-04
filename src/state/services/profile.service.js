@@ -22,7 +22,7 @@ class ProfileService {
     return api.patch(`profile/${id}`, formData, config);
   }
 
-  updateVideos(id, data) {
+  update(id, data) {
     return api.patch(`profile/${id}`, data);
   }
 

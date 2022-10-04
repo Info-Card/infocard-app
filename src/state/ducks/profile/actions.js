@@ -49,12 +49,12 @@ export const updateProfile = (id, data) => async (dispatch) => {
   }
 };
 
-export const updateVideos = (id, data) => async (dispatch) => {
+export const updateProfileMedia = (id, data) => async (dispatch) => {
   try {
     dispatch({
       type: types.PROFILE_REQUEST,
     });
-    const res = await ProfileService.updateVideos(id, data);
+    const res = await ProfileService.update(id, data);
 
     dispatch({
       type: types.UPDATE_PROFILE_SUCCESS,

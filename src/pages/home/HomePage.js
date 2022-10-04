@@ -7,7 +7,7 @@ import {
   addCustomLink,
   deleteCustomLink,
   updateProfile,
-  updateVideos,
+  updateProfileMedia,
 } from 'state/ducks/profile/actions';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import Message from 'components/Message';
@@ -87,14 +87,14 @@ const HomePage = ({ history, strings }) => {
     event.preventDefault();
     const videos = profile.videos ?? [];
     videos.push(videoURL);
-    dispatch(updateVideos(profile.id, { videos: videos }));
+    dispatch(updateProfileMedia(profile.id, { videos: videos }));
     setVideoURL('');
   };
 
   const deleteVideo = (video) => {
     let videos = profile.videos ?? [];
     videos = videos.filter((e) => e !== video);
-    dispatch(updateVideos(profile.id, { videos: videos }));
+    dispatch(updateProfileMedia(profile.id, { videos: videos }));
   };
 
   const deleteLink = (link) => {

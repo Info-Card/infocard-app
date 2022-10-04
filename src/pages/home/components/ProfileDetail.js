@@ -5,6 +5,7 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import VideoPlayer from './VideoPlayer';
 import { exchangeContact } from 'state/ducks/profile/actions';
 import { multilanguage } from 'redux-multilanguage';
+import { getLink } from 'state/ducks/links/actions';
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -29,21 +30,15 @@ const ProfileDetail = ({ user, profile, strings }) => {
         );
         platforms.forEach((platform) => {
           if (platform.id === user.direct) {
-            var urlString =
-              platform.type === 'url' && !platform.value.startsWith('http')
-                ? 'https://' + platform.value
-                : platform.webBaseURL + platform.value;
-            if (platform.type === 'medical') {
-              urlString = platform.webBaseURL + platform.id;
-            }
-            window.open(urlString, '_self');
+            openLink(platform, false);
           }
         });
       }
     }
   }, [user, dispatch]);
 
-  const getURL = (platform) => {
+  const openLink = (platform, newTab) => {
+    dispatch(getLink(platform.id, '?isTapped=true'));
     var urlString =
       platform.type === 'url' && !platform.value.startsWith('http')
         ? 'https://' + platform.value
@@ -51,7 +46,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
     if (platform.type === 'medical') {
       urlString = platform.webBaseURL + platform.id;
     }
-    return urlString;
+    window.open(urlString, newTab ? '_blank' : '_self');
   };
 
   const handleExchange = (event) => {
@@ -214,9 +209,10 @@ const ProfileDetail = ({ user, profile, strings }) => {
                         return (
                           <Col key={key} xs={3}>
                             <a
-                              href={getURL(platform)}
-                              target="_blank"
-                              rel="noreferrer"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                openLink(platform, true);
+                              }}
                             >
                               <Platform platform={platform} />
                             </a>

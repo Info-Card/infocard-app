@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CirclePicker } from 'react-color';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, Modal, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from 'state/ducks/profile/actions';
+import { updateProfile, updateProfileMedia } from 'state/ducks/profile/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Message from 'components/Message';
@@ -12,16 +12,19 @@ import { PROFILE_RESET } from 'state/ducks/profile/types';
 import { getUser } from 'state/ducks/users/actions';
 
 const ProfileForm = ({ strings }) => {
+  const [showImageOptions, setShowImageOptions] = useState(false);
   const inputFile = useRef(null);
 
-  const [name, setName] = useState('');
-  const [bio, setBio] = useState('');
-  const [address, setAddress] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [color, setColor] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
-
-  const [image, setImage] = useState(null);
+  const [form, setForm] = useState({
+    name: '',
+    bio: '',
+    address: '',
+    dateOfBirth: '',
+    color: '',
+    jobTitle: '',
+    company: '',
+    image: '',
+  });
   const [file, setFile] = useState(null);
 
   const dispatch = useDispatch();
@@ -40,23 +43,31 @@ const ProfileForm = ({ strings }) => {
         dispatch({ type: PROFILE_RESET });
         dispatch(getUser(authUser.username));
       } else if (profile) {
-        setName(profile.name ?? '');
-        setBio(profile.bio ?? '');
-        setAddress(profile.address ?? '');
-        setDateOfBirth(profile.dateOfBirth ?? '');
-        setColor(profile.color ?? '');
-        setJobTitle(profile.jobTitle ?? '');
+        setForm({
+          name: profile.name ?? '',
+          bio: profile.bio ?? '',
+          address: profile.address ?? '',
+          dateOfBirth: profile.dateOfBirth ?? '',
+          color: profile.color ?? '',
+          company: profile.company ?? '',
+          jobTitle: profile.jobTitle ?? '',
+        });
       }
     }
   }, [dispatch, success, profile, authUser]);
 
-  function chooseFile() {
+  function selectImage() {
+    setShowImageOptions(false);
     inputFile.current.click();
+  }
+  function deleteImage() {
+    setShowImageOptions(false);
+    dispatch(updateProfileMedia(profile.id, { image: '' }));
   }
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files);
+      setForm({ ...form, image: event.target.files });
       let reader = new FileReader();
       reader.onload = (e) => {
         setFile(e.target.result);
@@ -67,17 +78,7 @@ const ProfileForm = ({ strings }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      updateProfile(profile.id, {
-        name,
-        bio,
-        address,
-        image,
-        color,
-        dateOfBirth,
-        jobTitle,
-      })
-    );
+    dispatch(updateProfile(profile.id, form));
   };
 
   return (
@@ -86,7 +87,10 @@ const ProfileForm = ({ strings }) => {
         <Row>
           <Col>
             <div class="profile_header">
-              <div class="profile_cover" style={{ backgroundColor: color }}>
+              <div
+                class="profile_cover"
+                style={{ backgroundColor: form.color }}
+              >
                 <div></div>
               </div>
 
@@ -102,7 +106,7 @@ const ProfileForm = ({ strings }) => {
                   icon={faPen}
                   size="1x"
                   className="edit-profile-image"
-                  onClick={chooseFile}
+                  onClick={(e) => setShowImageOptions(true)}
                 />
 
                 {file ? (
@@ -141,8 +145,8 @@ const ProfileForm = ({ strings }) => {
             <Form.Control
               type="name"
               placeholder={strings['Enter name']}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             ></Form.Control>
           </Form.Group>
 
@@ -151,8 +155,8 @@ const ProfileForm = ({ strings }) => {
             <Form.Control
               type="text"
               placeholder={strings['Enter bio']}
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
+              value={form.bio}
+              onChange={(e) => setForm({ ...form, bio: e.target.value })}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="dateOfBirth">
@@ -160,8 +164,10 @@ const ProfileForm = ({ strings }) => {
             <Form.Control
               type="date"
               placeholder="Enter date of birth"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
+              value={form.dateOfBirth}
+              onChange={(e) =>
+                setForm({ ...form, dateOfBirth: e.target.value })
+              }
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="address">
@@ -169,8 +175,17 @@ const ProfileForm = ({ strings }) => {
             <Form.Control
               type="text"
               placeholder={strings['Enter Address']}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={form.address}
+              onChange={(e) => setForm({ ...form, address: e.target.value })}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="company">
+            <Form.Label>Company</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Company"
+              value={form.company}
+              onChange={(e) => setForm({ ...form, company: e.target.value })}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="jobTitle">
@@ -178,8 +193,8 @@ const ProfileForm = ({ strings }) => {
             <Form.Control
               type="text"
               placeholder={strings['Enter Job Title']}
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
+              value={form.jobTitle}
+              onChange={(e) => setForm({ ...form, jobTitle: e.target.value })}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="color">
@@ -198,7 +213,7 @@ const ProfileForm = ({ strings }) => {
               ]}
               onChangeComplete={(color, event) => {
                 const { hex } = color;
-                setColor(hex);
+                setForm({ ...form, color: hex });
               }}
             />
           </Form.Group>
@@ -207,6 +222,21 @@ const ProfileForm = ({ strings }) => {
           </Button>
         </Form>
       )}
+      <Modal show={showImageOptions} size="sm">
+        <Modal.Header closeButton onHide={(e) => setShowImageOptions(false)}>
+          <Modal.Title>Choose Option</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-grid gap-2">
+            <Button variant="primary" onClick={selectImage}>
+              Edit
+            </Button>
+            <Button variant="outline-danger" onClick={deleteImage}>
+              Delete
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
