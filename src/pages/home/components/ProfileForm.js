@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CirclePicker } from 'react-color';
-import { Form, Button, Row, Col, Modal, ButtonGroup } from 'react-bootstrap';
+import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile, updateProfileMedia } from 'state/ducks/profile/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

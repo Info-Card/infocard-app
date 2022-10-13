@@ -103,6 +103,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
 
                 <Col xs={6}>
                   <h5>{profile.name}</h5>
+                  <h5>{profile.company}</h5>
                   <h6>{profile.jobTitle}</h6>
                 </Col>
               </Row>
