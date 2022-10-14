@@ -98,6 +98,7 @@ const ProfileForm = ({ strings }) => {
                 <input
                   type="file"
                   id="file"
+                  accept="image/png, image/jpg, image/jpeg"
                   ref={inputFile}
                   style={{ display: 'none' }}
                   onChange={onImageChange}
