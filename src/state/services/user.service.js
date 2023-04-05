@@ -1,32 +1,32 @@
-import api from './api';
+import api from "./api";
 
 class UserService {
   getAll(page, limit) {
-    return api.get(`users?page=${page}&limit=${limit}`);
+    return api.get(`/v1/users?page=${page}&limit=${limit}`);
   }
 
   get(id, query) {
-    return api.get(`users/${id}${query ? query : ''}`);
+    return api.get(`/v1/users/${id}${query ? query : ""}`);
   }
 
   getProfile(username, user) {
-    return api.get(`users/${user ? username : `public/${username}`}`);
+    return api.get(`/v1/users/${user ? username : `public/${username}`}`);
   }
 
   create(data) {
-    return api.post('users', data);
+    return api.post("/v1/users", data);
   }
 
   delete(id) {
-    return api.delete(`users/${id}`);
+    return api.delete(`/v1/users/${id}`);
   }
 
   exchangeContact(profileId, data) {
-    return api.post(`profile/exchange/${profileId}`, data);
+    return api.post(`/v1/profile/exchange/${profileId}`, data);
   }
 
   update(data) {
-    return api.patch('users/', data);
+    return api.patch("/v1/users/", data);
   }
 }
 
