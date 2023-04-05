@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import Platform from './Platform';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import Platform from "./Platform";
 
 const ProfileDescription = ({ history }) => {
   const { data: user } = useSelector((state) => state.user);
@@ -9,7 +9,7 @@ const ProfileDescription = ({ history }) => {
   useEffect(() => {
     if (user) {
       if (
-        user.direct !== '' &&
+        user.direct !== "" &&
         user.direct !== undefined &&
         user.personal &&
         user.business
@@ -20,10 +20,10 @@ const ProfileDescription = ({ history }) => {
         platforms.forEach((platform) => {
           if (platform.id === user.direct) {
             var urlString =
-              platform.isUrl && !platform.value.startsWith('http')
-                ? 'https://' + platform.value
+              platform.isUrl && !platform.value.startsWith("http")
+                ? "https://" + platform.value
                 : platform.webBaseURL + platform.value;
-            window.open(urlString, '_self');
+            window.open(urlString, "_self");
           }
         });
       } else {
@@ -37,36 +37,36 @@ const ProfileDescription = ({ history }) => {
   }, [history, user]);
 
   const connectHandler = () => {
-    var urlString = 'https://api.infocard.me/v1/profile/contact/' + profile.id;
-    window.open(urlString, '_self');
+    var urlString = "https://api.infocard.me/v1/profile/contact/" + profile.id;
+    window.open(urlString, "_self");
   };
 
   return (
     <div className="container">
       {user ? (
         <>
-          {user.direct === '' || user.direct === undefined ? (
+          {user.direct === "" || user.direct === undefined ? (
             <div className="row">
               <div className="col-md-6 m-auto text-center shadow p-3 mb-5 bg-white rounded">
                 <div className="">
-                  {profile && profile.image && profile.image !== '' ? (
+                  {profile && profile.image && profile.image !== "" ? (
                     <img
-                      src={process.env.REACT_APP_API_URL + profile.image}
+                      src={process.env.REACT_APP_IMAGE_URL + profile.image}
                       alt=""
                       className="profile-image"
                     />
                   ) : (
                     <img
-                      src={process.env.PUBLIC_URL + '/user.png'}
+                      src={process.env.PUBLIC_URL + "/user.png"}
                       alt=""
                       className="profile-image"
                     />
                   )}
                 </div>
-                <h4>{profile ? profile.name : ''}</h4>
+                <h4>{profile ? profile.name : ""}</h4>
                 <p>@{user.username}</p>
-                <p style={{ wordWrap: 'break-word' }}>
-                  {profile ? profile.bio : ''}
+                <p style={{ wordWrap: "break-word" }}>
+                  {profile ? profile.bio : ""}
                 </p>
                 <button
                   className="connect-button rounded-pill"
