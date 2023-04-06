@@ -1,5 +1,3 @@
-import React from "react";
-
 const FormDataFn = (props) => {
   const data = props;
   const config = {
