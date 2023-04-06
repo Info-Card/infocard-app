@@ -1,6 +1,6 @@
-import FormData from "helpers/FormData";
 import ApiService from "./ApiService";
 import FormDataFn from "helpers/FormDataFn";
+import AddCustomFn from "helpers/AddCustomFn";
 
 class ProfileService extends ApiService {
   /**
@@ -36,23 +36,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data
    */
   addCustomLink(id, data) {
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-    console.log(data);
-    const formData = new FormData();
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      if (key === "image") {
-        if (value && value[0]) {
-          formData.append("image", value[0]);
-        }
-      } else {
-        formData.append(key, value);
-      }
-    });
+    const { formData, config } = AddCustomFn(data);
     return this.instance.post(`profile/${id}/links/`, formData, config);
   }
 
