@@ -1,4 +1,4 @@
-const FormDataFn = (props) => {
+const UpdateProfileFn = (props) => {
   const data = props;
   const config = {
     headers: {
@@ -20,4 +20,4 @@ const FormDataFn = (props) => {
   return { formData, config };
 };
 
-export default FormDataFn;
+export default UpdateProfileFn;

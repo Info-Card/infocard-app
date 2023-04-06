@@ -1,6 +1,6 @@
 import ApiService from "./ApiService";
-import FormDataFn from "helpers/FormDataFn";
 import AddCustomFn from "helpers/AddCustomFn";
+import UpdateProfileFn from "helpers/UpdateProfileFn";
 
 class ProfileService extends ApiService {
   /**
@@ -9,7 +9,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data of new profile
    */
   updateProfile(id, data) {
-    const { formData, config } = FormDataFn(data);
+    const { formData, config } = UpdateProfileFn(data);
     return this.instance.patch(`profile/${id}`, formData, config);
   }
 
