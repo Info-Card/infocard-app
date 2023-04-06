@@ -1,4 +1,6 @@
+import FormData from "helpers/FormData";
 import ApiService from "./ApiService";
+import FormDataFn from "helpers/FormDataFn";
 
 class ProfileService extends ApiService {
   /**
@@ -7,23 +9,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data of new profile
    */
   updateProfile(id, data) {
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-    console.log(data);
-    const formData = new FormData();
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      if (key === "image") {
-        if (value && value[0]) {
-          formData.append("image", value[0]);
-        }
-      } else {
-        formData.append(key, value);
-      }
-    });
+    const { formData, config } = FormDataFn(data);
     return this.instance.patch(`profile/${id}`, formData, config);
   }
 
