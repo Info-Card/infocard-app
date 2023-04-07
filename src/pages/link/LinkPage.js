@@ -133,7 +133,7 @@ const LinkPage = ({ history, match, strings }) => {
                 <div className="">
                   {link.image && link.image !== "" ? (
                     <img
-                      src={process.env.REACT_APP_API_URL + link.image}
+                      src={process.env.REACT_APP_IMAGE_URL + link.image}
                       alt=""
                       className="profile-image m-3"
                     />

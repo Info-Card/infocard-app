@@ -116,7 +116,7 @@ const ProfileForm = ({ strings }) => {
                   <>
                     {profile && profile.image && profile.image !== "" ? (
                       <img
-                        src={process.env.REACT_APP_API_URL + profile.image}
+                        src={process.env.REACT_APP_IMAGE_URL + profile.image}
                         alt=""
                       />
                     ) : (

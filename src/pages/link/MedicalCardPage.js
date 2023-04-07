@@ -44,7 +44,7 @@ const MedicalCardPage = ({ history, match, strings }) => {
                 <div>
                   {profile.image && profile.image !== "" ? (
                     <img
-                      src={process.env.REACT_APP_API_URL + profile.image}
+                      src={process.env.REACT_APP_IMAGE_URL + profile.image}
                       alt=""
                       className="twPc-avatarImg1"
                     />

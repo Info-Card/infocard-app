@@ -243,7 +243,7 @@ const HomePage = ({ history, strings }) => {
                                           className="platform-image"
                                         />
                                         <div>
-                                          <div class="d-flex justify-content-between align-items-start">
+                                          <div className="d-flex justify-content-between align-items-start">
                                             <h6>{link.title}</h6>
                                           </div>
 
