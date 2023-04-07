@@ -1,3 +1,4 @@
+import UpdateProfileFn from "helpers/UpdateProfileFn";
 import ApiService from "./ApiService";
 
 class LinkService extends ApiService {
@@ -40,6 +41,14 @@ class LinkService extends ApiService {
    */
   delete(id) {
     return this.instance.delete(`links/${id}`);
+  }
+  /**
+   * Upload link file
+   * @param {File} file * This is the file to upload
+   */
+  uploadFile(file) {
+    const { formData, config } = UpdateProfileFn({ file });
+    return this.instance.patch("/v1/upload", formData, config);
   }
 }
 

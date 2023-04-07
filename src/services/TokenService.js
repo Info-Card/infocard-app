@@ -1,15 +1,15 @@
 class TokenService {
-  getLocalRefreshToken() {
+  getRefreshToken() {
     const authInfo = JSON.parse(localStorage.getItem("authInfo"));
     return authInfo?.tokens.refresh.token;
   }
 
-  getLocalAccessToken() {
+  getAccessToken() {
     const authInfo = JSON.parse(localStorage.getItem("authInfo"));
     return authInfo?.tokens.access.token;
   }
 
-  updateLocalTokens(tokens) {
+  updateTokens(tokens) {
     let authInfo = JSON.parse(localStorage.getItem("authInfo"));
     authInfo.tokens = tokens;
     localStorage.setItem("authInfo", JSON.stringify(authInfo));

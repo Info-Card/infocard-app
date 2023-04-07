@@ -1,33 +1,26 @@
 import * as types from "./types";
 import AuthService from "../../../services/AuthService";
-// import AuthService from '../../services/auth.service';
 
-export const login = (creadentials) => (dispatch) => {
-  dispatch({
-    type: types.AUTH_REQUEST,
-  });
-  return AuthService.login(creadentials).then(
-    (data) => {
-      console.log("in auth action");
-      dispatch({
-        type: types.AUTH_SUCCESS,
-        payload: data,
-      });
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      dispatch({
-        type: types.AUTH_FAIL,
-        payload: message,
-      });
-    }
-  );
+export const login = (email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.AUTH_REQUEST,
+    });
+    const res = await AuthService.login(email, password);
+    dispatch({
+      type: types.AUTH_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.AUTH_FAIL,
+      payload: message,
+    });
+  }
 };
 
 export const register = (creadentials) => (dispatch) => {

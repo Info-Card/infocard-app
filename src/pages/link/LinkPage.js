@@ -1,40 +1,40 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from 'components/MainLayout';
-import { Helmet } from 'react-helmet';
-import { GET_LINK_SUCCESS1, LINK_RESET } from 'state/ducks/links/types';
-import { Button, Col, Form, Row } from 'react-bootstrap';
-import Message from 'components/Message';
-import Loader from 'components/Loader';
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import MainLayout from "components/MainLayout";
+import { Helmet } from "react-helmet";
+import { GET_LINK_SUCCESS1, LINK_RESET } from "state/ducks/links/types";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import Message from "components/Message";
+import Loader from "components/Loader";
 import {
   createLink,
   deleteLink,
   updateLink,
   updateSharedLink,
-} from 'state/ducks/links/actions';
-import ContactPlatform from './components/ContactPlatform';
-import { multilanguage } from 'redux-multilanguage';
-import api from 'state/services/api';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+} from "state/ducks/links/actions";
+import ContactPlatform from "./components/ContactPlatform";
+import { multilanguage } from "redux-multilanguage";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import linkService from "services/LinkService";
 
 const LinkPage = ({ history, match, strings }) => {
   const linkId = match.params.linkId;
 
-  const [fileName, setFileName] = useState('Choose File');
-  const [path, setPath] = useState('');
+  const [fileName, setFileName] = useState("Choose File");
+  const [path, setPath] = useState("");
 
   const [uploading, setUploading] = useState(false);
 
   const [medicalCard, setMedicalCard] = useState({
-    emergencyContact: '',
-    healthCondition: '',
-    allergies: '',
-    bloodType: '',
-    remedies: '',
-    donor: '',
-    height: '',
-    weight: '',
+    emergencyContact: "",
+    healthCondition: "",
+    allergies: "",
+    bloodType: "",
+    remedies: "",
+    donor: "",
+    height: "",
+    weight: "",
   });
 
   const { user: authUser } = useSelector((state) => state.auth);
@@ -45,7 +45,7 @@ const LinkPage = ({ history, match, strings }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!authUser) {
-      history.push('/login');
+      history.push("/login");
     } else {
       if (success) {
         dispatch({ type: LINK_RESET });
@@ -53,23 +53,23 @@ const LinkPage = ({ history, match, strings }) => {
       } else if (!link) {
         dispatch({ type: GET_LINK_SUCCESS1, payload: linkId });
       } else if (link) {
-        if (link.type === 'medical') {
+        if (link.type === "medical") {
           setMedicalCard(
-            link.value !== undefined && link.value !== ''
+            link.value !== undefined && link.value !== ""
               ? JSON.parse(link.value)
               : {
-                  emergencyContact: '',
-                  healthCondition: '',
-                  allergies: '',
-                  bloodType: '',
-                  remedies: '',
-                  donor: '',
-                  height: '',
-                  weight: '',
+                  emergencyContact: "",
+                  healthCondition: "",
+                  allergies: "",
+                  bloodType: "",
+                  remedies: "",
+                  donor: "",
+                  height: "",
+                  weight: "",
                 }
           );
         } else {
-          setPath(link.type === 'contact' ? profile.id : link.value);
+          setPath(link.type === "contact" ? profile.id : link.value);
         }
       }
     }
@@ -78,7 +78,7 @@ const LinkPage = ({ history, match, strings }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    var value = link.type !== 'medical' ? path : JSON.stringify(medicalCard);
+    var value = link.type !== "medical" ? path : JSON.stringify(medicalCard);
 
     if (link.id) {
       dispatch(updateLink(link.id, { value }));
@@ -105,16 +105,9 @@ const LinkPage = ({ history, match, strings }) => {
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     setFileName(file.name);
-    const formData = new FormData();
-    formData.append('file', file);
     setUploading(true);
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-      const { data } = await api.post('uploads', formData, config);
+      const { data } = linkService.uploadFile(file);
       setPath(data.message);
       setUploading(false);
     } catch (error) {
@@ -138,7 +131,7 @@ const LinkPage = ({ history, match, strings }) => {
               {error ? <Message variant="danger">{error}</Message> : <></>}
               {link ? (
                 <div className="">
-                  {link.image && link.image !== '' ? (
+                  {link.image && link.image !== "" ? (
                     <img
                       src={process.env.REACT_APP_API_URL + link.image}
                       alt=""
@@ -146,21 +139,21 @@ const LinkPage = ({ history, match, strings }) => {
                     />
                   ) : (
                     <img
-                      src={process.env.PUBLIC_URL + '/user.png'}
+                      src={process.env.PUBLIC_URL + "/user.png"}
                       alt=""
                       className="profile-image m-3"
                     />
                   )}
 
-                  <h4>{link.title ?? ''}</h4>
-                  <p>{link.headline ?? ''}</p>
-                  {link.type === 'contact' && (
+                  <h4>{link.title ?? ""}</h4>
+                  <p>{link.headline ?? ""}</p>
+                  {link.type === "contact" && (
                     <Row>
                       {profile.platforms.map((platform, key) => {
                         return (
                           <Col key={key} xs={12}>
-                            {platform.type !== 'contact' &&
-                              platform.type !== 'medical' && (
+                            {platform.type !== "contact" &&
+                              platform.type !== "medical" && (
                                 <ContactPlatform
                                   platform={platform}
                                   handleShare={handleShare}
@@ -173,18 +166,18 @@ const LinkPage = ({ history, match, strings }) => {
                   )}
 
                   <Form onSubmit={submitHandler}>
-                    {link.type === 'medical' && (
+                    {link.type === "medical" && (
                       <div
-                        style={{ height: '310px', overflowY: 'scroll' }}
+                        style={{ height: "310px", overflowY: "scroll" }}
                         className="text-left"
                       >
                         <Form.Group controlId="emergencyContact">
                           <Form.Label>
-                            {strings['Emergency Contact']}
+                            {strings["Emergency Contact"]}
                           </Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Emergency Contact']}
+                            placeholder={strings["Emergency Contact"]}
                             value={medicalCard.emergencyContact}
                             onChange={(e) =>
                               setMedicalCard({
@@ -195,10 +188,10 @@ const LinkPage = ({ history, match, strings }) => {
                           ></Form.Control>
                         </Form.Group>
                         <Form.Group controlId="healthCondition">
-                          <Form.Label>{strings['State of health']}</Form.Label>
+                          <Form.Label>{strings["State of health"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['State of health']}
+                            placeholder={strings["State of health"]}
                             value={medicalCard.healthCondition}
                             onChange={(e) =>
                               setMedicalCard({
@@ -210,10 +203,10 @@ const LinkPage = ({ history, match, strings }) => {
                         </Form.Group>
 
                         <Form.Group controlId="allergies">
-                          <Form.Label>{strings['Allergies']}</Form.Label>
+                          <Form.Label>{strings["Allergies"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Allergies']}
+                            placeholder={strings["Allergies"]}
                             value={medicalCard.allergies}
                             onChange={(e) =>
                               setMedicalCard({
@@ -224,10 +217,10 @@ const LinkPage = ({ history, match, strings }) => {
                           ></Form.Control>
                         </Form.Group>
                         <Form.Group controlId="bloodType">
-                          <Form.Label>{strings['Blood Type']}</Form.Label>
+                          <Form.Label>{strings["Blood Type"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Blood Type']}
+                            placeholder={strings["Blood Type"]}
                             value={medicalCard.bloodType}
                             onChange={(e) =>
                               setMedicalCard({
@@ -239,10 +232,10 @@ const LinkPage = ({ history, match, strings }) => {
                         </Form.Group>
 
                         <Form.Group controlId="remedies">
-                          <Form.Label>{strings['Remedies']}</Form.Label>
+                          <Form.Label>{strings["Remedies"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Remedies']}
+                            placeholder={strings["Remedies"]}
                             value={medicalCard.remedies}
                             onChange={(e) =>
                               setMedicalCard({
@@ -253,10 +246,10 @@ const LinkPage = ({ history, match, strings }) => {
                           ></Form.Control>
                         </Form.Group>
                         <Form.Group controlId="donor">
-                          <Form.Label>{strings['Donor']}</Form.Label>
+                          <Form.Label>{strings["Donor"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Donor']}
+                            placeholder={strings["Donor"]}
                             value={medicalCard.donor}
                             onChange={(e) =>
                               setMedicalCard({
@@ -268,10 +261,10 @@ const LinkPage = ({ history, match, strings }) => {
                         </Form.Group>
 
                         <Form.Group controlId="height">
-                          <Form.Label>{strings['Height']}</Form.Label>
+                          <Form.Label>{strings["Height"]}</Form.Label>
                           <Form.Control
                             type="text"
-                            placeholder={strings['Height']}
+                            placeholder={strings["Height"]}
                             value={medicalCard.height}
                             onChange={(e) =>
                               setMedicalCard({
@@ -282,10 +275,10 @@ const LinkPage = ({ history, match, strings }) => {
                           ></Form.Control>
                         </Form.Group>
                         <Form.Group controlId="weight">
-                          <Form.Label>{strings['Weight']}</Form.Label>
+                          <Form.Label>{strings["Weight"]}</Form.Label>
                           <Form.Control
                             type="number"
-                            placeholder={strings['Weight']}
+                            placeholder={strings["Weight"]}
                             value={medicalCard.weight}
                             onChange={(e) =>
                               setMedicalCard({
@@ -297,7 +290,7 @@ const LinkPage = ({ history, match, strings }) => {
                         </Form.Group>
                       </div>
                     )}
-                    {link.type === 'file' && (
+                    {link.type === "file" && (
                       <Form.Group controlId="image">
                         <Form.File
                           type="file"
@@ -308,20 +301,20 @@ const LinkPage = ({ history, match, strings }) => {
                         />
                       </Form.Group>
                     )}
-                    {link.type === 'phone' && (
+                    {link.type === "phone" && (
                       <Form.Group controlId="value">
                         <PhoneInput
                           placeholder="Enter phone number"
-                          country={'us'}
+                          country={"us"}
                           value={path}
                           onChange={(phone) => setPath(phone)}
                         />
                       </Form.Group>
                     )}
-                    {link.type !== 'contact' &&
-                      link.type !== 'medical' &&
-                      link.type !== 'file' &&
-                      link.type !== 'phone' && (
+                    {link.type !== "contact" &&
+                      link.type !== "medical" &&
+                      link.type !== "file" &&
+                      link.type !== "phone" && (
                         <Form.Group controlId="value">
                           <Form.Control
                             type="text"
@@ -337,13 +330,13 @@ const LinkPage = ({ history, match, strings }) => {
                     ) : (
                       <div>
                         <Button type="submit" variant="primary">
-                          {link.id ? strings['Update'] : strings['Save']}
+                          {link.id ? strings["Update"] : strings["Save"]}
                         </Button>
                         {link.id ? (
                           <Button
                             type=""
                             variant="danger"
-                            style={{ marginLeft: '10px' }}
+                            style={{ marginLeft: "10px" }}
                             onClick={handleDeleteClick}
                           >
                             Delete

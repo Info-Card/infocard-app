@@ -8,7 +8,6 @@ class AuthService extends ApiService {
    * @returns {Promise} A promise that resolves with the server response data.
    */
   login(email, password) {
-    console.log("in auth services");
     return this.instance.post(`/v1/auth/login`, { email, password });
   }
 

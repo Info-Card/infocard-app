@@ -1,24 +1,22 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
-import './index.css';
-import './index.scss';
-import './bootstrap.min.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { Provider } from "react-redux";
+import ReactDOM from "react-dom";
+import "./index.css";
+import "./index.scss";
+import "./bootstrap.min.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-import { DataProvider } from './context/DataContext';
-import { store } from './state/store';
+import { DataProvider } from "./context/DataContext";
+import { store } from "./state/store";
 
-import setupInterceptors from './state/services/setupInterceptors';
-setupInterceptors(store);
 ReactDOM.render(
   <Provider store={store}>
     <DataProvider>
       <App />
     </DataProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
