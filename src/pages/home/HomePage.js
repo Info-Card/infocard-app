@@ -236,7 +236,7 @@ const HomePage = ({ history, strings }) => {
                                       <div className="d-flex align-items-start">
                                         <img
                                           src={
-                                            process.env.REACT_APP_API_URL +
+                                            process.env.REACT_APP_IMAGE_URL +
                                             link.image
                                           }
                                           alt=""
