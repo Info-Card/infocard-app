@@ -148,7 +148,8 @@ const HomePage = ({ history, strings }) => {
                             {profile.image && profile.image !== "" ? (
                               <img
                                 src={
-                                  process.env.REACT_APP_API_URL + profile.image
+                                  process.env.REACT_APP_IMAGE_URL +
+                                  profile.image
                                 }
                                 alt=""
                                 className="img-fluid"
