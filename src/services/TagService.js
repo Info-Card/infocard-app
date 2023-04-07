@@ -2,7 +2,7 @@ import ApiService from "./ApiService";
 
 class TagService extends ApiService {
   getAll() {
-    return this.instance.get(`tags/user`);
+    return this.instance.get(`/v1/tags/user`);
   }
 
   /**
@@ -10,7 +10,7 @@ class TagService extends ApiService {
    * @param {string} id * This is the id of tag
    */
   get(id) {
-    return this.instance.get(`tags/${id}`);
+    return this.instance.get(`/v1/tags/${id}`);
   }
 
   /**
@@ -19,7 +19,7 @@ class TagService extends ApiService {
    * @param {string} data * This is the data
    */
   update(id, data) {
-    return this.instance.patch(`tags/${id}`, data);
+    return this.instance.patch(`/v1/tags/${id}`, data);
   }
 
   /**
@@ -27,14 +27,14 @@ class TagService extends ApiService {
    * @param {string} id * This is the id of tag
    */
   unlink(id) {
-    return this.instance.get(`tags/unlink/${id}`);
+    return this.instance.get(`/v1/tags/unlink/${id}`);
   }
   /**
    * Link tag with the id
    * @param {string} id * This is the id of tag
    */
   link(id) {
-    return this.instance.get(`tags/link/${id}`);
+    return this.instance.get(`/v1/tags/link/${id}`);
   }
 }
 

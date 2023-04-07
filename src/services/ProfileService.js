@@ -10,7 +10,7 @@ class ProfileService extends ApiService {
    */
   updateProfile(id, data) {
     const { formData, config } = UpdateProfileFn(data);
-    return this.instance.patch(`profile/${id}`, formData, config);
+    return this.instance.patch(`/v1/profile/${id}`, formData, config);
   }
 
   /**
@@ -19,7 +19,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data
    */
   update(id, data) {
-    return this.instance.patch(`profile/${id}`, data);
+    return this.instance.patch(`/v1/profile/${id}`, data);
   }
 
   /**
@@ -28,7 +28,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data for exchange contact
    */
   exchangeContact(profileId, data) {
-    return this.instance.post(`profile/exchange/${profileId}`, data);
+    return this.instance.post(`/v1/profile/exchange/${profileId}`, data);
   }
   /**
    * Add custom Link with id and data
@@ -37,7 +37,7 @@ class ProfileService extends ApiService {
    */
   addCustomLink(id, data) {
     const { formData, config } = AddCustomFn(data);
-    return this.instance.post(`profile/${id}/links/`, formData, config);
+    return this.instance.post(`/v1/profile/${id}/links/`, formData, config);
   }
 
   /**
@@ -46,7 +46,7 @@ class ProfileService extends ApiService {
    * @param {string} id * This is the id for delete custom link
    */
   deleteCustomLink(profileId, id) {
-    return this.instance.delete(`profile/${profileId}/links/${id}`);
+    return this.instance.delete(`/v1/profile/${profileId}/links/${id}`);
   }
 }
 

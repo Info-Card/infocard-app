@@ -7,7 +7,7 @@ class LinkService extends ApiService {
    * @param {string} profileId * This is the profileId
    */
   getLinks(profileId) {
-    return this.instance.get(`links/profile/${profileId}?isSaved=false`);
+    return this.instance.get(`/v1/links/profile/${profileId}?isSaved=false`);
   }
 
   /**
@@ -15,7 +15,7 @@ class LinkService extends ApiService {
    * @param {string} id * This is the id of user
    */
   getLink(id) {
-    return this.instance.get(`links/${id}`);
+    return this.instance.get(`/v1/links/${id}`);
   }
 
   /**
@@ -23,7 +23,7 @@ class LinkService extends ApiService {
    * @param {string} data * This is the data
    */
   create(data) {
-    return this.instance.post("links", data);
+    return this.instance.post("/v1/links", data);
   }
 
   /**
@@ -32,7 +32,7 @@ class LinkService extends ApiService {
    * @param {string} data * This is the data
    */
   update(id, data) {
-    return this.instance.patch(`links/${id}`, data);
+    return this.instance.patch(`/v1/links/${id}`, data);
   }
 
   /**
@@ -40,7 +40,7 @@ class LinkService extends ApiService {
    * @param {string} id * This is the id of link
    */
   delete(id) {
-    return this.instance.delete(`links/${id}`);
+    return this.instance.delete(`/v1/links/${id}`);
   }
   /**
    * Upload link file
