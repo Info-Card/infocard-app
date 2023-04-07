@@ -1,34 +1,34 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from 'components/MainLayout';
-import { Helmet } from 'react-helmet';
-import { getUser } from 'state/ducks/users/actions';
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import MainLayout from "components/MainLayout";
+import { Helmet } from "react-helmet";
+import { getUser } from "state/ducks/users/actions";
 import {
   addCustomLink,
   deleteCustomLink,
   updateProfile,
   updateProfileMedia,
-} from 'state/ducks/profile/actions';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import Message from 'components/Message';
-import { linkTag } from 'state/ducks/tags/actions';
-import { TAG_RESET } from 'state/ducks/tags/types';
-import { LOGOUT } from 'state/ducks/auth/types';
-import HomePlatform from './components/HomePlatform';
-import Toggle from 'components/Toggle';
-import VideoPlayer from './components/VideoPlayer';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { multilanguage } from 'redux-multilanguage';
-import { PROFILE_RESET } from 'state/ducks/profile/types';
-import Loader from 'components/Loader';
+} from "state/ducks/profile/actions";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import Message from "components/Message";
+import { linkTag } from "state/ducks/tags/actions";
+import { TAG_RESET } from "state/ducks/tags/types";
+import { LOGOUT } from "state/ducks/auth/types";
+import HomePlatform from "./components/HomePlatform";
+import Toggle from "components/Toggle";
+import VideoPlayer from "./components/VideoPlayer";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { multilanguage } from "redux-multilanguage";
+import { PROFILE_RESET } from "state/ducks/profile/types";
+import Loader from "components/Loader";
 
 const HomePage = ({ history, strings }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
   const [showCustomLink, setShowCustomLink] = useState(false);
-  const [videoURL, setVideoURL] = useState('');
+  const [videoURL, setVideoURL] = useState("");
 
-  const [customLink, setCustomLink] = useState({ title: '', url: '' });
+  const [customLink, setCustomLink] = useState({ title: "", url: "" });
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
@@ -39,7 +39,7 @@ const HomePage = ({ history, strings }) => {
   useEffect(() => {
     if (rehydrated) {
       if (!authUser) {
-        history.push('/login');
+        history.push("/login");
       } else {
         if (success) {
           setShowAddVideo(false);
@@ -51,13 +51,13 @@ const HomePage = ({ history, strings }) => {
     }
   }, [history, authUser, dispatch, rehydrated, success]);
   const handleClose = () => {
-    localStorage.removeItem('tagId');
+    localStorage.removeItem("tagId");
     dispatch({ type: TAG_RESET });
   };
 
   const handleSwitch = () => {
     dispatch({ type: LOGOUT });
-    history.push('/register');
+    history.push("/register");
   };
 
   const handleActivate = () => {
@@ -88,7 +88,7 @@ const HomePage = ({ history, strings }) => {
     const videos = profile.videos ?? [];
     videos.push(videoURL);
     dispatch(updateProfileMedia(profile.id, { videos: videos }));
-    setVideoURL('');
+    setVideoURL("");
   };
 
   const deleteVideo = (video) => {
@@ -104,7 +104,7 @@ const HomePage = ({ history, strings }) => {
   const handleAddCustomLink = (event) => {
     event.preventDefault();
     dispatch(addCustomLink(profile.id, customLink));
-    setCustomLink({ title: '', url: '' });
+    setCustomLink({ title: "", url: "" });
     setShowCustomLink(false);
   };
 
@@ -141,11 +141,11 @@ const HomePage = ({ history, strings }) => {
                         <Row
                           className="user-card"
                           style={{
-                            backgroundColor: profile.color ?? 'grey',
+                            backgroundColor: profile.color ?? "grey",
                           }}
                         >
                           <Col xs={6} className="p-0">
-                            {profile.image && profile.image !== '' ? (
+                            {profile.image && profile.image !== "" ? (
                               <img
                                 src={
                                   process.env.REACT_APP_API_URL + profile.image
@@ -153,18 +153,18 @@ const HomePage = ({ history, strings }) => {
                                 alt=""
                                 className="img-fluid"
                                 style={{
-                                  height: '200px',
-                                  objectFit: 'contain',
+                                  height: "200px",
+                                  objectFit: "contain",
                                 }}
                               />
                             ) : (
                               <img
-                                src={process.env.PUBLIC_URL + '/user.png'}
+                                src={process.env.PUBLIC_URL + "/user.png"}
                                 alt=""
                                 className="img-fluid"
                                 style={{
-                                  height: '200px',
-                                  objectFit: 'contain',
+                                  height: "200px",
+                                  objectFit: "contain",
                                 }}
                               />
                             )}
@@ -189,7 +189,7 @@ const HomePage = ({ history, strings }) => {
                               type="submit"
                               variant="outline-primary"
                               style={{
-                                width: '100%',
+                                width: "100%",
                               }}
                               onClick={(e) => setShowCustomLink(true)}
                             >
@@ -200,25 +200,25 @@ const HomePage = ({ history, strings }) => {
                             <Button
                               type="submit"
                               style={{
-                                backgroundColor: profile.color ?? 'black',
-                                color: 'white',
-                                width: '100%',
-                                border: `2px solid ${profile.color ?? 'black'}`,
+                                backgroundColor: profile.color ?? "black",
+                                color: "white",
+                                width: "100%",
+                                border: `2px solid ${profile.color ?? "black"}`,
                               }}
                               onClick={(e) => setShowAddVideo(true)}
                             >
-                              {strings['upload video']}
+                              {strings["upload video"]}
                             </Button>
                           </Col>
                         </Row>
                       </Col>
                       <>
-                        <h5 style={{ paddingTop: '20px' }}>About</h5>
+                        <h5 style={{ paddingTop: "20px" }}>About</h5>
                         <Col xs={12}>{profile.bio}</Col>
                       </>
                       {profile.customLinks && profile.customLinks.length > 0 ? (
                         <>
-                          <h5 style={{ paddingTop: '10px' }}>Links</h5>
+                          <h5 style={{ paddingTop: "10px" }}>Links</h5>
                           <Col xs={12}>
                             <div className="scrolling-wrapper bg-transparent">
                               {profile.customLinks.map((link) => {
@@ -226,9 +226,9 @@ const HomePage = ({ history, strings }) => {
                                   <div
                                     className="platform-card p-3 m-2"
                                     style={{
-                                      display: 'inline-block',
-                                      width: '290px',
-                                      height: '90px',
+                                      display: "inline-block",
+                                      width: "290px",
+                                      height: "90px",
                                     }}
                                   >
                                     <div className="d-flex align-items-start justify-content-between">
@@ -248,7 +248,7 @@ const HomePage = ({ history, strings }) => {
 
                                           <span
                                             className="max-lines"
-                                            style={{ width: '100%' }}
+                                            style={{ width: "100%" }}
                                           >
                                             {link.url}
                                           </span>
@@ -274,14 +274,14 @@ const HomePage = ({ history, strings }) => {
                         <></>
                       )}
 
-                      <h5 style={{ paddingTop: '10px' }}>Videos</h5>
+                      <h5 style={{ paddingTop: "10px" }}>Videos</h5>
                       <Col xs={12}>
                         <div className="scrolling-wrapper text-center ">
                           {profile.videos.map((video) => {
                             return (
                               <div
                                 style={{
-                                  display: 'inline-block',
+                                  display: "inline-block",
                                 }}
                                 className="mr-1"
                               >
@@ -311,18 +311,18 @@ const HomePage = ({ history, strings }) => {
                               id="customSwitches"
                               value="off"
                               checked={
-                                user.direct !== '' && user.direct !== undefined
+                                user.direct !== "" && user.direct !== undefined
                               }
                               onChange={() => {
                                 const link = profile.platforms[0];
                                 if (
-                                  (user.direct === '' ||
+                                  (user.direct === "" ||
                                     user.direct === undefined) &&
                                   link
                                 ) {
                                   handleDirectOn(link.id);
                                 } else {
-                                  handleDirectOn('');
+                                  handleDirectOn("");
                                 }
                               }}
                             />
@@ -330,7 +330,7 @@ const HomePage = ({ history, strings }) => {
                               className="custom-control-label"
                               htmlFor="customSwitches"
                             >
-                              {strings['Direct']}
+                              {strings["Direct"]}
                             </label>
                           </div>
                           <div className="custom-control custom-switch">
@@ -346,12 +346,12 @@ const HomePage = ({ history, strings }) => {
                               className="custom-control-label"
                               htmlFor="customSwitches1"
                             >
-                              {strings['Private']}
+                              {strings["Private"]}
                             </label>
                           </div>
                         </div>
                       </Col>
-                      <h5 style={{ paddingTop: '10px' }}>Platforms</h5>
+                      <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
                       <Col xs={12}>
                         <Row className="g-2">
                           {profile.platforms.map((platform, key) => {
@@ -378,20 +378,20 @@ const HomePage = ({ history, strings }) => {
           </Row>
           <Modal show={tag}>
             <Modal.Header closeButton onHide={handleClose}>
-              <Modal.Title>{strings['Activate your product']}</Modal.Title>
+              <Modal.Title>{strings["Activate your product"]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <p>
                 {
                   strings[
-                    'If you want to link it with current account please select'
+                    "If you want to link it with current account please select"
                   ]
-                }{' '}
+                }{" "}
                 <span>
                   <strong>
-                    "{strings['Activate to']} {authUser.username}"
+                    "{strings["Activate to"]} {authUser.username}"
                   </strong>
-                </span>{' '}
+                </span>{" "}
                 {
                   strings[
                     "or If you want to link it with different account please select 'Switch Account'"
@@ -401,36 +401,36 @@ const HomePage = ({ history, strings }) => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleSwitch}>
-                {strings['Switch Account']}
+                {strings["Switch Account"]}
               </Button>
               {authUser && (
                 <Button variant="primary" onClick={handleActivate}>
-                  {strings['Activate to']} {authUser.username}
+                  {strings["Activate to"]} {authUser.username}
                 </Button>
               )}
             </Modal.Footer>
           </Modal>
           <Modal show={tagSuccess}>
             <Modal.Header closeButton>
-              <Modal.Title>{strings['Activation Completed']}</Modal.Title>
+              <Modal.Title>{strings["Activation Completed"]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {strings['You have successfully activated Info Card']}
+              {strings["You have successfully activated Info Card"]}
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose1}>
-                {strings['Close']}
+                {strings["Close"]}
               </Button>
             </Modal.Footer>
           </Modal>
           <Modal show={showAddVideo}>
             <Modal.Header closeButton onHide={(e) => setShowAddVideo(false)}>
-              <Modal.Title>{strings['Add Youtube Video']}</Modal.Title>
+              <Modal.Title>{strings["Add Youtube Video"]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleAddVideo}>
                 <Form.Group controlId="name">
-                  <Form.Label>{strings['URL']}</Form.Label>
+                  <Form.Label>{strings["URL"]}</Form.Label>
                   <Form.Control
                     type="url"
                     placeholder="Enter url"
@@ -440,7 +440,7 @@ const HomePage = ({ history, strings }) => {
                 </Form.Group>
 
                 <Button type="submit" variant="primary">
-                  {strings['ADD']}
+                  {strings["ADD"]}
                 </Button>
               </Form>
             </Modal.Body>
@@ -463,7 +463,7 @@ const HomePage = ({ history, strings }) => {
                   ></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="name">
-                  <Form.Label>{strings['URL']}</Form.Label>
+                  <Form.Label>{strings["URL"]}</Form.Label>
                   <Form.Control
                     type="url"
                     placeholder="Enter url"
@@ -491,7 +491,7 @@ const HomePage = ({ history, strings }) => {
                   ></Form.Control>
                 </Form.Group>
                 <Button type="submit" variant="primary">
-                  {strings['ADD']}
+                  {strings["ADD"]}
                 </Button>
               </Form>
             </Modal.Body>

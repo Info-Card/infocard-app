@@ -1,5 +1,6 @@
 import * as types from "./types";
 import AuthService from "../../../services/AuthService";
+import TokenService from "services/TokenService";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -7,6 +8,7 @@ export const login = (email, password) => async (dispatch) => {
       type: types.AUTH_REQUEST,
     });
     const res = await AuthService.login(email, password);
+    TokenService.setAuthInfo(res.data);
     dispatch({
       type: types.AUTH_SUCCESS,
       payload: res.data,

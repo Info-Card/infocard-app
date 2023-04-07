@@ -9,7 +9,7 @@ class TokenService {
     return authInfo?.tokens.access.token;
   }
 
-  updateTokens(tokens) {
+  setTokens(tokens) {
     let authInfo = JSON.parse(localStorage.getItem("authInfo"));
     authInfo.tokens = tokens;
     localStorage.setItem("authInfo", JSON.stringify(authInfo));
