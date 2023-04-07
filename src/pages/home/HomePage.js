@@ -504,5 +504,4 @@ const HomePage = ({ history, strings }) => {
     </MainLayout>
   );
 };
-
 export default multilanguage(HomePage);
