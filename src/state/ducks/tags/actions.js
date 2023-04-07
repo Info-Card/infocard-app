@@ -1,6 +1,7 @@
-import * as types from './types';
+import * as types from "./types";
 
-import TagService from '../../services/tag.service';
+import TagService from "../../../services/TagService";
+// import TagService from "../../services/tag.service";
 
 export const getTags = () => async (dispatch) => {
   try {
@@ -75,7 +76,7 @@ export const linkTag = (id) => async (dispatch) => {
       type: types.TAG_REQUEST,
     });
     await TagService.link(id);
-    localStorage.removeItem('tagId');
+    localStorage.removeItem("tagId");
     dispatch({
       type: types.LINK_TAG_SUCCESS,
     });

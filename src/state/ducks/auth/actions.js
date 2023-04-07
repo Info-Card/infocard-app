@@ -1,6 +1,6 @@
-import * as types from './types';
-
-import AuthService from '../../services/auth.service';
+import * as types from "./types";
+import AuthService from "../../../services/AuthService";
+// import AuthService from '../../services/auth.service';
 
 export const login = (creadentials) => (dispatch) => {
   dispatch({
@@ -8,6 +8,7 @@ export const login = (creadentials) => (dispatch) => {
   });
   return AuthService.login(creadentials).then(
     (data) => {
+      console.log("in auth action");
       dispatch({
         type: types.AUTH_SUCCESS,
         payload: data,
