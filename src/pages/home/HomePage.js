@@ -231,6 +231,7 @@ const HomePage = ({ history, strings }) => {
                                       width: "290px",
                                       height: "90px",
                                     }}
+                                    key={link.id}
                                   >
                                     <div className="d-flex align-items-start justify-content-between">
                                       <div className="d-flex align-items-start">
@@ -285,6 +286,7 @@ const HomePage = ({ history, strings }) => {
                                   display: "inline-block",
                                 }}
                                 className="mr-1"
+                                key={video}
                               >
                                 <div className="text-right mr-2" style={{}}>
                                   <FontAwesomeIcon
