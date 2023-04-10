@@ -22,6 +22,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import Loader from "components/Loader";
+import compressFile from "helpers/imageResize";
+import resizeImage from "helpers/imageResize";
 
 const HomePage = ({ history, strings }) => {
   const [showAddVideo, setShowAddVideo] = useState(false);
@@ -488,6 +490,8 @@ const HomePage = ({ history, strings }) => {
                         console.log();
                         setCustomLink({
                           ...customLink,
+                          // image: resizeImage(event.target.files),
+                          // image: compressFile(event.target.files),
                           image: event.target.files,
                         });
                       }
