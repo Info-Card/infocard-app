@@ -37,6 +37,7 @@ const HomePage = ({ history, strings }) => {
   const { rehydrated } = useSelector((state) => state._persist);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(error);
     if (rehydrated) {
       if (!authUser) {
         history.push("/login");
