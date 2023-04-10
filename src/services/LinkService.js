@@ -1,5 +1,5 @@
-import UpdateProfileFn from "helpers/UpdateProfileFn";
 import ApiService from "./ApiService";
+import toFormData from "helpers/toFormData";
 
 class LinkService extends ApiService {
   /**
@@ -47,7 +47,7 @@ class LinkService extends ApiService {
    * @param {File} file * This is the file to upload
    */
   uploadFile(file) {
-    const { formData, config } = UpdateProfileFn({ file });
+    const { formData, config } = toFormData({ file });
     return this.instance.patch("/v1/upload", formData, config);
   }
 }
