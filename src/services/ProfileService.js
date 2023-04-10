@@ -1,7 +1,5 @@
 import ApiService from "./ApiService";
-import AddCustomFn from "helpers/AddCustomFn";
-import UpdateProfileFn from "helpers/UpdateProfileFn";
-
+import toFormData from "helpers/toFormData";
 class ProfileService extends ApiService {
   /**
    * Update Profile with id and data
@@ -9,7 +7,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data of new profile
    */
   updateProfile(id, data) {
-    const { formData, config } = UpdateProfileFn(data);
+    const { formData, config } = toFormData(data);
     return this.instance.patch(`/v1/profile/${id}`, formData, config);
   }
 
@@ -36,7 +34,7 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data
    */
   addCustomLink(id, data) {
-    const { formData, config } = AddCustomFn(data);
+    const { formData, config } = toFormData(data);
     return this.instance.post(`/v1/profile/${id}/links/`, formData, config);
   }
 
