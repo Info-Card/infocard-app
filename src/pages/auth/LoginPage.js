@@ -1,3 +1,93 @@
+// import React, { useEffect } from "react";
+// import { useForm } from "react-hook-form";
+// import { useDispatch, useSelector } from "react-redux";
+// import { login } from "state/ducks/auth/actions"; // Import your auth action
+// import { Link } from "react-router-dom";
+// import { Form, Button } from "react-bootstrap"; // Import your form components
+// import FormContainer from "components/FormContainer";
+// import Message from "components/Message";
+// import Loader from "components/Loader";
+// import { multilanguage } from "redux-multilanguage";
+
+// const LoginPage = ({ location, history, strings }) => {
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm();
+
+//   const dispatch = useDispatch();
+
+//   const { loading, error, user: authUser } = useSelector((state) => state.auth);
+
+//   const redirect = location.search ? location.search.split("=")[1] : "/";
+
+//   useEffect(() => {
+//     if (authUser) {
+//       history.push(redirect);
+//     }
+//   }, [history, authUser, redirect]);
+
+//   const onSubmit = (data) => {
+//     dispatch(login(data.email, data.password));
+//   };
+
+//   return (
+//     <FormContainer>
+//       <h1>{strings["Sign In"]}</h1>
+//       {error && <Message variant="danger">{error}</Message>}
+//       <Form onSubmit={handleSubmit(onSubmit)}>
+//         <Form.Group controlId="email">
+//           <Form.Label>{strings["Email Address"]}</Form.Label>
+//           <Form.Control
+//             type="email"
+//             placeholder={strings["Enter email"]}
+//             {...register("email", {
+//               required: "Email is required",
+//               pattern: {
+//                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+//                 message: "Invalid email address",
+//               },
+//             })}
+//           />
+//           {errors.email && (
+//             <Form.Text className="text-danger">
+//               {errors.email.message}
+//             </Form.Text>
+//           )}
+//         </Form.Group>
+
+//         <Form.Group controlId="password">
+//           <Form.Label>{strings["Password"]}</Form.Label>
+//           <Form.Control
+//             type="password"
+//             placeholder={strings["Enter password"]}
+//             {...register("password", {
+//               required: "Password is required",
+//               minLength: {
+//                 value: 8,
+//                 message: "Password must be at least 8 characters",
+//               },
+//             })}
+//           />
+//           {errors.password && (
+//             <Form.Text className="text-danger">
+//               {errors.password.message}
+//             </Form.Text>
+//           )}
+//         </Form.Group>
+//         <Link to="/forgot-password" className="float-right">
+//           {strings["forgot password?"]}
+//         </Link>
+//         <br />
+//         <Button type="submit" variant="primary">
+//           {loading ? <Loader /> : strings["Sign In"]}
+//         </Button>
+//       </Form>
+//     </FormContainer>
+//   );
+// };
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
@@ -7,11 +97,10 @@ import Loader from "components/Loader";
 import FormContainer from "components/FormContainer";
 import { login } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
-
+import { useForm } from "react-hook-form";
 const LoginPage = ({ location, history, strings }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
   const dispatch = useDispatch();
 
   const { loading, error, user: authUser } = useSelector((state) => state.auth);
@@ -24,16 +113,21 @@ const LoginPage = ({ location, history, strings }) => {
     }
   }, [history, authUser, redirect]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
-  };
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   dispatch(login(email, password));
+  // };
 
   return (
     <FormContainer>
       <h1>{strings["Sign In"]}</h1>
       {error && <Message variant="danger">{error}</Message>}
-      <Form onSubmit={submitHandler}>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="submit" />
+      </form>
+
+      {/* <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label>{strings["Email Address"]}</Form.Label>
           <Form.Control
@@ -60,7 +154,7 @@ const LoginPage = ({ location, history, strings }) => {
         <Button type="submit" variant="primary">
           {loading ? <Loader /> : strings["Sign In"]}
         </Button>
-      </Form>
+      </Form> */}
     </FormContainer>
   );
 };
