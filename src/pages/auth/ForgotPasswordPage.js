@@ -19,7 +19,6 @@ const ForgotPasswordPage = ({ strings }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
