@@ -107,7 +107,7 @@ export const resetPassword = (token, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  AuthService.logout();
+  TokenService.removeAuthInfo();
 
   dispatch({
     type: types.LOGOUT,
