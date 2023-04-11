@@ -25,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const register = (creadentials) => (dispatch) => {
+export const registerUser = (creadentials) => (dispatch) => {
   dispatch({
     type: types.AUTH_REQUEST,
   });

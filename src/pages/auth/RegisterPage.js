@@ -1,24 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import Message from 'components/Message';
-import Loader from 'components/Loader';
-import FormContainer from 'components/FormContainer';
-import { register } from 'state/ducks/auth/actions';
-import { multilanguage } from 'redux-multilanguage';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Message from "components/Message";
+import Loader from "components/Loader";
+import FormContainer from "components/FormContainer";
+import { registerUser } from "state/ducks/auth/actions";
+import { multilanguage } from "redux-multilanguage";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  username: yup.string().min(6).max(20).required().unique(),
+  email: yup.string().email().required().unique(),
+  password: yup.string().min(8).max(32).required(),
+  confirmPassword: yup.string().min(8).max(32).required(),
+  message: yup.string().min(8).max(100),
+});
 
 const RegisterPage = ({ location, history, strings }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
   const { loading, error, user: authUser } = useSelector((state) => state.auth);
   const { tag } = useSelector((state) => state.tags);
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (authUser || !tag) {
@@ -26,72 +41,69 @@ const RegisterPage = ({ location, history, strings }) => {
     }
   }, [history, authUser, redirect, tag]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const onSubmitHandler = (data) => {
+    console.log(data);
+    const { username, email, password, confirmPassword } = data;
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
+      setMessage("Passwords do not match");
     } else {
-      dispatch(register({ username, email, password }));
+      dispatch(registerUser(username, email, password));
+      reset();
     }
   };
 
   return (
     <FormContainer>
-      <h1>{strings['Sign Up']}</h1>
+      <h1>{strings["Sign Up"]}</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={handleSubmit(onSubmitHandler)}>
         <Form.Group controlId="name">
-          <Form.Label>{strings['Username']}</Form.Label>
+          <Form.Label>{strings["Username"]}</Form.Label>
           <Form.Control
-            type="username"
-            placeholder={strings['Enter Username']}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            {...register("username")}
+            placeholder="username"
           ></Form.Control>
         </Form.Group>
+        <p>{errors.username?.message}</p>
 
         <Form.Group controlId="email">
-          <Form.Label>{strings['Email Address']}</Form.Label>
+          <Form.Label>{strings["Email Address"]}</Form.Label>
           <Form.Control
-            type="email"
-            placeholder={strings['Enter email']}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email")}
+            placeholder="email"
           ></Form.Control>
         </Form.Group>
-
+        <p>{errors.email?.message}</p>
         <Form.Group controlId="password">
-          <Form.Label>{strings['Password']}</Form.Label>
+          <Form.Label>{strings["Password"]}</Form.Label>
           <Form.Control
+            {...register("password")}
+            placeholder="password"
             type="password"
-            placeholder={strings['Enter password']}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
+        <p>{errors.password?.message}</p>
         <Form.Group controlId="confirmPassword">
-          <Form.Label>{strings['Confirm Password']}</Form.Label>
+          <Form.Label>{strings["Confirm Password"]}</Form.Label>
           <Form.Control
+            {...register("confirmPassword")}
+            placeholder="confirmPassword"
             type="password"
-            placeholder={strings['Confirm password']}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
+        <p>{errors.confirmPassword?.message}</p>
         <Button type="submit" variant="primary">
-          {loading ? <Loader /> : strings['Sign Up']}
+          {loading ? <Loader /> : strings["Sign Up"]}
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          {strings['Have an Account?']}{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            {strings['Login']}
+          {strings["Have an Account?"]}{" "}
+          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            {strings["Login"]}
           </Link>
         </Col>
       </Row>

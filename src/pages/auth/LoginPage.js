@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "components/Loader";
+import Message from "components/Message";
 import FormContainer from "components/FormContainer";
 import { login } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
@@ -47,6 +48,7 @@ const LoginPage = ({ location, history, strings }) => {
   return (
     <FormContainer>
       <h1>{strings["Sign In"]}</h1>
+      {error && <Message variant="danger">{error}</Message>}
       <Form onSubmit={handleSubmit(onSubmitHandler)}>
         <Form.Group controlId="email">
           <Form.Label>{strings["Email Address"]}</Form.Label>
