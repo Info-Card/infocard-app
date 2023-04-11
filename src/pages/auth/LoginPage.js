@@ -53,8 +53,6 @@ const LoginPage = ({ location, history, strings }) => {
           <Form.Control
             {...register("email")}
             placeholder="email"
-            type="email"
-            required
           ></Form.Control>
         </Form.Group>
         <p>{errors.email?.message}</p>
@@ -65,7 +63,6 @@ const LoginPage = ({ location, history, strings }) => {
             {...register("password")}
             placeholder="password"
             type="password"
-            required
           ></Form.Control>
         </Form.Group>
         <p>{errors.password?.message}</p>
