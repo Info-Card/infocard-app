@@ -22,10 +22,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import Loader from "components/Loader";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 // import compressFile from "helpers/imageResize";
 // import resizeImage from "helpers/imageResize";
 
+const urlRegix =
+  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+const schema = yup.object().shape({
+  url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
+});
+
 const HomePage = ({ history, strings }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [showAddVideo, setShowAddVideo] = useState(false);
   const [showCustomLink, setShowCustomLink] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -85,10 +102,11 @@ const HomePage = ({ history, strings }) => {
     dispatch(getUser(authUser.username, `?isPersonal=${event.target.value}`));
   }
 
-  const handleAddVideo = (event) => {
-    event.preventDefault();
+  const handleAddVideo = (data) => {
+    setVideoURL(data);
+    const { url } = data;
     const videos = profile.videos ?? [];
-    videos.push(videoURL);
+    videos.push(url);
     dispatch(updateProfileMedia(profile.id, { videos: videos }));
     setVideoURL("");
   };
@@ -433,17 +451,21 @@ const HomePage = ({ history, strings }) => {
               <Modal.Title>{strings["Add Youtube Video"]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form onSubmit={handleAddVideo}>
+              <Form onSubmit={handleSubmit(handleAddVideo)}>
                 <Form.Group controlId="name">
                   <Form.Label>{strings["URL"]}</Form.Label>
                   <Form.Control
-                    type="url"
+                    {...register("url")}
                     placeholder="Enter url"
-                    required
-                    value={videoURL}
-                    onChange={(e) => setVideoURL(e.target.value)}
+                    name="url"
+                    // type="url"
+                    // placeholder="Enter url"
+                    // required
+                    // value={videoURL}
+                    // onChange={(e) => setVideoURL(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
+                <p>{errors.url?.message}</p>
 
                 <Button type="submit" variant="primary">
                   {strings["ADD"]}

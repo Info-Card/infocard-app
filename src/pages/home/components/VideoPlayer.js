@@ -6,7 +6,7 @@ const VideoPlayer = ({ video }) => {
   return (
     <div className="player-card">
       <ReactPlayer
-        url={`${video.split("&")[0]}&origin=http://localhost:3000`}
+        url={`${(video ?? "").split("&")[0]}&origin=http://localhost:3000`}
         width="100%"
         height="100%"
       />
