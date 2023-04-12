@@ -5,7 +5,7 @@ import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { logout } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
 
-const Header = ({ history, strings }) => {
+const Header = ({ history = [""], strings }) => {
   const dispatch = useDispatch();
 
   const { user: authUser } = useSelector((state) => state.auth);
