@@ -439,6 +439,7 @@ const HomePage = ({ history, strings }) => {
                   <Form.Control
                     type="url"
                     placeholder="Enter url"
+                    required
                     value={videoURL}
                     onChange={(e) => setVideoURL(e.target.value)}
                   ></Form.Control>
