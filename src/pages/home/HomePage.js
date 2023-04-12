@@ -105,6 +105,7 @@ const HomePage = ({ history, strings }) => {
 
   const handleAddVideo = (data) => {
     setVideoURL(data);
+    console.log(videoURL);
     const { url } = data;
     const videos = profile.videos ?? [];
     videos.push(url);
@@ -481,9 +482,6 @@ const HomePage = ({ history, strings }) => {
                     {...register("title")}
                     placeholder="title"
                     type="title"
-                    // type="text"
-                    // placeholder="Enter title"
-                    // value={customLink.title}
                     onChange={(e) =>
                       setCustomLink({ ...customLink, title: e.target.value })
                     }
@@ -496,9 +494,6 @@ const HomePage = ({ history, strings }) => {
                     {...register("url")}
                     placeholder="Enter url"
                     name="url"
-                    // type="url"
-                    // placeholder="Enter url"
-                    // value={customLink.url}
                     onChange={(e) =>
                       setCustomLink({ ...customLink, url: e.target.value })
                     }
@@ -510,7 +505,6 @@ const HomePage = ({ history, strings }) => {
                   <Form.Control
                     type="file"
                     placeholder="Choose image"
-                    // value={customLink.image}
                     onChange={(event) => {
                       if (event.target.files && event.target.files[0]) {
                         console.log();
