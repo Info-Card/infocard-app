@@ -33,6 +33,7 @@ const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
+  title: yup.string().min(8).max(32).required(),
 });
 
 const HomePage = ({ history, strings }) => {
@@ -121,8 +122,8 @@ const HomePage = ({ history, strings }) => {
     dispatch(deleteCustomLink(profile.id, link.id));
   };
 
-  const handleAddCustomLink = (event) => {
-    event.preventDefault();
+  const handleAddCustomLink = (data) => {
+    console.log(data);
     dispatch(addCustomLink(profile.id, customLink));
     setCustomLink({ title: "", url: "" });
     setShowCustomLink(false);
@@ -458,11 +459,6 @@ const HomePage = ({ history, strings }) => {
                     {...register("url")}
                     placeholder="Enter url"
                     name="url"
-                    // type="url"
-                    // placeholder="Enter url"
-                    // required
-                    // value={videoURL}
-                    // onChange={(e) => setVideoURL(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
                 <p>{errors.url?.message}</p>
@@ -478,29 +474,37 @@ const HomePage = ({ history, strings }) => {
               <Modal.Title>Add Custom Link</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form onSubmit={handleAddCustomLink}>
+              <Form onSubmit={handleSubmit(handleAddCustomLink)}>
                 <Form.Group controlId="title">
                   <Form.Label>Title</Form.Label>
                   <Form.Control
-                    type="text"
-                    placeholder="Enter title"
-                    value={customLink.title}
+                    {...register("title")}
+                    placeholder="title"
+                    type="title"
+                    // type="text"
+                    // placeholder="Enter title"
+                    // value={customLink.title}
                     onChange={(e) =>
                       setCustomLink({ ...customLink, title: e.target.value })
                     }
                   ></Form.Control>
                 </Form.Group>
+                <p>{errors.title?.message}</p>
                 <Form.Group controlId="name">
                   <Form.Label>{strings["URL"]}</Form.Label>
                   <Form.Control
-                    type="url"
+                    {...register("url")}
                     placeholder="Enter url"
-                    value={customLink.url}
+                    name="url"
+                    // type="url"
+                    // placeholder="Enter url"
+                    // value={customLink.url}
                     onChange={(e) =>
                       setCustomLink({ ...customLink, url: e.target.value })
                     }
                   ></Form.Control>
                 </Form.Group>
+                <p>{errors.url?.message}</p>
                 <Form.Group controlId="image">
                   <Form.Label>Image</Form.Label>
                   <Form.Control
