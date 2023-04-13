@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CirclePicker } from "react-color";
-import { Form, Button, Row, Col, Modal } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfile, updateProfileMedia } from "state/ducks/profile/actions";
+import { updateProfile } from "state/ducks/profile/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import Message from "components/Message";
@@ -10,9 +10,11 @@ import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { getUser } from "state/ducks/users/actions";
+import ProfileFormModal from "./ProfileFormModal";
 
 const ProfileForm = ({ strings }) => {
   const [showImageOptions, setShowImageOptions] = useState(false);
+  console.log(showImageOptions);
   const inputFile = useRef(null);
 
   const [form, setForm] = useState({
@@ -55,15 +57,6 @@ const ProfileForm = ({ strings }) => {
       }
     }
   }, [dispatch, success, profile, authUser]);
-
-  function selectImage() {
-    setShowImageOptions(false);
-    inputFile.current.click();
-  }
-  function deleteImage() {
-    setShowImageOptions(false);
-    dispatch(updateProfileMedia(profile.id, { image: "" }));
-  }
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -223,21 +216,7 @@ const ProfileForm = ({ strings }) => {
           </Button>
         </Form>
       )}
-      <Modal show={showImageOptions} size="sm">
-        <Modal.Header closeButton onHide={(e) => setShowImageOptions(false)}>
-          <Modal.Title>Choose Option</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="d-grid gap-2">
-            <Button variant="primary" onClick={selectImage}>
-              Edit
-            </Button>
-            <Button variant="outline-danger" onClick={deleteImage}>
-              Delete
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ProfileFormModal />
     </div>
   );
 };
