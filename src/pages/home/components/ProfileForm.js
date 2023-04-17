@@ -146,12 +146,14 @@ const ProfileForm = ({ strings }) => {
 
           <Form.Group controlId="bio">
             <Form.Label>{strings["Bio"]}</Form.Label>
-            <Form.Control
+            <textarea
+              rows="3"
               type="text"
               placeholder={strings["Enter bio"]}
               value={form.bio}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
-            ></Form.Control>
+              class="form-control"
+            ></textarea>
           </Form.Group>
           <Form.Group controlId="dateOfBirth">
             <Form.Label>Date Of Birth</Form.Label>
