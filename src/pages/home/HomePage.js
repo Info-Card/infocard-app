@@ -189,7 +189,9 @@ const HomePage = ({ history, strings }) => {
 
                           <Col xs={6}>
                             <h5>{profile.name}</h5>
-                            <h5>{profile.company}</h5>
+                            <h5 id="company-name-length-adjust">
+                              {profile.company}
+                            </h5>
                             <h6>{profile.jobTitle}</h6>
                             <p>
                               <strong>Views: </strong>

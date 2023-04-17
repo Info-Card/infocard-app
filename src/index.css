@@ -21,27 +21,25 @@ h2 {
   width: 200px;
   height: 200px;
   -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
-      box-shadow: 0 0 10px rgb(200, 200, 200);
-
+  box-shadow: 0 0 10px rgb(200, 200, 200);
 }
-
 
 .delete-video {
   border-radius: 50%;
   -webkit-box-shadow: 0 0 5px rgb(200, 200, 200);
   box-shadow: 0 0 5px rgb(200, 200, 200);
   background-color: red;
-padding: 5px;
-margin-top: 3px;
+  padding: 5px;
+  margin-top: 3px;
 
-color: white;
+  color: white;
 }
 
 a {
   color: white;
   text-decoration: none;
 }
-.connect-button{
+.connect-button {
   background-color: black;
   color: white;
   font-weight: bold;
@@ -71,19 +69,19 @@ a {
 
 .max-lines {
   word-break: break-word;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   line-height: 16px; /* fallback */
-   max-height: 32px; /* fallback */
-   -webkit-line-clamp: 2; /* number of lines to show */
-   -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px; /* fallback */
+  max-height: 32px; /* fallback */
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
-.player-card{
+.player-card {
   height: 200px;
   margin-right: 10px;
-  background-color: black;;
+  background-color: black;
 }
 
 .direct-button {
@@ -104,8 +102,7 @@ a {
   width: 100px;
   height: 100px;
   -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
-      box-shadow: 0 0 10px rgb(200, 200, 200);
-
+  box-shadow: 0 0 10px rgb(200, 200, 200);
 }
 
 .scrolling-wrapper {
@@ -114,14 +111,13 @@ a {
   white-space: nowrap;
 }
 
-
 .profile_header {
   width: 100%;
   height: auto 13;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 4px 4px 4px 4px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .profile_cover div {
@@ -134,14 +130,14 @@ a {
   border-radius: 4px 4px 4px 4px;
 }
 
-.profile_photo img{
+.profile_photo img {
   border-radius: 50%;
   width: 130px;
   height: 130px;
   margin: -50px 0px 10px 0px;
-  position:relative;
-  z-index:111;
-  background-color:white;
+  position: relative;
+  z-index: 111;
+  background-color: white;
   -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
   box-shadow: 0 0 2px rgb(200, 200, 200);
 }
@@ -157,7 +153,7 @@ a {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index:112;
+  z-index: 112;
 }
 
 /* .profile_card div{
@@ -171,14 +167,12 @@ a {
   box-shadow: 0 0 2px rgb(200, 200, 200);
 } */
 
-
-
-.profile-card{
+.profile-card {
   background: #fff none repeat scroll 0 0;
   box-shadow: 0 0 10px rgb(200, 200, 200);
   border-radius: 12px;
 }
-.profile-card-bg{
+.profile-card-bg {
   border-bottom: 1px solid #e1e8ed;
   border-radius: 12px;
   height: 120px;
@@ -275,16 +269,23 @@ ul.twPc-Arrange {
 }
 
 .zstack {
-	display: grid;
-	align-items: start;
-	justify-items: end;
+  display: grid;
+  align-items: start;
+  justify-items: end;
 }
 .zstack > * {
-	grid-area: 1/1/1/1;
+  grid-area: 1/1/1/1;
+}
+#company-name-length-adjust {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 }
 
 /* .form-control {
   height: 55px !important;
   width: 350px !important;
 } */
-
