@@ -11,8 +11,27 @@ import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { getUser } from "state/ducks/users/actions";
 import ProfileFormModal from "./ProfileFormModal";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const schema = yup.object().shape({
+  name: yup.string().min(5).max(23).required(),
+  bio: yup.string().required().min(5).max(100),
+  address: yup.string().min(6).max(25).required(),
+  company: yup.string().min(5).max(23).required(),
+  title: yup.string().min(6).max(13),
+  color: yup.string(),
+});
 const ProfileForm = ({ strings }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [showImageOptions, setShowImageOptions] = useState(false);
   console.log(showImageOptions);
   const inputFile = useRef(null);
@@ -70,7 +89,7 @@ const ProfileForm = ({ strings }) => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    console.log(e);
     dispatch(updateProfile(profile.id, form));
   };
 
@@ -133,20 +152,27 @@ const ProfileForm = ({ strings }) => {
       {!profile ? (
         <></>
       ) : (
-        <Form onSubmit={submitHandler} key={profile.id} className="p-2">
+        <Form
+          onSubmit={handleSubmit(submitHandler)}
+          key={profile.id}
+          className="p-2"
+        >
           <Form.Group controlId="name">
             <Form.Label>{strings["Name"]}</Form.Label>
             <Form.Control
+              {...register("name")}
               type="name"
               placeholder={strings["Enter name"]}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.name?.message}</p>
 
           <Form.Group controlId="bio">
             <Form.Label>{strings["Bio"]}</Form.Label>
             <textarea
+              {...register("bio")}
               rows="3"
               type="text"
               placeholder={strings["Enter bio"]}
@@ -155,6 +181,7 @@ const ProfileForm = ({ strings }) => {
               class="form-control"
             ></textarea>
           </Form.Group>
+          <p>{errors.bio?.message}</p>
           <Form.Group controlId="dateOfBirth">
             <Form.Label>Date Of Birth</Form.Label>
             <Form.Control
@@ -169,30 +196,36 @@ const ProfileForm = ({ strings }) => {
           <Form.Group controlId="address">
             <Form.Label>{strings["Address"]}</Form.Label>
             <Form.Control
+              {...register("address")}
               type="text"
               placeholder={strings["Enter Address"]}
               value={form.address}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.address?.message}</p>
           <Form.Group controlId="company">
             <Form.Label>Company</Form.Label>
             <Form.Control
+              {...register("company")}
               type="text"
               placeholder="Enter Company"
               value={form.company}
               onChange={(e) => setForm({ ...form, company: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.company?.message}</p>
           <Form.Group controlId="jobTitle">
             <Form.Label>{strings["Job Title"]}</Form.Label>
             <Form.Control
+              {...register("title")}
               type="text"
               placeholder={strings["Enter Job Title"]}
               value={form.jobTitle}
               onChange={(e) => setForm({ ...form, jobTitle: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.title?.message}</p>
           <Form.Group controlId="color">
             <Form.Label>{strings["Color"]}</Form.Label>
             <CirclePicker
@@ -207,12 +240,14 @@ const ProfileForm = ({ strings }) => {
                 "#E6E6FA",
                 "#BAB86C",
               ]}
+              {...register("color")}
               onChangeComplete={(color, event) => {
                 const { hex } = color;
                 setForm({ ...form, color: hex });
               }}
             />
           </Form.Group>
+          <p>{errors.color?.message}</p>
           <Button type="submit" variant="primary" className="">
             {loading ? <Loader /> : strings["Update"]}
           </Button>
