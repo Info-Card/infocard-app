@@ -33,6 +33,44 @@ const schema = yup.object().shape({
   title: yup.string().min(8).max(32).required(),
 });
 const HomePage = ({ history, strings }) => {
+  const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState(null);
+  const handleImageChange = (event) => {
+    const selectedImage = event.target.files[0];
+    setImage(selectedImage);
+  };
+  const handleSubmitForLink = (event) => {
+    // Prevent form submission
+    // event.preventDefault();
+
+    // Call function 1
+    handleSubmitForImage(event);
+
+    // Call function 2
+  };
+  const handleSubmitForImage = async (event) => {
+    // event.preventDefault();
+
+    try {
+      const schemaForImage = yup.object().shape({
+        image: yup
+          .mixed()
+          .required("Please upload an image file")
+          .test(
+            "fileSize",
+            "Image size must be no more than 5 MB",
+            (value) => value && value.size <= 5000000
+          ),
+      });
+
+      await schemaForImage.validate({ image });
+
+      // Perform image upload logic here
+      handleAddCustomLink(event);
+    } catch (imageError) {
+      setImageError(imageError.message);
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -117,8 +155,8 @@ const HomePage = ({ history, strings }) => {
     dispatch(updateProfileMedia(profile.id, { videos: videos }));
     setVideoURL("");
   };
-  const handleAddCustomLink = (data) => {
-    console.log(data);
+  const handleAddCustomLink = () => {
+    // console.log(data);
     dispatch(addCustomLink(profile.id, customLink));
     setCustomLink({ title: "", url: "" });
     setShowCustomLink(false);
@@ -471,7 +509,7 @@ const HomePage = ({ history, strings }) => {
               <Modal.Title>Add Custom Link</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form onSubmit={handleSubmit(handleAddCustomLink)}>
+              <Form onSubmit={handleSubmit(handleSubmitForLink)}>
                 <Form.Group controlId="title">
                   <Form.Label>Title</Form.Label>
                   <Form.Control
@@ -502,6 +540,7 @@ const HomePage = ({ history, strings }) => {
                     type="file"
                     placeholder="Choose image"
                     onChange={(event) => {
+                      handleImageChange(event);
                       if (event.target.files && event.target.files[0]) {
                         console.log();
                         setCustomLink({
@@ -512,6 +551,8 @@ const HomePage = ({ history, strings }) => {
                     }}
                   ></Form.Control>
                 </Form.Group>
+                {imageError && <p>{imageError}</p>}
+                <p>{errors.filename?.message}</p>
                 <Button type="submit" variant="primary">
                   {strings["ADD"]}
                 </Button>
