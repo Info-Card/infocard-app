@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,8 @@ import { multilanguage } from "redux-multilanguage";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -17,6 +19,11 @@ const schema = yup.object().shape({
 });
 
 const LoginPage = ({ location, history, strings }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -67,6 +74,13 @@ const LoginPage = ({ location, history, strings }) => {
             type="password"
           ></Form.Control>
         </Form.Group>
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className="password-toggle-button"
+        >
+          <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+        </button>
         <p>{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}

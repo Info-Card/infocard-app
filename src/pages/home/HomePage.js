@@ -156,7 +156,6 @@ const HomePage = ({ history, strings }) => {
     setVideoURL("");
   };
   const handleAddCustomLink = () => {
-    // console.log(data);
     dispatch(addCustomLink(profile.id, customLink));
     setCustomLink({ title: "", url: "" });
     setShowCustomLink(false);
