@@ -10,8 +10,6 @@ import { multilanguage } from "redux-multilanguage";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -19,10 +17,13 @@ const schema = yup.object().shape({
 });
 
 const LoginPage = ({ location, history, strings }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
+  const handlePasswordChange = (event) => {
+    setPasswordInput(event.target.value);
+  };
+  const handleShowPassword = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
   };
   const {
     register,
@@ -69,18 +70,17 @@ const LoginPage = ({ location, history, strings }) => {
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
           <Form.Control
+            onChange={handlePasswordChange}
+            value={passwordInput}
             {...register("password")}
             placeholder="password"
-            type="password"
+            type={passwordType}
           ></Form.Control>
+          <label htmlFor="agree">
+            <input type="checkbox" onClick={handleShowPassword} />
+            Show Password
+          </label>
         </Form.Group>
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="password-toggle-button"
-        >
-          <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-        </button>
         <p>{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}
