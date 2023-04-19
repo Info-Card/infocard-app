@@ -19,10 +19,9 @@ const schema = yup.object().shape({
 const LoginPage = ({ location, history, strings }) => {
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (event) => {
-    setPasswordInput(event.target.value);
-  };
+
   const handleShowPassword = () => {
+    console.log(passwordInput, "password");
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
   const {
@@ -70,8 +69,7 @@ const LoginPage = ({ location, history, strings }) => {
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
           <Form.Control
-            onChange={handlePasswordChange}
-            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
             {...register("password")}
             placeholder="password"
             type={passwordType}
