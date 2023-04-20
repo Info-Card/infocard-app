@@ -281,6 +281,14 @@ ul.twPc-Arrange {
   word-wrap: break-word;
   hyphens: auto;
 }
+/* Styles for MD breakpoint */
+@media (min-width: 768px) and (max-width: 991px) {
+  .image-adjust {
+    border-radius: 50%;
+    z-index: 0;
+    width: 100%;
+  }
+}
 
 /* .form-control {
   height: 55px !important;

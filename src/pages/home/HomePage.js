@@ -197,7 +197,7 @@ const HomePage = ({ history, strings }) => {
                             backgroundColor: profile.color ?? "grey",
                           }}
                         >
-                          <Col xs={6} className="p-0">
+                          <Col xs={6} md={12} lg={6} className="p-0">
                             {profile.image && profile.image !== "" ? (
                               <img
                                 src={
@@ -205,9 +205,10 @@ const HomePage = ({ history, strings }) => {
                                   profile.image
                                 }
                                 alt=""
-                                className="img-fluid"
+                                className="img-fluid image-adjust"
                                 style={{
                                   height: "200px",
+                                  // width: "100%",
                                   objectFit: "contain",
                                 }}
                               />
@@ -224,7 +225,7 @@ const HomePage = ({ history, strings }) => {
                             )}
                           </Col>
 
-                          <Col xs={6}>
+                          <Col xs={6} md={12} lg={6}>
                             <h5>{profile.name}</h5>
                             <h5 id="company-name-length-adjust">
                               {profile.company}
