@@ -94,7 +94,7 @@ const ProfileForm = ({ strings }) => {
   };
 
   return (
-    <div className="profile-card">
+    <div className=" profile-card">
       <div className="text-center">
         <Row>
           <Col>
@@ -178,7 +178,7 @@ const ProfileForm = ({ strings }) => {
               placeholder={strings["Enter bio"]}
               value={form.bio}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
-              class="form-control"
+              className="form-control"
             ></textarea>
           </Form.Group>
           <p>{errors.bio?.message}</p>

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from 'components/MainLayout';
-import { getUser } from 'state/ducks/users/actions';
-import Toggle from 'components/Toggle';
-import LinkedCards from './components/LinkedCards';
-import ProfileForm from './components/ProfileForm';
-import { multilanguage } from 'redux-multilanguage';
-import Categories from './components/Categories';
+import React, { useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import MainLayout from "components/MainLayout";
+import { getUser } from "state/ducks/users/actions";
+import Toggle from "components/Toggle";
+import LinkedCards from "./components/LinkedCards";
+import ProfileForm from "./components/ProfileForm";
+import { multilanguage } from "redux-multilanguage";
+import Categories from "./components/Categories";
 
 const EditProfilePage = ({ location, history, strings }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const EditProfilePage = ({ location, history, strings }) => {
 
   useEffect(() => {
     if (!authUser) {
-      history.push('/login');
+      history.push("/login");
     } else {
       dispatch(getUser(authUser.username));
     }
@@ -42,11 +42,10 @@ const EditProfilePage = ({ location, history, strings }) => {
         </Col>
       </Row>
       <Row className="mt-2">
-        <Col md={4}>
+        <Col sm={12} lg={5} xl={4}>
           <ProfileForm />
         </Col>
-
-        <Col md={8} style={{ paddingTop: '20px' }}>
+        <Col sm={12} lg={7} xl={8} style={{ paddingTop: "20px" }}>
           <Categories />
         </Col>
       </Row>

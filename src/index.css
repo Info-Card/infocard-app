@@ -280,9 +280,6 @@ ul.twPc-Arrange {
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
-  /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
 }
 
 /* .form-control {
