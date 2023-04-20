@@ -232,12 +232,12 @@ const ProfileForm = ({ strings }) => {
               className="mb-2"
               colors={[
                 "#81D8D0",
-                "#F5F5DC",
-                "#F7E7CE",
+                "#30538C",
+                "#03879E",
                 "#000000",
                 "#FDD7E4",
                 "#F70D1A",
-                "#E6E6FA",
+                "#F5A2A1",
                 "#BAB86C",
               ]}
               {...register("color")}
