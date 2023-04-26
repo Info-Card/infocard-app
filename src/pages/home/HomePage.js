@@ -196,7 +196,12 @@ const HomePage = ({ history, strings }) => {
                             backgroundColor: profile.color ?? "grey",
                           }}
                         >
-                          <Col xs={6} lg={6} className="p-0">
+                          <Col
+                            xs={6}
+                            lg={6}
+                            className="p-0"
+                            id="image-adjustment"
+                          >
                             {profile.image && profile.image !== "" ? (
                               <img
                                 src={
