@@ -17,8 +17,23 @@ import { multilanguage } from "redux-multilanguage";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import linkService from "services/LinkService";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  profileLink: yup.string().required(),
+});
 
 const LinkPage = ({ history, match, strings }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const linkId = match.params.linkId;
 
   const [fileName, setFileName] = useState("Choose File");
@@ -91,6 +106,7 @@ const LinkPage = ({ history, match, strings }) => {
         })
       );
     }
+    reset();
   };
 
   const handleDeleteClick = (e) => {
@@ -165,7 +181,7 @@ const LinkPage = ({ history, match, strings }) => {
                     </Row>
                   )}
 
-                  <Form onSubmit={submitHandler}>
+                  <Form onSubmit={handleSubmit(submitHandler)}>
                     {link.type === "medical" && (
                       <div
                         style={{ height: "310px", overflowY: "scroll" }}
@@ -318,12 +334,14 @@ const LinkPage = ({ history, match, strings }) => {
                         <Form.Group controlId="value">
                           <Form.Control
                             type="text"
-                            placeholder=""
+                            {...register("profileLink")}
+                            placeholder="hhh"
                             value={path}
                             onChange={(e) => setPath(e.target.value)}
                           ></Form.Control>
                         </Form.Group>
                       )}
+                    <p>{errors.profileLink?.message}</p>
 
                     {loading || uploading ? (
                       <Loader />
