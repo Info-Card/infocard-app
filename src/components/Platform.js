@@ -17,7 +17,7 @@ const Platform = ({ platform, showCheck }) => {
         alt={platform.image}
         className="card-img-top p-1"
       />
-      <p>{platform.title}</p>
+      <p id="title-size-adjustment">{platform.title}</p>
     </div>
   );
 };

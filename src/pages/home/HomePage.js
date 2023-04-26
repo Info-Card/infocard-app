@@ -183,8 +183,7 @@ const HomePage = ({ history, strings }) => {
             </Col>
           </Row>
           <Row className="">
-            <Col md={4} />
-            <Col md={4}>
+            <Col className="m-auto" md={5} lg={4}>
               <div className="mt-2">
                 {error && <Message variant="danger">{error}</Message>}
                 {profile ? (
@@ -197,7 +196,7 @@ const HomePage = ({ history, strings }) => {
                             backgroundColor: profile.color ?? "grey",
                           }}
                         >
-                          <Col xs={6} md={12} lg={6} className="p-0">
+                          <Col xs={6} lg={6} className="p-0">
                             {profile.image && profile.image !== "" ? (
                               <img
                                 src={
@@ -206,11 +205,6 @@ const HomePage = ({ history, strings }) => {
                                 }
                                 alt=""
                                 className="img-fluid image-adjust"
-                                style={{
-                                  height: "200px",
-                                  // width: "100%",
-                                  objectFit: "contain",
-                                }}
                               />
                             ) : (
                               <img
@@ -225,7 +219,7 @@ const HomePage = ({ history, strings }) => {
                             )}
                           </Col>
 
-                          <Col xs={6} md={12} lg={6}>
+                          <Col xs={6} lg={6}>
                             <h5>{profile.name}</h5>
                             <h5 id="company-name-length-adjust">
                               {profile.company}
@@ -433,7 +427,6 @@ const HomePage = ({ history, strings }) => {
                 )}
               </div>
             </Col>
-            <Col md={4} />
           </Row>
           <Modal show={tag}>
             <Modal.Header closeButton onHide={handleClose}>
