@@ -26,7 +26,7 @@ class UserService extends ApiService {
    */
   getProfile(username, user) {
     return this.instance.get(
-      `/v1/users/${user ? username : `/v1/public/${username}`}`
+      `/v1/users/${user ? username : `public/${username}`}`
     );
   }
 
