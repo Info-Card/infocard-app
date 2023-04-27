@@ -1,7 +1,7 @@
-import * as types from './types';
+import * as types from "./types";
 
-import UserService from 'state/services/user.service';
-import ProfileService from 'state/services/profile.service';
+import UserService from "../../../services/UserService";
+import ProfileService from "../../../services/ProfileService";
 
 export const getProfile = (username, user) => async (dispatch) => {
   try {

@@ -1,15 +1,16 @@
-import React, { Fragment, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
-import { getProfile } from 'state/ducks/profile/actions';
-import { getTag } from 'state/ducks/tags/actions';
-import ProfileDetail from './components/ProfileDetail';
-import { Link } from 'react-router-dom';
-import Loader from 'components/Loader';
-import { multilanguage } from 'redux-multilanguage';
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
+import { Col, Container, Row } from "react-bootstrap";
+import { getProfile } from "state/ducks/profile/actions";
+import { getTag } from "state/ducks/tags/actions";
+import ProfileDetail from "./components/ProfileDetail";
+import Loader from "components/Loader";
+import { multilanguage } from "redux-multilanguage";
+import ProfileModal from "./components/ProfileModal";
 
 const ProfilePage = ({ history, match, strings }) => {
+  const props = strings;
   const username = match.params.username;
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector(
@@ -24,15 +25,15 @@ const ProfilePage = ({ history, match, strings }) => {
       if (error) {
         if (!tag) {
           if (tagError) {
-            history.push('/not-found');
+            history.push("/not-found");
           } else {
             dispatch(getTag(username));
           }
         } else if (authUser) {
-          history.push('/');
+          history.push("/");
         }
       } else if (profile && profile.isPrivate) {
-        history.push('/not-found');
+        history.push("/not-found");
       } else if (!profile) {
         dispatch(getProfile(username, authUser));
       }
@@ -54,7 +55,7 @@ const ProfilePage = ({ history, match, strings }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{user ? user.username : ''} - Info Card</title>
+          <title>{user ? user.username : ""} - Info Card</title>
         </Helmet>
         <Row>
           <Col md={4} />
@@ -68,28 +69,7 @@ const ProfilePage = ({ history, match, strings }) => {
             </div>
           </Col>
           <Col md={4} />
-          <Modal show={tag && !authUser}>
-            <Modal.Header closeButton>
-              <Modal.Title>{strings['Activate your product']}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>
-                {
-                  strings[
-                    'To Activate your product you need to login or register first'
-                  ]
-                }
-              </p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Link to={'/login'}>
-                <Button variant="primary">{strings['Login']}</Button>
-              </Link>
-              <Link to={'/register'}>
-                <Button variant="info">{strings['Register']}</Button>
-              </Link>
-            </Modal.Footer>
-          </Modal>
+          <ProfileModal message={props} />
         </Row>
       </Fragment>
     </Container>

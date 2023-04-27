@@ -1,6 +1,6 @@
-import * as types from './types';
+import * as types from "./types";
 
-import UserService from '../../services/user.service';
+import UserService from "../../../services/UserService";
 
 export const getUsers = (page, limit) => async (dispatch) => {
   try {

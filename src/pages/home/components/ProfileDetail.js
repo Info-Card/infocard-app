@@ -205,12 +205,12 @@ const ProfileDetail = ({ user, profile, strings }) => {
             {profile.platforms && profile.platforms.length > 0 ? (
               <>
                 <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
-                <Col xs={12}>
+                <Col xs={12} md={12}>
                   <div className="platform-card p-3">
                     <Row>
                       {profile.platforms.map((platform, key) => {
                         return (
-                          <Col key={key} xs={3}>
+                          <Col key={key} xs={4}>
                             <a
                               onClick={(e) => {
                                 e.preventDefault();

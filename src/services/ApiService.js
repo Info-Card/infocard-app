@@ -56,12 +56,12 @@ export default class ApiService {
             TokenService.setTokens(response.data);
           },
           (error) => {
-            TokenService.removeUserData();
+            TokenService.removeAuthInfo();
             window.location = "/login";
           }
         );
     } else {
-      TokenService.removeUserData();
+      TokenService.removeAuthInfo();
       console.error("Refresh token not found");
       window.location = "/login";
     }

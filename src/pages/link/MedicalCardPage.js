@@ -65,7 +65,7 @@ const MedicalCardPage = ({ history, match, strings }) => {
                     <br />
                   </div>
 
-                  <div class="twPc-divStats">
+                  <div className="twPc-divStats">
                     <div className="text-center">
                       <div
                         className="h4 p-1 text-light"
