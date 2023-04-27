@@ -1,29 +1,50 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { CirclePicker } from 'react-color';
-import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile, updateProfileMedia } from 'state/ducks/profile/actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import Message from 'components/Message';
-import Loader from 'components/Loader';
-import { multilanguage } from 'redux-multilanguage';
-import { PROFILE_RESET } from 'state/ducks/profile/types';
-import { getUser } from 'state/ducks/users/actions';
+import React, { useState, useEffect, useRef } from "react";
+import { CirclePicker } from "react-color";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile } from "state/ducks/profile/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import Message from "components/Message";
+import Loader from "components/Loader";
+import { multilanguage } from "redux-multilanguage";
+import { PROFILE_RESET } from "state/ducks/profile/types";
+import { getUser } from "state/ducks/users/actions";
+import ProfileFormModal from "./ProfileFormModal";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const schema = yup.object().shape({
+  name: yup.string().min(5).max(23).required(),
+  bio: yup.string().required().min(5).max(100),
+  address: yup.string().min(6).max(25).required(),
+  company: yup.string().min(5).max(23).required(),
+  title: yup.string().min(6).max(13),
+  color: yup.string(),
+});
 const ProfileForm = ({ strings }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [showImageOptions, setShowImageOptions] = useState(false);
+  console.log(showImageOptions);
   const inputFile = useRef(null);
 
   const [form, setForm] = useState({
-    name: '',
-    bio: '',
-    address: '',
-    dateOfBirth: '',
-    color: '',
-    jobTitle: '',
-    company: '',
-    image: '',
+    name: "",
+    bio: "",
+    address: "",
+    dateOfBirth: "",
+    color: "",
+    jobTitle: "",
+    company: "",
+    image: "",
   });
   const [file, setFile] = useState(null);
 
@@ -44,26 +65,17 @@ const ProfileForm = ({ strings }) => {
         dispatch(getUser(authUser.username));
       } else if (profile) {
         setForm({
-          name: profile.name ?? '',
-          bio: profile.bio ?? '',
-          address: profile.address ?? '',
-          dateOfBirth: profile.dateOfBirth ?? '',
-          color: profile.color ?? '',
-          company: profile.company ?? '',
-          jobTitle: profile.jobTitle ?? '',
+          name: profile.name ?? "",
+          bio: profile.bio ?? "",
+          address: profile.address ?? "",
+          dateOfBirth: profile.dateOfBirth ?? "",
+          color: profile.color ?? "",
+          company: profile.company ?? "",
+          jobTitle: profile.jobTitle ?? "",
         });
       }
     }
   }, [dispatch, success, profile, authUser]);
-
-  function selectImage() {
-    setShowImageOptions(false);
-    inputFile.current.click();
-  }
-  function deleteImage() {
-    setShowImageOptions(false);
-    dispatch(updateProfileMedia(profile.id, { image: '' }));
-  }
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -77,30 +89,30 @@ const ProfileForm = ({ strings }) => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    console.log(e);
     dispatch(updateProfile(profile.id, form));
   };
 
   return (
-    <div className="profile-card">
+    <div className=" profile-card">
       <div className="text-center">
         <Row>
           <Col>
-            <div class="profile_header">
+            <div className="profile_header">
               <div
-                class="profile_cover"
+                className="profile_cover"
                 style={{ backgroundColor: form.color }}
               >
                 <div></div>
               </div>
 
-              <div class="profile_photo">
+              <div className="profile_photo">
                 <input
                   type="file"
                   id="file"
                   accept="image/png, image/jpg, image/jpeg"
                   ref={inputFile}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   onChange={onImageChange}
                 />
                 <FontAwesomeIcon
@@ -114,13 +126,13 @@ const ProfileForm = ({ strings }) => {
                   <img src={file} alt="" />
                 ) : (
                   <>
-                    {profile && profile.image && profile.image !== '' ? (
+                    {profile && profile.image && profile.image !== "" ? (
                       <img
-                        src={process.env.REACT_APP_API_URL + profile.image}
+                        src={process.env.REACT_APP_IMAGE_URL + profile.image}
                         alt=""
                       />
                     ) : (
-                      <img src={process.env.PUBLIC_URL + '/user.png'} alt="" />
+                      <img src={process.env.PUBLIC_URL + "/user.png"} alt="" />
                     )}
                   </>
                 )}
@@ -135,31 +147,41 @@ const ProfileForm = ({ strings }) => {
         <></>
       )}
       {success && (
-        <Message variant="success">{strings['Profile Updated']}</Message>
+        <Message variant="success">{strings["Profile Updated"]}</Message>
       )}
       {!profile ? (
         <></>
       ) : (
-        <Form onSubmit={submitHandler} key={profile.id} className="p-2">
+        <Form
+          onSubmit={handleSubmit(submitHandler)}
+          key={profile.id}
+          className="p-2"
+        >
           <Form.Group controlId="name">
-            <Form.Label>{strings['Name']}</Form.Label>
+            <Form.Label>{strings["Name"]}</Form.Label>
             <Form.Control
+              {...register("name")}
               type="name"
-              placeholder={strings['Enter name']}
+              placeholder={strings["Enter name"]}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.name?.message}</p>
 
           <Form.Group controlId="bio">
-            <Form.Label>{strings['Bio']}</Form.Label>
-            <Form.Control
+            <Form.Label>{strings["Bio"]}</Form.Label>
+            <textarea
+              {...register("bio")}
+              rows="3"
               type="text"
-              placeholder={strings['Enter bio']}
+              placeholder={strings["Enter bio"]}
               value={form.bio}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
-            ></Form.Control>
+              className="form-control"
+            ></textarea>
           </Form.Group>
+          <p>{errors.bio?.message}</p>
           <Form.Group controlId="dateOfBirth">
             <Form.Label>Date Of Birth</Form.Label>
             <Form.Control
@@ -172,72 +194,66 @@ const ProfileForm = ({ strings }) => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="address">
-            <Form.Label>{strings['Address']}</Form.Label>
+            <Form.Label>{strings["Address"]}</Form.Label>
             <Form.Control
+              {...register("address")}
               type="text"
-              placeholder={strings['Enter Address']}
+              placeholder={strings["Enter Address"]}
               value={form.address}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.address?.message}</p>
           <Form.Group controlId="company">
             <Form.Label>Company</Form.Label>
             <Form.Control
+              {...register("company")}
               type="text"
               placeholder="Enter Company"
               value={form.company}
               onChange={(e) => setForm({ ...form, company: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.company?.message}</p>
           <Form.Group controlId="jobTitle">
-            <Form.Label>{strings['Job Title']}</Form.Label>
+            <Form.Label>{strings["Job Title"]}</Form.Label>
             <Form.Control
+              {...register("title")}
               type="text"
-              placeholder={strings['Enter Job Title']}
+              placeholder={strings["Enter Job Title"]}
               value={form.jobTitle}
               onChange={(e) => setForm({ ...form, jobTitle: e.target.value })}
             ></Form.Control>
           </Form.Group>
+          <p>{errors.title?.message}</p>
           <Form.Group controlId="color">
-            <Form.Label>{strings['Color']}</Form.Label>
+            <Form.Label>{strings["Color"]}</Form.Label>
             <CirclePicker
               className="mb-2"
               colors={[
-                '#81D8D0',
-                '#F5F5DC',
-                '#F7E7CE',
-                '#000000',
-                '#FDD7E4',
-                '#F70D1A',
-                '#E6E6FA',
-                '#BAB86C',
+                "#81D8D0",
+                "#30538C",
+                "#03879E",
+                "#000000",
+                "#FDD7E4",
+                "#F70D1A",
+                "#F5A2A1",
+                "#BAB86C",
               ]}
+              {...register("color")}
               onChangeComplete={(color, event) => {
                 const { hex } = color;
                 setForm({ ...form, color: hex });
               }}
             />
           </Form.Group>
+          <p>{errors.color?.message}</p>
           <Button type="submit" variant="primary" className="">
-            {loading ? <Loader /> : strings['Update']}
+            {loading ? <Loader /> : strings["Update"]}
           </Button>
         </Form>
       )}
-      <Modal show={showImageOptions} size="sm">
-        <Modal.Header closeButton onHide={(e) => setShowImageOptions(false)}>
-          <Modal.Title>Choose Option</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="d-grid gap-2">
-            <Button variant="primary" onClick={selectImage}>
-              Edit
-            </Button>
-            <Button variant="outline-danger" onClick={deleteImage}>
-              Delete
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ProfileFormModal />
     </div>
   );
 };

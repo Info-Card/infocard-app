@@ -1,17 +1,36 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import Message from 'components/Message';
-import Loader from 'components/Loader';
-import FormContainer from 'components/FormContainer';
-import * as types from 'state/ducks/users/types';
-import MainLayout from 'components/MainLayout';
-import { updateUser } from 'state/ducks/users/actions';
-import { multilanguage } from 'redux-multilanguage';
+import React, { useState, Fragment, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Message from "components/Message";
+import Loader from "components/Loader";
+import FormContainer from "components/FormContainer";
+import * as types from "state/ducks/users/types";
+import MainLayout from "components/MainLayout";
+import { updateUser } from "state/ducks/users/actions";
+import { multilanguage } from "redux-multilanguage";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
 const ChangePasswordPage = ({ location, history, strings }) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
 
@@ -23,16 +42,15 @@ const ChangePasswordPage = ({ location, history, strings }) => {
   useEffect(() => {
     if (rehydrated) {
       if (!authUser) {
-        history.push('/login');
+        history.push("/login");
       } else if (success) {
         dispatch({ type: types.USER_RESET });
-        history.push('/');
+        history.push("/");
       }
     }
   }, [history, success, dispatch, authUser, rehydrated]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
     if (confirmPassword === password) {
       dispatch(updateUser({ password }));
     } else {
@@ -41,36 +59,41 @@ const ChangePasswordPage = ({ location, history, strings }) => {
         payload: strings["Password doesn't match"],
       });
     }
+    console.log(data);
   };
 
   return (
     <MainLayout>
       <Fragment>
         <FormContainer>
-          <h3>{strings['Change Password']}</h3>
+          <h3>{strings["Change Password"]}</h3>
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
-          <Form onSubmit={submitHandler}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group controlId="password">
-              <Form.Label>{strings['Password']}</Form.Label>
+              <Form.Label>{strings["Password"]}</Form.Label>
               <Form.Control
                 type="password"
-                placeholder={strings['Enter password']}
+                {...register("password")}
+                placeholder={strings["Enter password"]}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            <p>{errors.password?.message}</p>
             <Form.Group controlId="confirmPassword">
-              <Form.Label>{strings['Confirm Password']}</Form.Label>
+              <Form.Label>{strings["Confirm Password"]}</Form.Label>
               <Form.Control
                 type="password"
-                placeholder={strings['Enter confirm password']}
+                {...register("confirmPassword")}
+                placeholder={strings["Enter confirm password"]}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            <p>{errors.confirmPassword?.message}</p>
             <Button type="submit" variant="primary">
-              {strings['Update']}
+              {strings["Update"]}
             </Button>
           </Form>
 
