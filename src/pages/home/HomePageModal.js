@@ -4,6 +4,7 @@ import { linkTag } from "state/ducks/tags/actions";
 import { TAG_RESET } from "state/ducks/tags/types";
 import { LOGOUT } from "state/ducks/auth/types";
 import { useForm } from "react-hook-form";
+import Loader from "components/Loader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { addCustomLink, updateProfileMedia } from "state/ducks/profile/actions";
@@ -37,7 +38,11 @@ const HomePageModal = ({
   const [videoURL, setVideoURL] = useState("");
 
   const [customLink, setCustomLink] = useState({ title: "", url: "" });
-  const { tag, success: tagSuccess } = useSelector((state) => state.tags);
+  const {
+    loading,
+    tag,
+    success: tagSuccess,
+  } = useSelector((state) => state.tags);
   const handleClose = () => {
     localStorage.removeItem("tagId");
     dispatch({ type: TAG_RESET });
@@ -55,6 +60,7 @@ const HomePageModal = ({
     dispatch({ type: TAG_RESET });
   };
   const handleAddVideo = (data) => {
+    console.log("function is ok");
     setVideoURL(data);
     console.log(data);
     console.log(videoURL);
@@ -125,18 +131,18 @@ const HomePageModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(handleAddVideo)}>
-            <Form.Group controlId="name">
+            <Form.Group controlId="url">
               <Form.Label>{strings["URL"]}</Form.Label>
               <Form.Control
                 {...register("url")}
                 placeholder="Enter url"
-                name="url"
+                // name="url"
               ></Form.Control>
             </Form.Group>
             <p>{errors.url?.message}</p>
 
             <Button type="submit" variant="primary">
-              {strings["ADD"]}
+              {loading ? <Loader /> : strings["ADD"]}
             </Button>
           </Form>
         </Modal.Body>
