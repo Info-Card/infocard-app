@@ -297,6 +297,15 @@ ul.twPc-Arrange {
     font-size: 9px;
   }
 }
+#show-password-label {
+  margin-top: 10px;
+  display: flex; /* use flexbox to align items */
+  align-items: center; /* center items vertically */
+  margin-bottom: 10px; /* add margin to the bottom of the label */
+}
+#show-password-input {
+  margin-right: 10px;
+}
 
 /* .form-control {
   height: 55px !important;

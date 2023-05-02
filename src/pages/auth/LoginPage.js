@@ -74,8 +74,12 @@ const LoginPage = ({ location, history, strings }) => {
             placeholder="password"
             type={passwordType}
           ></Form.Control>
-          <label htmlFor="agree">
-            <input type="checkbox" onClick={handleShowPassword} />
+          <label id="show-password-label" htmlFor="agree">
+            <input
+              id="show-password-input"
+              type="checkbox"
+              onClick={handleShowPassword}
+            />
             Show Password
           </label>
         </Form.Group>
