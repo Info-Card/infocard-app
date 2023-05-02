@@ -25,7 +25,6 @@ import Loader from "components/Loader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import Resizer from "react-image-file-resizer";
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
@@ -43,10 +42,9 @@ const HomePage = ({ history, strings }) => {
   const handleSubmitForLink = (event) => {
     // Prevent form submission
     // event.preventDefault();
-
     // Call function 1
-    handleSubmitForImage(event);
-
+    // handleSubmitForImage(event);
+    handleAddCustomLink(event);
     // Call function 2
   };
   const handleSubmitForImage = async (event) => {
@@ -291,14 +289,30 @@ const HomePage = ({ history, strings }) => {
                                   >
                                     <div className="d-flex align-items-start justify-content-between">
                                       <div className="d-flex align-items-start">
-                                        <img
+                                        {link.image ? (
+                                          <img
+                                            src={
+                                              process.env.REACT_APP_IMAGE_URL +
+                                              link.image
+                                            }
+                                            alt=""
+                                            className="platform-image"
+                                          />
+                                        ) : (
+                                          <img
+                                            src="userphoto.png"
+                                            alt=""
+                                            className="platform-image"
+                                          />
+                                        )}
+                                        {/* <img
                                           src={
                                             process.env.REACT_APP_IMAGE_URL +
                                             link.image
                                           }
                                           alt=""
                                           className="platform-image"
-                                        />
+                                        /> */}
                                         <div>
                                           <div className="d-flex justify-content-between align-items-start">
                                             <h6>{link.title}</h6>
