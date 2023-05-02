@@ -114,9 +114,11 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   >
                     <Button
                       type="submit"
-                      variant="outline-primary"
                       style={{
+                        backgroundColor: profile.color ?? "grey",
+                        color: "white",
                         width: "100%",
+                        border: `2px solid ${profile.color ?? "grey"}`,
                       }}
                     >
                       {strings["Save Contact"]}
