@@ -25,6 +25,7 @@ import Loader from "components/Loader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Slider from "react-slick";
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
@@ -77,6 +78,31 @@ const HomePage = ({ history, strings }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   const [showAddVideo, setShowAddVideo] = useState(false);
   const [showCustomLink, setShowCustomLink] = useState(false);
 
@@ -275,6 +301,7 @@ const HomePage = ({ history, strings }) => {
                         <>
                           <h5 style={{ paddingTop: "10px" }}>Links</h5>
                           <Col xs={12}>
+                            <Slider {...settings}></Slider>
                             <div className="scrolling-wrapper bg-transparent">
                               {profile.customLinks.map((link) => {
                                 return (
