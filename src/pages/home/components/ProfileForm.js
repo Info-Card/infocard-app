@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CirclePicker } from "react-color";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,6 +34,14 @@ const ProfileForm = ({ strings }) => {
   });
   const [showImageOptions, setShowImageOptions] = useState(false);
 
+  const [imageUrl, setImageUrl] = useState("");
+  const [showImage, setShowImage] = useState(false);
+  const handleImageClick = (url) => {
+    console.log(url);
+    setImageUrl(url);
+    setShowImage(true);
+  };
+
   const inputFile = useRef(null);
 
   const [form, setForm] = useState({
@@ -47,6 +55,10 @@ const ProfileForm = ({ strings }) => {
     image: "",
   });
   const [file, setFile] = useState(null);
+  const imageStyle = {
+    width: "450px",
+    height: "550px",
+  };
 
   const dispatch = useDispatch();
 
@@ -130,6 +142,7 @@ const ProfileForm = ({ strings }) => {
                       <img
                         src={process.env.REACT_APP_IMAGE_URL + profile.image}
                         alt=""
+                        onClick={() => handleImageClick(profile.image)}
                       />
                     ) : (
                       <img src={process.env.PUBLIC_URL + "/user.png"} alt="" />
@@ -254,6 +267,23 @@ const ProfileForm = ({ strings }) => {
         </Form>
       )}
       <ProfileFormModal />
+
+      <Modal show={showImage}>
+        <Modal.Header closeButton onHide={(e) => setShowImage(false)}>
+          <Modal.Title>Profile Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            {showImage && (
+              <img
+                src={process.env.REACT_APP_IMAGE_URL + imageUrl}
+                alt="Image"
+                style={imageStyle}
+              />
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
