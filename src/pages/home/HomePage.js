@@ -25,15 +25,16 @@ import Loader from "components/Loader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+// import Resizer from "react-image-file-resizer";
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
-  title: yup.string().min(8).max(32).required(),
+  title: yup.string().max(32).required(),
 });
 const HomePage = ({ history, strings }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
   const [imageError, setImageError] = useState(null);
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
@@ -539,6 +540,7 @@ const HomePage = ({ history, strings }) => {
                     placeholder="Choose image"
                     onChange={(event) => {
                       handleImageChange(event);
+
                       if (event.target.files && event.target.files[0]) {
                         console.log();
                         setCustomLink({

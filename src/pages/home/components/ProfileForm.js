@@ -33,7 +33,7 @@ const ProfileForm = ({ strings }) => {
     resolver: yupResolver(schema),
   });
   const [showImageOptions, setShowImageOptions] = useState(false);
-  console.log(showImageOptions);
+
   const inputFile = useRef(null);
 
   const [form, setForm] = useState({
