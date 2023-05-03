@@ -245,9 +245,13 @@ const HomePage = ({ history, strings }) => {
                           <Col xs={6}>
                             <Button
                               type="submit"
+                              id="button-text-adjustment"
                               variant="outline-primary"
                               style={{
+                                backgroundColor: profile.color ?? "black",
+                                color: "white",
                                 width: "100%",
+                                border: `2px solid ${profile.color ?? "black"}`,
                               }}
                               onClick={(e) => setShowCustomLink(true)}
                             >
@@ -256,6 +260,7 @@ const HomePage = ({ history, strings }) => {
                           </Col>
                           <Col xs={6}>
                             <Button
+                              id="button-text-adjustment"
                               type="submit"
                               style={{
                                 backgroundColor: profile.color ?? "black",

@@ -16,6 +16,10 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required("Password is required")
+    .max(
+      32,
+      "Error: Password is too long. Please enter a password with a maximum of 32 characters."
+    )
     .min(8, "Password must be at least 8 characters"),
   confirmPassword: yup
     .string()
