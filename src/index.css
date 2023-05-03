@@ -333,6 +333,21 @@ ul.twPc-Arrange {
     font-size: 8px;
   }
 }
+@media (min-width: 900px) and (max-width: 1047px) {
+  #save-contact-text-adjustment {
+    font-size: 9px;
+  }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  #save-contact-text-adjustment {
+    font-size: 6px;
+  }
+}
+@media (min-width: 100px) and (max-width: 349px) {
+  #save-contact-text-adjustment {
+    font-size: 9px;
+  }
+}
 
 /* .form-control {
   height: 55px !important;

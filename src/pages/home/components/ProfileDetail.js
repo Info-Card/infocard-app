@@ -114,6 +114,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   >
                     <Button
                       type="submit"
+                      id="save-contact-text-adjustment"
                       style={{
                         backgroundColor: profile.color ?? "grey",
                         color: "white",
@@ -128,6 +129,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                 <Col xs={6}>
                   <Button
                     type="submit"
+                    id="save-contact-text-adjustment"
                     style={{
                       backgroundColor: profile.color ?? "grey",
                       color: "white",
