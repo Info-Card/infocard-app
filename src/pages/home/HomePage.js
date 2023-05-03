@@ -59,8 +59,8 @@ const HomePage = ({ history, strings }) => {
           .required("Please upload an image file")
           .test(
             "fileSize",
-            "Image size must be no more than 5 MB",
-            (value) => value && value.size <= 5000000
+            "Image size must be no more than 2 MB",
+            (value) => value && value.size <= 2000000
           ),
       });
 
@@ -72,6 +72,7 @@ const HomePage = ({ history, strings }) => {
       setImageError(imageError.message);
     }
   };
+
   const {
     register,
     handleSubmit,
@@ -79,31 +80,6 @@ const HomePage = ({ history, strings }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   const [showAddVideo, setShowAddVideo] = useState(false);
   const [showCustomLink, setShowCustomLink] = useState(false);
 
@@ -172,8 +148,9 @@ const HomePage = ({ history, strings }) => {
     dispatch(deleteCustomLink(profile.id, link.id));
   };
   const handleAddVideo = (data) => {
-    console.log("ok function");
     setVideoURL(data);
+    console.log(data);
+    console.log(videoURL);
     const { url } = data;
     const videos = profile.videos ?? [];
     videos.push(url);

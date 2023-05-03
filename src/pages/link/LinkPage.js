@@ -335,7 +335,7 @@ const LinkPage = ({ history, match, strings }) => {
                           <Form.Control
                             type="text"
                             {...register("profileLink")}
-                            placeholder="hhh"
+                            placeholder="Enter Here"
                             value={path}
                             onChange={(e) => setPath(e.target.value)}
                           ></Form.Control>
