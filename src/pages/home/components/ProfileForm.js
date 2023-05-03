@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  name: yup.string().min(5).max(23).required(),
+  name: yup.string().max(23).required(),
   bio: yup.string().required().min(5).max(100),
   address: yup.string().min(6).max(25).required(),
   company: yup.string().min(5).max(23).required(),
@@ -27,6 +27,7 @@ const ProfileForm = ({ strings }) => {
   const {
     register,
     handleSubmit,
+
     formState: { errors },
     reset,
   } = useForm({
