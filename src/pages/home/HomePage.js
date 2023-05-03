@@ -25,7 +25,8 @@ import Loader from "components/Loader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Slider from "react-slick";
+// import Carousel from "react-bootstrap/Carousel";
+import { Carousel } from "react-bootstrap";
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
@@ -171,9 +172,8 @@ const HomePage = ({ history, strings }) => {
     dispatch(deleteCustomLink(profile.id, link.id));
   };
   const handleAddVideo = (data) => {
+    console.log("ok function");
     setVideoURL(data);
-    console.log(data);
-    console.log(videoURL);
     const { url } = data;
     const videos = profile.videos ?? [];
     videos.push(url);
@@ -301,72 +301,74 @@ const HomePage = ({ history, strings }) => {
                         <>
                           <h5 style={{ paddingTop: "10px" }}>Links</h5>
                           <Col xs={12}>
-                            <Slider {...settings}></Slider>
-                            <div className="scrolling-wrapper bg-transparent">
+                            <Carousel>
                               {profile.customLinks.map((link) => {
                                 return (
-                                  <div
-                                    className="platform-card p-3 m-2"
-                                    style={{
-                                      display: "inline-block",
-                                      width: "290px",
-                                      height: "90px",
-                                    }}
-                                    key={link.id}
-                                  >
-                                    <div className="d-flex align-items-start justify-content-between">
-                                      <div className="d-flex align-items-start">
-                                        {link.image ? (
-                                          <img
-                                            src={
-                                              process.env.REACT_APP_IMAGE_URL +
-                                              link.image
-                                            }
-                                            alt=""
-                                            className="platform-image"
-                                          />
-                                        ) : (
-                                          <img
-                                            src="userphoto.png"
-                                            alt=""
-                                            className="platform-image"
-                                          />
-                                        )}
-                                        {/* <img
-                                          src={
-                                            process.env.REACT_APP_IMAGE_URL +
-                                            link.image
-                                          }
-                                          alt=""
-                                          className="platform-image"
-                                        /> */}
-                                        <div>
-                                          <div className="d-flex justify-content-between align-items-start">
-                                            <h6>{link.title}</h6>
-                                          </div>
+                                  <Carousel.Item>
+                                    <div
+                                      className="platform-card p-3 m-2"
+                                      style={{
+                                        display: "inline-block",
+                                        width: "290px",
+                                        height: "90px",
+                                      }}
+                                      key={link.id}
+                                    >
+                                      <div className="d-flex align-items-start justify-content-between">
+                                        <div className="d-flex align-items-start">
+                                          {link.image ? (
+                                            <img
+                                              src={
+                                                process.env
+                                                  .REACT_APP_IMAGE_URL +
+                                                link.image
+                                              }
+                                              alt=""
+                                              className="platform-image"
+                                            />
+                                          ) : (
+                                            <img
+                                              src="userphoto.png"
+                                              alt=""
+                                              className="platform-image"
+                                            />
+                                          )}
+                                          {/* <img
+                                              src={
+                                                process.env.REACT_APP_IMAGE_URL +
+                                                link.image
+                                              }
+                                              alt=""
+                                              className="platform-image"
+                                            /> */}
+                                          <div>
+                                            <div className="d-flex justify-content-between align-items-start">
+                                              <h6>{link.title}</h6>
+                                            </div>
 
-                                          <span
-                                            className="max-lines"
-                                            style={{ width: "100%" }}
-                                          >
-                                            {link.url}
-                                          </span>
+                                            <span
+                                              className="max-lines"
+                                              style={{ width: "100%" }}
+                                            >
+                                              {link.url}
+                                            </span>
+                                          </div>
                                         </div>
+                                        <FontAwesomeIcon
+                                          icon={faTrash}
+                                          size="1x"
+                                          className="delete-video"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            deleteLink(link);
+                                          }}
+                                        />
                                       </div>
-                                      <FontAwesomeIcon
-                                        icon={faTrash}
-                                        size="1x"
-                                        className="delete-video"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          deleteLink(link);
-                                        }}
-                                      />
                                     </div>
-                                  </div>
+                                  </Carousel.Item>
                                 );
                               })}
-                            </div>
+                            </Carousel>
                           </Col>
                         </>
                       ) : (

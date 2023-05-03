@@ -306,6 +306,17 @@ ul.twPc-Arrange {
 #show-password-input {
   margin-right: 10px;
 }
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 20px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: "<";
+  font-size: 20px;
+  color: black;
+}
 
 /* .form-control {
   height: 55px !important;
