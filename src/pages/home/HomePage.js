@@ -368,7 +368,7 @@ const HomePage = ({ history, strings }) => {
                       )}
                       <h5 style={{ paddingTop: "10px" }}>Videos</h5>
                       <Col xs={12}>
-                        <Carousel variant="dark">
+                        <Carousel className="mb-4" variant="dark">
                           {profile.videos.map((video) => {
                             return (
                               <Carousel.Item key={video}>
