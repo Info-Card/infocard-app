@@ -366,35 +366,36 @@ const HomePage = ({ history, strings }) => {
                       ) : (
                         <></>
                       )}
-
                       <h5 style={{ paddingTop: "10px" }}>Videos</h5>
                       <Col xs={12}>
-                        <div className="scrolling-wrapper text-center ">
+                        <Carousel variant="dark">
                           {profile.videos.map((video) => {
                             return (
-                              <div
-                                style={{
-                                  display: "inline-block",
-                                }}
-                                className="mr-1"
-                                key={video}
-                              >
-                                <div className="text-right mr-2" style={{}}>
-                                  <FontAwesomeIcon
-                                    icon={faTrash}
-                                    size="1x"
-                                    className="delete-video"
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      deleteVideo(video);
-                                    }}
-                                  />
+                              <Carousel.Item key={video}>
+                                <div
+                                  style={{
+                                    display: "inline-block",
+                                  }}
+                                  className="mr-1"
+                                  key={video}
+                                >
+                                  <div className="text-right mr-2" style={{}}>
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                      size="1x"
+                                      className="delete-video"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        deleteVideo(video);
+                                      }}
+                                    />
+                                  </div>
+                                  <VideoPlayer video={video} />
                                 </div>
-                                <VideoPlayer video={video} />
-                              </div>
+                              </Carousel.Item>
                             );
                           })}
-                        </div>
+                        </Carousel>
                       </Col>
                       <Col xs={12}>
                         <div className="d-flex flex-row justify-content-between">
