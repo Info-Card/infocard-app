@@ -25,52 +25,69 @@ import Loader from "components/Loader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import Carousel from "react-bootstrap/Carousel";
 import { Carousel } from "react-bootstrap";
+import Resizer from "react-image-file-resizer";
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
   title: yup.string().max(32).required(),
+  image: yup
+    .mixed()
+    .required("Please upload an image")
+    .test(
+      "fileFormat",
+      "Only JPEG, PNG, and GIF files are allowed",
+      (value) => {
+        if (value) {
+          const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+          return allowedTypes.includes(value.type);
+        }
+        return true;
+      }
+    ),
 });
 const HomePage = ({ history, strings }) => {
+  const [reduceImage, setReduceImage] = useState(null);
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        300,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
+  const onChange = async (event) => {
+    const file = event.target.files[0];
+    const image = await resizeFile(file);
+    setReduceImage(image);
+    console.log(image);
+  };
+
   const [image, setImage] = useState();
   const [imageError, setImageError] = useState(null);
+
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
+    console.log(image);
   };
+
   const handleSubmitForLink = (event) => {
     // Prevent form submission
     // event.preventDefault();
     // Call function 1
-    // handleSubmitForImage(event);
+    // handleImageUpload();
     handleAddCustomLink(event);
     // Call function 2
-  };
-  const handleSubmitForImage = async (event) => {
-    // event.preventDefault();
-
-    try {
-      const schemaForImage = yup.object().shape({
-        image: yup
-          .mixed()
-          .required("Please upload an image file")
-          .test(
-            "fileSize",
-            "Image size must be no more than 2 MB",
-            (value) => value && value.size <= 2000000
-          ),
-      });
-
-      await schemaForImage.validate({ image });
-
-      // Perform image upload logic here
-      handleAddCustomLink(event);
-    } catch (imageError) {
-      setImageError(imageError.message);
-    }
   };
 
   const {
@@ -283,7 +300,7 @@ const HomePage = ({ history, strings }) => {
                         <>
                           <h5 style={{ paddingTop: "10px" }}>Links</h5>
                           <Col xs={12}>
-                            <Carousel>
+                            <Carousel variant="dark">
                               {profile.customLinks.map((link) => {
                                 return (
                                   <Carousel.Item>
@@ -315,14 +332,7 @@ const HomePage = ({ history, strings }) => {
                                               className="platform-image"
                                             />
                                           )}
-                                          {/* <img
-                                              src={
-                                                process.env.REACT_APP_IMAGE_URL +
-                                                link.image
-                                              }
-                                              alt=""
-                                              className="platform-image"
-                                            /> */}
+
                                           <div>
                                             <div className="d-flex justify-content-between align-items-start">
                                               <h6>{link.title}</h6>
@@ -563,11 +573,11 @@ const HomePage = ({ history, strings }) => {
                   <Form.Control
                     type="file"
                     placeholder="Choose image"
+                    {...register("image")}
                     onChange={(event) => {
                       handleImageChange(event);
-
+                      onChange(event);
                       if (event.target.files && event.target.files[0]) {
-                        console.log();
                         setCustomLink({
                           ...customLink,
                           image: event.target.files,
@@ -576,6 +586,7 @@ const HomePage = ({ history, strings }) => {
                     }}
                   ></Form.Control>
                 </Form.Group>
+                {errors.image && <p>{errors.image.message}</p>}
                 {imageError && <p>{imageError}</p>}
                 <p>{errors.filename?.message}</p>
                 <Button type="submit" variant="primary">
