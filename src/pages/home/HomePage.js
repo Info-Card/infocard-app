@@ -69,11 +69,10 @@ const HomePage = ({ history, strings }) => {
     const file = event.target.files[0];
     const image = await resizeFile(file);
     setReduceImage(image);
-    console.log(image);
+    console.log(reduceImage);
   };
 
   const [image, setImage] = useState();
-  const [imageError, setImageError] = useState(null);
 
   const handleImageChange = (event) => {
     const selectedImage = event.target.files[0];
@@ -588,7 +587,6 @@ const HomePage = ({ history, strings }) => {
                   ></Form.Control>
                 </Form.Group>
                 {errors.image && <p>{errors.image.message}</p>}
-                {imageError && <p>{imageError}</p>}
                 <p>{errors.filename?.message}</p>
                 <Button type="submit" variant="primary">
                   {strings["ADD"]}

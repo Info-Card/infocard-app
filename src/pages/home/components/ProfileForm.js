@@ -27,9 +27,7 @@ const ProfileForm = ({ strings }) => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -102,7 +100,6 @@ const ProfileForm = ({ strings }) => {
   };
 
   const submitHandler = (e) => {
-    console.log(e);
     dispatch(updateProfile(profile.id, form));
   };
 
@@ -119,7 +116,10 @@ const ProfileForm = ({ strings }) => {
                 <div></div>
               </div>
 
-              <div className="profile_photo">
+              <div
+                style={{ position: "relative", display: "inline-block" }}
+                className="profile_photo"
+              >
                 <input
                   type="file"
                   id="file"
@@ -129,6 +129,7 @@ const ProfileForm = ({ strings }) => {
                   onChange={onImageChange}
                 />
                 <FontAwesomeIcon
+                  style={{ marginRight: "-5px" }}
                   icon={faPen}
                   size="1x"
                   className="edit-profile-image"
