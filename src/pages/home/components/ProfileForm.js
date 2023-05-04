@@ -14,7 +14,6 @@ import ProfileFormModal from "./ProfileFormModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 const schema = yup.object().shape({
   name: yup.string().max(23).required(),
   bio: yup.string().required().min(5).max(100),
@@ -70,6 +69,7 @@ const ProfileForm = ({ strings }) => {
   } = useSelector((state) => state.profile);
 
   useEffect(() => {
+    setShowImageOptions(false);
     if (authUser) {
       if (success) {
         dispatch({ type: PROFILE_RESET });
@@ -183,7 +183,6 @@ const ProfileForm = ({ strings }) => {
             ></Form.Control>
           </Form.Group>
           <p>{errors.name?.message}</p>
-
           <Form.Group controlId="bio">
             <Form.Label>{strings["Bio"]}</Form.Label>
             <textarea
@@ -268,7 +267,7 @@ const ProfileForm = ({ strings }) => {
           </Button>
         </Form>
       )}
-      <ProfileFormModal />
+      {showImageOptions === true ? <ProfileFormModal /> : null}
 
       <Modal show={showImage}>
         <Modal.Header closeButton onHide={(e) => setShowImage(false)}>

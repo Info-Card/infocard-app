@@ -365,37 +365,46 @@ const HomePage = ({ history, strings }) => {
                       ) : (
                         <></>
                       )}
-                      <h5 style={{ paddingTop: "10px" }}>Videos</h5>
-                      <Col xs={12}>
-                        <Carousel className="mb-4" variant="dark">
-                          {profile.videos.map((video) => {
-                            return (
-                              <Carousel.Item key={video}>
-                                <div
-                                  style={{
-                                    display: "inline-block",
-                                  }}
-                                  className="mr-1"
-                                  key={video}
-                                >
-                                  <div className="text-right mr-2" style={{}}>
-                                    <FontAwesomeIcon
-                                      icon={faTrash}
-                                      size="1x"
-                                      className="delete-video"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        deleteVideo(video);
-                                      }}
-                                    />
-                                  </div>
-                                  <VideoPlayer video={video} />
-                                </div>
-                              </Carousel.Item>
-                            );
-                          })}
-                        </Carousel>
-                      </Col>
+                      <>
+                        {profile.videos.length > 0 && (
+                          <>
+                            <h5 style={{ paddingTop: "10px" }}>Videos</h5>
+                            <Col xs={12}>
+                              <Carousel className="mb-4" variant="dark">
+                                {profile.videos.map((video) => {
+                                  return (
+                                    <Carousel.Item key={video}>
+                                      <div
+                                        style={{
+                                          display: "inline-block",
+                                        }}
+                                        className="mr-1"
+                                        key={video}
+                                      >
+                                        <div
+                                          className="text-right mr-2"
+                                          style={{}}
+                                        >
+                                          <FontAwesomeIcon
+                                            icon={faTrash}
+                                            size="1x"
+                                            className="delete-video"
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              deleteVideo(video);
+                                            }}
+                                          />
+                                        </div>
+                                        <VideoPlayer video={video} />
+                                      </div>
+                                    </Carousel.Item>
+                                  );
+                                })}
+                              </Carousel>
+                            </Col>
+                          </>
+                        )}
+                      </>
                       <Col xs={12}>
                         <div className="d-flex flex-row justify-content-between">
                           <div className="custom-control custom-switch">

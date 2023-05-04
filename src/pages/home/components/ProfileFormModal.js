@@ -6,16 +6,26 @@ import { updateProfileMedia } from "state/ducks/profile/actions";
 
 const ProfileFormModal = () => {
   const { profile } = useSelector((state) => state.users);
-  const [showImageOptions, setShowImageOptions] = useState(false);
+  const [showImageOptions, setShowImageOptions] = useState(true);
   const inputFile = useRef(null);
   const dispatch = useDispatch();
   function selectImage() {
-    setShowImageOptions(false);
-    inputFile.current.click();
+    const inputElement = document.createElement("input");
+    inputElement.type = "file";
+    inputElement.accept = "image/*";
+    inputElement.onchange = (event) => {
+      const selectedFile = event.target.files[0];
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      dispatch(updateProfileMedia(profile.id, formData));
+      setShowImageOptions(false);
+    };
+    inputElement.click();
   }
   function deleteImage() {
     setShowImageOptions(false);
     dispatch(updateProfileMedia(profile.id, { image: "" }));
+    setShowImageOptions(false);
   }
   return (
     <div>
