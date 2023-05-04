@@ -303,7 +303,7 @@ const HomePage = ({ history, strings }) => {
                             <Carousel variant="dark">
                               {profile.customLinks.map((link) => {
                                 return (
-                                  <Carousel.Item>
+                                  <Carousel.Item key={link.id}>
                                     <div
                                       className="platform-card p-3 m-2"
                                       style={{
