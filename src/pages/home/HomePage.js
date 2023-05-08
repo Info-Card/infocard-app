@@ -27,26 +27,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Carousel } from "react-bootstrap";
 import Resizer from "react-image-file-resizer";
+import ProfileCard from "./components/ProfileCard";
+
 
 const urlRegix =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
   title: yup.string().max(32).required(),
-  image: yup
-    .mixed()
-    .required("Please upload an image")
-    .test(
-      "fileFormat",
-      "Only JPEG, PNG, and GIF files are allowed",
-      (value) => {
-        if (value) {
-          const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-          return allowedTypes.includes(value.type);
-        }
-        return true;
-      }
-    ),
+  // image: yup
+  //   .mixed()
+  //   .required("Please upload an image")
+  //   .test(
+  //     "fileFormat",
+  //     "Only JPEG, PNG, and GIF files are allowed",
+  //     (value) => {
+  //       if (value) {
+  //         const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+  //         return allowedTypes.includes(value.type);
+  //       }
+  //       return true;
+  //     }
+  //   ),
 });
 const HomePage = ({ history, strings }) => {
   const [reduceImage, setReduceImage] = useState(null);
@@ -67,8 +69,8 @@ const HomePage = ({ history, strings }) => {
     });
   const onChange = async (event) => {
     const file = event.target.files[0];
-    const image = await resizeFile(file);
-    setReduceImage(image);
+    const Newimage = await resizeFile(file);
+    setReduceImage(Newimage);
     console.log(reduceImage);
   };
 
@@ -81,12 +83,7 @@ const HomePage = ({ history, strings }) => {
   };
 
   const handleSubmitForLink = (event) => {
-    // Prevent form submission
-    // event.preventDefault();
-    // Call function 1
-    // handleImageUpload();
     handleAddCustomLink(event);
-    // Call function 2
   };
 
   const {
@@ -208,55 +205,7 @@ const HomePage = ({ history, strings }) => {
                   <div className="">
                     <Row className="">
                       <Col xs={12} className="">
-                        <Row
-                          className="user-card"
-                          style={{
-                            backgroundColor: profile.color ?? "grey",
-                          }}
-                        >
-                          <Col
-                            xs={6}
-                            lg={6}
-                            className="p-0"
-                            id="image-adjustment"
-                          >
-                            {profile.image && profile.image !== "" ? (
-                              <img
-                                src={
-                                  process.env.REACT_APP_IMAGE_URL +
-                                  profile.image
-                                }
-                                alt=""
-                                className="img-fluid image-adjust"
-                              />
-                            ) : (
-                              <img
-                                src={process.env.PUBLIC_URL + "/user.png"}
-                                alt=""
-                                className="img-fluid"
-                                style={{
-                                  height: "200px",
-                                  objectFit: "contain",
-                                }}
-                              />
-                            )}
-                          </Col>
-
-                          <Col xs={6} lg={6}>
-                            <h5>{profile.name}</h5>
-                            <h5 id="company-name-length-adjust">
-                              {profile.company}
-                            </h5>
-                            <h6>{profile.jobTitle}</h6>
-                            <p>
-                              <strong>Views: </strong>
-                              {profile.views}
-                              <br />
-                              <strong>Info Shared: </strong>
-                              {profile.infoShared}
-                            </p>
-                          </Col>
-                        </Row>
+                        <ProfileCard/>
                         <Row className="mt-3">
                           <Col xs={6}>
                             <Button
@@ -582,11 +531,12 @@ const HomePage = ({ history, strings }) => {
                   <Form.Control
                     type="file"
                     placeholder="Choose image"
-                    {...register("image")}
+                    // {...register("image")}
                     onChange={(event) => {
                       handleImageChange(event);
                       onChange(event);
                       if (event.target.files && event.target.files[0]) {
+                        console.log();
                         setCustomLink({
                           ...customLink,
                           image: event.target.files,
