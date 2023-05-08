@@ -26,50 +26,21 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Carousel } from "react-bootstrap";
-import Resizer from "react-image-file-resizer";
 import ProfileCard from "./components/ProfileCard";
+import { urlRegex } from "helpers/regex";
+import { resizeImage } from "helpers/imageResize";
 
-
-const urlRegix =
-  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 const schema = yup.object().shape({
-  url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
+  url: yup.string().required().matches(urlRegex, "Please Enter a valid URL"),
   title: yup.string().max(32).required(),
-  // image: yup
-  //   .mixed()
-  //   .required("Please upload an image")
-  //   .test(
-  //     "fileFormat",
-  //     "Only JPEG, PNG, and GIF files are allowed",
-  //     (value) => {
-  //       if (value) {
-  //         const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-  //         return allowedTypes.includes(value.type);
-  //       }
-  //       return true;
-  //     }
-  //   ),
 });
+
 const HomePage = ({ history, strings }) => {
   const [reduceImage, setReduceImage] = useState(null);
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        300,
-        300,
-        "JPEG",
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        "base64"
-      );
-    });
+
   const onChange = async (event) => {
     const file = event.target.files[0];
-    const Newimage = await resizeFile(file);
+    const Newimage = await resizeImage(file);
     setReduceImage(Newimage);
     console.log(reduceImage);
   };
@@ -205,7 +176,7 @@ const HomePage = ({ history, strings }) => {
                   <div className="">
                     <Row className="">
                       <Col xs={12} className="">
-                        <ProfileCard/>
+                        <ProfileCard />
                         <Row className="mt-3">
                           <Col xs={6}>
                             <Button
