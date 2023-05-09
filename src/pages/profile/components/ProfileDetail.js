@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Platform from "components/Platform";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "../../../components/VideoPlayer";
 import { exchangeContact } from "state/ducks/profile/actions";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";

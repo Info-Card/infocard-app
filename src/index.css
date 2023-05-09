@@ -78,12 +78,6 @@ a {
   -webkit-box-orient: vertical;
 }
 
-.player-card {
-  height: 200px;
-  margin-right: 10px;
-  background-color: black;
-}
-
 .direct-button {
   background-color: #ddd;
   border: none;

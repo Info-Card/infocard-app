@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-
-import { updateProfileMedia } from "state/ducks/profile/actions";
+import { updateProfile } from "state/ducks/profile/actions";
 
 const ProfileFormModal = () => {
   const { profile } = useSelector((state) => state.users);
@@ -17,14 +16,14 @@ const ProfileFormModal = () => {
       const selectedFile = event.target.files[0];
       const formData = new FormData();
       formData.append("image", selectedFile);
-      dispatch(updateProfileMedia(profile.id, formData));
+      dispatch(updateProfile(profile.id, formData));
       setShowImageOptions(false);
     };
     inputElement.click();
   }
   function deleteImage() {
     setShowImageOptions(false);
-    dispatch(updateProfileMedia(profile.id, { image: "" }));
+    dispatch(updateProfile(profile.id, { image: "" }));
     setShowImageOptions(false);
   }
   return (
