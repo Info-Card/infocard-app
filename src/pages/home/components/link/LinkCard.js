@@ -30,14 +30,13 @@ const LinkCard = ({ link }) => {
     >
       <div className="d-flex align-items-center justify-content-between px-4">
         <img src={platformImage} alt={link.title} className="platform-image" />
-        <div className="ml-2">
-          <h6 className="mb-1">{link.title}</h6>
+        <div className="d-flex row">
+          <h6>{link.title}</h6>
           <span className="max-lines">{link.url}</span>
         </div>
         <FontAwesomeIcon
           icon={faTrashAlt}
           color="red"
-          className="ml-2"
           onClick={handleDeleteLink}
         />
       </div>
