@@ -4,9 +4,11 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../../../components/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVideos } from "state/ducks/profile/actions";
+import { useParams } from "react-router-dom";
 
 const VideoCard = ({ video }) => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   const { profile } = useSelector((state) => state.users);
 
@@ -24,12 +26,14 @@ const VideoCard = ({ video }) => {
       }}
     >
       <div className="text-right" style={{}}>
-        <FontAwesomeIcon
-          icon={faTrash}
-          size="1x"
-          className="delete-video"
-          onClick={handleDeleteVideo}
-        />
+        {!params.username && (
+          <FontAwesomeIcon
+            icon={faTrash}
+            size="1x"
+            className="delete-video"
+            onClick={handleDeleteVideo}
+          />
+        )}
       </div>
       <VideoPlayer video={video} />
     </div>

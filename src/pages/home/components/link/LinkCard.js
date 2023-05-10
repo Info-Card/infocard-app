@@ -3,8 +3,10 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomLink } from "state/ducks/profile/actions";
+import { useParams } from "react-router-dom";
 
 const LinkCard = ({ link }) => {
+  const params = useParams();
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
 
@@ -33,11 +35,13 @@ const LinkCard = ({ link }) => {
           <h6>{link.title}</h6>
           <span className="max-lines">{link.url}</span>
         </div>
-        <FontAwesomeIcon
-          icon={faTrashAlt}
-          color="red"
-          onClick={handleDeleteLink}
-        />
+        {!params.username && (
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            color="red"
+            onClick={handleDeleteLink}
+          />
+        )}
       </div>
     </div>
   );
