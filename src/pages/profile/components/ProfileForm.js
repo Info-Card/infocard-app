@@ -3,19 +3,16 @@ import { CirclePicker } from "react-color";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 import Message from "components/Message";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { getUser } from "state/ducks/users/actions";
-import ImageOptionsModal from "./ImageOptionsModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import ImageViewer from "react-simple-image-viewer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ProfileFormHead from "./ProfileFormHead";
 
 const schema = yup.object().shape({
   name: yup.string().max(23).required(),
@@ -29,8 +26,8 @@ const ProfileForm = ({ profile, strings }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [showImageOptions, setShowImageOptions] = useState(false);
-  const [showImage, setShowImage] = useState(false);
+  // const [showImageOptions, setShowImageOptions] = useState(false);
+  // const [showImage, setShowImage] = useState(false);
   const [color, setColor] = useState(profile.color);
 
   const { rehydrated } = useSelector((state) => state._persist);
@@ -76,43 +73,7 @@ const ProfileForm = ({ profile, strings }) => {
   return (
     <div className="card">
       <Form onSubmit={handleSubmit(onSubmit)} key={profile.id} className="p-2">
-        <div
-          className="profile-cover"
-          style={{
-            backgroundColor: color,
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              width: "100px",
-              height: "100px",
-              margin: "auto",
-            }}
-          >
-            <img
-              src={
-                profile.image && profile.image !== ""
-                  ? process.env.REACT_APP_IMAGE_URL + profile.image
-                  : `${process.env.PUBLIC_URL}/assets/images/placeholder/user.png`
-              }
-              className="profile-image rounded-circle"
-              alt=""
-              onClick={() => {
-                if (profile.image && profile.image !== "") setShowImage(true);
-              }}
-            />
-            <div
-              className="card p-2 rounded-circle"
-              style={{ position: "absolute", bottom: 0, right: 0 }}
-              onClick={() => {
-                setShowImageOptions(true);
-              }}
-            >
-              <FontAwesomeIcon icon={faPen} size="1x" />
-            </div>
-          </div>
-        </div>
+        <ProfileFormHead color={color} profile={profile} />
         {profileError && (
           <Message variant="danger">{error ? error : profileError}</Message>
         )}
@@ -178,7 +139,6 @@ const ProfileForm = ({ profile, strings }) => {
             onChangeComplete={(color, event) => {
               const { hex } = color;
               setColor(hex);
-              // setForm({ ...form, color: hex });
             }}
           />
         </Form.Group>
@@ -187,21 +147,6 @@ const ProfileForm = ({ profile, strings }) => {
           {loading ? <Loader /> : strings["Update"]}
         </Button>
       </Form>
-      <ImageOptionsModal
-        show={showImageOptions}
-        setShow={setShowImageOptions}
-      />
-      {showImage && (
-        <div className="image-viewer">
-          <ImageViewer
-            src={[process.env.REACT_APP_IMAGE_URL + profile.image]}
-            closeOnClickOutside={true}
-            onClose={() => {
-              setShowImage(false);
-            }}
-          />
-        </div>
-      )}
     </div>
   );
 };
