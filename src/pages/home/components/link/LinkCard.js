@@ -17,8 +17,7 @@ const LinkCard = ({ link }) => {
     : "userphoto.png";
 
   return (
-    <a
-      href={link.url}
+    <div
       target="_blank"
       rel="noreferrer"
       className="platform-card d-flex"
@@ -30,7 +29,7 @@ const LinkCard = ({ link }) => {
     >
       <div className="d-flex align-items-center justify-content-between px-4">
         <img src={platformImage} alt={link.title} className="platform-image" />
-        <div className="d-flex row">
+        <div className="d-flex row" onClick={() => window.open(link.url)}>
           <h6>{link.title}</h6>
           <span className="max-lines">{link.url}</span>
         </div>
@@ -40,7 +39,7 @@ const LinkCard = ({ link }) => {
           onClick={handleDeleteLink}
         />
       </div>
-    </a>
+    </div>
   );
 };
 
