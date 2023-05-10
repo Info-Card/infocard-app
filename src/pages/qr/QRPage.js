@@ -1,12 +1,15 @@
-import React, { Fragment, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MainLayout from 'components/MainLayout';
-import { Helmet } from 'react-helmet';
-import { Button, Col, Row } from 'react-bootstrap';
-import QRCode from 'react-qr-code';
-import { multilanguage } from 'redux-multilanguage';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import MainLayout from "components/MainLayout";
+import { Helmet } from "react-helmet";
+import { Button, Col, Row } from "react-bootstrap";
+import QRCode from "react-qr-code";
+import { multilanguage } from "redux-multilanguage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy, faShare } from "@fortawesome/free-solid-svg-icons";
+import { shareOnMobile } from "react-mobile-share";
 
 const QRPage = ({ history, strings }) => {
   const { user: authUser } = useSelector((state) => state.auth);
@@ -16,7 +19,7 @@ const QRPage = ({ history, strings }) => {
   useEffect(() => {
     if (rehydrated) {
       if (!authUser) {
-        history.push('/login');
+        history.push("/login");
       }
     }
   }, [history, authUser, dispatch, rehydrated]);
@@ -36,13 +39,13 @@ const QRPage = ({ history, strings }) => {
               <img
                 src="logo.png"
                 alt=""
-                style={{ width: '120px', marginBottom: '50px' }}
+                style={{ width: "120px", marginBottom: "50px" }}
               />
-              <h3>{strings['Share QR Code']}</h3>
+              <h3>{strings["Share QR Code"]}</h3>
               <div
                 style={{
-                  background: 'white',
-                  padding: '16px',
+                  background: "white",
+                  padding: "16px",
                 }}
                 className="mt-5"
               >
@@ -54,19 +57,35 @@ const QRPage = ({ history, strings }) => {
               <p>{`app.infocard.me/${authUser.username}`}</p>
               <Button
                 type="submit"
-                variant="primary"
-                className="mt-5"
+                variant="outline-primary"
+                className="m-2 rounded-circle bordered"
                 onClick={() => {
                   navigator.clipboard.writeText(
                     `https://app.infocard.me/${authUser.username}`
                   );
-                  toast('Link copied');
+                  toast("Link copied");
                 }}
               >
-                Copy to Clipboard
+                <FontAwesomeIcon icon={faCopy} size="lg" />
               </Button>
+
+              <Button
+                type="submit"
+                variant="outline-primary"
+                size="md"
+                className="m-2 rounded-circle"
+                onClick={() => {
+                  shareOnMobile({
+                    url: `https://app.infocard.me/${authUser.username}`,
+                    title: "Connect to my profile using this link",
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={faShare} size="lg" />
+              </Button>
+
               <ToastContainer
-                bodyClassName={() => 'text-sm font-med block p-3'}
+                bodyClassName={() => "text-sm font-med block p-3"}
                 position="bottom-left"
                 autoClose={2000}
               />

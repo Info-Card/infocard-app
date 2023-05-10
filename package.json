@@ -20,6 +20,7 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.4.0",
     "react-image-file-resizer": "^0.4.8",
+    "react-mobile-share": "^1.0.30",
     "react-phone-input-2": "^2.15.1",
     "react-phone-number-input": "^3.2.9",
     "react-player": "^2.10.1",
