@@ -151,8 +151,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
               <Col xs={12}>{profile.bio}</Col>
             </>
             <LinksList links={profile.customLinks} />
-            <VideoList />
-
+            <VideoList videos={profile.videos} />
             {profile.platforms && profile.platforms.length > 0 ? (
               <>
                 <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
