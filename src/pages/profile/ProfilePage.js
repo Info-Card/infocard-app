@@ -61,9 +61,8 @@ const ProfilePage = ({ history, match, strings }) => {
           <Col md={4} />
           <Col md={4}>
             <div className="">
-              {loading ? (
-                <Loader />
-              ) : (
+              {loading && <Loader />}
+              {profile && !profile.isPrivate && (
                 <ProfileDetail user={user} profile={profile} />
               )}
             </div>
