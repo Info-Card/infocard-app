@@ -1,7 +1,7 @@
 const toFormData = (data) => {
   const formData = new FormData();
   for (const [key, value] of Object.entries(data)) {
-    if (key === "image") {
+    if (key === "image" && value !== "") {
       if (value && value[0]) {
         formData.append("image", value[0]);
       }
