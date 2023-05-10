@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Platform from "components/Platform";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { exchangeContact } from "state/ducks/profile/actions";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
 import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
+import ListPlatForms from "./ListPlatForms";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -152,48 +152,11 @@ const ProfileDetail = ({ user, profile, strings }) => {
             </>
             <LinksList links={profile.customLinks} />
             <VideoList />
-            {/* {profile.videos && profile.videos.length > 0 ? (
-              <>
-                <h5 style={{ paddingTop: "10px" }}>Videos</h5>
-                <Col xs={12}>
-                  <div className="scrolling-wrapper text-center">
-                    {profile.videos.map((video) => {
-                      return (
-                        <div style={{ display: "inline-block" }}>
-                          <VideoPlayer video={video} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </Col>
-              </>
-            ) : (
-              <></>
-            )} */}
 
             {profile.platforms && profile.platforms.length > 0 ? (
               <>
                 <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
-                <Col xs={12} md={12}>
-                  <div className="platform-card p-3">
-                    <Row>
-                      {profile.platforms.map((platform, key) => {
-                        return (
-                          <Col key={key} xs={4}>
-                            <a
-                              onClick={(e) => {
-                                e.preventDefault();
-                                openLink(platform, true);
-                              }}
-                            >
-                              <Platform platform={platform} />
-                            </a>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </div>
-                </Col>
+                <ListPlatForms profile={profile} />
               </>
             ) : (
               <></>
