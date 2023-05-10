@@ -1,35 +1,34 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
 
-const ProfileFormModal = () => {
-  const { profile } = useSelector((state) => state.users);
-  const [showImageOptions, setShowImageOptions] = useState(true);
-  const inputFile = useRef(null);
+const ImageOptionsModal = ({ show, setShow }) => {
   const dispatch = useDispatch();
-  function selectImage() {
+
+  const { profile } = useSelector((state) => state.users);
+
+  const selectImage = () => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
     inputElement.accept = "image/*";
     inputElement.onchange = (event) => {
-      const selectedFile = event.target.files[0];
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      dispatch(updateProfile(profile.id, formData));
-      setShowImageOptions(false);
+      const image = event.target.files;
+      dispatch(updateProfile(profile.id, { image }));
+      setShow(false);
     };
     inputElement.click();
-  }
-  function deleteImage() {
-    setShowImageOptions(false);
+  };
+
+  const deleteImage = () => {
+    setShow(false);
     dispatch(updateProfile(profile.id, { image: "" }));
-    setShowImageOptions(false);
-  }
+  };
+
   return (
     <div>
-      <Modal show={showImageOptions} size="sm">
-        <Modal.Header closeButton onHide={(e) => setShowImageOptions(false)}>
+      <Modal show={show} size="sm">
+        <Modal.Header closeButton onHide={(e) => setShow(false)}>
           <Modal.Title>Choose Option</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -47,4 +46,4 @@ const ProfileFormModal = () => {
   );
 };
 
-export default ProfileFormModal;
+export default ImageOptionsModal;

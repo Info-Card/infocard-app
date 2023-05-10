@@ -130,7 +130,7 @@ a {
   height: 130px;
   margin: -50px 0px 10px 0px;
   position: relative;
-  z-index: 111;
+  z-index: 2;
   background-color: white;
   -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
   box-shadow: 0 0 2px rgb(200, 200, 200);
@@ -147,7 +147,12 @@ a {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 112;
+  z-index: 3;
+}
+
+.image-viewer {
+  position: absolute;
+  z-index: 4;
 }
 
 /* .profile_card div{
@@ -347,3 +352,27 @@ ul.twPc-Arrange {
   height: 55px !important;
   width: 350px !important;
 } */
+
+.card {
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+}
+
+.profile-cover {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 140px;
+  width: 100%;
+  padding-top: 80px;
+  margin-bottom: 60px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: #fff;
+}

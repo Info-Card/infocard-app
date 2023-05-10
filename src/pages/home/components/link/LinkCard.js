@@ -3,8 +3,10 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomLink } from "state/ducks/profile/actions";
+import { useParams } from "react-router-dom";
 
 const LinkCard = ({ link }) => {
+  const params = useParams();
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
 
@@ -17,8 +19,7 @@ const LinkCard = ({ link }) => {
     : "userphoto.png";
 
   return (
-    <a
-      href={link.url}
+    <div
       target="_blank"
       rel="noreferrer"
       className="platform-card d-flex"
@@ -30,18 +31,19 @@ const LinkCard = ({ link }) => {
     >
       <div className="d-flex align-items-center justify-content-between px-4">
         <img src={platformImage} alt={link.title} className="platform-image" />
-        <div className="ml-2">
-          <h6 className="mb-1">{link.title}</h6>
+        <div className="d-flex row" onClick={() => window.open(link.url)}>
+          <h6>{link.title}</h6>
           <span className="max-lines">{link.url}</span>
         </div>
-        <FontAwesomeIcon
-          icon={faTrashAlt}
-          color="red"
-          className="ml-2"
-          onClick={handleDeleteLink}
-        />
+        {!params.username && (
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            color="red"
+            onClick={handleDeleteLink}
+          />
+        )}
       </div>
-    </a>
+    </div>
   );
 };
 
