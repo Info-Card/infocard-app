@@ -1,3 +1,4 @@
+import getConfig from "helpers/getConfig";
 import ApiService from "./ApiService";
 import toFormData from "helpers/toFormData";
 class ProfileService extends ApiService {
@@ -7,8 +8,18 @@ class ProfileService extends ApiService {
    * @param {string} data * This is the data of new profile
    */
   updateProfile(id, data) {
-    const { formData, config } = toFormData(data);
+    const formData = toFormData(data);
+    const config = getConfig();
     return this.instance.patch(`/v1/profile/${id}`, formData, config);
+  }
+
+  /**
+   * Update tag using id with data
+   * @param {string} id * This is the id
+   * @param {string} data * This is the data
+   */
+  updateVideos(id, data) {
+    return this.instance.patch(`/v1/profile/${id}`, data);
   }
 
   /**
@@ -33,8 +44,9 @@ class ProfileService extends ApiService {
    * @param {string} id * This is the id for add custom link
    * @param {string} data * This is the data
    */
-  addCustomLink(id, data) {
-    const { formData, config } = toFormData(data);
+  async addCustomLink(id, data) {
+    const formData = await toFormData(data);
+    const config = getConfig();
     return this.instance.post(`/v1/profile/${id}/links/`, formData, config);
   }
 

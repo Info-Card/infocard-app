@@ -78,12 +78,6 @@ a {
   -webkit-box-orient: vertical;
 }
 
-.player-card {
-  height: 200px;
-  margin-right: 10px;
-  background-color: black;
-}
-
 .direct-button {
   background-color: #ddd;
   border: none;
@@ -294,6 +288,57 @@ ul.twPc-Arrange {
 
 @media (min-width: 768px) and (max-width: 1014px) {
   #title-size-adjustment {
+    font-size: 9px;
+  }
+}
+#show-password-label {
+  margin-top: 10px;
+  display: flex; /* use flexbox to align items */
+  align-items: center; /* center items vertically */
+  margin-bottom: 10px; /* add margin to the bottom of the label */
+}
+#show-password-input {
+  margin-right: 10px;
+}
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 20px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: "<";
+  font-size: 20px;
+  color: black;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  #button-text-adjustment {
+    font-size: 10px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #button-text-adjustment {
+    font-size: 8px;
+  }
+}
+@media (min-width: 100px) and (max-width: 349px) {
+  #button-text-adjustment {
+    font-size: 8px;
+  }
+}
+@media (min-width: 900px) and (max-width: 1047px) {
+  #save-contact-text-adjustment {
+    font-size: 9px;
+  }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  #save-contact-text-adjustment {
+    font-size: 6px;
+  }
+}
+@media (min-width: 100px) and (max-width: 349px) {
+  #save-contact-text-adjustment {
     font-size: 9px;
   }
 }

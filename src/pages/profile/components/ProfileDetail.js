@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Platform from "components/Platform";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "../../../components/VideoPlayer";
 import { exchangeContact } from "state/ducks/profile/actions";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
@@ -114,9 +114,12 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   >
                     <Button
                       type="submit"
-                      variant="outline-primary"
+                      id="save-contact-text-adjustment"
                       style={{
+                        backgroundColor: profile.color ?? "grey",
+                        color: "white",
                         width: "100%",
+                        border: `2px solid ${profile.color ?? "grey"}`,
                       }}
                     >
                       {strings["Save Contact"]}
@@ -126,6 +129,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                 <Col xs={6}>
                   <Button
                     type="submit"
+                    id="save-contact-text-adjustment"
                     style={{
                       backgroundColor: profile.color ?? "grey",
                       color: "white",

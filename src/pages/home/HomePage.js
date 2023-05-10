@@ -1,127 +1,59 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainLayout from "components/MainLayout";
-import { Helmet } from "react-helmet";
 import { getUser } from "state/ducks/users/actions";
-import {
-  deleteCustomLink,
-  updateProfile,
-  updateProfileMedia,
-  addCustomLink,
-} from "state/ducks/profile/actions";
-import { Button, Col, Row, Form, Modal } from "react-bootstrap";
+import { updateProfile } from "state/ducks/profile/actions";
+import { Button, Col, Row } from "react-bootstrap";
 import Message from "components/Message";
-import HomePlatform from "./components/HomePlatform";
 import Toggle from "components/Toggle";
-import VideoPlayer from "./components/VideoPlayer";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { multilanguage } from "redux-multilanguage";
-import { PROFILE_RESET } from "state/ducks/profile/types";
-import { linkTag } from "state/ducks/tags/actions";
-import { TAG_RESET } from "state/ducks/tags/types";
-import { LOGOUT } from "state/ducks/auth/types";
 import Loader from "components/Loader";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import MainLayout from "components/MainLayout";
+import ProfileCard from "./components/ProfileCard";
+import { AddCustomLinkModal } from "./components/link/AddCustomLinkModal";
+import { AddVideoModal } from "./components/video/AddVideoModal";
+import LinksList from "./components/link/LinksList";
+import VideoList from "./components/video/VideoList";
+import ActivateTagModal from "./components/ActivateTagModal";
+import PlatformList from "./components/platform/PlatformList";
+import { PROFILE_RESET } from "state/ducks/profile/types";
+import { multilanguage } from "redux-multilanguage";
 
-const urlRegix =
-  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-const schema = yup.object().shape({
-  url: yup.string().required().matches(urlRegix, "Please Enter a valid URL"),
-  title: yup.string().min(8).max(32).required(),
-});
 const HomePage = ({ history, strings }) => {
-  const [image, setImage] = useState(null);
-  const [imageError, setImageError] = useState(null);
-  const handleImageChange = (event) => {
-    const selectedImage = event.target.files[0];
-    setImage(selectedImage);
-  };
-  const handleSubmitForLink = (event) => {
-    // Prevent form submission
-    // event.preventDefault();
+  const dispatch = useDispatch();
 
-    // Call function 1
-    handleSubmitForImage(event);
-
-    // Call function 2
-  };
-  const handleSubmitForImage = async (event) => {
-    // event.preventDefault();
-
-    try {
-      const schemaForImage = yup.object().shape({
-        image: yup
-          .mixed()
-          .required("Please upload an image file")
-          .test(
-            "fileSize",
-            "Image size must be no more than 5 MB",
-            (value) => value && value.size <= 5000000
-          ),
-      });
-
-      await schemaForImage.validate({ image });
-
-      // Perform image upload logic here
-      handleAddCustomLink(event);
-    } catch (imageError) {
-      setImageError(imageError.message);
-    }
-  };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-  const [showAddVideo, setShowAddVideo] = useState(false);
-  const [showCustomLink, setShowCustomLink] = useState(false);
+  const [showAddVideoModal, setShowAddVideoModal] = useState(false);
+  const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
   const { success } = useSelector((state) => state.profile);
   const { rehydrated } = useSelector((state) => state._persist);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     if (rehydrated) {
       if (!authUser) {
         history.push("/login");
       } else {
-        if (success) {
-          setShowAddVideo(false);
-          dispatch({ type: PROFILE_RESET });
-        } else {
-          dispatch(getUser(authUser.username));
-        }
+        dispatch(getUser(authUser.username));
       }
     }
-  }, [history, authUser, dispatch, rehydrated, success]);
-  const { tag, success: tagSuccess } = useSelector((state) => state.tags);
-  const [videoURL, setVideoURL] = useState("");
+  }, [history, authUser, dispatch, rehydrated]);
 
-  const [customLink, setCustomLink] = useState({ title: "", url: "" });
-  const handleClose1 = () => {
-    dispatch({ type: TAG_RESET });
-  };
-  const handleClose = () => {
-    localStorage.removeItem("tagId");
-    dispatch({ type: TAG_RESET });
-  };
-  const handleSwitch = () => {
-    dispatch({ type: LOGOUT });
-    history.push("/register");
-  };
+  useEffect(() => {
+    if (success) {
+      setShowAddVideoModal(false);
+      setShowCustomLinkModal(false);
+      dispatch({ type: PROFILE_RESET });
+      dispatch(getUser(authUser.username));
+    }
+  }, [dispatch, success, showAddVideoModal, authUser]);
 
-  const handleActivate = () => {
-    dispatch(linkTag(tag.id));
-  };
+  const handleDirectChange = (event) => {
+    if (profile.platforms && profile.platforms.length > 0) {
+      const platform = profile.platforms[0];
+      const direct = event.target.checked ? platform.id : "";
 
-  const handleDirectOn = (id) => {
-    dispatch(updateProfile(profile.id, { direct: id }));
+      dispatch(updateProfile(profile.id, { direct }));
+    }
   };
 
   const handlePrivateChange = (event) => {
@@ -131,435 +63,111 @@ const HomePage = ({ history, strings }) => {
     );
   };
 
-  function toggleChanged(event) {
+  function handleProfileChange(event) {
     event.preventDefault();
     dispatch(getUser(authUser.username, `?isPersonal=${event.target.value}`));
   }
 
-  const deleteVideo = (video) => {
-    let videos = profile.videos ?? [];
-    videos = videos.filter((e) => e !== video);
-    dispatch(updateProfileMedia(profile.id, { videos: videos }));
-  };
-
-  const deleteLink = (link) => {
-    dispatch(deleteCustomLink(profile.id, link.id));
-  };
-  const handleAddVideo = (data) => {
-    setVideoURL(data);
-    console.log(data);
-    console.log(videoURL);
-    const { url } = data;
-    const videos = profile.videos ?? [];
-    videos.push(url);
-    dispatch(updateProfileMedia(profile.id, { videos: videos }));
-    setVideoURL("");
-  };
-  const handleAddCustomLink = () => {
-    dispatch(addCustomLink(profile.id, customLink));
-    setCustomLink({ title: "", url: "" });
-    setShowCustomLink(false);
-  };
-
   return (
     <MainLayout>
-      {authUser ? (
+      {authUser && (
         <Fragment>
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>Info Card</title>
-          </Helmet>
           {loading && <Loader />}
-          <Row>
-            <Col md={12}>
-              {user ? (
+          <Row className="justify-content-center m-2">
+            <Col md={5} lg={4}>
+              {error && <Message variant="danger">{error}</Message>}
+              {user && (
                 <Toggle
                   isPersonal={user.isPersonal}
-                  toggleChanged={toggleChanged}
+                  toggleChanged={handleProfileChange}
                 />
-              ) : (
-                <></>
               )}
-            </Col>
-          </Row>
-          <Row className="">
-            <Col className="m-auto" md={5} lg={4}>
-              <div className="mt-2">
-                {error && <Message variant="danger">{error}</Message>}
-                {profile ? (
-                  <div className="">
-                    <Row className="">
-                      <Col xs={12} className="">
-                        <Row
-                          className="user-card"
-                          style={{
-                            backgroundColor: profile.color ?? "grey",
-                          }}
-                        >
-                          <Col
-                            xs={6}
-                            lg={6}
-                            className="p-0"
-                            id="image-adjustment"
-                          >
-                            {profile.image && profile.image !== "" ? (
-                              <img
-                                src={
-                                  process.env.REACT_APP_IMAGE_URL +
-                                  profile.image
-                                }
-                                alt=""
-                                className="img-fluid image-adjust"
-                              />
-                            ) : (
-                              <img
-                                src={process.env.PUBLIC_URL + "/user.png"}
-                                alt=""
-                                className="img-fluid"
-                                style={{
-                                  height: "200px",
-                                  objectFit: "contain",
-                                }}
-                              />
-                            )}
-                          </Col>
-
-                          <Col xs={6} lg={6}>
-                            <h5>{profile.name}</h5>
-                            <h5 id="company-name-length-adjust">
-                              {profile.company}
-                            </h5>
-                            <h6>{profile.jobTitle}</h6>
-                            <p>
-                              <strong>Views: </strong>
-                              {profile.views}
-                              <br />
-                              <strong>Info Shared: </strong>
-                              {profile.infoShared}
-                            </p>
-                          </Col>
-                        </Row>
-                        <Row className="mt-3">
-                          <Col xs={6}>
-                            <Button
-                              type="submit"
-                              variant="outline-primary"
-                              style={{
-                                width: "100%",
-                              }}
-                              onClick={(e) => setShowCustomLink(true)}
-                            >
-                              Add links
-                            </Button>
-                          </Col>
-                          <Col xs={6}>
-                            <Button
-                              type="submit"
-                              style={{
-                                backgroundColor: profile.color ?? "black",
-                                color: "white",
-                                width: "100%",
-                                border: `2px solid ${profile.color ?? "black"}`,
-                              }}
-                              onClick={(e) => setShowAddVideo(true)}
-                            >
-                              {strings["upload video"]}
-                            </Button>
-                          </Col>
-                        </Row>
-                      </Col>
-                      <>
-                        <h5 style={{ paddingTop: "20px" }}>About</h5>
-                        <Col xs={12}>{profile.bio}</Col>
-                      </>
-                      {profile.customLinks && profile.customLinks.length > 0 ? (
-                        <>
-                          <h5 style={{ paddingTop: "10px" }}>Links</h5>
-                          <Col xs={12}>
-                            <div className="scrolling-wrapper bg-transparent">
-                              {profile.customLinks.map((link) => {
-                                return (
-                                  <div
-                                    className="platform-card p-3 m-2"
-                                    style={{
-                                      display: "inline-block",
-                                      width: "290px",
-                                      height: "90px",
-                                    }}
-                                    key={link.id}
-                                  >
-                                    <div className="d-flex align-items-start justify-content-between">
-                                      <div className="d-flex align-items-start">
-                                        <img
-                                          src={
-                                            process.env.REACT_APP_IMAGE_URL +
-                                            link.image
-                                          }
-                                          alt=""
-                                          className="platform-image"
-                                        />
-                                        <div>
-                                          <div className="d-flex justify-content-between align-items-start">
-                                            <h6>{link.title}</h6>
-                                          </div>
-
-                                          <span
-                                            className="max-lines"
-                                            style={{ width: "100%" }}
-                                          >
-                                            {link.url}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <FontAwesomeIcon
-                                        icon={faTrash}
-                                        size="1x"
-                                        className="delete-video"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          deleteLink(link);
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </Col>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-
-                      <h5 style={{ paddingTop: "10px" }}>Videos</h5>
-                      <Col xs={12}>
-                        <div className="scrolling-wrapper text-center ">
-                          {profile.videos.map((video) => {
-                            return (
-                              <div
-                                style={{
-                                  display: "inline-block",
-                                }}
-                                className="mr-1"
-                                key={video}
-                              >
-                                <div className="text-right mr-2" style={{}}>
-                                  <FontAwesomeIcon
-                                    icon={faTrash}
-                                    size="1x"
-                                    className="delete-video"
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      deleteVideo(video);
-                                    }}
-                                  />
-                                </div>
-                                <VideoPlayer video={video} />
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </Col>
-                      <Col xs={12}>
-                        <div className="d-flex flex-row justify-content-between">
-                          <div className="custom-control custom-switch">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="customSwitches"
-                              value="off"
-                              checked={
-                                user.direct !== "" && user.direct !== undefined
-                              }
-                              onChange={() => {
-                                const link = profile.platforms[0];
-                                if (
-                                  (user.direct === "" ||
-                                    user.direct === undefined) &&
-                                  link
-                                ) {
-                                  handleDirectOn(link.id);
-                                } else {
-                                  handleDirectOn("");
-                                }
-                              }}
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="customSwitches"
-                            >
-                              {strings["Direct"]}
-                            </label>
-                          </div>
-                          <div className="custom-control custom-switch">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="customSwitches1"
-                              value="off"
-                              checked={profile.isPrivate}
-                              onChange={handlePrivateChange}
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="customSwitches1"
-                            >
-                              {strings["Private"]}
-                            </label>
-                          </div>
-                        </div>
-                      </Col>
-                      <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
-                      <Col xs={12}>
-                        <Row className="g-2">
-                          {profile.platforms.map((platform, key) => {
-                            return (
-                              <Col key={key} xs={12}>
-                                <HomePlatform
-                                  platform={platform}
-                                  showMakeDirect={platform.id !== user.direct}
-                                  handleDirectOn={handleDirectOn}
-                                />
-                              </Col>
-                            );
-                          })}
-                        </Row>
-                      </Col>
-                    </Row>
+              {profile && (
+                <div className="mt-4">
+                  <ProfileCard profile={profile} />
+                  <div className="d-flex justify-content-between mt-4">
+                    <Button
+                      variant="primary"
+                      className="flex-grow-1 mr-1"
+                      style={{
+                        backgroundColor: profile.color ?? "black",
+                        border: `2px solid ${profile.color ?? "black"}`,
+                      }}
+                      onClick={() => setShowCustomLinkModal(true)}
+                    >
+                      Add links
+                    </Button>
+                    <Button
+                      variant="primary"
+                      className="flex-grow-1 ml-1"
+                      style={{
+                        backgroundColor: profile.color ?? "black",
+                        border: `2px solid ${profile.color ?? "black"}`,
+                      }}
+                      onClick={() => setShowAddVideoModal(true)}
+                    >
+                      {strings["upload video"]}
+                    </Button>
                   </div>
-                ) : (
-                  <></>
-                )}
-              </div>
+                  <div className="mt-4">
+                    <h5>About</h5>
+                    <p>{profile.bio}</p>
+                  </div>
+                  <LinksList links={profile.customLinks} />
+                  <VideoList videos={profile.videos} />
+                  <div className="d-flex justify-content-between mt-4">
+                    <div className="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customSwitches"
+                        checked={
+                          user.direct !== "" && user.direct !== undefined
+                        }
+                        onChange={handleDirectChange}
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor="customSwitches"
+                      >
+                        {strings["Direct"]}
+                      </label>
+                    </div>
+                    <div className="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customSwitches1"
+                        checked={profile.isPrivate}
+                        onChange={handlePrivateChange}
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor="customSwitches1"
+                      >
+                        {strings["Private"]}
+                      </label>
+                    </div>
+                  </div>
+                  <PlatformList
+                    platforms={profile.platforms}
+                    direct={user.direct}
+                  />
+                </div>
+              )}
             </Col>
           </Row>
-          <Modal show={tag}>
-            <Modal.Header closeButton onHide={handleClose}>
-              <Modal.Title>{strings["Activate your product"]}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>
-                {
-                  strings[
-                    "If you want to link it with current account please select"
-                  ]
-                }{" "}
-                <span>
-                  <strong>
-                    "{strings["Activate to"]} {authUser.username}"
-                  </strong>
-                </span>{" "}
-                {
-                  strings[
-                    "or If you want to link it with different account please select 'Switch Account'"
-                  ]
-                }
-              </p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleSwitch}>
-                {strings["Switch Account"]}
-              </Button>
-              {authUser && (
-                <Button variant="primary" onClick={handleActivate}>
-                  {strings["Activate to"]} {authUser.username}
-                </Button>
-              )}
-            </Modal.Footer>
-          </Modal>
-          <Modal show={tagSuccess}>
-            <Modal.Header closeButton>
-              <Modal.Title>{strings["Activation Completed"]}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {strings["You have successfully activated Info Card"]}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose1}>
-                {strings["Close"]}
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          <Modal show={showAddVideo}>
-            <Modal.Header closeButton onHide={(e) => setShowAddVideo(false)}>
-              <Modal.Title>{strings["Add Youtube Video"]}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form onSubmit={handleSubmit(handleAddVideo)}>
-                <Form.Group controlId="name">
-                  <Form.Label>{strings["URL"]}</Form.Label>
-                  <Form.Control
-                    {...register("url")}
-                    placeholder="Enter url"
-                    name="url"
-                  ></Form.Control>
-                </Form.Group>
-                <p>{errors.url?.message}</p>
 
-                <Button type="submit" variant="primary">
-                  {strings["ADD"]}
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
-          <Modal show={showCustomLink}>
-            <Modal.Header closeButton onHide={(e) => setShowCustomLink(false)}>
-              <Modal.Title>Add Custom Link</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form onSubmit={handleSubmit(handleSubmitForLink)}>
-                <Form.Group controlId="title">
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    {...register("title")}
-                    placeholder="title"
-                    type="title"
-                    onChange={(e) =>
-                      setCustomLink({ ...customLink, title: e.target.value })
-                    }
-                  ></Form.Control>
-                </Form.Group>
-                <p>{errors.title?.message}</p>
-                <Form.Group controlId="name">
-                  <Form.Label>{strings["URL"]}</Form.Label>
-                  <Form.Control
-                    {...register("url")}
-                    placeholder="Enter url"
-                    name="url"
-                    onChange={(e) =>
-                      setCustomLink({ ...customLink, url: e.target.value })
-                    }
-                  ></Form.Control>
-                </Form.Group>
-                <p>{errors.url?.message}</p>
-                <Form.Group controlId="image">
-                  <Form.Label>Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    placeholder="Choose image"
-                    onChange={(event) => {
-                      handleImageChange(event);
-                      if (event.target.files && event.target.files[0]) {
-                        console.log();
-                        setCustomLink({
-                          ...customLink,
-                          image: event.target.files,
-                        });
-                      }
-                    }}
-                  ></Form.Control>
-                </Form.Group>
-                {imageError && <p>{imageError}</p>}
-                <p>{errors.filename?.message}</p>
-                <Button type="submit" variant="primary">
-                  {strings["ADD"]}
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
+          <ActivateTagModal />
+          <AddVideoModal
+            show={showAddVideoModal}
+            setShow={setShowAddVideoModal}
+          />
+          <AddCustomLinkModal
+            show={showCustomLinkModal}
+            setShow={setShowCustomLinkModal}
+          />
         </Fragment>
-      ) : (
-        <></>
       )}
     </MainLayout>
   );

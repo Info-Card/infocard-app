@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CirclePicker } from "react-color";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,9 +14,8 @@ import ProfileFormModal from "./ProfileFormModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 const schema = yup.object().shape({
-  name: yup.string().min(5).max(23).required(),
+  name: yup.string().max(23).required(),
   bio: yup.string().required().min(5).max(100),
   address: yup.string().min(6).max(25).required(),
   company: yup.string().min(5).max(23).required(),
@@ -28,12 +27,19 @@ const ProfileForm = ({ strings }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
   const [showImageOptions, setShowImageOptions] = useState(false);
-  console.log(showImageOptions);
+
+  const [imageUrl, setImageUrl] = useState("");
+  const [showImage, setShowImage] = useState(false);
+  const handleImageClick = (url) => {
+    console.log(url);
+    setImageUrl(url);
+    setShowImage(true);
+  };
+
   const inputFile = useRef(null);
 
   const [form, setForm] = useState({
@@ -47,6 +53,10 @@ const ProfileForm = ({ strings }) => {
     image: "",
   });
   const [file, setFile] = useState(null);
+  const imageStyle = {
+    width: "450px",
+    height: "550px",
+  };
 
   const dispatch = useDispatch();
 
@@ -59,6 +69,7 @@ const ProfileForm = ({ strings }) => {
   } = useSelector((state) => state.profile);
 
   useEffect(() => {
+    setShowImageOptions(false);
     if (authUser) {
       if (success) {
         dispatch({ type: PROFILE_RESET });
@@ -89,7 +100,6 @@ const ProfileForm = ({ strings }) => {
   };
 
   const submitHandler = (e) => {
-    console.log(e);
     dispatch(updateProfile(profile.id, form));
   };
 
@@ -106,7 +116,10 @@ const ProfileForm = ({ strings }) => {
                 <div></div>
               </div>
 
-              <div className="profile_photo">
+              <div
+                style={{ position: "relative", display: "inline-block" }}
+                className="profile_photo"
+              >
                 <input
                   type="file"
                   id="file"
@@ -116,6 +129,7 @@ const ProfileForm = ({ strings }) => {
                   onChange={onImageChange}
                 />
                 <FontAwesomeIcon
+                  style={{ marginRight: "-5px" }}
                   icon={faPen}
                   size="1x"
                   className="edit-profile-image"
@@ -130,6 +144,7 @@ const ProfileForm = ({ strings }) => {
                       <img
                         src={process.env.REACT_APP_IMAGE_URL + profile.image}
                         alt=""
+                        onClick={() => handleImageClick(profile.image)}
                       />
                     ) : (
                       <img src={process.env.PUBLIC_URL + "/user.png"} alt="" />
@@ -168,7 +183,6 @@ const ProfileForm = ({ strings }) => {
             ></Form.Control>
           </Form.Group>
           <p>{errors.name?.message}</p>
-
           <Form.Group controlId="bio">
             <Form.Label>{strings["Bio"]}</Form.Label>
             <textarea
@@ -253,7 +267,24 @@ const ProfileForm = ({ strings }) => {
           </Button>
         </Form>
       )}
-      <ProfileFormModal />
+      {showImageOptions === true ? <ProfileFormModal /> : null}
+
+      <Modal show={showImage}>
+        <Modal.Header closeButton onHide={(e) => setShowImage(false)}>
+          <Modal.Title>Profile Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            {showImage && (
+              <img
+                src={process.env.REACT_APP_IMAGE_URL + imageUrl}
+                alt="Image"
+                style={imageStyle}
+              />
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
