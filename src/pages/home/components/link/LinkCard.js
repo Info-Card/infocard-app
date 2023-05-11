@@ -43,17 +43,17 @@ const LinkCard = ({ link }) => {
         </div>
         {!params.username && (
           <FontAwesomeIcon
+            icon={faEdit}
             className="mr-2"
-            icon={faTrashAlt}
-            color="red"
-            onClick={handleDeleteLink}
+            color="blue"
+            onClick={() => handleEditLink(link)}
           />
         )}
         {!params.username && (
           <FontAwesomeIcon
-            icon={faEdit}
-            color="blue"
-            onClick={() => handleEditLink(link)}
+            icon={faTrashAlt}
+            color="red"
+            onClick={handleDeleteLink}
           />
         )}
       </div>
