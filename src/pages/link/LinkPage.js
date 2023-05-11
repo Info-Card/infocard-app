@@ -90,11 +90,9 @@ const LinkPage = ({ history, match, strings }) => {
     }
   }, [history, authUser, linkId, link, categories, dispatch, success, profile]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
+  const submitHandler = () => {
+    // e.preventDefault();
     var value = link.type !== "medical" ? path : JSON.stringify(medicalCard);
-
     if (link.id) {
       dispatch(updateLink(link.id, { value }));
     } else {
