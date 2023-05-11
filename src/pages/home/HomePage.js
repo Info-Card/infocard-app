@@ -90,6 +90,7 @@ const HomePage = ({ history, strings }) => {
                       variant="primary"
                       className="flex-grow-1 mr-1"
                       style={{
+                        width: "150px",
                         backgroundColor: profile.color ?? "black",
                         border: `2px solid ${profile.color ?? "black"}`,
                       }}
@@ -101,6 +102,7 @@ const HomePage = ({ history, strings }) => {
                       variant="primary"
                       className="flex-grow-1 ml-1"
                       style={{
+                        width: "150px",
                         backgroundColor: profile.color ?? "black",
                         border: `2px solid ${profile.color ?? "black"}`,
                       }}
@@ -109,6 +111,7 @@ const HomePage = ({ history, strings }) => {
                       {strings["upload video"]}
                     </Button>
                   </div>
+
                   <div className="mt-4">
                     <h5>About</h5>
                     <p>{profile.bio}</p>
