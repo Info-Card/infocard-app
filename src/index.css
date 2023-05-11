@@ -284,6 +284,14 @@ ul.twPc-Arrange {
     hyphens: auto;
   }
 }
+@media (min-width: 100px) and (max-width: 389px) {
+  .small-length-adjust {
+    font-size: 8px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
 /* Styles for MD breakpoint */
 @media (min-width: 768px) and (max-width: 991px) {
   #image-adjustment {

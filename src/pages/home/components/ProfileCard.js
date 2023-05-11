@@ -34,8 +34,10 @@ const ProfileCard = ({ profile }) => {
       </Col>
 
       <Col xs={6}>
-        <h5>{profile.name}</h5>
-        <h5 className="name-length-adjust">{profile.company}</h5>
+        <h5 className="small-length-adjust">{profile.name}</h5>
+        <h5 className="name-length-adjust small-length-adjust">
+          {profile.company}
+        </h5>
         <h6>{profile.jobTitle}</h6>
         <p>
           <strong>Views: </strong>
