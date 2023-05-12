@@ -12,7 +12,7 @@ const schema = yup.object().shape({
   title: yup.string().max(32).required(),
 });
 
-export const AddCustomLinkModal = ({ show, setShow }) => {
+export const AddCustomLinkModal = ({ show, setShow, link }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
   const { success } = useSelector((state) => state.profile);
@@ -23,6 +23,9 @@ export const AddCustomLinkModal = ({ show, setShow }) => {
     formState: { errors },
     reset,
   } = useForm({
+    defaultValues: {
+      ...link,
+    },
     resolver: yupResolver(schema),
   });
 
@@ -30,7 +33,7 @@ export const AddCustomLinkModal = ({ show, setShow }) => {
     if (!show) {
       reset();
     }
-  }, [show, reset]);
+  }, [show, reset, link]);
 
   useEffect(() => {
     if (success) {
@@ -39,13 +42,21 @@ export const AddCustomLinkModal = ({ show, setShow }) => {
   }, [success, setShow]);
 
   const onSubmit = (data) => {
-    dispatch(addCustomLink(profile.id, data));
+    if (link) {
+      console.log("update is ok");
+    } else {
+      dispatch(addCustomLink(profile.id, data));
+    }
   };
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Custom Link</Modal.Title>
+        {link ? (
+          <Modal.Title>Update Custom Link</Modal.Title>
+        ) : (
+          <Modal.Title>Add Custom Link</Modal.Title>
+        )}
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -76,9 +87,15 @@ export const AddCustomLinkModal = ({ show, setShow }) => {
             />
             <p className="text-danger">{errors.image?.message}</p>
           </Form.Group>
-          <Button type="submit" variant="primary">
-            Add
-          </Button>
+          {link ? (
+            <Button type="submit" variant="primary">
+              Update
+            </Button>
+          ) : (
+            <Button type="submit" variant="primary">
+              Add
+            </Button>
+          )}
         </Form>
       </Modal.Body>
     </Modal>

@@ -15,11 +15,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ProfileFormHead from "./ProfileFormHead";
 
 const schema = yup.object().shape({
-  name: yup.string().max(23).required(),
+  name: yup.string().max(25).required(),
   bio: yup.string().max(100),
-  address: yup.string().max(25),
+  address: yup.string().max(100),
   company: yup.string().max(23),
-  jobTitle: yup.string().max(13),
+  jobTitle: yup.string().max(30),
 });
 
 const ProfileForm = ({ profile, strings }) => {

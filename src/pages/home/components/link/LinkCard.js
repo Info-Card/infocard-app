@@ -1,17 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomLink } from "state/ducks/profile/actions";
 import { useParams } from "react-router-dom";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { AddCustomLinkModal } from "./AddCustomLinkModal";
 
 const LinkCard = ({ link }) => {
   const params = useParams();
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
+  const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
 
   const handleDeleteLink = () => {
     dispatch(deleteCustomLink(profile.id, link.id));
+  };
+  const handleEditLink = () => {
+    setShowCustomLinkModal(true);
   };
 
   const platformImage = link.image
@@ -37,12 +43,25 @@ const LinkCard = ({ link }) => {
         </div>
         {!params.username && (
           <FontAwesomeIcon
+            icon={faEdit}
+            className="mr-2"
+            color="blue"
+            onClick={() => handleEditLink(link)}
+          />
+        )}
+        {!params.username && (
+          <FontAwesomeIcon
             icon={faTrashAlt}
             color="red"
             onClick={handleDeleteLink}
           />
         )}
       </div>
+      <AddCustomLinkModal
+        link={link}
+        show={showCustomLinkModal}
+        setShow={setShowCustomLinkModal}
+      />
     </div>
   );
 };

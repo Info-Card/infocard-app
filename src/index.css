@@ -275,10 +275,22 @@ ul.twPc-Arrange {
 .zstack > * {
   grid-area: 1/1/1/1;
 }
-#company-name-length-adjust {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .name-length-adjust {
+    font-size: 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+@media (min-width: 100px) and (max-width: 389px) {
+  .small-length-adjust {
+    font-size: 8px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 /* Styles for MD breakpoint */
 @media (min-width: 768px) and (max-width: 991px) {
