@@ -46,7 +46,7 @@ const LoginPageForm = ({ strings }) => {
             placeholder="email"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.email?.message}</p>
+        <p className="validation-message-color">{errors.email?.message}</p>
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
           <Form.Control
@@ -64,7 +64,7 @@ const LoginPageForm = ({ strings }) => {
             Show Password
           </label>
         </Form.Group>
-        <p>{errors.password?.message}</p>
+        <p className="validation-message-color">{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}
         </Link>

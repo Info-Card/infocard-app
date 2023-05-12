@@ -388,3 +388,6 @@ ul.twPc-Arrange {
   object-fit: contain;
   background-color: #fff;
 }
+.validation-message-color {
+  color: red;
+}

@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateVideos } from "state/ducks/profile/actions";
 
 const schema = yup.object().shape({
-  url: yup.string().required().matches(urlRegex, "Please Enter a valid URL"),
+  url: yup
+    .string()
+    .required("URL is required")
+    .matches(urlRegex, "Please Enter a valid URL"),
 });
 
 export const AddVideoModal = ({ show, setShow }) => {
@@ -47,7 +50,9 @@ export const AddVideoModal = ({ show, setShow }) => {
           <Form.Group controlId="url">
             <Form.Label>URL</Form.Label>
             <Form.Control {...register("url")} placeholder="" type="url" />
-            <p className="text-danger">{errors.title?.message}</p>
+            <p className="text-danger validation-message-color">
+              {errors.title?.message}
+            </p>
           </Form.Group>
 
           <Button type="submit" variant="primary">
