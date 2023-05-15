@@ -16,12 +16,15 @@ import ActivateTagModal from "./components/ActivateTagModal";
 import PlatformList from "./components/platform/PlatformList";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { multilanguage } from "redux-multilanguage";
+import { Modal } from "react-bootstrap";
 
 const HomePage = ({ history, strings }) => {
   const dispatch = useDispatch();
 
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
+  const [showLengthControlModal, setShowLengthControlModal] = useState(false);
+  const [showLinksLengthControl, setShowLinksLengthControl] = useState(false);
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
@@ -53,6 +56,24 @@ const HomePage = ({ history, strings }) => {
       const direct = event.target.checked ? platform.id : "";
 
       dispatch(updateProfile(profile.id, { direct }));
+    }
+  };
+  const handleVideosLength = () => {
+    const { videos } = profile;
+    const videosLength = videos.length;
+    if (videosLength < 10) {
+      setShowAddVideoModal(true);
+    } else {
+      setShowLengthControlModal(true);
+    }
+  };
+  const handleLinksLength = () => {
+    const { customLinks } = profile;
+    const linksLength = customLinks.length;
+    if (linksLength < 10) {
+      setShowCustomLinkModal(true);
+    } else {
+      setShowLinksLengthControl(true);
     }
   };
 
@@ -94,7 +115,8 @@ const HomePage = ({ history, strings }) => {
                         backgroundColor: profile.color ?? "black",
                         border: `2px solid ${profile.color ?? "black"}`,
                       }}
-                      onClick={() => setShowCustomLinkModal(true)}
+                      onClick={handleLinksLength}
+                      // onClick={() => setShowCustomLinkModal(true)}
                     >
                       Add links
                     </Button>
@@ -106,7 +128,7 @@ const HomePage = ({ history, strings }) => {
                         backgroundColor: profile.color ?? "black",
                         border: `2px solid ${profile.color ?? "black"}`,
                       }}
-                      onClick={() => setShowAddVideoModal(true)}
+                      onClick={handleVideosLength}
                     >
                       {strings["upload video"]}
                     </Button>
@@ -170,6 +192,28 @@ const HomePage = ({ history, strings }) => {
             show={showCustomLinkModal}
             setShow={setShowCustomLinkModal}
           />
+          <Modal show={showLengthControlModal}>
+            <Modal.Header
+              closeButton
+              onHide={(e) => setShowLengthControlModal(false)}
+            >
+              <Modal.Title>
+                Maximum video limit reached. You cannot add more than 10 videos
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body></Modal.Body>
+          </Modal>
+          <Modal show={showLinksLengthControl}>
+            <Modal.Header
+              closeButton
+              onHide={(e) => setShowLinksLengthControl(false)}
+            >
+              <Modal.Title>
+                Maximum links limit reached. You cannot add more than 10 links
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body></Modal.Body>
+          </Modal>
         </Fragment>
       )}
     </MainLayout>
