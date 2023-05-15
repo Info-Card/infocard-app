@@ -359,6 +359,11 @@ ul.twPc-Arrange {
     font-size: 9px;
   }
 }
+@media (min-width: 100px) and (max-width: 299px) {
+  #save-contact-text-adjustment {
+    font-size: 5px;
+  }
+}
 
 /* .form-control {
   height: 55px !important;
@@ -387,4 +392,27 @@ ul.twPc-Arrange {
   height: 100px;
   object-fit: contain;
   background-color: #fff;
+}
+.validation-message-color {
+  color: red;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 40px; /* Adjust this value as needed */
+}
+
+.password-toggle-icon-container {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle-icon {
+  color: #777;
 }
