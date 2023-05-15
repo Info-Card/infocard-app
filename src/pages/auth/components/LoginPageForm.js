@@ -58,15 +58,17 @@ const LoginPageForm = ({ strings }) => {
               {...register("password")}
               placeholder="password"
               type={passwordType}
+              className="password-input"
             />
-            <FontAwesomeIcon
-              icon={passwordType === "password" ? faEyeSlash : faEye}
-              className="password-toggle-icon"
-              onClick={handleShowPassword}
-            />
+            <div className="password-toggle-icon-container">
+              <FontAwesomeIcon
+                icon={passwordType === "password" ? faEyeSlash : faEye}
+                className="password-toggle-icon"
+                onClick={handleShowPassword}
+              />
+            </div>
           </div>
         </Form.Group>
-
         <p className="validation-message-color">{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}

@@ -391,3 +391,23 @@ ul.twPc-Arrange {
 .validation-message-color {
   color: red;
 }
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 40px; /* Adjust this value as needed */
+}
+
+.password-toggle-icon-container {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle-icon {
+  color: #777;
+}
