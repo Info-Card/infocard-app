@@ -87,6 +87,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
             <Form.Control
               {...register("image")}
               type="file"
+              accept="image/*"
               placeholder="Choose image"
             />
             <p className="text-danger validation-message-color">
