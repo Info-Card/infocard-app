@@ -16,7 +16,7 @@ const schema = yup.object().shape({
 });
 
 const LoginPageForm = ({ strings }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");

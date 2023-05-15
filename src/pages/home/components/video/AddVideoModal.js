@@ -50,9 +50,7 @@ export const AddVideoModal = ({ show, setShow }) => {
           <Form.Group controlId="url">
             <Form.Label>URL</Form.Label>
             <Form.Control {...register("url")} placeholder="" type="url" />
-            <p className="text-danger validation-message-color">
-              {errors.title?.message}
-            </p>
+            <p className="validation-message-color">{errors.title?.message}</p>
           </Form.Group>
 
           <Button type="submit" variant="primary">

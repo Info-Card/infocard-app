@@ -339,7 +339,9 @@ const LinkPage = ({ history, match, strings }) => {
                           ></Form.Control>
                         </Form.Group>
                       )}
-                    <p>{errors.This?.message}</p>
+                    <p className="validation-message-color">
+                      {errors.This?.message}
+                    </p>
 
                     {loading || uploading ? (
                       <Loader />

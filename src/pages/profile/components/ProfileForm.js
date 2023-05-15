@@ -80,9 +80,7 @@ const ProfileForm = ({ profile, strings }) => {
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control {...register("name")} placeholder="" type="text" />
-          <p className="text-danger validation-message-color">
-            {errors.name?.message}
-          </p>
+          <p className="validation-message-color">{errors.name?.message}</p>
         </Form.Group>
         <Form.Group controlId="bio">
           <Form.Label>Bio</Form.Label>
@@ -92,9 +90,7 @@ const ProfileForm = ({ profile, strings }) => {
             as="textarea"
             rows={3}
           />
-          <p className="text-danger validation-message-color">
-            {errors.bio?.message}
-          </p>
+          <p className="validation-message-color">{errors.bio?.message}</p>
         </Form.Group>
         <Form.Group controlId="dateOfBirth">
           <Form.Label>Date of Birth</Form.Label>
@@ -103,7 +99,7 @@ const ProfileForm = ({ profile, strings }) => {
             placeholder=""
             type="date"
           />
-          <p className="text-danger validation-message-color">
+          <p className="validation-message-color">
             {errors.dateOfBirth?.message}
           </p>
         </Form.Group>
@@ -115,23 +111,17 @@ const ProfileForm = ({ profile, strings }) => {
             as="textarea"
             rows={2}
           />
-          <p className="text-danger validation-message-color">
-            {errors.address?.message}
-          </p>
+          <p className="validation-message-color">{errors.address?.message}</p>
         </Form.Group>
         <Form.Group controlId="company">
           <Form.Label>Company</Form.Label>
           <Form.Control {...register("company")} placeholder="" type="text" />
-          <p className="text-danger validation-message-color">
-            {errors.company?.message}
-          </p>
+          <p className="validation-message-color">{errors.company?.message}</p>
         </Form.Group>
         <Form.Group controlId="jobTitle">
           <Form.Label>Job Title</Form.Label>
           <Form.Control {...register("jobTitle")} placeholder="" type="text" />
-          <p className="text-danger validation-message-color">
-            {errors.jobTitle?.message}
-          </p>
+          <p className="validation-message-color">{errors.jobTitle?.message}</p>
         </Form.Group>
         <Form.Group controlId="color">
           <Form.Label>Color</Form.Label>

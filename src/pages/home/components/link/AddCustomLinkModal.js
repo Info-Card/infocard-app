@@ -67,9 +67,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               placeholder="title"
               type="title"
             />
-            <p className="text-danger validation-message-color">
-              {errors.title?.message}
-            </p>
+            <p className="validation-message-color">{errors.title?.message}</p>
           </Form.Group>
           <Form.Group controlId="url">
             <Form.Label>URL</Form.Label>
@@ -78,9 +76,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               placeholder="Enter url"
               name="url"
             />
-            <p className="text-danger validation-message-color">
-              {errors.url?.message}
-            </p>
+            <p className="validation-message-color">{errors.url?.message}</p>
           </Form.Group>
           <Form.Group controlId="image">
             <Form.Label>Image</Form.Label>
@@ -90,9 +86,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               accept="image/*"
               placeholder="Choose image"
             />
-            <p className="text-danger validation-message-color">
-              {errors.image?.message}
-            </p>
+            <p className="validation-message-color">{errors.image?.message}</p>
           </Form.Group>
           {link ? (
             <Button type="submit" variant="primary">
