@@ -359,6 +359,11 @@ ul.twPc-Arrange {
     font-size: 9px;
   }
 }
+@media (min-width: 100px) and (max-width: 299px) {
+  #save-contact-text-adjustment {
+    font-size: 5px;
+  }
+}
 
 /* .form-control {
   height: 55px !important;
