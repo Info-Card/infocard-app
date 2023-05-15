@@ -7,6 +7,8 @@ import * as yup from "yup";
 import Loader from "components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "state/ducks/auth/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -14,6 +16,7 @@ const schema = yup.object().shape({
 });
 
 const LoginPageForm = ({ strings }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
@@ -49,21 +52,21 @@ const LoginPageForm = ({ strings }) => {
         <p className="validation-message-color">{errors.email?.message}</p>
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
-          <Form.Control
-            onChange={(e) => setPasswordInput(e.target.value)}
-            {...register("password")}
-            placeholder="password"
-            type={passwordType}
-          ></Form.Control>
-          <label id="show-password-label" htmlFor="agree">
-            <input
-              id="show-password-input"
-              type="checkbox"
+          <div className="password-input-container">
+            <Form.Control
+              onChange={(e) => setPasswordInput(e.target.value)}
+              {...register("password")}
+              placeholder="password"
+              type={passwordType}
+            />
+            <FontAwesomeIcon
+              icon={passwordType === "password" ? faEyeSlash : faEye}
+              className="password-toggle-icon"
               onClick={handleShowPassword}
             />
-            Show Password
-          </label>
+          </div>
         </Form.Group>
+
         <p className="validation-message-color">{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}
