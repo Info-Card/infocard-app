@@ -116,7 +116,6 @@ const HomePage = ({ history, strings }) => {
                         border: `2px solid ${profile.color ?? "black"}`,
                       }}
                       onClick={handleLinksLength}
-                      // onClick={() => setShowCustomLinkModal(true)}
                     >
                       Add links
                     </Button>
