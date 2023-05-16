@@ -78,12 +78,6 @@ a {
   -webkit-box-orient: vertical;
 }
 
-.player-card {
-  height: 200px;
-  margin-right: 10px;
-  background-color: black;
-}
-
 .direct-button {
   background-color: #ddd;
   border: none;
@@ -136,7 +130,7 @@ a {
   height: 130px;
   margin: -50px 0px 10px 0px;
   position: relative;
-  z-index: 111;
+  z-index: 2;
   background-color: white;
   -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
   box-shadow: 0 0 2px rgb(200, 200, 200);
@@ -153,7 +147,12 @@ a {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 112;
+  z-index: 3;
+}
+
+.image-viewer {
+  position: absolute;
+  z-index: 4;
 }
 
 /* .profile_card div{
@@ -276,10 +275,22 @@ ul.twPc-Arrange {
 .zstack > * {
   grid-area: 1/1/1/1;
 }
-#company-name-length-adjust {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .name-length-adjust {
+    font-size: 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+@media (min-width: 100px) and (max-width: 389px) {
+  .small-length-adjust {
+    font-size: 8px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 /* Styles for MD breakpoint */
 @media (min-width: 768px) and (max-width: 991px) {
@@ -297,8 +308,111 @@ ul.twPc-Arrange {
     font-size: 9px;
   }
 }
+#show-password-label {
+  margin-top: 10px;
+  display: flex; /* use flexbox to align items */
+  align-items: center; /* center items vertically */
+  margin-bottom: 10px; /* add margin to the bottom of the label */
+}
+#show-password-input {
+  margin-right: 10px;
+}
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 20px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: "<";
+  font-size: 20px;
+  color: black;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  #button-text-adjustment {
+    font-size: 10px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #button-text-adjustment {
+    font-size: 8px;
+  }
+}
+@media (min-width: 100px) and (max-width: 349px) {
+  #button-text-adjustment {
+    font-size: 8px;
+  }
+}
+@media (min-width: 900px) and (max-width: 1047px) {
+  #save-contact-text-adjustment {
+    font-size: 9px;
+  }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  #save-contact-text-adjustment {
+    font-size: 6px;
+  }
+}
+@media (min-width: 100px) and (max-width: 349px) {
+  #save-contact-text-adjustment {
+    font-size: 9px;
+  }
+}
+@media (min-width: 100px) and (max-width: 299px) {
+  #save-contact-text-adjustment {
+    font-size: 5px;
+  }
+}
 
 /* .form-control {
   height: 55px !important;
   width: 350px !important;
 } */
+
+.card {
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px rgb(200, 200, 200);
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+}
+
+.profile-cover {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 140px;
+  width: 100%;
+  padding-top: 80px;
+  margin-bottom: 60px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: #fff;
+}
+.validation-message-color {
+  color: red;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 40px; /* Adjust this value as needed */
+}
+
+.password-toggle-icon-container {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle-icon {
+  color: #777;
+}

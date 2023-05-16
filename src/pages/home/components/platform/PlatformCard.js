@@ -1,12 +1,9 @@
 import React from "react";
 import { multilanguage } from "redux-multilanguage";
 
-const HomePlatform = ({
-  platform,
-  showMakeDirect,
-  handleDirectOn,
-  strings,
-}) => {
+const PlatformCard = ({ platform, direct, strings }) => {
+  const handleDirectOn = (id) => {};
+
   return (
     <div className="platform-card d-flex align-items-center justify-content-between p-2">
       <div className="d-flex align-items-center">
@@ -17,7 +14,7 @@ const HomePlatform = ({
         />
         {platform.title} <br /> {strings["visits:"]} {platform.taps}
       </div>
-      {showMakeDirect && (
+      {direct && direct !== "" && direct !== platform.id && (
         <button
           className="direct-button"
           onClick={(e) => handleDirectOn(platform.id)}
@@ -29,4 +26,4 @@ const HomePlatform = ({
   );
 };
 
-export default multilanguage(HomePlatform);
+export default multilanguage(PlatformCard);

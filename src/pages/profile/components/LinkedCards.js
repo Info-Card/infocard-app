@@ -46,6 +46,9 @@ const LinkedCards = ({ strings }) => {
                 <td>{tag.url}</td>
                 <td>
                   <Button
+                    style={{
+                      width: "60px",
+                    }}
                     className="btn-sm mr-2"
                     variant="primary"
                     onClick={(e) => {
@@ -55,7 +58,11 @@ const LinkedCards = ({ strings }) => {
                     {strings["Edit"]}
                   </Button>
                   <Button
-                    className="btn-sm"
+                    style={{
+                      width: "60px",
+                      justifyContent: "center", // Center the text horizontally
+                    }}
+                    className="btn-sm d-flex text-center"
                     variant="danger"
                     onClick={(e) => setShowDeleteTag(tag.id)}
                   >

@@ -22,7 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  profileLink: yup.string().required(),
+  This: yup.string().required(),
 });
 
 const LinkPage = ({ history, match, strings }) => {
@@ -90,11 +90,9 @@ const LinkPage = ({ history, match, strings }) => {
     }
   }, [history, authUser, linkId, link, categories, dispatch, success, profile]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
+  const submitHandler = () => {
+    // e.preventDefault();
     var value = link.type !== "medical" ? path : JSON.stringify(medicalCard);
-
     if (link.id) {
       dispatch(updateLink(link.id, { value }));
     } else {
@@ -334,14 +332,16 @@ const LinkPage = ({ history, match, strings }) => {
                         <Form.Group controlId="value">
                           <Form.Control
                             type="text"
-                            {...register("profileLink")}
-                            placeholder="hhh"
+                            {...register("This")}
+                            placeholder="Enter Here"
                             value={path}
                             onChange={(e) => setPath(e.target.value)}
                           ></Form.Control>
                         </Form.Group>
                       )}
-                    <p>{errors.profileLink?.message}</p>
+                    <p className="validation-message-color">
+                      {errors.This?.message}
+                    </p>
 
                     {loading || uploading ? (
                       <Loader />

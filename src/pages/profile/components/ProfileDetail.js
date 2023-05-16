@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Platform from "components/Platform";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import VideoPlayer from "./VideoPlayer";
 import { exchangeContact } from "state/ducks/profile/actions";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
+import LinksList from "pages/home/components/link/LinksList";
+import VideoList from "pages/home/components/video/VideoList";
+import ListPlatForms from "./ListPlatForms";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -114,9 +115,12 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   >
                     <Button
                       type="submit"
-                      variant="outline-primary"
+                      id="save-contact-text-adjustment"
                       style={{
+                        backgroundColor: profile.color ?? "grey",
+                        color: "white",
                         width: "100%",
+                        border: `2px solid ${profile.color ?? "grey"}`,
                       }}
                     >
                       {strings["Save Contact"]}
@@ -126,6 +130,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                 <Col xs={6}>
                   <Button
                     type="submit"
+                    id="save-contact-text-adjustment"
                     style={{
                       backgroundColor: profile.color ?? "grey",
                       color: "white",
@@ -145,86 +150,12 @@ const ProfileDetail = ({ user, profile, strings }) => {
               <h5 style={{ paddingTop: "20px" }}>About</h5>
               <Col xs={12}>{profile.bio}</Col>
             </>
-            {profile.customLinks && profile.customLinks.length > 0 ? (
-              <>
-                <h5 style={{ paddingTop: "10px" }}>Links</h5>
-                <Col xs={12}>
-                  <div className="scrolling-wrapper bg-transparent">
-                    {profile.customLinks.map((link) => {
-                      return (
-                        <a href={link.url} target="_blank" rel="noreferrer">
-                          <div
-                            className="platform-card p-3 m-2"
-                            style={{
-                              display: "inline-block",
-                              width: "290px",
-                            }}
-                          >
-                            <div className="d-flex align-items-center">
-                              <img
-                                src={
-                                  process.env.REACT_APP_IMAGE_URL + link.image
-                                }
-                                alt=""
-                                className="platform-image"
-                              />
-                              <div>
-                                <h6>{link.title}</h6>
-                                <span className="max-lines">{link.url}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                      );
-                    })}
-                  </div>
-                </Col>
-              </>
-            ) : (
-              <></>
-            )}
-            {profile.videos && profile.videos.length > 0 ? (
-              <>
-                <h5 style={{ paddingTop: "10px" }}>Videos</h5>
-                <Col xs={12}>
-                  <div className="scrolling-wrapper text-center">
-                    {profile.videos.map((video) => {
-                      return (
-                        <div style={{ display: "inline-block" }}>
-                          <VideoPlayer video={video} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </Col>
-              </>
-            ) : (
-              <></>
-            )}
-
+            <LinksList links={profile.customLinks} />
+            <VideoList videos={profile.videos} />
             {profile.platforms && profile.platforms.length > 0 ? (
               <>
                 <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
-                <Col xs={12} md={12}>
-                  <div className="platform-card p-3">
-                    <Row>
-                      {profile.platforms.map((platform, key) => {
-                        return (
-                          <Col key={key} xs={4}>
-                            <a
-                              onClick={(e) => {
-                                e.preventDefault();
-                                openLink(platform, true);
-                              }}
-                            >
-                              <Platform platform={platform} />
-                            </a>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </div>
-                </Col>
+                <ListPlatForms profile={profile} />
               </>
             ) : (
               <></>

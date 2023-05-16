@@ -1,27 +1,27 @@
-import EditProfilePage from './EditProfilePage';
-import HomePage from './HomePage';
-import ProfilePage from './ProfilePage';
-import QRPage from './QRPage';
+import EditProfilePage from "../profile/EditProfilePage";
+import HomePage from "./HomePage";
+import ProfilePage from "../profile/ProfilePage";
+import QRPage from "../qr/QRPage";
 
 export const HomePageConfig = {
   routes: [
     {
-      path: '/',
+      path: "/",
       exact: true,
       component: HomePage,
     },
     {
-      path: '/profile',
+      path: "/profile",
       exact: true,
       component: EditProfilePage,
     },
     {
-      path: '/qr',
+      path: "/qr",
       exact: true,
       component: QRPage,
     },
     {
-      path: '/:username',
+      path: "/:username",
       exact: true,
       component: ProfilePage,
     },
