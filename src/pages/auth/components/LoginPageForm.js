@@ -29,7 +29,6 @@ const LoginPageForm = ({ strings }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -37,7 +36,6 @@ const LoginPageForm = ({ strings }) => {
     console.log(data);
     const { email, password } = data;
     dispatch(login(email, password));
-    reset();
   };
   return (
     <>

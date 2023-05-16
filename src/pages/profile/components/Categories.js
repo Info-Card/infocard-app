@@ -23,13 +23,21 @@ const Categories = () => {
             return (
               <div className="text-center" key={key}>
                 <h4>{category.name}</h4>
-
                 <Row>
                   {category.platforms.map((platform, key) => {
+                    const handleRightClick = (event) => {
+                      event.preventDefault();
+                      window.open(`/links/${platform.platform}`, "_blank");
+                    };
+
                     return (
                       <Col xs={4} md={2} key={key}>
                         <Link to={`/links/${platform.platform}`}>
-                          <Platform platform={platform} showCheck={true} />
+                          <Platform
+                            platform={platform}
+                            showCheck={true}
+                            onContextMenu={handleRightClick}
+                          />
                         </Link>
                       </Col>
                     );

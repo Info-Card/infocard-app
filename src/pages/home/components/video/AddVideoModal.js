@@ -3,7 +3,6 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { urlRegex } from "helpers/regex";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVideos } from "state/ducks/profile/actions";
 
@@ -11,7 +10,10 @@ const schema = yup.object().shape({
   url: yup
     .string()
     .required("URL is required")
-    .matches(urlRegex, "Please Enter a valid URL"),
+    .matches(
+      /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/,
+      "Please enter a valid YouTube URL"
+    ),
 });
 
 export const AddVideoModal = ({ show, setShow }) => {
