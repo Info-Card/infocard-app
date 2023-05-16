@@ -120,7 +120,6 @@ export const addCustomLink = (id, data) => async (dispatch) => {
 
 export const updateCustomLink =
   (profileId, linkId, data) => async (dispatch) => {
-    console.log("is in actio =", profileId, linkId, data);
     try {
       dispatch({
         type: types.PROFILE_REQUEST,
