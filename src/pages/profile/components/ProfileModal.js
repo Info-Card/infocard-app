@@ -2,11 +2,12 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { multilanguage } from "redux-multilanguage";
 
-const ProfileModal = (props) => {
+const ProfileModal = ({ strings }) => {
   const { tag } = useSelector((state) => state.tags);
   const { user: authUser } = useSelector((state) => state.auth);
-  const strings = props;
+
   return (
     <div>
       <Modal show={tag && !authUser}>
@@ -35,4 +36,4 @@ const ProfileModal = (props) => {
   );
 };
 
-export default ProfileModal;
+export default multilanguage(ProfileModal);

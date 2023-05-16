@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Table } from "react-bootstrap";
 import { TAG_RESET } from "state/ducks/tags/types";
-import { getTags } from "state/ducks/tags/actions";
+import { getTags, unlinkTag } from "state/ducks/tags/actions";
 import { multilanguage } from "redux-multilanguage";
-import LinkedCardModal from "./LinkedCardModal";
+import UpdateCardModal from "./UpdateCardModal";
+import Swal from "sweetalert2";
 
 const LinkedCards = ({ strings }) => {
   const props = strings;
   const [showDeleteTag, setShowDeleteTag] = useState("");
   const [selectedTag, setSelectedTag] = useState(null);
-
-  console.log(showDeleteTag);
-  console.log(selectedTag);
 
   const dispatch = useDispatch();
 
@@ -64,7 +62,22 @@ const LinkedCards = ({ strings }) => {
                     }}
                     className="btn-sm d-flex text-center"
                     variant="danger"
-                    onClick={(e) => setShowDeleteTag(tag.id)}
+                    onClick={(e) =>
+                      Swal.fire({
+                        title: "<strong>Warning</strong>",
+                        icon: "warning",
+                        html: "Are you sure you want to unlink this card?",
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        confirmButtonText: "Yes",
+                        cancelButtonText: "No",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          dispatch(unlinkTag(tag.id));
+                        }
+                      })
+                    }
                   >
                     {strings["UnLink"]}
                   </Button>
@@ -74,7 +87,9 @@ const LinkedCards = ({ strings }) => {
           </tbody>
         )}
       </Table>
-      <LinkedCardModal message={props} />
+      {selectedTag && (
+        <UpdateCardModal tag={selectedTag} setTag={setSelectedTag} />
+      )}
     </div>
   );
 };

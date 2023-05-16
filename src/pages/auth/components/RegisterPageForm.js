@@ -24,15 +24,13 @@ const RegisterPageForm = ({ strings, setMessage }) => {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      dispatch(registerUser(username, email, password));
-      reset();
+      dispatch(registerUser({ username, email, password }));
     }
   };
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });

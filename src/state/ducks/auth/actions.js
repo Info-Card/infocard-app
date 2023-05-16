@@ -25,31 +25,27 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const registerUser = (creadentials) => (dispatch) => {
-  dispatch({
-    type: types.AUTH_REQUEST,
-  });
-  return AuthService.register(creadentials).then(
-    (data) => {
-      dispatch({
-        type: types.AUTH_SUCCESS,
-        payload: data,
-      });
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      dispatch({
-        type: types.AUTH_FAIL,
-        payload: message,
-      });
-    }
-  );
+export const registerUser = (creadentials) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.AUTH_REQUEST,
+    });
+    const res = await AuthService.register(creadentials);
+    TokenService.setAuthInfo(res.data);
+    dispatch({
+      type: types.AUTH_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: types.AUTH_FAIL,
+      payload: message,
+    });
+  }
 };
 
 export const forgotPassword = (email) => (dispatch) => {
