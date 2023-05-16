@@ -24,8 +24,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      dispatch(registerUser(username, email, password));
-      reset();
+      dispatch(registerUser({ username, email, password }));
     }
   };
   const {

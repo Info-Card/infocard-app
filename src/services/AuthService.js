@@ -17,8 +17,8 @@ class AuthService extends ApiService {
    * @param {string} password - The password of the user to register.
    * @returns {Promise} A promise that resolves with the server response data.
    */
-  register(email, password) {
-    return this.instance.post(`/v1/auth/register`, { email, password });
+  register(params) {
+    return this.instance.post(`/v1/auth/register`, params);
   }
 
   /**
