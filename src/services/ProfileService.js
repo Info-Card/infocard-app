@@ -51,6 +51,35 @@ class ProfileService extends ApiService {
   }
 
   /**
+   * Add custom Link with id and data
+   * @param {string} id * This is the id for add custom link
+   * @param {string} data * This is the data
+   */
+  // async updateCustomLink(profileId, linkId, data) {
+  //   console.log("is in profile service", profileId, linkId, data);
+  //   const formData = await toFormData(data);
+  //   const config = getConfig();
+  //   return this.instance.post(
+  //     `/v1/profile/${profileId}/links/${linkId}`,
+  //     formData,
+  //     config
+  //   );
+  // }
+
+  async updateCustomLink(profileId, linkId, data) {
+    const formData = await toFormData(data);
+    formData.delete("createdAt");
+    formData.delete("id");
+
+    const config = getConfig();
+    return this.instance.patch(
+      `/v1/profile/${profileId}/links/${linkId}`,
+      formData,
+      config
+    );
+  }
+
+  /**
    * Delete custom Link with the ProfileId and id
    * @param {string} profileId * This is the profile Id
    * @param {string} id * This is the id for delete custom link

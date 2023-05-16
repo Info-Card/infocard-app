@@ -118,6 +118,35 @@ export const addCustomLink = (id, data) => async (dispatch) => {
   }
 };
 
+export const updateCustomLink =
+  (profileId, linkId, data) => async (dispatch) => {
+    console.log("is in actio =", profileId, linkId, data);
+    try {
+      dispatch({
+        type: types.PROFILE_REQUEST,
+      });
+      const res = await ProfileService.updateCustomLink(
+        profileId,
+        linkId,
+        data
+      );
+
+      dispatch({
+        type: types.UPDATE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: types.PROFILE_FAIL,
+        payload: message,
+      });
+    }
+  };
+
 export const deleteCustomLink = (profileId, id) => async (dispatch) => {
   try {
     dispatch({

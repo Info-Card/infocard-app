@@ -31,7 +31,6 @@ const RegisterPageForm = ({ strings, setMessage }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });

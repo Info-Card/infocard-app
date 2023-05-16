@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { urlRegex } from "helpers/regex";
 import { useDispatch, useSelector } from "react-redux";
-import { addCustomLink } from "state/ducks/profile/actions";
+import { addCustomLink, updateCustomLink } from "state/ducks/profile/actions";
 
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegex, "Please Enter a valid URL"),
@@ -43,7 +43,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
 
   const onSubmit = (data) => {
     if (link) {
-      console.log("update is ok");
+      dispatch(updateCustomLink(profile.id, link.id, data));
     } else {
       dispatch(addCustomLink(profile.id, data));
     }
