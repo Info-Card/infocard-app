@@ -306,8 +306,12 @@ ul.twPc-Arrange {
 @media (min-width: 768px) and (max-width: 1014px) {
   #title-size-adjustment {
     font-size: 9px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 }
+
 #show-password-label {
   margin-top: 10px;
   display: flex; /* use flexbox to align items */
