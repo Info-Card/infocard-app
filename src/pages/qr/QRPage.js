@@ -83,6 +83,12 @@ const QRPage = ({ history, strings }) => {
               >
                 <FontAwesomeIcon icon={faShare} size="lg" />
               </Button>
+              <div id="share-link-title">
+                <div id="share-link-title-items">
+                  <span>Copy link</span>
+                  <span>Share Profile</span>
+                </div>
+              </div>
 
               <ToastContainer
                 bodyClassName={() => "text-sm font-med block p-3"}
