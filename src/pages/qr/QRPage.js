@@ -30,7 +30,7 @@ const QRPage = ({ history, strings }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Info Card</title>
+            <title>{authUser.username} - Fastest Network Technology</title>
           </Helmet>
 
           <Row className="mt-2">
