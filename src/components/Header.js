@@ -29,7 +29,7 @@ const Header = ({ history = [""], strings }) => {
             <Nav className="ml-auto">
               {authUser ? (
                 <>
-                  <NavDropdown title={authUser.username} id="username">
+                  <NavDropdown title={"Setting"} id="username">
                     <LinkContainer to="/qr">
                       <NavDropdown.Item>
                         <i className="fas fa-qrcode"></i> {strings["My QR"]}
