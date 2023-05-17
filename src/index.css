@@ -305,10 +305,12 @@ ul.twPc-Arrange {
 
 @media (min-width: 768px) and (max-width: 1014px) {
   #title-size-adjustment {
-    font-size: 9px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
+    font-size: 8px;
+  }
+}
+@media (min-width: 100px) and (max-width: 388px) {
+  #title-size-adjustment {
+    font-size: 8px;
   }
 }
 
