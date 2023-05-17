@@ -94,8 +94,8 @@ const HomePage = ({ history, strings }) => {
       {authUser && (
         <Fragment>
           {loading && <Loader />}
-          <Row className="justify-content-center m-2">
-            <Col md={5} lg={4}>
+          <Row>
+            <Col md={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
               {user && (
                 <Toggle

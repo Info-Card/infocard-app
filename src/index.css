@@ -305,7 +305,7 @@ ul.twPc-Arrange {
 
 @media (min-width: 768px) and (max-width: 1014px) {
   #title-size-adjustment {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 @media (min-width: 100px) and (max-width: 388px) {
