@@ -14,12 +14,19 @@ const VideoList = ({ videos }) => {
   return (
     <div className="mt-2">
       <h5>Videos</h5>
-      <Swiper slidesPerView={1} pagination={{ clickable: true }}>
-        {videos.map((video) => (
-          <SwiperSlide key={video.id}>
-            <VideoCard video={video} />
-          </SwiperSlide>
-        ))}
+      <Swiper
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={26}
+      >
+        {videos.map((video) => {
+          return (
+            <SwiperSlide key={video}>
+              {video !== "" && <VideoCard video={video} />}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
