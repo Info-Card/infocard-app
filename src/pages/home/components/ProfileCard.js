@@ -19,6 +19,8 @@ const ProfileCard = ({ profile }) => {
                 className="img-fluid"
                 style={{
                   height: "200px",
+                  width: "100%",
+                  objectFit: "fill",
                 }}
               />
             ) : (
@@ -28,6 +30,8 @@ const ProfileCard = ({ profile }) => {
                 className="img-fluid"
                 style={{
                   height: "200px",
+                  width: "100%",
+                  objectFit: "fill",
                 }}
               />
             )}
