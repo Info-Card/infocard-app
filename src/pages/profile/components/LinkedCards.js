@@ -8,7 +8,6 @@ import UpdateCardModal from "./UpdateCardModal";
 import Swal from "sweetalert2";
 
 const LinkedCards = ({ strings }) => {
-  const props = strings;
   const [showDeleteTag, setShowDeleteTag] = useState("");
   const [selectedTag, setSelectedTag] = useState(null);
 
