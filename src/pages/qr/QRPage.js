@@ -83,8 +83,8 @@ const QRPage = ({ history, strings }) => {
               >
                 <FontAwesomeIcon icon={faShare} size="lg" />
               </Button>
-              <div id="share-link-title">
-                <div id="share-link-title-items">
+              <div id="share-title">
+                <div id="title-items">
                   <span>Copy link</span>
                   <span>Share Profile</span>
                 </div>

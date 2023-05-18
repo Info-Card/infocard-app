@@ -19,8 +19,6 @@ const ProfileCard = ({ profile }) => {
                 className="img-fluid"
                 style={{
                   height: "200px",
-                  // width: "100%",
-                  // objectFit: "fill",
                 }}
               />
             ) : (
@@ -30,13 +28,10 @@ const ProfileCard = ({ profile }) => {
                 className="img-fluid"
                 style={{
                   height: "200px",
-                  // width: "100%",
-                  // objectFit: "fill",
                 }}
               />
             )}
           </Col>
-
           <Col xs={6}>
             <h5 className="small-length-adjust">{profile.name}</h5>
             <h5 className="name-length-adjust small-length-adjust">

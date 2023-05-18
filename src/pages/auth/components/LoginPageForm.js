@@ -16,7 +16,6 @@ const schema = yup.object().shape({
 });
 
 const LoginPageForm = ({ strings }) => {
-  // const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
@@ -47,7 +46,7 @@ const LoginPageForm = ({ strings }) => {
             placeholder="email"
           ></Form.Control>
         </Form.Group>
-        <p className="validation-message-color">{errors.email?.message}</p>
+        <p className="validation-color">{errors.email?.message}</p>
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
           <div className="password-input-container">
@@ -58,7 +57,7 @@ const LoginPageForm = ({ strings }) => {
               type={passwordType}
               className="password-input"
             />
-            <div className="password-toggle-icon-container">
+            <div className="password-icon">
               <FontAwesomeIcon
                 icon={passwordType === "password" ? faEyeSlash : faEye}
                 className="password-toggle-icon"
@@ -67,7 +66,7 @@ const LoginPageForm = ({ strings }) => {
             </div>
           </div>
         </Form.Group>
-        <p className="validation-message-color">{errors.password?.message}</p>
+        <p className="validation-color">{errors.password?.message}</p>
         <Link to="/forgot-password" className="float-right">
           {strings["forgot password?"]}
         </Link>

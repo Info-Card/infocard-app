@@ -31,15 +31,6 @@ const ChangePasswordPage = ({ location, history, strings }) => {
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           <ChangePasswordForm strings={strings} />
-
-          {/* <Row className="py-3">
-        <Col>
-          New Customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
-          </Link>
-        </Col>
-      </Row> */}
         </FormContainer>
       </Fragment>
     </MainLayout>

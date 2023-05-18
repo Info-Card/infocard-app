@@ -155,17 +155,6 @@ a {
   z-index: 4;
 }
 
-/* .profile_card div{
-  width: 130px;
-  height: 130px;
-  margin: -50px 0px 10px 0px;
-  position:relative;
-  z-index:111;
-  background-color:white;
-  -webkit-box-shadow: 0 0 1px rgb(200, 200, 200);
-  box-shadow: 0 0 2px rgb(200, 200, 200);
-} */
-
 .profile-card {
   background: #fff none repeat scroll 0 0;
   box-shadow: 0 0 10px rgb(200, 200, 200);
@@ -316,9 +305,9 @@ ul.twPc-Arrange {
 
 #show-password-label {
   margin-top: 10px;
-  display: flex; /* use flexbox to align items */
-  align-items: center; /* center items vertically */
-  margin-bottom: 10px; /* add margin to the bottom of the label */
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 #show-password-input {
   margin-right: 10px;
@@ -371,11 +360,6 @@ ul.twPc-Arrange {
   }
 }
 
-/* .form-control {
-  height: 55px !important;
-  width: 350px !important;
-} */
-
 .card {
   border: none;
   border-radius: 10px;
@@ -399,7 +383,7 @@ ul.twPc-Arrange {
   object-fit: contain;
   background-color: #fff;
 }
-.validation-message-color {
+.validation-color {
   color: red;
 }
 
@@ -408,10 +392,10 @@ ul.twPc-Arrange {
 }
 
 .password-input {
-  padding-right: 40px; /* Adjust this value as needed */
+  padding-right: 40px;
 }
 
-.password-toggle-icon-container {
+.password-icon {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -422,13 +406,13 @@ ul.twPc-Arrange {
 .password-toggle-icon {
   color: #777;
 }
-#share-link-title {
+#share-title {
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
 
-#share-link-title-items {
+#title-items {
   display: flex;
   justify-content: space-between;
   width: 180px;

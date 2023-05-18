@@ -56,7 +56,7 @@ const LinkedCards = ({ strings }) => {
                   <Button
                     style={{
                       width: "60px",
-                      justifyContent: "center", // Center the text horizontally
+                      justifyContent: "center",
                     }}
                     className="btn-sm d-flex text-center"
                     variant="danger"

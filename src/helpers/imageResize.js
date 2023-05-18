@@ -4,7 +4,6 @@ const resizeImage = (file) => {
     img.src = URL.createObjectURL(file);
     img.onload = () => {
       const { width, height } = img;
-
       let newWidth, newHeight;
       if (width > height) {
         newWidth = Math.min(width, 300);
@@ -13,11 +12,9 @@ const resizeImage = (file) => {
         newHeight = Math.min(height, 300);
         newWidth = newHeight * (width / height);
       }
-
       const canvas = document.createElement("canvas");
       canvas.width = newWidth;
       canvas.height = newHeight;
-
       createImageBitmap(img, 0, 0, width, height, {
         resizeWidth: newWidth,
         resizeHeight: newHeight,

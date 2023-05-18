@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { exchangeContact } from "state/ducks/profile/actions";
+import { Button, Col, Row } from "react-bootstrap";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
 import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
 import ListPlatForms from "../ListPlatForms";
+import ProfileDetailModal from "./ProfileDetailModal";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-    number: "",
-  });
   const dispatch = useDispatch();
   useEffect(() => {
     const openLink = (platform, newTab) => {
@@ -48,14 +42,6 @@ const ProfileDetail = ({ user, profile, strings }) => {
       }
     }
   }, [user, dispatch]);
-
-  const handleExchange = (event) => {
-    event.preventDefault();
-    console.log(form);
-    dispatch(exchangeContact(profile.id, form));
-    setForm({ name: "", email: "", message: "", number: "" });
-    setShowExchange(false);
-  };
 
   return (
     <>
@@ -162,61 +148,12 @@ const ProfileDetail = ({ user, profile, strings }) => {
               <></>
             )}
           </Row>
-          <Modal show={showExchange}>
-            <Modal.Header closeButton onHide={(e) => setShowExchange(false)}>
-              <Modal.Title>
-                {strings["Exchange Contact with"]} {profile.name}
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form onSubmit={handleExchange}>
-                <Form.Group controlId="name">
-                  <Form.Label>{strings["Your Name"]}</Form.Label>
-                  <Form.Control
-                    type="name"
-                    placeholder={strings["Enter name"]}
-                    value={form.name}
-                    required
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  ></Form.Control>
-                  <Form.Label>{strings["Your Email"]}</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder={strings["Enter email"]}
-                    value={form.email}
-                    required
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                  ></Form.Control>
-                  <Form.Label>{strings["Your Number"]}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder={strings["Enter number"]}
-                    value={form.number}
-                    required
-                    onChange={(e) =>
-                      setForm({ ...form, number: e.target.value })
-                    }
-                  ></Form.Control>
-                  <Form.Label>{strings["Message"]}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder={strings["Enter message"]}
-                    value={form.message}
-                    required
-                    onChange={(e) =>
-                      setForm({ ...form, message: e.target.value })
-                    }
-                  ></Form.Control>
-                </Form.Group>
-
-                <Button type="submit" variant="primary">
-                  {strings["Exchange"]}
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
+          <ProfileDetailModal
+            showExchange={showExchange}
+            setShowExchange={setShowExchange}
+            strings={strings}
+            profile={profile}
+          />
         </div>
       ) : (
         <></>

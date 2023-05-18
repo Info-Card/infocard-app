@@ -5,7 +5,6 @@ import Platform from "./Platform";
 const ProfileDescription = ({ history }) => {
   const { data: user } = useSelector((state) => state.user);
   const [profile, setProfile] = useState(null);
-
   useEffect(() => {
     if (user) {
       if (
@@ -35,12 +34,10 @@ const ProfileDescription = ({ history }) => {
       }
     }
   }, [history, user]);
-
   const connectHandler = () => {
     var urlString = "https://api.infocard.me/v1/profile/contact/" + profile.id;
     window.open(urlString, "_self");
   };
-
   return (
     <div className="container">
       {user ? (

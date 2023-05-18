@@ -1,17 +1,11 @@
-import LinkPage from './LinkPage';
-import MedicalCardPage from './MedicalCardPage';
+import LinkPage from "./LinkPage";
 
 export const LinkPageConfig = {
   routes: [
     {
-      path: '/links/:linkId',
+      path: "/links/:linkId",
       exact: true,
       component: LinkPage,
-    },
-    {
-      path: '/medical-card/:linkId',
-      exact: true,
-      component: MedicalCardPage,
     },
   ],
 };

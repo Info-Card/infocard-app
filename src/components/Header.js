@@ -7,14 +7,11 @@ import { multilanguage } from "redux-multilanguage";
 
 const Header = ({ history = [""], strings }) => {
   const dispatch = useDispatch();
-
   const { user: authUser } = useSelector((state) => state.auth);
-
   const logoutHandler = () => {
     dispatch(logout());
     history.push("/login");
   };
-
   return (
     <header>
       <Navbar bg="light" collapseOnSelect>
@@ -47,11 +44,6 @@ const Header = ({ history = [""], strings }) => {
                         {strings["Change Password"]}
                       </NavDropdown.Item>
                     </LinkContainer>
-
-                    {/* <NavDropdown.Item onClick={buyHandler}>
-                      {strings['Buy Info Card']}
-                    </NavDropdown.Item> */}
-
                     <NavDropdown.Item onClick={logoutHandler}>
                       {strings["Logout"]}
                     </NavDropdown.Item>
