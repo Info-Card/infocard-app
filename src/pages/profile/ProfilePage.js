@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { Col, Container, Row } from "react-bootstrap";
 import { getProfile } from "state/ducks/profile/actions";
 import { getTag } from "state/ducks/tags/actions";
-import ProfileDetail from "./components/ProfileDetail";
+import ProfileDetail from "./components/profile/ProfileDetail";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import Swal from "sweetalert2";

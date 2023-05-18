@@ -6,7 +6,7 @@ import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
 import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
-import ListPlatForms from "./ListPlatForms";
+import ListPlatForms from "../ListPlatForms";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
