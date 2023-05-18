@@ -16,7 +16,6 @@ import ActivateTagModal from "./components/ActivateTagModal";
 import PlatformList from "./components/platform/PlatformList";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { multilanguage } from "redux-multilanguage";
-import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 const HomePage = ({ history, strings }) => {
@@ -24,7 +23,6 @@ const HomePage = ({ history, strings }) => {
 
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
-  const [showLengthControlModal, setShowLengthControlModal] = useState(false);
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);

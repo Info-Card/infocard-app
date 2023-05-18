@@ -17,8 +17,19 @@ const ProfileDetail = ({ user, profile, strings }) => {
     number: "",
   });
   const dispatch = useDispatch();
-
   useEffect(() => {
+    const openLink = (platform, newTab) => {
+      dispatch(getLink(platform.id, "?isTapped=true"));
+      var urlString =
+        platform.type === "url" && !platform.value.startsWith("http")
+          ? "https://" + platform.value
+          : platform.webBaseURL + platform.value;
+      if (platform.type === "medical") {
+        urlString = platform.webBaseURL + platform.id;
+      }
+      window.open(urlString, newTab ? "_blank" : "_self");
+    };
+
     if (user) {
       if (
         user.direct !== "" &&
@@ -37,18 +48,6 @@ const ProfileDetail = ({ user, profile, strings }) => {
       }
     }
   }, [user, dispatch]);
-
-  const openLink = (platform, newTab) => {
-    dispatch(getLink(platform.id, "?isTapped=true"));
-    var urlString =
-      platform.type === "url" && !platform.value.startsWith("http")
-        ? "https://" + platform.value
-        : platform.webBaseURL + platform.value;
-    if (platform.type === "medical") {
-      urlString = platform.webBaseURL + platform.id;
-    }
-    window.open(urlString, newTab ? "_blank" : "_self");
-  };
 
   const handleExchange = (event) => {
     event.preventDefault();
