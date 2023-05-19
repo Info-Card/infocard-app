@@ -40,7 +40,11 @@ function base64ToFile(base64Data) {
 const ImageCropper = ({ imageSrc, setImageSrc, setCroppedImage }) => {
   const [result, setResult] = useState();
 
-  const [crop, setCrop] = useState({ unit: "px", width: 30, aspect: 1 });
+  const [crop, setCrop] = useState({
+    unit: "%",
+    width: 100,
+    aspect: 1,
+  });
   const [image, setImage] = useState(null);
 
   const cropImageNow = () => {
@@ -79,14 +83,22 @@ const ImageCropper = ({ imageSrc, setImageSrc, setCroppedImage }) => {
         <Modal.Title>Crop Image</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ReactCrop
-          src={imageSrc}
-          ruleOfThirds
-          onImageLoaded={setImage}
-          crop={crop}
-          onChange={setCrop}
-          onComplete={cropImageNow}
-        />
+        <div
+          style={{
+            width: "250px",
+            height: "250px",
+            margin: "auto",
+            overflow: "scroll",
+          }}
+        >
+          <ReactCrop
+            src={imageSrc}
+            onImageLoaded={setImage}
+            crop={crop}
+            onChange={setCrop}
+            onComplete={cropImageNow}
+          />
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button
