@@ -18,7 +18,7 @@ const ProfileCard = ({ profile }) => {
                 alt=""
                 className="img-fluid"
                 style={{
-                  height: "200px",
+                  height: "230px",
                   width: "100%",
                   objectFit: "fill",
                 }}

@@ -70,7 +70,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                       alt=""
                       className="img-fluid"
                       style={{
-                        height: "200px",
+                        height: "230px",
                         width: "100%",
                         objectFit: "fill",
                       }}
@@ -81,7 +81,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
                       alt=""
                       className="img-fluid"
                       style={{
-                        height: "200px",
+                        height: "230px",
                         width: "100%",
                         objectFit: "fill",
                       }}
