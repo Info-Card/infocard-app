@@ -15,7 +15,7 @@ const Platform = ({ platform, showCheck }) => {
       <img
         src={process.env.REACT_APP_IMAGE_URL + platform.image}
         alt={platform.image}
-        className="card-img-top p-1"
+        className="img-fluid pb-1"
       />
       <p id="title-size-adjustment">{platform.title}</p>
     </div>

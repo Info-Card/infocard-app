@@ -12,18 +12,15 @@ const LinkCard = ({ link }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
-
   const handleDeleteLink = () => {
     dispatch(deleteCustomLink(profile.id, link.id));
   };
   const handleEditLink = () => {
     setShowCustomLinkModal(true);
   };
-
   const platformImage = link.image
     ? `${process.env.REACT_APP_IMAGE_URL}${link.image}`
     : "userphoto.png";
-
   return (
     <div
       target="_blank"

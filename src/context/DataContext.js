@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
 const DataContext = createContext();
 
@@ -11,7 +11,6 @@ export const DataProvider = ({ children }) => {
       ...values,
     }));
   };
-
   return (
     <DataContext.Provider value={{ data, setValues }}>
       {children}

@@ -1,4 +1,5 @@
-import React from "react";
+import ImageCropper from "components/ImageCropper";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
@@ -8,14 +9,33 @@ const ImageOptionsModal = ({ show, setShow }) => {
 
   const { profile } = useSelector((state) => state.users);
 
+  const [imageSrc, setImageSrc] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+
+  useEffect(() => {
+    if (croppedImage) {
+      console.log(croppedImage);
+      dispatch(updateProfile(profile.id, { image: croppedImage }));
+      setImageSrc(null);
+      setShow(false);
+      setCroppedImage(null);
+    }
+  }, [dispatch, croppedImage, profile.id, setShow]);
+
   const selectImage = () => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
     inputElement.accept = "image/*";
     inputElement.onchange = (event) => {
-      const image = event.target.files;
-      dispatch(updateProfile(profile.id, { image }));
-      setShow(false);
+      const file = event.target.files[0];
+      console.log(file);
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setImageSrc(reader.result);
+      };
+
+      reader.readAsDataURL(file);
     };
     inputElement.click();
   };
@@ -42,6 +62,12 @@ const ImageOptionsModal = ({ show, setShow }) => {
           </div>
         </Modal.Body>
       </Modal>
+
+      <ImageCropper
+        imageSrc={imageSrc}
+        setImageSrc={setImageSrc}
+        setCroppedImage={setCroppedImage}
+      />
     </div>
   );
 };

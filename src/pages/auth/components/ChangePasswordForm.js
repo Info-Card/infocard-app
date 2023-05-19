@@ -56,7 +56,7 @@ const ChangePasswordForm = ({ strings }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <p className="validation-message-color">{errors.password?.message}</p>
+        <p className="validation-color">{errors.password?.message}</p>
         <Form.Group controlId="confirmPassword">
           <Form.Label>{strings["Confirm Password"]}</Form.Label>
           <Form.Control
@@ -67,9 +67,7 @@ const ChangePasswordForm = ({ strings }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <p className="validation-message-color">
-          {errors.confirmPassword?.message}
-        </p>
+        <p className="validation-color">{errors.confirmPassword?.message}</p>
         <Button type="submit" variant="primary">
           {strings["Update"]}
         </Button>

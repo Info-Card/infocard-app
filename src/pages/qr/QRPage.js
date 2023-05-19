@@ -30,7 +30,7 @@ const QRPage = ({ history, strings }) => {
         <Fragment>
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{authUser.username} - Info Card</title>
+            <title>{authUser.username} - Fastest Network Technology</title>
           </Helmet>
 
           <Row className="mt-2">
@@ -83,6 +83,12 @@ const QRPage = ({ history, strings }) => {
               >
                 <FontAwesomeIcon icon={faShare} size="lg" />
               </Button>
+              <div id="share-title">
+                <div id="title-items">
+                  <span>Copy link</span>
+                  <span>Share Profile</span>
+                </div>
+              </div>
 
               <ToastContainer
                 bodyClassName={() => "text-sm font-med block p-3"}

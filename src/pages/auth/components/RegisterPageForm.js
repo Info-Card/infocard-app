@@ -45,7 +45,6 @@ const RegisterPageForm = ({ strings, setMessage }) => {
           ></Form.Control>
         </Form.Group>
         <p>{errors.username?.message}</p>
-
         <Form.Group controlId="email">
           <Form.Label>{strings["Email Address"]}</Form.Label>
           <Form.Control
@@ -53,7 +52,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
             placeholder="email"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.email?.message}</p>
+        <p className="validation-color">{errors.email?.message}</p>
         <Form.Group controlId="password">
           <Form.Label>{strings["Password"]}</Form.Label>
           <Form.Control
@@ -62,7 +61,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
             type="password"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.password?.message}</p>
+        <p className="validation-color">{errors.password?.message}</p>
         <Form.Group controlId="confirmPassword">
           <Form.Label>{strings["Confirm Password"]}</Form.Label>
           <Form.Control
@@ -71,7 +70,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
             type="password"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.confirmPassword?.message}</p>
+        <p className="validation-color">{errors.confirmPassword?.message}</p>
         <Button type="submit" variant="primary">
           {loading ? <Loader /> : strings["Sign Up"]}
         </Button>
