@@ -1,8 +1,16 @@
 import React from "react";
 import { multilanguage } from "redux-multilanguage";
+import { updateProfile } from "state/ducks/profile/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const PlatformCard = ({ platform, direct, strings }) => {
-  const handleDirectOn = (id) => {};
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.users);
+  const handleDirectOn = (id) => {
+    if (profile.platforms && profile.platforms.length > 0) {
+      dispatch(updateProfile(profile.id, { direct: platform.id }));
+    }
+  };
 
   return (
     <div className="platform-card d-flex align-items-center justify-content-between p-2">

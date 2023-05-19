@@ -60,7 +60,7 @@ const ForgotPasswordPage = ({ strings }) => {
               placeholder="email"
             ></Form.Control>
           </Form.Group>
-          <p>{errors.email?.message}</p>
+          <p className="validation-color">{errors.email?.message}</p>
           <Button type="submit" variant="primary">
             {loading ? <Loader /> : strings["Send Link"]}
           </Button>

@@ -5,7 +5,7 @@ import MainLayout from "components/MainLayout";
 import { getUser } from "state/ducks/users/actions";
 import Toggle from "components/Toggle";
 import LinkedCards from "./components/LinkedCards";
-import ProfileForm from "./components/ProfileForm";
+import ProfileForm from "./components/profile/ProfileForm";
 import { multilanguage } from "redux-multilanguage";
 import Categories from "./components/Categories";
 

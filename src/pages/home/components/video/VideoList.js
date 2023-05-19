@@ -14,7 +14,12 @@ const VideoList = ({ videos }) => {
   return (
     <div className="mt-2">
       <h5>Videos</h5>
-      <Swiper slidesPerView={1} pagination={{ clickable: true }}>
+      <Swiper
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={26}
+      >
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import ImageViewer from "react-simple-image-viewer";
-import ImageOptionsModal from "./ImageOptionsModal";
+import ImageOptionsModal from "../ImageOptionsModal";
 
 const ProfileFormHead = (props) => {
   const profile = props.profile;

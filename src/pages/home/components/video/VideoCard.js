@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../../../components/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVideos } from "state/ducks/profile/actions";
@@ -28,7 +28,7 @@ const VideoCard = ({ video }) => {
       <div className="text-right" style={{}}>
         {!params.username && (
           <FontAwesomeIcon
-            icon={faTrash}
+            icon={faTrashAlt}
             size="1x"
             className="delete-video"
             onClick={handleDeleteVideo}

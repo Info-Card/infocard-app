@@ -8,8 +8,6 @@ import UpdateCardModal from "./UpdateCardModal";
 import Swal from "sweetalert2";
 
 const LinkedCards = ({ strings }) => {
-  const props = strings;
-  const [showDeleteTag, setShowDeleteTag] = useState("");
   const [selectedTag, setSelectedTag] = useState(null);
 
   const dispatch = useDispatch();
@@ -58,7 +56,7 @@ const LinkedCards = ({ strings }) => {
                   <Button
                     style={{
                       width: "60px",
-                      justifyContent: "center", // Center the text horizontally
+                      justifyContent: "center",
                     }}
                     className="btn-sm d-flex text-center"
                     variant="danger"

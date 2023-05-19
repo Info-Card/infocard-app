@@ -16,15 +16,13 @@ import ActivateTagModal from "./components/ActivateTagModal";
 import PlatformList from "./components/platform/PlatformList";
 import { PROFILE_RESET } from "state/ducks/profile/types";
 import { multilanguage } from "redux-multilanguage";
-import { Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const HomePage = ({ history, strings }) => {
   const dispatch = useDispatch();
 
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
-  const [showLengthControlModal, setShowLengthControlModal] = useState(false);
-  const [showLinksLengthControl, setShowLinksLengthControl] = useState(false);
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
@@ -64,7 +62,11 @@ const HomePage = ({ history, strings }) => {
     if (videosLength < 10) {
       setShowAddVideoModal(true);
     } else {
-      setShowLengthControlModal(true);
+      Swal.fire(
+        "Error",
+        "Maximum video limit reached. You cannot add more than 10 videos",
+        "error"
+      );
     }
   };
   const handleLinksLength = () => {
@@ -73,7 +75,11 @@ const HomePage = ({ history, strings }) => {
     if (linksLength < 10) {
       setShowCustomLinkModal(true);
     } else {
-      setShowLinksLengthControl(true);
+      Swal.fire(
+        "Error",
+        "Maximum links limit reached. You cannot add more than 10 links",
+        "error"
+      );
     }
   };
 
@@ -94,8 +100,8 @@ const HomePage = ({ history, strings }) => {
       {authUser && (
         <Fragment>
           {loading && <Loader />}
-          <Row className="justify-content-center m-2">
-            <Col md={5} lg={4}>
+          <Row>
+            <Col md={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
               {user && (
                 <Toggle
@@ -191,28 +197,6 @@ const HomePage = ({ history, strings }) => {
             show={showCustomLinkModal}
             setShow={setShowCustomLinkModal}
           />
-          <Modal show={showLengthControlModal}>
-            <Modal.Header
-              closeButton
-              onHide={(e) => setShowLengthControlModal(false)}
-            >
-              <Modal.Title>
-                Maximum video limit reached. You cannot add more than 10 videos
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body></Modal.Body>
-          </Modal>
-          <Modal show={showLinksLengthControl}>
-            <Modal.Header
-              closeButton
-              onHide={(e) => setShowLinksLengthControl(false)}
-            >
-              <Modal.Title>
-                Maximum links limit reached. You cannot add more than 10 links
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body></Modal.Body>
-          </Modal>
         </Fragment>
       )}
     </MainLayout>
