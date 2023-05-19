@@ -38,61 +38,54 @@ function base64ToFile(base64Data) {
 }
 
 const ImageCropper = ({ imageSrc, setImageSrc, setCroppedImage }) => {
-  const [crop, setCrop] = useState({ unit: "px", width: 200, aspect: 1 });
-
   const [result, setResult] = useState();
 
-  const handleCropComplete = (cropResult) => {
-    if (cropResult.width && cropResult.height) {
-      getCroppedImage(cropResult);
-    }
-  };
+  const [crop, setCrop] = useState({ unit: "px", width: 30, aspect: 1 });
+  const [image, setImage] = useState(null);
 
-  const getCroppedImage = (cropResult) => {
+  const cropImageNow = () => {
     const canvas = document.createElement("canvas");
-    const image = document.createElement("img");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
 
-    image.src = imageSrc;
+    const pixelRatio = window.devicePixelRatio;
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
 
-    image.onload = () => {
-      const size = Math.min(cropResult.width, cropResult.height);
-      const canvasWidth = size;
-      const canvasHeight = size;
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
 
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-
-      const ctx = canvas.getContext("2d");
-
-      ctx.drawImage(
-        image,
-        cropResult.x,
-        cropResult.y,
-        cropResult.width,
-        cropResult.height,
-        0,
-        0,
-        canvasWidth,
-        canvasHeight
-      );
-
-      const croppedImageUrl = canvas.toDataURL("image/jpeg");
-      setResult(croppedImageUrl);
-    };
+    const base64Image = canvas.toDataURL("image/jpeg");
+    setResult(base64Image);
   };
 
   return (
     <Modal show={imageSrc} onHide={setImageSrc}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>Crop Image</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {result && <img src={result} />}
         <ReactCrop
           src={imageSrc}
+          ruleOfThirds
+          onImageLoaded={setImage}
           crop={crop}
-          onChange={(newCrop) => setCrop(newCrop)}
-          onComplete={handleCropComplete}
+          onChange={setCrop}
+          onComplete={cropImageNow}
         />
       </Modal.Body>
       <Modal.Footer>
