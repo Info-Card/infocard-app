@@ -57,44 +57,46 @@ const ProfileDetail = ({ user, profile, strings }) => {
               </a>
             </div>
             <Col xs={12} className="">
-              <Row
-                className="user-card"
-                style={{
-                  backgroundColor: profile.color ?? "grey",
-                }}
-              >
-                <Col xs={6} className="p-0">
-                  {profile.image && profile.image !== "" ? (
-                    <img
-                      src={process.env.REACT_APP_IMAGE_URL + profile.image}
-                      alt=""
-                      className="img-fluid"
-                      style={{
-                        height: "230px",
-                        width: "100%",
-                        objectFit: "fill",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={process.env.PUBLIC_URL + "/user.png"}
-                      alt=""
-                      className="img-fluid"
-                      style={{
-                        height: "230px",
-                        width: "100%",
-                        objectFit: "fill",
-                      }}
-                    />
-                  )}
-                </Col>
+              <div className="mx-3">
+                <Row
+                  className="user-card"
+                  style={{
+                    backgroundColor: profile.color ?? "grey",
+                  }}
+                >
+                  <Col xs={6} className="p-0">
+                    {profile.image && profile.image !== "" ? (
+                      <img
+                        src={process.env.REACT_APP_IMAGE_URL + profile.image}
+                        alt=""
+                        className="img-fluid"
+                        style={{
+                          height: "230px",
+                          width: "100%",
+                          objectFit: "fill",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={process.env.PUBLIC_URL + "/user.png"}
+                        alt=""
+                        className="img-fluid"
+                        style={{
+                          height: "230px",
+                          width: "100%",
+                          objectFit: "fill",
+                        }}
+                      />
+                    )}
+                  </Col>
 
-                <Col xs={6}>
-                  <h5>{profile.name}</h5>
-                  <h5>{profile.company}</h5>
-                  <h6>{profile.jobTitle}</h6>
-                </Col>
-              </Row>
+                  <Col xs={6}>
+                    <h5>{profile.name}</h5>
+                    <h5>{profile.company}</h5>
+                    <h6>{profile.jobTitle}</h6>
+                  </Col>
+                </Row>
+              </div>
               <Row className="mt-3">
                 <Col xs={6}>
                   <a
