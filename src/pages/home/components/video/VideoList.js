@@ -19,6 +19,7 @@ const VideoList = ({ videos }) => {
         pagination={{ clickable: true }}
         loop
         spaceBetween={26}
+        touchEventsTarget="container"
       >
         {videos.map((video) => {
           return (
