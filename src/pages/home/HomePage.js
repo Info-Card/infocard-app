@@ -111,7 +111,7 @@ const HomePage = ({ history, strings }) => {
               )}
               {profile && (
                 <div className="mt-4">
-                  <div className="mx-3">
+                  <div className="mx-4">
                     <ProfileCard profile={profile} />
                   </div>
                   <div className="d-flex justify-content-between mt-4">

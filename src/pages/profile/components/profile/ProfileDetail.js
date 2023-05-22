@@ -57,7 +57,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
               </a>
             </div>
             <Col xs={12} className="">
-              <div className="mx-3">
+              <div className="mx-4">
                 <Row
                   className="user-card"
                   style={{
