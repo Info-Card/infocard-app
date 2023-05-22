@@ -33,26 +33,32 @@ const LinkCard = ({ link }) => {
         textDecoration: "none",
       }}
     >
-      <div className="d-flex align-items-center justify-content-between px-4">
+      <div
+        className="d-flex align-items-center justify-content-between px-4"
+        style={{ width: "100%" }}
+      >
         <img src={platformImage} alt={link.title} className="platform-image" />
-        <div className="d-flex row" onClick={() => window.open(link.url)}>
+        <div
+          className="d-flex flex-column"
+          onClick={() => window.open(link.url)}
+        >
           <h6>{link.title}</h6>
           <span className="max-lines">{link.url}</span>
         </div>
         {!params.username && (
-          <FontAwesomeIcon
-            icon={faEdit}
-            className="mr-2"
-            color="blue"
-            onClick={() => handleEditLink(link)}
-          />
-        )}
-        {!params.username && (
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            color="red"
-            onClick={handleDeleteLink}
-          />
+          <div className="d-flex">
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="mr-2"
+              color="blue"
+              onClick={() => handleEditLink(link)}
+            />
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              color="red"
+              onClick={handleDeleteLink}
+            />
+          </div>
         )}
       </div>
       <AddCustomLinkModal
