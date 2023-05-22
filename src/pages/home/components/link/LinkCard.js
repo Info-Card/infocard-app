@@ -18,9 +18,10 @@ const LinkCard = ({ link }) => {
   const handleEditLink = () => {
     setShowCustomLinkModal(true);
   };
-  const platformImage = link.image
-    ? `${process.env.REACT_APP_IMAGE_URL}${link.image}`
-    : "userphoto.png";
+  const platformImage =
+    link.image.length > 0
+      ? `${process.env.REACT_APP_IMAGE_URL}${link.image}`
+      : "user.png";
   return (
     <div
       target="_blank"
