@@ -34,10 +34,15 @@ const LinkCard = ({ link }) => {
       }}
     >
       <div
-        className="d-flex align-items-center justify-content-between px-4"
+        className="d-flex align-items-center justify-content-start px-4"
         style={{ width: "100%" }}
       >
-        <img src={platformImage} alt={link.title} className="platform-image" />
+        <img
+          src={platformImage}
+          alt={link.title}
+          className="platform-image"
+          style={{ marginRight: "10px" }}
+        />
         <div
           className="d-flex flex-column"
           onClick={() => window.open(link.url)}
@@ -46,7 +51,7 @@ const LinkCard = ({ link }) => {
           <span className="max-lines">{link.url}</span>
         </div>
         {!params.username && (
-          <div className="d-flex">
+          <div className="d-flex ml-auto">
             <FontAwesomeIcon
               icon={faEdit}
               className="mr-2"
