@@ -23,7 +23,11 @@ const VideoList = ({ videos }) => {
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>
-              {video !== "" && <VideoCard video={video} />}
+              {video !== "" && (
+                <div className="video-card-wrapper">
+                  <VideoCard video={video} />
+                </div>
+              )}
             </SwiperSlide>
           );
         })}

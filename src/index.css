@@ -417,3 +417,7 @@ ul.twPc-Arrange {
   justify-content: space-between;
   width: 180px;
 }
+
+.video-card-wrapper {
+  margin: 0 10px;
+}
