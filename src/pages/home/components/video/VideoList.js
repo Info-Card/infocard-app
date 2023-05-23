@@ -19,11 +19,16 @@ const VideoList = ({ videos }) => {
         pagination={{ clickable: true }}
         loop
         spaceBetween={26}
+        touchEventsTarget="container"
       >
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>
-              {video !== "" && <VideoCard video={video} />}
+              {video !== "" && (
+                <div className="video-card-wrapper">
+                  <VideoCard video={video} />
+                </div>
+              )}
             </SwiperSlide>
           );
         })}

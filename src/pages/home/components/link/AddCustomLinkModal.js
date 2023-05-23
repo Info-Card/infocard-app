@@ -42,6 +42,9 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
   }, [success, setShow]);
 
   const onSubmit = (data) => {
+    if (data.image.length === 0) {
+      data.image = "";
+    }
     if (link) {
       dispatch(updateCustomLink(profile.id, link.id, data));
     } else {
