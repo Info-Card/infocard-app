@@ -10,15 +10,14 @@ import RegisterPageForm from "./components/RegisterPageForm";
 
 const RegisterPage = ({ location, history, strings }) => {
   const { loading, error, user: authUser } = useSelector((state) => state.auth);
-  const { tag } = useSelector((state) => state.tags);
   const redirect = location.search ? location.search.split("=")[1] : "/";
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (authUser || !tag) {
+    if (authUser) {
       history.push(redirect);
     }
-  }, [history, authUser, redirect, tag]);
+  }, [history, authUser, redirect]);
 
   return (
     <FormContainer>

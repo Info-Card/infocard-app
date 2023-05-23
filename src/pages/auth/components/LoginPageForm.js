@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "state/ducks/auth/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Row, Col } from "react-bootstrap";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -75,6 +76,12 @@ const LoginPageForm = ({ strings }) => {
           {loading ? <Loader /> : strings["Sign In"]}
         </Button>
       </Form>
+      <Row className="py-3">
+        <Col>
+          {["Don't Have an Account?"]}{" "}
+          <Link to={"/register"}>{["Sign Up"]}</Link>
+        </Col>
+      </Row>
     </>
   );
 };

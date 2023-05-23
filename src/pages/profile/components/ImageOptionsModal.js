@@ -1,4 +1,5 @@
 import ImageCropper from "components/ImageCropper";
+import heic2any from "heic2any";
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,16 +27,31 @@ const ImageOptionsModal = ({ show, setShow }) => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
     inputElement.accept = "image/*";
-    inputElement.onchange = (event) => {
+    inputElement.onchange = async (event) => {
       const file = event.target.files[0];
       console.log(file);
-      const reader = new FileReader();
 
-      reader.onload = () => {
-        setImageSrc(reader.result);
-      };
+      if (file.type === "image/heic" || file.type === "image/heif") {
+        // Convert HEIC/HEIF to JPEG using heic2any library
+        const convertedBlob = await heic2any({
+          blob: file,
+          toType: "image/jpeg",
+        });
+        const convertedFile = new File([convertedBlob], file.name, {
+          type: "image/jpeg",
+        });
+        setImageSrc(URL.createObjectURL(convertedFile));
+      } else {
+        // For other image formats, read as usual
+        const reader = new FileReader();
 
-      reader.readAsDataURL(file);
+        reader.onload = () => {
+          console.log(reader.result);
+          setImageSrc(reader.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
     };
     inputElement.click();
   };

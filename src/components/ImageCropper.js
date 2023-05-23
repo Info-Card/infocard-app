@@ -31,11 +31,14 @@ const ImageCropper = ({ imageSrc, setImageSrc, setCroppedImage }) => {
           style={{
             position: "relative",
             width: "100%",
-            height: 200,
-            background: "#333",
+            height: 250,
+            backgroundColor: "#ffffff",
           }}
         >
           <Cropper
+            style={{
+              backgroundColor: "#ffffff",
+            }}
             image={imageSrc}
             crop={crop}
             zoom={zoom}
