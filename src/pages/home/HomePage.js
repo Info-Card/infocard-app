@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "state/ducks/users/actions";
 import { updateProfile } from "state/ducks/profile/actions";
-import { Button, Col, Row } from "react-bootstrap";
+import { Alert, Button, Col, Row } from "react-bootstrap";
 import Message from "components/Message";
 import Toggle from "components/Toggle";
 import Loader from "components/Loader";
@@ -46,7 +46,7 @@ const HomePage = ({ history, strings }) => {
       dispatch({ type: PROFILE_RESET });
       dispatch(getUser(authUser.username));
     }
-  }, [dispatch, success, showAddVideoModal, authUser]);
+  }, [dispatch, success, showAddVideoModal, authUser, profile]);
 
   const handleDirectChange = (event) => {
     if (profile.platforms && profile.platforms.length > 0) {
@@ -103,6 +103,13 @@ const HomePage = ({ history, strings }) => {
           <Row>
             <Col md={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
+              {typeof profile.name === "undefined" ? (
+                <Row>
+                  <Alert variant="dark">Please complete your profile!</Alert>
+                </Row>
+              ) : (
+                ""
+              )}
               {user && (
                 <Toggle
                   isPersonal={user.isPersonal}
