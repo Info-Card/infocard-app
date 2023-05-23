@@ -103,12 +103,10 @@ const HomePage = ({ history, strings }) => {
           <Row>
             <Col md={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
-              {typeof profile.name === "undefined" ? (
+              {!profile?.name && (
                 <Row>
                   <Alert variant="dark">Please complete your profile!</Alert>
                 </Row>
-              ) : (
-                ""
               )}
               {user && (
                 <Toggle
