@@ -46,6 +46,7 @@ const ImageOptionsModal = ({ show, setShow }) => {
         const reader = new FileReader();
 
         reader.onload = () => {
+          console.log(reader.result);
           setImageSrc(reader.result);
         };
 
