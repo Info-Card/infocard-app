@@ -22,16 +22,11 @@ const PlatformList = ({ platforms, direct }) => {
           </Col>
         </>
       )}
-      <Row className="g-2">
-        <Col xs={12}>
-          <div className="platform-card p-2 mt-2 text-center">
-            <p className="m-0">
-              {["+"]}{" "}
-              <Link to={"/profile"}>{["Add Links and Contect Info"]}</Link>{" "}
-            </p>
-          </div>
-        </Col>
-      </Row>
+      <div className="platform-card p-3 m-3 text-center">
+        <Link to={"/profile"} style={{ textDecoration: "none" }}>
+          + Add Links and Contect Info
+        </Link>
+      </div>
     </>
   );
 };
