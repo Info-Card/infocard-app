@@ -6,7 +6,7 @@ const VideoPlayer = ({ video }) => {
     <ReactPlayer
       url={`${(video ?? "").split("&")[0]}&origin=http://localhost:3000`}
       width="100%"
-      height="200px"
+      height="220px"
     />
   );
 };

@@ -23,10 +23,9 @@ const ImageOptionsModal = ({ show, setShow }) => {
     }
   }, [dispatch, croppedImage, profile.id, setShow]);
 
-  const selectImage = () => {
+  const selectImage = async () => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
-    inputElement.accept = "image/*";
     inputElement.onchange = async (event) => {
       const file = event.target.files[0];
       console.log(file);

@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomLink } from "state/ducks/profile/actions";
 import { useParams } from "react-router-dom";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { AddCustomLinkModal } from "./AddCustomLinkModal";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const LinkCard = ({ link }) => {
   const params = useParams();
@@ -59,9 +59,9 @@ const LinkCard = ({ link }) => {
               onClick={() => handleEditLink(link)}
             />
             <FontAwesomeIcon
-              icon={faTrashAlt}
               color="red"
               onClick={handleDeleteLink}
+              icon={faTrash}
             />
           </div>
         )}

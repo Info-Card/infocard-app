@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import PlatformCard from "./PlatformCard";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const PlatformList = ({ platforms, direct }) => {
   return (
@@ -21,6 +22,11 @@ const PlatformList = ({ platforms, direct }) => {
           </Col>
         </>
       )}
+      <div className="platform-card p-3 m-3 text-center">
+        <Link to={"/profile"} style={{ textDecoration: "none" }}>
+          + Add Links and Contect Info
+        </Link>
+      </div>
     </>
   );
 };
