@@ -23,13 +23,13 @@ const ImageOptionsModal = ({ show, setShow }) => {
     }
   }, [dispatch, croppedImage, profile.id, setShow]);
 
-  const selectImage = () => {
-    console.log("select image function ok");
+  const selectImage = async () => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
+    inputElement.accept = "image/*";
     inputElement.onchange = async (event) => {
       const file = event.target.files[0];
-      console.log("File load", file);
+      console.log(file);
 
       if (file.type === "image/heic" || file.type === "image/heif") {
         // Convert HEIC/HEIF to JPEG using heic2any library
