@@ -1,10 +1,10 @@
 import React from "react";
 import VideoCard from "./VideoCard";
-import SwiperCore, { Pagination } from "swiper";
+import SwiperCore, { Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Navigation]);
 
 const VideoList = ({ videos }) => {
   if (!videos || videos.length === 0) {
@@ -16,26 +16,10 @@ const VideoList = ({ videos }) => {
       <h5>Videos</h5>
       <Swiper
         slidesPerView={1}
+        navigation={true}
         pagination={{ clickable: true, dynamicBullets: true }}
-        on={{
-          slideChangeTransitionStart: () => {
-            const videos = document.querySelectorAll("video");
-            Array.prototype.forEach.call(videos, function (video) {
-              video.pause();
-            });
-          },
-          slideChangeTransitionEnd: () => {
-            const activeIndex = this.swiper.activeIndex;
-            const activeSlide =
-              document.getElementsByClassName("swiper-slide")[activeIndex];
-            const activeSlideVideo =
-              activeSlide.getElementsByTagName("video")[0];
-            activeSlideVideo.play();
-          },
-        }}
         loop
-        spaceBetween={26}
-        touchEventsTarget="container"
+        className="mySwiper"
       >
         {/* <Swiper
         slidesPerView={1}
@@ -48,11 +32,7 @@ const VideoList = ({ videos }) => {
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>
-              {video !== "" && (
-                <div className="video-card-wrapper">
-                  <VideoCard video={video} />
-                </div>
-              )}
+              {video !== "" && <VideoCard video={video} />}
             </SwiperSlide>
           );
         })}

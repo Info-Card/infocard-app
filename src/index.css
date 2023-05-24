@@ -428,3 +428,10 @@ ul.twPc-Arrange {
 .reactEasyCrop_Container {
   background-color: black;
 }
+
+/* styles.css */
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  color: black; /* Change navigation background color to red */
+  /* Add any additional styles you want */
+}
