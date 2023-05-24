@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../../../components/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";

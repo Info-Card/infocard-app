@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomLink } from "state/ducks/profile/actions";
