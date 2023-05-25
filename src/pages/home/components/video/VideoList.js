@@ -13,7 +13,7 @@ const VideoList = ({ videos }) => {
 
   return (
     <div className="mt-2">
-      <h5>Videos</h5>
+      <h5 className="pl-2">Videos</h5>
       <Swiper
         style={{
           "--swiper-navigation-size": "25px",
@@ -24,14 +24,6 @@ const VideoList = ({ videos }) => {
         loop
         className="mySwiper"
       >
-        {/* <Swiper
-        slidesPerView={1}
-        pagination={{ clickable: true, dynamicBullets: true }}
-        modules={[Pagination]}
-        loop
-        spaceBetween={26}
-        touchEventsTarget="container"
-      > */}
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>

@@ -49,7 +49,7 @@ const LinkPage = ({ history, match, strings }) => {
       <Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{authUser.username} - Info Card</title>
+          <title>{authUser.username} - Fastest Networking Technology</title>
         </Helmet>
 
         <Row>
