@@ -25,9 +25,6 @@ const schema = yup.object().shape({
 const ProfileForm = ({ profile, strings }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // const [showImageOptions, setShowImageOptions] = useState(false);
-  // const [showImage, setShowImage] = useState(false);
   const [color, setColor] = useState(profile.color);
 
   const { rehydrated } = useSelector((state) => state._persist);
