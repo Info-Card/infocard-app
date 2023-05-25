@@ -24,14 +24,6 @@ const VideoList = ({ videos }) => {
         loop
         className="mySwiper"
       >
-        {/* <Swiper
-        slidesPerView={1}
-        pagination={{ clickable: true, dynamicBullets: true }}
-        modules={[Pagination]}
-        loop
-        spaceBetween={26}
-        touchEventsTarget="container"
-      > */}
         {videos.map((video) => {
           return (
             <SwiperSlide key={video}>
