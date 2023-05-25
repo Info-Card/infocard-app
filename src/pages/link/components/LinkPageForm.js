@@ -18,6 +18,7 @@ const LinkPageForm = ({ strings }) => {
   const { profile } = useSelector((state) => state.users);
   const [path, setPath] = useState("");
   const [uploading, setUploading] = useState(false);
+  console.log(setUploading);
   const dispatch = useDispatch();
   const {
     register,

@@ -15,6 +15,9 @@ const VideoList = ({ videos }) => {
     <div className="mt-2">
       <h5>Videos</h5>
       <Swiper
+        style={{
+          "--swiper-navigation-size": "25px",
+        }}
         slidesPerView={1}
         navigation={true}
         pagination={{ clickable: true, dynamicBullets: true }}

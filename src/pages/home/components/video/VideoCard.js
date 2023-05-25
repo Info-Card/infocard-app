@@ -23,7 +23,7 @@ const VideoCard = ({ video }) => {
       style={{
         display: "inline-block",
         marginBottom: "30px",
-        padding: "0px 50px 0px 50px",
+        padding: "0px 30px 0px 30px",
       }}
       className="text-right col-12"
     >
