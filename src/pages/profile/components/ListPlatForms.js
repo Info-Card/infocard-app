@@ -27,6 +27,7 @@ const ListPlatForms = (props) => {
               return (
                 <Col key={key} xs={4}>
                   <a
+                    href="#"
                     onClick={(e) => {
                       e.preventDefault();
                       openLink(platform, true);

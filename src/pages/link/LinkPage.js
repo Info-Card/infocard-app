@@ -29,9 +29,20 @@ const LinkPage = ({ history, match, strings }) => {
         dispatch({ type: GET_LINK_SUCCESS1, payload: linkId });
       } else if (link) {
         setPath(link.type === "contact" ? profile.id : link.value);
+        console.log(path);
       }
     }
-  }, [history, authUser, linkId, link, categories, dispatch, success, profile]);
+  }, [
+    history,
+    authUser,
+    linkId,
+    link,
+    categories,
+    dispatch,
+    success,
+    profile,
+    path,
+  ]);
 
   return (
     <MainLayout>
