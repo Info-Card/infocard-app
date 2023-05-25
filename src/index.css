@@ -430,5 +430,12 @@ ul.twPc-Arrange {
 }
 .mySwiper .swiper-button-next,
 .mySwiper .swiper-button-prev {
-  color: black;
+  color: rgb(0, 0, 0);
+  top: 95% !important;
+}
+.mySwiper .swiper-button-prev {
+  padding-left: 120px;
+}
+.mySwiper .swiper-button-next {
+  padding-right: 120px;
 }

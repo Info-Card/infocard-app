@@ -13,7 +13,7 @@ const VideoList = ({ videos }) => {
 
   return (
     <div className="mt-2">
-      <h5>Videos</h5>
+      <h5 className="pl-2">Videos</h5>
       <Swiper
         style={{
           "--swiper-navigation-size": "25px",
