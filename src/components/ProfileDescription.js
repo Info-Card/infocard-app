@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Platform from "./Platform";
+import { getProfileImageUrl } from "helpers/imageHelpers";
 
 const ProfileDescription = ({ history }) => {
   const { data: user } = useSelector((state) => state.user);
@@ -46,19 +47,11 @@ const ProfileDescription = ({ history }) => {
             <div className="row">
               <div className="col-md-6 m-auto text-center shadow p-3 mb-5 bg-white rounded">
                 <div className="">
-                  {profile && profile.image && profile.image !== "" ? (
-                    <img
-                      src={process.env.REACT_APP_IMAGE_URL + profile.image}
-                      alt=""
-                      className="profile-image"
-                    />
-                  ) : (
-                    <img
-                      src={process.env.PUBLIC_URL + "/user.png"}
-                      alt=""
-                      className="profile-image"
-                    />
-                  )}
+                  <img
+                    src={getProfileImageUrl(profile)}
+                    alt=""
+                    className="profile-image"
+                  />
                 </div>
                 <h4>{profile ? profile.name : ""}</h4>
                 <p>@{user.username}</p>

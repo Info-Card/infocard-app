@@ -3,7 +3,7 @@ import LinkPage from "./LinkPage";
 export const LinkPageConfig = {
   routes: [
     {
-      path: "/links/:linkId",
+      path: "/links/:platformId",
       exact: true,
       component: LinkPage,
     },

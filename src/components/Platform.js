@@ -1,6 +1,7 @@
 import React from "react";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getPlatformImageUrl } from "helpers/imageHelpers";
 
 const Platform = ({ platform, showCheck }) => {
   return (
@@ -13,7 +14,7 @@ const Platform = ({ platform, showCheck }) => {
         <></>
       )}
       <img
-        src={process.env.REACT_APP_IMAGE_URL + platform.image}
+        src={getPlatformImageUrl(platform)}
         alt={platform.image}
         className="img-fluid pb-1"
       />

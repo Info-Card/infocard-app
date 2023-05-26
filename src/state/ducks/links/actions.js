@@ -2,6 +2,7 @@ import * as types from "./types";
 
 import LinkService from "../../../services/LinkService";
 import { getUser } from "../users/actions";
+import TokenService from "services/TokenService";
 
 export const getLinks = (profileId) => async (dispatch) => {
   try {
@@ -93,13 +94,15 @@ export const updateLink = (id, data) => async (dispatch) => {
   }
 };
 
-export const updateSharedLink = (id, data, username) => async (dispatch) => {
+export const updateSharedLink = (id, data) => async (dispatch) => {
   try {
     dispatch({
       type: types.LINK_REQUEST,
     });
     const res = await LinkService.update(id, data);
-    dispatch(getUser(username));
+    const { user } = TokenService.getAuthInfo();
+    console.log(user);
+    dispatch(getUser(user.id));
     dispatch({
       type: types.UPDATE_SHARED_LINK_SUCCESS,
       payload: res.data,

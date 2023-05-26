@@ -37,7 +37,7 @@ const QRPage = ({ history, strings }) => {
             <Col md={4} />
             <Col md={4} className="text-center">
               <img
-                src="logo.png"
+                src="assets/images/logo.png"
                 alt=""
                 style={{ width: "120px", marginBottom: "50px" }}
               />
