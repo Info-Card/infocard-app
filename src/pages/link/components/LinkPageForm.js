@@ -18,7 +18,6 @@ const LinkPageForm = ({ strings }) => {
   const { profile } = useSelector((state) => state.users);
   const [path, setPath] = useState("");
   const [uploading, setUploading] = useState(false);
-  console.log(setUploading);
   const dispatch = useDispatch();
   const {
     register,
@@ -26,12 +25,14 @@ const LinkPageForm = ({ strings }) => {
     formState: { errors },
     reset,
   } = useForm({
+    defaultValues: {
+      username: link.value,
+    },
     resolver: yupResolver(schema),
   });
 
   const submitHandler = (data) => {
     const value = data.username;
-    console.log(value);
     if (link.id) {
       dispatch(updateLink(link.id, { value }));
     } else {
