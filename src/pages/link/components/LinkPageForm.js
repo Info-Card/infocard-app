@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { createLink, deleteLink, updateLink } from "state/ducks/links/actions";
 
 const schema = yup.object().shape({
-  This: yup.string().required(),
+  username: yup.string().required(),
 });
 
 const LinkPageForm = ({ strings }) => {
@@ -30,7 +30,7 @@ const LinkPageForm = ({ strings }) => {
   });
 
   const submitHandler = (data) => {
-    const value = data.This;
+    const value = data.username;
     console.log(value);
     if (link.id) {
       dispatch(updateLink(link.id, { value }));
@@ -61,14 +61,14 @@ const LinkPageForm = ({ strings }) => {
           <Form.Group controlId="value">
             <Form.Control
               type="text"
-              {...register("This")}
+              {...register("username")}
               placeholder="Enter Here"
               value={path}
               onChange={(e) => setPath(e.target.value)}
             ></Form.Control>
           </Form.Group>
         }
-        <p className="validation-color">{errors.This?.message}</p>
+        <p className="validation-color">{errors.username?.message}</p>
 
         {loading || uploading ? (
           <Loader />
