@@ -19,29 +19,26 @@ const ListPlatForms = (props) => {
     window.open(urlString, newTab ? "_blank" : "_self");
   };
   return (
-    <>
-      <Col xs={12} md={12}>
-        <div className="platform-card p-3">
-          <Row>
-            {profile.platforms.map((platform, key) => {
-              return (
-                <Col key={key} xs={4}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openLink(platform, true);
-                    }}
-                  >
-                    <Platform platform={platform} />
-                  </a>
-                </Col>
-              );
-            })}
-          </Row>
-        </div>
-      </Col>
-    </>
+    <Col xs={12} md={12}>
+      <div className="platform-card p-3">
+        <Row>
+          {profile.platforms.map((platform, key) => {
+            return (
+              <Col key={key} xs={4}>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openLink(platform, true);
+                  }}
+                >
+                  <Platform platform={platform} />
+                </div>
+              </Col>
+            );
+          })}
+        </Row>
+      </div>
+    </Col>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Helmet } from "react-helmet";
 import { Col, Container, Row } from "react-bootstrap";
 import { getProfile } from "state/ducks/profile/actions";
 import { getTag } from "state/ducks/tags/actions";
@@ -65,12 +64,6 @@ const ProfilePage = ({ history, match, strings }) => {
   return (
     <Container>
       <Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>
-            {user ? user.username : ""} - Fastest Networking Technology
-          </title>
-        </Helmet>
         <Row>
           <Col md={5} className="m-auto">
             <div className="">
