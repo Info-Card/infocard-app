@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "components/MainLayout";
-import { Helmet } from "react-helmet";
 import { Button, Col, Row } from "react-bootstrap";
 import QRCode from "react-qr-code";
 import { multilanguage } from "redux-multilanguage";
@@ -28,11 +27,6 @@ const QRPage = ({ history, strings }) => {
     <MainLayout>
       {authUser ? (
         <Fragment>
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>{authUser.username} - Fastest Networking Technology</title>
-          </Helmet>
-
           <Row className="mt-2">
             <Col md={4} />
             <Col md={4} className="text-center">
