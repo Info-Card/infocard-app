@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { AddCustomLinkModal } from "./AddCustomLinkModal";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { getPlatformImageUrl } from "helpers/imageHelpers";
 
 const LinkCard = ({ link }) => {
   const params = useParams();
@@ -18,10 +19,7 @@ const LinkCard = ({ link }) => {
   const handleEditLink = () => {
     setShowCustomLinkModal(true);
   };
-  const platformImage =
-    link.image.length > 0
-      ? `${process.env.REACT_APP_IMAGE_URL}${link.image}`
-      : "user.png";
+
   return (
     <div
       target="_blank"
@@ -38,7 +36,7 @@ const LinkCard = ({ link }) => {
         style={{ width: "100%" }}
       >
         <img
-          src={platformImage}
+          src={getPlatformImageUrl(link)}
           alt={link.title}
           className="platform-image"
           style={{ marginRight: "10px" }}

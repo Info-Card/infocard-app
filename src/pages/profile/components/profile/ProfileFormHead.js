@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import ImageViewer from "react-simple-image-viewer";
 import ImageOptionsModal from "../ImageOptionsModal";
+import { getProfileImageUrl } from "helpers/imageHelpers";
 
 const ProfileFormHead = (props) => {
   const profile = props.profile;
@@ -25,11 +26,7 @@ const ProfileFormHead = (props) => {
           }}
         >
           <img
-            src={
-              profile.image && profile.image !== ""
-                ? process.env.REACT_APP_IMAGE_URL + profile.image
-                : `${process.env.PUBLIC_URL}/assets/images/placeholder/user.png`
-            }
+            src={getProfileImageUrl(profile)}
             className="profile-image rounded-circle"
             alt=""
             onClick={() => {
@@ -50,7 +47,7 @@ const ProfileFormHead = (props) => {
       {showImage && (
         <div className="image-viewer">
           <ImageViewer
-            src={[process.env.REACT_APP_IMAGE_URL + profile.image]}
+            src={[getProfileImageUrl(profile)]}
             closeOnClickOutside={true}
             onClose={() => {
               setShowImage(false);

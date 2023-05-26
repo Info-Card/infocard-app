@@ -7,6 +7,7 @@ import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
 import ListPlatForms from "../ListPlatForms";
 import ProfileDetailModal from "./ProfileDetailModal";
+import { getProfileImageUrl } from "helpers/imageHelpers";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -49,7 +50,11 @@ const ProfileDetail = ({ user, profile, strings }) => {
         <div className="mb-5">
           <Row className="g-2">
             <div className="d-flex align-items-center justify-content-between  mt-3 mb-1">
-              <img src="logo.png" alt="" style={{ width: "80px" }} />
+              <img
+                src="assets/images/logo.png"
+                alt=""
+                style={{ width: "80px" }}
+              />
               <a href={`https://infocard.me`}>
                 <Button type="submit" variant="outline-primary">
                   Get Your Card
@@ -65,29 +70,16 @@ const ProfileDetail = ({ user, profile, strings }) => {
                   }}
                 >
                   <Col xs={6} className="p-0">
-                    {profile.image && profile.image !== "" ? (
-                      <img
-                        src={process.env.REACT_APP_IMAGE_URL + profile.image}
-                        alt=""
-                        className="img-fluid"
-                        style={{
-                          height: "230px",
-                          width: "100%",
-                          objectFit: "fill",
-                        }}
-                      />
-                    ) : (
-                      <img
-                        src={process.env.PUBLIC_URL + "/user.png"}
-                        alt=""
-                        className="img-fluid"
-                        style={{
-                          height: "230px",
-                          width: "100%",
-                          objectFit: "fill",
-                        }}
-                      />
-                    )}
+                    <img
+                      src={getProfileImageUrl(profile)}
+                      alt=""
+                      className="img-fluid"
+                      style={{
+                        height: "230px",
+                        width: "100%",
+                        objectFit: "fill",
+                      }}
+                    />
                   </Col>
 
                   <Col xs={6}>

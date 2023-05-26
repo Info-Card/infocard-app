@@ -1,3 +1,4 @@
+import { getProfileImageUrl } from "helpers/imageHelpers";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 
@@ -12,29 +13,16 @@ const ProfileCard = ({ profile }) => {
           }}
         >
           <Col xs={6} className="p-0">
-            {profile.image && profile.image !== "" ? (
-              <img
-                src={process.env.REACT_APP_IMAGE_URL + profile.image}
-                alt=""
-                className="img-fluid"
-                style={{
-                  height: "230px",
-                  width: "100%",
-                  objectFit: "fill",
-                }}
-              />
-            ) : (
-              <img
-                src={process.env.PUBLIC_URL + "/user.png"}
-                alt=""
-                className="img-fluid"
-                style={{
-                  height: "200px",
-                  width: "100%",
-                  objectFit: "fill",
-                }}
-              />
-            )}
+            <img
+              src={getProfileImageUrl(profile)}
+              alt=""
+              className="img-fluid"
+              style={{
+                height: "230px",
+                width: "100%",
+                objectFit: "fill",
+              }}
+            />
           </Col>
           <Col xs={6}>
             <h5 className="small-length-adjust">{profile.name}</h5>

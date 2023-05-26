@@ -2,6 +2,7 @@ import React from "react";
 import { multilanguage } from "redux-multilanguage";
 import { updateProfile } from "state/ducks/profile/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { getPlatformImageUrl } from "helpers/imageHelpers";
 
 const PlatformCard = ({ platform, direct, strings }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const PlatformCard = ({ platform, direct, strings }) => {
     <div className="platform-card d-flex align-items-center justify-content-between p-2">
       <div className="d-flex align-items-center">
         <img
-          src={process.env.REACT_APP_IMAGE_URL + platform.image}
+          src={getPlatformImageUrl(platform)}
           alt={platform.image}
           className="platform-image"
         />

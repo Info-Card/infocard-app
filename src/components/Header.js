@@ -18,7 +18,11 @@ const Header = ({ history = [""], strings }) => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img src="logo.png" alt="" style={{ width: "80px" }} />
+              <img
+                src="/assets/images/logo.png"
+                alt=""
+                style={{ width: "80px" }}
+              />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
