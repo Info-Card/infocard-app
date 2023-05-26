@@ -136,13 +136,17 @@ const ProfileDetail = ({ user, profile, strings }) => {
               </Row>
             </Col>
             <>
-              <h5 className="pl-2" style={{ paddingTop: "20px" }}>
+              <h5 className="pl-3" style={{ paddingTop: "20px" }}>
                 About
               </h5>
               <Col xs={12}>{profile.bio}</Col>
             </>
-            <LinksList links={profile.customLinks} />
-            <VideoList videos={profile.videos} />
+            <div className="pl-3">
+              <LinksList links={profile.customLinks} />
+            </div>
+            <div className="pl-3">
+              <VideoList videos={profile.videos} />
+            </div>
             {profile.platforms && profile.platforms.length > 0 && (
               <div>
                 <h5 className="pl-2" style={{ paddingTop: "10px" }}>

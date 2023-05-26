@@ -14,7 +14,7 @@ const LinksList = ({ links }) => {
 
   return (
     <div className="mt-2">
-      <h5 className="pl-2">Links</h5>
+      <h5>Links</h5>
       <Swiper
         slidesPerView={1}
         pagination={{ clickable: true, dynamicBullets: true }}
