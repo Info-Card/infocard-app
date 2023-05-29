@@ -20,10 +20,8 @@ import Swal from "sweetalert2";
 
 const HomePage = ({ history, strings }) => {
   const dispatch = useDispatch();
-
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
-
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
   const { success } = useSelector((state) => state.profile);
@@ -145,7 +143,6 @@ const HomePage = ({ history, strings }) => {
                       {strings["upload video"]}
                     </Button>
                   </div>
-
                   <div className="mt-4">
                     <h5>About</h5>
                     <p>{profile.bio}</p>
@@ -194,7 +191,6 @@ const HomePage = ({ history, strings }) => {
               )}
             </Col>
           </Row>
-
           <ActivateTagModal />
           <AddVideoModal
             show={showAddVideoModal}

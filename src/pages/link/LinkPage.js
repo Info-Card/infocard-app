@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 const LinkPage = ({ history }) => {
   const { platformId } = useParams();
   const dispatch = useDispatch();
-
   const { link, success } = useSelector((state) => state.links);
 
   useEffect(() => {
