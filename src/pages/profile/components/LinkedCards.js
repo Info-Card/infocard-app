@@ -9,9 +9,7 @@ import Swal from "sweetalert2";
 
 const LinkedCards = ({ strings }) => {
   const [selectedTag, setSelectedTag] = useState(null);
-
   const dispatch = useDispatch();
-
   const { profile } = useSelector((state) => state.users);
   const { tags, success: tagSuccess } = useSelector((state) => state.tags);
 

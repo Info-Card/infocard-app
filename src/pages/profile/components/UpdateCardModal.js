@@ -6,9 +6,7 @@ import { updateTag } from "state/ducks/tags/actions";
 
 const UpdateCardModal = ({ strings, tag, setTag }) => {
   const dispatch = useDispatch();
-
   const [tagName, setTagName] = useState(tag?.name);
-
   const handleUpdateTag = (event) => {
     event.preventDefault();
     dispatch(updateTag(tag.id, { name: tagName }));
@@ -32,7 +30,6 @@ const UpdateCardModal = ({ strings, tag, setTag }) => {
                 onChange={(e) => setTagName(e.target.value)}
               ></Form.Control>
             </Form.Group>
-
             <Button type="submit" variant="primary">
               {strings["Update"]}
             </Button>

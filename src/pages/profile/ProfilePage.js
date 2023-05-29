@@ -15,7 +15,6 @@ const ProfilePage = ({ history, match, strings }) => {
     (state) => state.profile
   );
   const { tag, error: tagError } = useSelector((state) => state.tags);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
