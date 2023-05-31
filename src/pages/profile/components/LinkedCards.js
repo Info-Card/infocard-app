@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { TAG_RESET } from "state/ducks/tags/types";
-import { getTags, unlinkTag } from "state/ducks/tags/actions";
+import { getTags } from "state/ducks/tags/actions";
 import { multilanguage } from "redux-multilanguage";
 import UpdateCardModal from "./UpdateCardModal";
-import Swal from "sweetalert2";
+import LinkedCardsButtons from "./LinkedCardsButtons";
 
 const LinkedCards = ({ strings }) => {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -39,44 +39,11 @@ const LinkedCards = ({ strings }) => {
                 <td>{tag.name || "N/A"}</td>
                 <td>{tag.url}</td>
                 <td>
-                  <Button
-                    style={{
-                      width: "60px",
-                    }}
-                    className="btn-sm mr-2"
-                    variant="primary"
-                    onClick={(e) => {
-                      setSelectedTag(tag);
-                    }}
-                  >
-                    {strings["Edit"]}
-                  </Button>
-                  <Button
-                    style={{
-                      width: "60px",
-                      justifyContent: "center",
-                    }}
-                    className="btn-sm d-flex text-center"
-                    variant="danger"
-                    onClick={(e) =>
-                      Swal.fire({
-                        title: "<strong>Warning</strong>",
-                        icon: "warning",
-                        html: "Are you sure you want to unlink this card?",
-                        showCloseButton: true,
-                        showCancelButton: true,
-                        focusConfirm: false,
-                        confirmButtonText: "Yes",
-                        cancelButtonText: "No",
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                          dispatch(unlinkTag(tag.id));
-                        }
-                      })
-                    }
-                  >
-                    {strings["UnLink"]}
-                  </Button>
+                  <LinkedCardsButtons
+                    strings={strings}
+                    tag={tag}
+                    setSelectedTag={setSelectedTag}
+                  />
                 </td>
               </tr>
             ))}
