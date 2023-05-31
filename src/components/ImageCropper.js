@@ -42,7 +42,7 @@ const ImageCropper = ({ imageSrc, setImageSrc, setCroppedImage }) => {
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={3 / 4}
+            aspect={4 / 4}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
