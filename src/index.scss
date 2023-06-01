@@ -1,18 +1,24 @@
 .user-card {
-    box-shadow: 0 0 10px rgb(200, 200, 200);
-    border-radius: 12px;
-    flex-direction: row;
-    align-items: center;
-    color:white;
-    img{
-        display: block;
-        background-color: white;
-        border-radius: 10px 0px 0px 10px;
-    }
-    h5{
-        color:white;
-    }
-    h6{
-        color:white;
-    }
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  border-radius: 12px;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  img {
+    display: block;
+    background-color: white;
+    border-radius: 10px 0px 0px 10px;
+  }
+  h5 {
+    color: white;
+  }
+  h6 {
+    color: white;
+  }
+}
+
+.max-lines {
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-height: 2.6em;
 }

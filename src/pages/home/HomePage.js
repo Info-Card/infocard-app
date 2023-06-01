@@ -99,7 +99,7 @@ const HomePage = ({ history, strings }) => {
         <Fragment>
           {loading && <Loader />}
           <Row>
-            <Col md={5} className="m-auto">
+            <Col md={7} lg={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
               {!profile?.name && (
                 <Row>
