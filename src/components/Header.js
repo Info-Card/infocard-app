@@ -43,7 +43,6 @@ const Header = ({ history = [""], strings }) => {
                       <i className="fas fa-qrcode"></i> {strings["My QR"]}
                     </NavDropdown.Item>
                   </LinkContainer>
-                  {/* Add other dropdown items here */}
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>
                       <i className="fas fa-user"></i> {strings["Profile"]}{" "}
