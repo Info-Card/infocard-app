@@ -144,7 +144,7 @@ const HomePage = ({ history, strings }) => {
                     </Button>
                   </div>
                   <div className="mt-4">
-                    <h5>About</h5>
+                    <h4>About</h4>
                     <p>{profile.bio}</p>
                   </div>
                   <LinksList links={profile.customLinks} />
