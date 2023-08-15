@@ -8,7 +8,7 @@ const PlatformList = ({ platforms, direct }) => {
     <>
       {platforms && platforms.length > 0 && (
         <>
-          <h5 style={{ paddingTop: "10px" }}>Platforms</h5>
+          <h5 style={{ paddingTop: "10px" }}>Platforms & Analytics</h5>
           <Col xs={12}>
             <Row className="g-2">
               {platforms.map((platform, key) => {
