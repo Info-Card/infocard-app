@@ -25,14 +25,22 @@ const ProfileCard = ({ profile }) => {
         <span className="max-lines mb-0" style={{ fontSize: "17px" }}>
           {profile.name}
         </span>
-        <br />
-        {profile.company} <br /> {profile.jobTitle}
-        <br />
-        <strong>Views: </strong>
-        {profile.views}
-        <br />
-        <strong>Info Shared: </strong>
-        {profile.infoShared}
+        <span className="max-lines mb-0">
+          {profile.company} <br />
+        </span>
+        <span>
+          {profile.jobTitle}
+          <br />
+        </span>
+        <span className="max-lines mb-0">
+          <strong>Views: </strong>
+          {profile.views}
+          <br />
+        </span>
+        <span className="max-lines mb-0">
+          <strong>Info Shared: </strong>
+          {profile.infoShared}
+        </span>
       </Col>
     </Row>
   );
