@@ -97,14 +97,21 @@ const HomePage = ({ history, strings }) => {
     <MainLayout>
       {authUser && (
         <Fragment>
-          {loading && <Loader />}
           <Row>
             <Col md={7} lg={5} className="m-auto">
-              {error && <Message variant="danger">{error}</Message>}
-              {!profile?.name && (
-                <Row>
-                  <Alert variant="dark">Please complete your profile!</Alert>
-                </Row>
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {error && <Message variant="danger">{error}</Message>}
+                  {!profile?.name && (
+                    <Row>
+                      <Alert variant="dark">
+                        Please complete your profile!
+                      </Alert>
+                    </Row>
+                  )}
+                </>
               )}
               {user && (
                 <Toggle
