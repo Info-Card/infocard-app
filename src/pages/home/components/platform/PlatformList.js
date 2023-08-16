@@ -25,7 +25,7 @@ const PlatformList = ({ platforms, direct }) => {
       )}
       <div className="platform-card p-3 m-3 text-center">
         <Link to={"/profile"} style={{ textDecoration: "none" }}>
-          + Add Links and Contect Info
+          + Add Links and Contact Info
         </Link>
       </div>
     </>
