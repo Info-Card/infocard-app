@@ -4,7 +4,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { logout } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
-
 const Header = ({ history = [""], strings }) => {
   const dispatch = useDispatch();
   const { user: authUser } = useSelector((state) => state.auth);
@@ -12,9 +11,7 @@ const Header = ({ history = [""], strings }) => {
     dispatch(logout());
     history.push("/login");
   };
-
-  const [expanded, setExpanded] = useState(false); // State for mobile menu
-
+  const [expanded, setExpanded] = useState(false);
   return (
     <header>
       <Navbar
@@ -37,7 +34,7 @@ const Header = ({ history = [""], strings }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {authUser ? (
-                <NavDropdown title={"Setting"} id="username">
+                <NavDropdown title={"Settinggg"} id="username" show={expanded}>
                   <LinkContainer to="/qr">
                     <NavDropdown.Item>
                       <i className="fas fa-qrcode"></i> {strings["My QR"]}
@@ -73,5 +70,4 @@ const Header = ({ history = [""], strings }) => {
     </header>
   );
 };
-
 export default multilanguage(Header);
