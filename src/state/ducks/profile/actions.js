@@ -2,6 +2,7 @@ import * as types from "./types";
 
 import UserService from "../../../services/UserService";
 import ProfileService from "../../../services/ProfileService";
+import { toast } from "react-toastify";
 
 export const getProfile = (username, user) => async (dispatch) => {
   try {
@@ -23,6 +24,7 @@ export const getProfile = (username, user) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -46,6 +48,7 @@ export const updateProfile = (id, data) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -69,6 +72,7 @@ export const updateVideos = (id, data) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -92,6 +96,7 @@ export const exchangeContact = (profileId, data) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -115,6 +120,7 @@ export const addCustomLink = (id, data) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -143,6 +149,7 @@ export const updateCustomLink =
         type: types.PROFILE_FAIL,
         payload: message,
       });
+      toast.error(message);
     }
   };
 
@@ -164,5 +171,6 @@ export const deleteCustomLink = (profileId, id) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };

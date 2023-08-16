@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "components/Message";
 import Loader from "components/Loader";
 import FormContainer from "components/FormContainer";
 import { resetPassword } from "state/ducks/auth/actions";
@@ -15,7 +14,7 @@ const ResetPasswordPage = ({ location, history, strings }) => {
 
   const dispatch = useDispatch();
 
-  const { success, error, loading } = useSelector((state) => state.auth);
+  const { success, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (success) {
@@ -42,7 +41,7 @@ const ResetPasswordPage = ({ location, history, strings }) => {
     <Fragment>
       <FormContainer>
         <h3>{strings["Reset Password"]}</h3>
-        {error && <Message variant="danger">{error}</Message>}
+
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="password">

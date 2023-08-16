@@ -1,6 +1,7 @@
 import * as types from "./types";
 
 import TagService from "../../../services/TagService";
+import { toast } from "react-toastify";
 // import TagService from "../../services/tag.service";
 
 export const getTags = () => async (dispatch) => {
@@ -23,6 +24,7 @@ export const getTags = () => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -45,6 +47,7 @@ export const getTag = (id) => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -67,6 +70,7 @@ export const updateTag = (id, data) => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -89,6 +93,7 @@ export const linkTag = (id) => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -110,5 +115,6 @@ export const unlinkTag = (id) => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };

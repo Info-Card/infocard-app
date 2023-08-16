@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "state/ducks/users/actions";
 import { updateProfile } from "state/ducks/profile/actions";
 import { Alert, Button, Col, Row } from "react-bootstrap";
-import Message from "components/Message";
 import Toggle from "components/Toggle";
 import Loader from "components/Loader";
 import MainLayout from "components/MainLayout";
@@ -23,7 +22,7 @@ const HomePage = ({ history, strings }) => {
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
   const { user: authUser } = useSelector((state) => state.auth);
-  const { error, profile, user, loading } = useSelector((state) => state.users);
+  const { profile, user, loading } = useSelector((state) => state.users);
   const { success } = useSelector((state) => state.profile);
   const { rehydrated } = useSelector((state) => state._persist);
 
@@ -103,7 +102,6 @@ const HomePage = ({ history, strings }) => {
                 <Loader />
               ) : (
                 <>
-                  {error && <Message variant="danger">{error}</Message>}
                   {!profile?.name && (
                     <Row>
                       <Alert variant="dark">

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "components/Message";
 import { Button, Form } from "react-bootstrap";
 import { getPlatformImageUrl } from "helpers/imageHelpers";
 import PhoneInput from "react-phone-input-2";
@@ -13,7 +12,7 @@ import ContactLinkList from "./links/ContactLinksList";
 const LinkForm = ({ link, strings }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.users);
-  const { error, loading } = useSelector((state) => state.links);
+  const { loading } = useSelector((state) => state.links);
   const [value, setValue] = useState(
     link.type === "contact" ? profile.id : link.value ?? ""
   );
@@ -49,7 +48,6 @@ const LinkForm = ({ link, strings }) => {
         <h4>{link.title ?? ""}</h4>
         <p>{link.headline ?? ""}</p>
         <Form onSubmit={submitHandler}>
-          {error && <Message variant="danger">{error}</Message>}
           {link.type === "phone" && (
             <Form.Group controlId="value">
               <PhoneInput
