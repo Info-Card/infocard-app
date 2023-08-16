@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "components/Message";
@@ -14,7 +14,14 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   email: yup.string().email().required(),
 });
+
 const ForgotPasswordPage = ({ strings }) => {
+  const dispatch = useDispatch();
+
+  const { success, error, loading, message } = useSelector(
+    (state) => state.auth
+  );
+
   const {
     register,
     handleSubmit,
@@ -22,21 +29,9 @@ const ForgotPasswordPage = ({ strings }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [email, setEmail] = useState("");
 
-  const dispatch = useDispatch();
-
-  const { success, error, loading, message } = useSelector(
-    (state) => state.auth
-  );
-
-  useEffect(() => {
-    if (!success) {
-      setEmail("");
-    }
-  }, [success]);
-
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (data) => {
+    const { email } = data;
     dispatch(forgotPassword(email));
   };
 
@@ -47,7 +42,7 @@ const ForgotPasswordPage = ({ strings }) => {
         <p>
           {
             strings[
-              "Please enter email address we will send you a reset password link."
+              "Please enter an email address, and we will send you a reset password link."
             ]
           }
         </p>

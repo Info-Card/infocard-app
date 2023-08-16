@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
@@ -12,9 +12,17 @@ const Header = ({ history = [""], strings }) => {
     dispatch(logout());
     history.push("/login");
   };
+
+  const [expanded, setExpanded] = useState(false); // State for mobile menu
+
   return (
     <header>
-      <Navbar bg="light" collapseOnSelect>
+      <Navbar
+        bg="light"
+        expand="lg"
+        expanded={expanded}
+        onToggle={() => setExpanded(!expanded)}
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -29,30 +37,28 @@ const Header = ({ history = [""], strings }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {authUser ? (
-                <>
-                  <NavDropdown title={"Setting"} id="username">
-                    <LinkContainer to="/qr">
-                      <NavDropdown.Item>
-                        <i className="fas fa-qrcode"></i> {strings["My QR"]}
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>
-                        <i className="fas fa-user"></i> {strings["Profile"]}
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <LinkContainer to="/change-password">
-                      <NavDropdown.Item>
-                        <i className="fas fa-gear"></i>
-                        {strings["Change Password"]}
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      {strings["Logout"]}
+                <NavDropdown title={"Setting"} id="username">
+                  <LinkContainer to="/qr">
+                    <NavDropdown.Item>
+                      <i className="fas fa-qrcode"></i> {strings["My QR"]}
                     </NavDropdown.Item>
-                  </NavDropdown>
-                </>
+                  </LinkContainer>
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>
+                      <i className="fas fa-user"></i> {strings["Profile"]}{" "}
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Divider />
+                  <LinkContainer to="/change-password">
+                    <NavDropdown.Item>
+                      <i className="fas fa-gear"></i>{" "}
+                      {strings["Change Password"]}
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    {strings["Logout"]}
+                  </NavDropdown.Item>
+                </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>

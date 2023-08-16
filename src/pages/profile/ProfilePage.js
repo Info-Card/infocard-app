@@ -15,7 +15,6 @@ const ProfilePage = ({ history, match, strings }) => {
     (state) => state.profile
   );
   const { tag, error: tagError } = useSelector((state) => state.tags);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,6 +49,7 @@ const ProfilePage = ({ history, match, strings }) => {
           focusConfirm: false,
           confirmButtonText: "Login",
           cancelButtonText: "Register",
+          cancelButtonClasses: "btn btn-danger",
         }).then((result) => {
           if (result.isConfirmed) {
             history.push("/login");

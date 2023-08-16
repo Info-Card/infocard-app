@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { multilanguage } from "redux-multilanguage";
 import { getLink } from "state/ducks/links/actions";
 import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
 import ListPlatForms from "../ListPlatForms";
 import ProfileDetailModal from "./ProfileDetailModal";
-import { getProfileImageUrl } from "helpers/imageHelpers";
+import ProfileDetailsHeader from "./components/ProfileDetailsHeader";
+import ProfileDetailsCard from "./components/ProfileDetailsCard";
+import SaveContectButton from "./components/SaveContectButton";
+import ExchangeButton from "./components/ExchangeButton";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -24,7 +27,6 @@ const ProfileDetail = ({ user, profile, strings }) => {
       }
       window.open(urlString, newTab ? "_blank" : "_self");
     };
-
     if (user) {
       if (
         user.direct !== "" &&
@@ -49,88 +51,22 @@ const ProfileDetail = ({ user, profile, strings }) => {
       {profile && user && (user.direct === "" || user.direct === undefined) ? (
         <div className="mb-5">
           <Row className="g-2">
-            <div className="d-flex align-items-center justify-content-between  mt-3 mb-1">
-              <img
-                src="assets/images/logo.png"
-                alt=""
-                style={{ width: "80px" }}
-              />
-              <a href={`https://infocard.me`}>
-                <Button type="submit" variant="outline-primary">
-                  Get Your Card
-                </Button>
-              </a>
-            </div>
+            <ProfileDetailsHeader />
             <Col xs={12} className="">
-              <div className="mx-4">
-                <Row
-                  className="user-card"
-                  style={{
-                    backgroundColor: profile.color ?? "grey",
-                  }}
-                >
-                  <Col xs={6} className="p-0">
-                    <img
-                      src={getProfileImageUrl(profile)}
-                      alt=""
-                      className="img-fluid"
-                      style={{
-                        height: "230px",
-                        width: "100%",
-                        objectFit: "fill",
-                      }}
-                    />
-                  </Col>
-
-                  <Col xs={6}>
-                    <h5>{profile.name}</h5>
-                    <h5>{profile.company}</h5>
-                    <h6>{profile.jobTitle}</h6>
-                  </Col>
-                </Row>
-              </div>
+              <ProfileDetailsCard profile={profile} />
               <Row className="mt-3">
-                <Col xs={6}>
-                  <a
-                    href={`https://api.infocard.me/v1/profile/contact/${profile.id}`}
-                  >
-                    <Button
-                      type="submit"
-                      id="save-contact-text-adjustment"
-                      style={{
-                        backgroundColor: profile.color ?? "grey",
-                        color: "white",
-                        width: "100%",
-                        border: `2px solid ${profile.color ?? "grey"}`,
-                      }}
-                    >
-                      {strings["Save Contact"]}
-                    </Button>
-                  </a>
-                </Col>
-                <Col xs={6}>
-                  <Button
-                    type="submit"
-                    id="save-contact-text-adjustment"
-                    style={{
-                      backgroundColor: profile.color ?? "grey",
-                      color: "white",
-                      width: "100%",
-                      border: `2px solid ${profile.color ?? "grey"}`,
-                    }}
-                    onClick={(e) => {
-                      setShowExchange(true);
-                    }}
-                  >
-                    {strings["Exchange"]}
-                  </Button>
-                </Col>
+                <SaveContectButton profile={profile} strings={strings} />
+                <ExchangeButton
+                  profile={profile}
+                  strings={strings}
+                  setShowExchange={setShowExchange}
+                />
               </Row>
             </Col>
             <>
-              <h5 className="pl-3" style={{ paddingTop: "20px" }}>
+              <h4 className="pl-3" style={{ paddingTop: "20px" }}>
                 About
-              </h5>
+              </h4>
               <Col xs={12}>{profile.bio}</Col>
             </>
             <div className="pl-3">
@@ -141,9 +77,9 @@ const ProfileDetail = ({ user, profile, strings }) => {
             </div>
             {profile.platforms && profile.platforms.length > 0 && (
               <div>
-                <h5 className="pl-2" style={{ paddingTop: "10px" }}>
+                <h4 className="pl-2" style={{ paddingTop: "10px" }}>
                   Platforms
-                </h5>
+                </h4>
                 <ListPlatForms profile={profile} />
               </div>
             )}

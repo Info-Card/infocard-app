@@ -7,12 +7,9 @@ import { updateProfile } from "state/ducks/profile/actions";
 
 const ImageOptionsModal = ({ show, setShow }) => {
   const dispatch = useDispatch();
-
   const { profile } = useSelector((state) => state.users);
-
   const [imageSrc, setImageSrc] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
-
   useEffect(() => {
     if (croppedImage) {
       console.log(croppedImage);
@@ -22,16 +19,12 @@ const ImageOptionsModal = ({ show, setShow }) => {
       setCroppedImage(null);
     }
   }, [dispatch, croppedImage, profile.id, setShow]);
-
   const selectImage = async () => {
     const inputElement = document.createElement("input");
     inputElement.type = "file";
     inputElement.onchange = async (event) => {
       const file = event.target.files[0];
-      console.log(file);
-
       if (file.type === "image/heic" || file.type === "image/heif") {
-        // Convert HEIC/HEIF to JPEG using heic2any library
         const convertedBlob = await heic2any({
           blob: file,
           toType: "image/jpeg",
@@ -41,20 +34,16 @@ const ImageOptionsModal = ({ show, setShow }) => {
         });
         setImageSrc(URL.createObjectURL(convertedFile));
       } else {
-        // For other image formats, read as usual
         const reader = new FileReader();
-
         reader.onload = () => {
           console.log(reader.result);
           setImageSrc(reader.result);
         };
-
         reader.readAsDataURL(file);
       }
     };
     inputElement.click();
   };
-
   const deleteImage = () => {
     setShow(false);
     dispatch(updateProfile(profile.id, { image: "" }));
@@ -77,7 +66,6 @@ const ImageOptionsModal = ({ show, setShow }) => {
           </div>
         </Modal.Body>
       </Modal>
-
       <ImageCropper
         imageSrc={imageSrc}
         setImageSrc={setImageSrc}

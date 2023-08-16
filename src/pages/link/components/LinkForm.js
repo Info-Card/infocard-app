@@ -12,10 +12,8 @@ import ContactLinkList from "./links/ContactLinksList";
 
 const LinkForm = ({ link, strings }) => {
   const dispatch = useDispatch();
-
   const { profile } = useSelector((state) => state.users);
   const { error, loading } = useSelector((state) => state.links);
-
   const [value, setValue] = useState(
     link.type === "contact" ? profile.id : link.value ?? ""
   );

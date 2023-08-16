@@ -20,10 +20,8 @@ import Swal from "sweetalert2";
 
 const HomePage = ({ history, strings }) => {
   const dispatch = useDispatch();
-
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showCustomLinkModal, setShowCustomLinkModal] = useState(false);
-
   const { user: authUser } = useSelector((state) => state.auth);
   const { error, profile, user, loading } = useSelector((state) => state.users);
   const { success } = useSelector((state) => state.profile);
@@ -101,7 +99,7 @@ const HomePage = ({ history, strings }) => {
         <Fragment>
           {loading && <Loader />}
           <Row>
-            <Col md={5} className="m-auto">
+            <Col md={7} lg={5} className="m-auto">
               {error && <Message variant="danger">{error}</Message>}
               {!profile?.name && (
                 <Row>
@@ -145,9 +143,8 @@ const HomePage = ({ history, strings }) => {
                       {strings["upload video"]}
                     </Button>
                   </div>
-
                   <div className="mt-4">
-                    <h5>About</h5>
+                    <h4>About</h4>
                     <p>{profile.bio}</p>
                   </div>
                   <LinksList links={profile.customLinks} />
@@ -194,7 +191,6 @@ const HomePage = ({ history, strings }) => {
               )}
             </Col>
           </Row>
-
           <ActivateTagModal />
           <AddVideoModal
             show={showAddVideoModal}
