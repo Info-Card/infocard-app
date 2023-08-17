@@ -1,73 +1,80 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  SplitButton,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import { logout } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
-const Header = ({ history = [""], strings }) => {
+
+const Header = ({ history, strings }) => {
   const dispatch = useDispatch();
   const { user: authUser } = useSelector((state) => state.auth);
+
   const logoutHandler = () => {
     dispatch(logout());
     history.push("/login");
   };
-  const [expanded, setExpanded] = useState(false);
+
   return (
     <header>
-      <Navbar
-        bg="light"
-        expand="lg"
-        expanded={expanded}
-        onToggle={() => setExpanded(expanded)}
-      >
+      <Navbar bg="light">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
               <img
                 src="/assets/images/logo.png"
                 alt=""
-                style={{ width: "80px" }}
+                style={{ width: "60px" }}
               />
             </Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-              {authUser ? (
-                <NavDropdown title={"Setting"} id="username">
-                  <LinkContainer to="/qr">
-                    <NavDropdown.Item>
-                      <i className="fas fa-qrcode"></i> {strings["My QR"]}
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>
-                      <i className="fas fa-user"></i> {strings["Profile"]}{" "}
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Divider />
-                  <LinkContainer to="/change-password">
-                    <NavDropdown.Item>
-                      <i className="fas fa-gear"></i>
-                      {strings["Change Password"]}
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    {strings["Logout"]}
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <LinkContainer to="/login">
-                  <Nav.Link>
-                    <i className="fas fa-user"></i> {strings["Sign In"]}
-                  </Nav.Link>
+          <div className="ml-auto">
+            {authUser ? (
+              <DropdownButton
+                title={"Setting"}
+                drop="left"
+                variant="light"
+                size="md"
+              >
+                <LinkContainer to="/qr">
+                  <Dropdown.Item>
+                    <i className="fas fa-qrcode"></i> {strings["My QR"]}
+                  </Dropdown.Item>
                 </LinkContainer>
-              )}
-            </Nav>
-          </Navbar.Collapse>
+                <LinkContainer to="/profile">
+                  <Dropdown.Item>
+                    <i className="fas fa-user"></i> {strings["Profile"]}{" "}
+                  </Dropdown.Item>
+                </LinkContainer>
+                <Dropdown.Divider />
+                <LinkContainer to="/change-password">
+                  <Dropdown.Item>
+                    <i className="fas fa-gear"></i> {strings["Change Password"]}
+                  </Dropdown.Item>
+                </LinkContainer>
+                <Dropdown.Item onClick={logoutHandler}>
+                  {strings["Logout"]}
+                </Dropdown.Item>
+              </DropdownButton>
+            ) : (
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  <i className="fas fa-user"></i> {strings["Sign In"]}
+                </Nav.Link>
+              </LinkContainer>
+            )}
+          </div>
         </Container>
       </Navbar>
     </header>
   );
 };
+
 export default multilanguage(Header);

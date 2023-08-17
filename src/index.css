@@ -452,3 +452,15 @@ ul.twPc-Arrange {
     height: 100px;
   }
 }
+
+.dropdown-toggle {
+  background-color: transparent !important;
+  outline: none !important;
+}
+.dropdown-toggle::before {
+  display: none !important;
+}
+
+.cancel-button {
+  background-color: #7066e0 !important;
+}
