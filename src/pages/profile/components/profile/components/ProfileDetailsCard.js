@@ -26,9 +26,16 @@ const ProfileDetailsCard = ({ profile }) => {
           </Col>
 
           <Col xs={6}>
-            <h5>{profile.name}</h5>
-            <h5>{profile.company}</h5>
-            <h6>{profile.jobTitle}</h6>
+            <span className="max-lines mb-0" style={{ fontSize: "17px" }}>
+              <h5>{profile.name}</h5>
+              <br></br>
+            </span>
+            <span className="max-lines mb-0">
+              <h5>{profile.company}</h5>
+            </span>
+            <span className="max-lines mb-0">
+              <h6>{profile.jobTitle}</h6>
+            </span>
           </Col>
         </Row>
       </div>

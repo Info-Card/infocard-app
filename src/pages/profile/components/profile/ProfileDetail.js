@@ -64,7 +64,10 @@ const ProfileDetail = ({ user, profile, strings }) => {
               </Row>
             </Col>
             <>
-              <h4 className="pl-3" style={{ paddingTop: "20px" }}>
+              <h4
+                className="ml-2"
+                style={{ paddingTop: "20px", paddingLeft: "4px" }}
+              >
                 About
               </h4>
               <Col xs={12}>{profile.bio}</Col>
@@ -77,7 +80,10 @@ const ProfileDetail = ({ user, profile, strings }) => {
             </div>
             {profile.platforms && profile.platforms.length > 0 && (
               <div>
-                <h4 className="pl-2" style={{ paddingTop: "10px" }}>
+                <h4
+                  className="ml-2"
+                  style={{ paddingTop: "10px", paddingLeft: "4px" }}
+                >
                   Platforms
                 </h4>
                 <ListPlatForms profile={profile} />
