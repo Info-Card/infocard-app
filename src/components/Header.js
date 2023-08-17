@@ -18,7 +18,7 @@ const Header = ({ history = [""], strings }) => {
         bg="light"
         expand="lg"
         expanded={expanded}
-        onToggle={() => setExpanded(!expanded)}
+        onToggle={() => setExpanded(expanded)}
       >
         <Container>
           <LinkContainer to="/">
@@ -34,7 +34,7 @@ const Header = ({ history = [""], strings }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {authUser ? (
-                <NavDropdown title={"Setting"} id="username" show={expanded}>
+                <NavDropdown title={"Setting"} id="username">
                   <LinkContainer to="/qr">
                     <NavDropdown.Item>
                       <i className="fas fa-qrcode"></i> {strings["My QR"]}
@@ -48,7 +48,7 @@ const Header = ({ history = [""], strings }) => {
                   <NavDropdown.Divider />
                   <LinkContainer to="/change-password">
                     <NavDropdown.Item>
-                      <i className="fas fa-gear"></i>{" "}
+                      <i className="fas fa-gear"></i>
                       {strings["Change Password"]}
                     </NavDropdown.Item>
                   </LinkContainer>
