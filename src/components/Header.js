@@ -34,7 +34,7 @@ const Header = ({ history = [""], strings }) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {authUser ? (
-                <NavDropdown title={"Settinggg"} id="username" show={expanded}>
+                <NavDropdown title={"Setting"} id="username" show={expanded}>
                   <LinkContainer to="/qr">
                     <NavDropdown.Item>
                       <i className="fas fa-qrcode"></i> {strings["My QR"]}

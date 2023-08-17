@@ -69,6 +69,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               {...register("title")}
               placeholder="title"
               type="title"
+              autoFocus={false}
             />
             <p className="validation-color">{errors.title?.message}</p>
           </Form.Group>
@@ -78,6 +79,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               {...register("url")}
               placeholder="Enter url"
               name="url"
+              autoFocus={false}
             />
             <p className="validation-color">{errors.url?.message}</p>
           </Form.Group>
@@ -88,6 +90,7 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
               type="file"
               accept="image/*"
               placeholder="Choose image"
+              autoFocus={false}
             />
             <p className="validation-color">{errors.image?.message}</p>
           </Form.Group>
