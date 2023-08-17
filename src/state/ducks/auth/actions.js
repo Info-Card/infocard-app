@@ -2,6 +2,7 @@ import * as types from "./types";
 import AuthService from "../../../services/AuthService";
 import TokenService from "services/TokenService";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const login = (email, password) => async (dispatch) => {
   try {

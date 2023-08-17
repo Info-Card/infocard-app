@@ -4,6 +4,8 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect, useDispatch } from "react-redux";
 import routes from "./config/routesConfig";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,15 +22,18 @@ const App = () => {
   });
 
   return (
-    <Router>
-      {rehydrated && (
-        <Switch>
-          {routes.map((route, index) => (
-            <Route key={index} {...route} />
-          ))}
-        </Switch>
-      )}
-    </Router>
+    <>
+      <Router>
+        {rehydrated && (
+          <Switch>
+            {routes.map((route, index) => (
+              <Route key={index} {...route} />
+            ))}
+          </Switch>
+        )}
+      </Router>
+      <ToastContainer />
+    </>
   );
 };
 
