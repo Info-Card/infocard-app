@@ -66,7 +66,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
             <>
               <h4
                 className="ml-2"
-                style={{ paddingTop: "20px", paddingLeft: "4px" }}
+                style={{ paddingTop: "20px", paddingLeft: "7px" }}
               >
                 About
               </h4>
