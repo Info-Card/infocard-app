@@ -8,10 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "state/ducks/auth/actions";
 
 const schema = yup.object().shape({
-  username: yup.string().min(4).max(20).required(),
-  email: yup.string().email().required(),
+  username: yup
+    .string()
+    .min(4)
+    .max(20)
+    .matches(/^[^\s]+$/, "Spaces are not allowed in the username")
+    .required(),
+  email: yup.string().email("Email must be valid").required(),
   password: yup.string().min(8).max(32).required(),
-  confirmPassword: yup.string().min(8).max(32).required(),
+  confirmPassword: yup
+    .string()
+    .min(8, "Confirm password must be at least 8 characters")
+    .max(32)
+    .required(),
   message: yup.string().min(8).max(100),
 });
 
@@ -44,7 +53,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
             placeholder="username"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.username?.message}</p>
+        <p className="validation-color">{errors.username?.message}</p>
         <Form.Group controlId="email">
           <Form.Label>{strings["Email Address"]}</Form.Label>
           <Form.Control

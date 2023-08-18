@@ -24,7 +24,6 @@ export const getProfile = (username, user) => async (dispatch) => {
       type: types.PROFILE_FAIL,
       payload: message,
     });
-    toast.error(message);
   }
 };
 
