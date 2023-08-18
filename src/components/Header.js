@@ -54,7 +54,8 @@ const Header = ({ history, strings }) => {
                 <Dropdown.Divider />
                 <LinkContainer to="/change-password">
                   <Dropdown.Item>
-                    <i className="fas fa-gear"></i> {strings["Change Password"]}
+                    <i className="fas fa-gear"></i>
+                    {strings["Change Password"]}
                   </Dropdown.Item>
                 </LinkContainer>
                 <Dropdown.Item onClick={logoutHandler}>
