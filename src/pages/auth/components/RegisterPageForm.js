@@ -8,7 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "state/ducks/auth/actions";
 
 const schema = yup.object().shape({
-  username: yup.string().min(4).max(20).required(),
+  username: yup
+    .string()
+    .min(4)
+    .max(20)
+    .matches(/^[^\s]+$/, "Spaces are not allowed in the username")
+    .required(),
   email: yup.string().email().required(),
   password: yup.string().min(8).max(32).required(),
   confirmPassword: yup.string().min(8).max(32).required(),
