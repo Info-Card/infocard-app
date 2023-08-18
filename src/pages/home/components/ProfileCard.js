@@ -22,17 +22,18 @@ const ProfileCard = ({ profile }) => {
         />
       </Col>
       <Col xs={6}>
-        <span className="max-lines mb-0" style={{ fontSize: "17px" }}>
-          {profile.name}
+        <h5 className="max-lines">{profile.name}</h5>
+        <h6 className="max-lines">{profile.company}</h6>
+        <h6 className="max-lines">{profile.jobTitle}</h6>
+        <span className="max-lines">
+          <strong>Views: </strong>
+          {profile.views}
+          <br />
         </span>
-        <br />
-        {profile.company} <br /> {profile.jobTitle}
-        <br />
-        <strong>Views: </strong>
-        {profile.views}
-        <br />
-        <strong>Info Shared: </strong>
-        {profile.infoShared}
+        <span className="max-lines">
+          <strong>Info Shared: </strong>
+          {profile.infoShared}
+        </span>
       </Col>
     </Row>
   );

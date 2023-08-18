@@ -4,8 +4,7 @@ import MainLayout from "components/MainLayout";
 import { Button, Col, Row } from "react-bootstrap";
 import QRCode from "react-qr-code";
 import { multilanguage } from "redux-multilanguage";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faShare } from "@fortawesome/free-solid-svg-icons";
 import { shareOnMobile } from "react-mobile-share";
@@ -57,7 +56,7 @@ const QRPage = ({ history, strings }) => {
                   navigator.clipboard.writeText(
                     `https://app.infocard.me/${authUser.username}`
                   );
-                  toast("Link copied");
+                  toast.success("Link copied");
                 }}
               >
                 <FontAwesomeIcon icon={faCopy} size="lg" />
@@ -83,12 +82,6 @@ const QRPage = ({ history, strings }) => {
                   <span>Share Profile</span>
                 </div>
               </div>
-
-              <ToastContainer
-                bodyClassName={() => "text-sm font-med block p-3"}
-                position="bottom-left"
-                autoClose={2000}
-              />
             </Col>
             <Col md={4} />
           </Row>

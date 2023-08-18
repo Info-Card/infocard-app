@@ -39,8 +39,8 @@ const ProfilePage = ({ history, match, strings }) => {
         history.push("/");
       } else {
         Swal.fire({
-          title: `<strong>${strings["Activate your product"]}</strong>`,
-          icon: "info",
+          title: `<img src="/apple-touch-icon.png" alt="logo" /><br/><strong>${strings["Activate your product"]}</strong>`,
+
           html: strings[
             "To Activate your product you need to login or register first"
           ],
@@ -49,7 +49,10 @@ const ProfilePage = ({ history, match, strings }) => {
           focusConfirm: false,
           confirmButtonText: "Login",
           cancelButtonText: "Register",
-          cancelButtonClasses: "btn btn-danger",
+          cancelButtonClasses: "btn",
+          customClass: {
+            cancelButton: "cancel-button", // Add your custom class for the Register button
+          },
         }).then((result) => {
           if (result.isConfirmed) {
             history.push("/login");

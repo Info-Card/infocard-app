@@ -1,6 +1,7 @@
 import * as types from "./types";
 
 import UserService from "../../../services/UserService";
+import { toast } from "react-toastify";
 
 export const getUsers = (page, limit) => async (dispatch) => {
   try {
@@ -22,6 +23,7 @@ export const getUsers = (page, limit) => async (dispatch) => {
       type: types.USER_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -46,6 +48,7 @@ export const getUser = (id, query) => async (dispatch) => {
       type: types.USER_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -69,6 +72,7 @@ export const createUser = (data) => async (dispatch) => {
       type: types.USER_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -92,5 +96,6 @@ export const updateUser = (data) => async (dispatch) => {
       type: types.USER_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };

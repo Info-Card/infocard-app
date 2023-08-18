@@ -9,7 +9,7 @@ import { multilanguage } from "redux-multilanguage";
 import RegisterPageForm from "./components/RegisterPageForm";
 
 const RegisterPage = ({ location, history, strings }) => {
-  const { loading, error, user: authUser } = useSelector((state) => state.auth);
+  const { loading, user: authUser } = useSelector((state) => state.auth);
   const { tag } = useSelector((state) => state.tags);
   const redirect = location.search ? location.search.split("=")[1] : "/";
   const [message, setMessage] = useState("");
@@ -24,7 +24,7 @@ const RegisterPage = ({ location, history, strings }) => {
     <FormContainer>
       <h1>{strings["Sign Up"]}</h1>
       {message && <Message variant="danger">{message}</Message>}
-      {error && <Message variant="danger">{error}</Message>}
+
       {loading && <Loader />}
       <RegisterPageForm setMessage={setMessage} strings={strings} />
       <Row className="py-3">

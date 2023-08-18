@@ -3,6 +3,7 @@ import * as types from "./types";
 import LinkService from "../../../services/LinkService";
 import { getUser } from "../users/actions";
 import TokenService from "services/TokenService";
+import { toast } from "react-toastify";
 
 export const getLinks = (profileId) => async (dispatch) => {
   try {
@@ -23,6 +24,7 @@ export const getLinks = (profileId) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -45,6 +47,7 @@ export const getLink = (id) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -68,6 +71,7 @@ export const createLink = (data) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -91,6 +95,7 @@ export const updateLink = (id, data) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -116,6 +121,7 @@ export const updateSharedLink = (id, data) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -137,5 +143,6 @@ export const deleteLink = (id) => async (dispatch) => {
       type: types.LINK_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };

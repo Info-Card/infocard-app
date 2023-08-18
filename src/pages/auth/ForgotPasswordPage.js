@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "components/Message";
 import Loader from "components/Loader";
 import FormContainer from "components/FormContainer";
 import { forgotPassword } from "state/ducks/auth/actions";
@@ -18,9 +17,7 @@ const schema = yup.object().shape({
 const ForgotPasswordPage = ({ strings }) => {
   const dispatch = useDispatch();
 
-  const { success, error, loading, message } = useSelector(
-    (state) => state.auth
-  );
+  const { success, loading, message } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -46,7 +43,7 @@ const ForgotPasswordPage = ({ strings }) => {
             ]
           }
         </p>
-        {error && <Message variant="danger">{error}</Message>}
+
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <Form.Group controlId="email">
             <Form.Label>{strings["Email Address"]}</Form.Label>

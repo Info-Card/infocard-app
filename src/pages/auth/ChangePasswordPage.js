@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "components/Message";
 import Loader from "components/Loader";
 import FormContainer from "components/FormContainer";
 import * as types from "state/ducks/users/types";
@@ -11,7 +10,7 @@ import ChangePasswordForm from "./components/ChangePasswordForm";
 const ChangePasswordPage = ({ location, history, strings }) => {
   const dispatch = useDispatch();
   const { user: authUser } = useSelector((state) => state.auth);
-  const { success, error, loading } = useSelector((state) => state.users);
+  const { success, loading } = useSelector((state) => state.users);
   const { rehydrated } = useSelector((state) => state._persist);
   useEffect(() => {
     if (rehydrated) {
@@ -28,7 +27,7 @@ const ChangePasswordPage = ({ location, history, strings }) => {
       <Fragment>
         <FormContainer>
           <h3>{strings["Change Password"]}</h3>
-          {error && <Message variant="danger">{error}</Message>}
+
           {loading && <Loader />}
           <ChangePasswordForm strings={strings} />
         </FormContainer>

@@ -10,6 +10,7 @@ const ProfileDetailsCard = ({ profile }) => {
           className="user-card"
           style={{
             backgroundColor: profile.color ?? "grey",
+            alignItems: "center",
           }}
         >
           <Col xs={6} className="p-0">
@@ -18,7 +19,6 @@ const ProfileDetailsCard = ({ profile }) => {
               alt=""
               className="img-fluid"
               style={{
-                height: "230px",
                 width: "100%",
                 objectFit: "fill",
               }}
@@ -26,9 +26,9 @@ const ProfileDetailsCard = ({ profile }) => {
           </Col>
 
           <Col xs={6}>
-            <h5>{profile.name}</h5>
-            <h5>{profile.company}</h5>
-            <h6>{profile.jobTitle}</h6>
+            <h5 className="max-lines">{profile.name}</h5>
+            <h6 className="max-lines">{profile.company}</h6>
+            <h6 className="max-lines">{profile.jobTitle}</h6>
           </Col>
         </Row>
       </div>

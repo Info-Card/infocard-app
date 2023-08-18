@@ -6,16 +6,12 @@ const ProfileDetailsHeader = () => {
     <>
       <style>
         {`
-          @media (max-width: 575px) {
-            .header-container img, .header-container a {
-              margin-left: 15px; /* Add margin to both sides */
+            .header-container img{
+              margin-left: 12px; 
             }
-          }
-          @media (max-width: 575px) {
             .header-container a {
-              margin-right: 15px; /* Add margin to both sides */
+              margin-right: 12px;
             }
-          }
         `}
       </style>
       <div className="d-flex align-items-center justify-content-between mt-3 mb-1 header-container">

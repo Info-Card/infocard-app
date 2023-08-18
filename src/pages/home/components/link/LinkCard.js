@@ -68,6 +68,7 @@ const LinkCard = ({ link }) => {
         link={link}
         show={showCustomLinkModal}
         setShow={setShowCustomLinkModal}
+        key={Math.random()}
       />
     </div>
   );

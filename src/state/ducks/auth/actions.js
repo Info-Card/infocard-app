@@ -1,6 +1,8 @@
 import * as types from "./types";
 import AuthService from "../../../services/AuthService";
 import TokenService from "services/TokenService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -22,6 +24,7 @@ export const login = (email, password) => async (dispatch) => {
       type: types.AUTH_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -45,6 +48,7 @@ export const registerUser = (creadentials) => async (dispatch) => {
       type: types.AUTH_FAIL,
       payload: message,
     });
+    toast.error(message);
   }
 };
 
@@ -71,6 +75,7 @@ export const forgotPassword = (email) => (dispatch) => {
         type: types.AUTH_FAIL,
         payload: message,
       });
+      toast.error(message);
     }
   );
 };
@@ -98,6 +103,7 @@ export const resetPassword = (token, password) => (dispatch) => {
         type: types.AUTH_FAIL,
         payload: message,
       });
+      toast.error(message);
     }
   );
 };
