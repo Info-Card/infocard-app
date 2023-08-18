@@ -47,7 +47,6 @@ export const getTag = (id) => async (dispatch) => {
       type: types.TAG_FAIL,
       payload: message,
     });
-    toast.error(message);
   }
 };
 
