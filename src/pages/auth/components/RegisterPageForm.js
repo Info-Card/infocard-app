@@ -14,7 +14,7 @@ const schema = yup.object().shape({
     .max(20)
     .matches(/^[^\s]+$/, "Spaces are not allowed in the username")
     .required(),
-  email: yup.string().email().required(),
+  email: yup.string().email("Email must be valid").required(),
   password: yup.string().min(8).max(32).required(),
   confirmPassword: yup
     .string()
