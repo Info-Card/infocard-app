@@ -6,7 +6,6 @@ import "./index.css";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
 import { DataProvider } from "./context/DataContext";
 import { store } from "./state/store";
 

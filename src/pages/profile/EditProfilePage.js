@@ -44,7 +44,7 @@ const EditProfilePage = ({ location, history, strings }) => {
       {profile && (
         <Row className="mt-2">
           <Col sm={12} lg={5} xl={4}>
-            <ProfileForm profile={profile} />
+            <ProfileForm profile={profile} key={profile.id} />
           </Col>
           <Col sm={12} lg={7} xl={8} style={{ paddingTop: "20px" }}>
             <Categories />
