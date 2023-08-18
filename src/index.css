@@ -39,6 +39,7 @@ a {
   color: white;
   text-decoration: none;
 }
+
 .connect-button {
   background-color: black;
   color: white;
@@ -68,14 +69,9 @@ a {
 }
 
 .max-lines {
-  word-break: break-word;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  line-height: 16px; /* fallback */
-  max-height: 32px; /* fallback */
-  -webkit-line-clamp: 1; /* number of lines to show */
-  -webkit-box-orient: vertical;
 }
 
 .direct-button {

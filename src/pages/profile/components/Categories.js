@@ -32,7 +32,10 @@ const Categories = () => {
 
                     return (
                       <Col xs={4} md={2} key={key}>
-                        <Link to={`/links/${platform.platform}`}>
+                        <Link
+                          to={`/links/${platform.platform}`}
+                          style={{ color: "black" }}
+                        >
                           <Platform
                             platform={platform}
                             showCheck={true}
