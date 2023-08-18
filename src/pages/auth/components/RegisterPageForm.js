@@ -16,7 +16,11 @@ const schema = yup.object().shape({
     .required(),
   email: yup.string().email().required(),
   password: yup.string().min(8).max(32).required(),
-  confirmPassword: yup.string().min(8).max(32).required(),
+  confirmPassword: yup
+    .string()
+    .min(8, "Confirm password must be at least 8 characters")
+    .max(32)
+    .required(),
   message: yup.string().min(8).max(100),
 });
 
@@ -49,7 +53,7 @@ const RegisterPageForm = ({ strings, setMessage }) => {
             placeholder="username"
           ></Form.Control>
         </Form.Group>
-        <p>{errors.username?.message}</p>
+        <p className="validation-color">{errors.username?.message}</p>
         <Form.Group controlId="email">
           <Form.Label>{strings["Email Address"]}</Form.Label>
           <Form.Control

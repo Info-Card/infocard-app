@@ -30,7 +30,10 @@ const RegisterPage = ({ location, history, strings }) => {
       <Row className="py-3">
         <Col>
           {strings["Have an Account?"]}{" "}
-          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+          <Link
+            style={{ color: "black" }}
+            to={redirect ? `/login?redirect=${redirect}` : "/login"}
+          >
             {strings["Login"]}
           </Link>
         </Col>
