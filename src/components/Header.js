@@ -36,7 +36,7 @@ const Header = ({ history, strings }) => {
           <div className="ml-auto">
             {authUser ? (
               <DropdownButton
-                title={"Setting"}
+                title={"Settings"}
                 drop="left"
                 variant="light"
                 size="md"
