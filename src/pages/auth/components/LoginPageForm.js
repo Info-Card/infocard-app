@@ -68,7 +68,11 @@ const LoginPageForm = ({ strings }) => {
           </div>
         </Form.Group>
         <p className="validation-color">{errors.password?.message}</p>
-        <Link to="/forgot-password" className="float-right">
+        <Link
+          to="/forgot-password"
+          className="float-right"
+          style={{ color: "black" }}
+        >
           {strings["forgot password?"]}
         </Link>
         <br />

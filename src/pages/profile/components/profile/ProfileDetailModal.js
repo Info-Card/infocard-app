@@ -8,7 +8,7 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
-  email: yup.string().email().required(),
+  email: yup.string().email("Please enter a valid email").required(),
   number: yup.string().max(12),
   message: yup.string().max(100),
 });
@@ -65,7 +65,7 @@ const ProfileDetailModal = ({
               <Form.Label>{strings["Your Email"]}</Form.Label>
               <Form.Control
                 {...register("email")}
-                type="email"
+                type="text"
                 placeholder={strings["Enter email"]}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
