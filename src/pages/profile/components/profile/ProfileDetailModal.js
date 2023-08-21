@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { exchangeContact } from "state/ducks/profile/actions";
@@ -19,6 +19,7 @@ const ProfileDetailModal = ({
   profile,
   showExchange,
 }) => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -26,20 +27,12 @@ const ProfileDetailModal = ({
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-    number: "",
-  });
-  const dispatch = useDispatch();
-  const handleExchange = (event) => {
-    event.preventDefault();
-    console.log(form);
-    dispatch(exchangeContact(profile.id, form));
-    setForm({ name: "", email: "", message: "", number: "" });
+
+  const handleExchange = (data) => {
+    dispatch(exchangeContact(profile.id, data));
     setShowExchange(false);
   };
+
   return (
     <>
       <Modal show={showExchange}>
@@ -49,15 +42,13 @@ const ProfileDetailModal = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit(handleExchange)}>
+          <Form onSubmit={handleSubmit(handleExchange)} noValidate>
             <Form.Group controlId="name">
               <Form.Label>{strings["Your Name"]}</Form.Label>
               <Form.Control
                 {...register("name")}
                 type="name"
                 placeholder={strings["Enter name"]}
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
               ></Form.Control>
             </Form.Group>
             <p className="validation-color">{errors.name?.message}</p>
@@ -65,10 +56,8 @@ const ProfileDetailModal = ({
               <Form.Label>{strings["Your Email"]}</Form.Label>
               <Form.Control
                 {...register("email")}
-                type="text"
+                type="email"
                 placeholder={strings["Enter email"]}
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
               ></Form.Control>
 
               <p className="validation-color">{errors.email?.message}</p>
@@ -79,8 +68,6 @@ const ProfileDetailModal = ({
                 {...register("number")}
                 type="text"
                 placeholder={strings["Enter number"]}
-                value={form.number}
-                onChange={(e) => setForm({ ...form, number: e.target.value })}
               ></Form.Control>
             </Form.Group>
 
@@ -91,8 +78,6 @@ const ProfileDetailModal = ({
                 {...register("message")}
                 type="text"
                 placeholder={strings["Enter message"]}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
               ></Form.Control>
             </Form.Group>
             <p className="validation-color">{errors.message?.message}</p>
