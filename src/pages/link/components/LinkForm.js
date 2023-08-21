@@ -43,7 +43,8 @@ const LinkForm = ({ link, strings }) => {
         <img
           src={getPlatformImageUrl(link)}
           alt=""
-          className="profile-image m-3"
+          className="  m-3"
+          style={{ height: "100px", width: "100px" }}
         />
         <h4>{link.title ?? ""}</h4>
         <p>{link.headline ?? ""}</p>

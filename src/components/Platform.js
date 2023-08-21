@@ -15,6 +15,7 @@ const Platform = ({ platform, showCheck }) => {
         src={getPlatformImageUrl(platform)}
         alt={platform.image}
         className="img-fluid pb-1"
+        style={{ height: "100%", width: "100%" }}
       />
       <p style={{ fontSize: "12px" }}>{platform.title}</p>
     </div>
