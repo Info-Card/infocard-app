@@ -9,7 +9,11 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
   email: yup.string().email("Please enter a valid email").required(),
-  number: yup.string().max(12),
+  number: yup
+    .number()
+    .typeError("Only numbers are allowed")
+    .max(12, "Number cannot be greater than 12")
+    .strict(),
   message: yup.string().max(100),
 });
 
