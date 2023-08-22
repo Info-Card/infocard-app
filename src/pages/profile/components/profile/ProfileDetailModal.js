@@ -9,7 +9,14 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
   email: yup.string().email("Please enter a valid email").required(),
-  number: yup.number().max(12, "Number cannot be greater than 12"),
+  number: yup
+    .mixed()
+    .test("valid-number", "Please enter a valid number", (value, context) => {
+      if (value !== "") {
+        return !isNaN(value);
+      }
+      return true;
+    }),
   message: yup.string().max(100),
 });
 
