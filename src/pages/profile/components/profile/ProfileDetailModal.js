@@ -30,6 +30,7 @@ const ProfileDetailModal = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -39,11 +40,15 @@ const ProfileDetailModal = ({
     dispatch(exchangeContact(profile.id, data));
     setShowExchange(false);
   };
+  const handleCloseModal = () => {
+    reset();
+    setShowExchange(false);
+  };
 
   return (
     <>
-      <Modal show={showExchange}>
-        <Modal.Header closeButton onHide={(e) => setShowExchange(false)}>
+      <Modal show={showExchange} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
           <Modal.Title>
             {strings["Exchange Contact with"]} {profile.name}
           </Modal.Title>

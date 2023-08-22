@@ -7,7 +7,6 @@ import ProfileDetail from "./components/profile/ProfileDetail";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import Swal from "sweetalert2";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import NotFound from "pages/error/NotFound";
 
 const ProfilePage = ({ history, match, strings }) => {
