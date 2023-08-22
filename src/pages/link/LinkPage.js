@@ -6,15 +6,19 @@ import { Col, Row } from "react-bootstrap";
 import { multilanguage } from "redux-multilanguage";
 import LinkForm from "./components/LinkForm";
 import { useParams } from "react-router-dom";
+import { getUser } from "state/ducks/users/actions";
 
 const LinkPage = ({ history }) => {
   const { platformId } = useParams();
   const dispatch = useDispatch();
+
+  const { user: authUser } = useSelector((state) => state.auth);
   const { link, success } = useSelector((state) => state.links);
 
   useEffect(() => {
     dispatch({ type: GET_LINK_SUCCESS1, payload: platformId });
-  }, [dispatch, platformId]);
+    dispatch(getUser(authUser.username));
+  }, [dispatch, platformId, authUser]);
 
   useEffect(() => {
     if (success) {

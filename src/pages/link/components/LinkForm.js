@@ -14,7 +14,7 @@ const LinkForm = ({ link, strings }) => {
   const { profile } = useSelector((state) => state.users);
   const { loading } = useSelector((state) => state.links);
   const [value, setValue] = useState(
-    link.type === "contact" ? profile.id : link.value ?? ""
+    link.type === "contact" ? profile?.id : link.value ?? ""
   );
 
   const submitHandler = (e) => {
@@ -36,6 +36,10 @@ const LinkForm = ({ link, strings }) => {
     e.preventDefault();
     dispatch(deleteLink(link.id));
   };
+
+  if (!profile) {
+    return <></>;
+  }
 
   return (
     <div className="text-center">
@@ -71,7 +75,7 @@ const LinkForm = ({ link, strings }) => {
             </Form.Group>
           )}
           {link.type === "contact" && (
-            <ContactLinkList links={profile.platforms} />
+            <ContactLinkList links={profile?.platforms} />
           )}
 
           <div>
