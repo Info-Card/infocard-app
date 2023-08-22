@@ -7,6 +7,8 @@ import ProfileDetail from "./components/profile/ProfileDetail";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import Swal from "sweetalert2";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import NotFound from "pages/error/NotFound";
 
 const ProfilePage = ({ history, match, strings }) => {
   const username = match.params.username;
@@ -71,8 +73,10 @@ const ProfilePage = ({ history, match, strings }) => {
           <Col md={5} className="m-auto">
             <div className="">
               {loading && <Loader />}
-              {profile && !profile.isPrivate && (
+              {profile && !profile.isPrivate ? (
                 <ProfileDetail user={user} profile={profile} />
+              ) : (
+                <NotFound />
               )}
             </div>
           </Col>
