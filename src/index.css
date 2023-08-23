@@ -460,3 +460,7 @@ ul.twPc-Arrange {
 .cancel-button {
   background-color: #7066e0 !important;
 }
+
+.react-tel-input .form-control {
+  width: 100% !important;
+}

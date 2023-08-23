@@ -71,9 +71,7 @@ const ProfileForm = ({ profile, strings }) => {
     <div className="card">
       <Form onSubmit={handleSubmit(onSubmit)} key={profile.id} className="p-2">
         <ProfileFormHead color={color} profile={profile} />
-        {profileError && (
-          <Message variant="danger">{error ? error : profileError}</Message>
-        )}
+
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control {...register("name")} placeholder="" type="text" />

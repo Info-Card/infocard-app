@@ -14,7 +14,7 @@ const LinkForm = ({ link, strings }) => {
   const { profile } = useSelector((state) => state.users);
   const { loading } = useSelector((state) => state.links);
   const [value, setValue] = useState(
-    link.type === "contact" ? profile.id : link.value ?? ""
+    link.type === "contact" ? profile?.id : link.value ?? ""
   );
 
   const submitHandler = (e) => {
@@ -37,13 +37,18 @@ const LinkForm = ({ link, strings }) => {
     dispatch(deleteLink(link.id));
   };
 
+  if (!profile) {
+    return <></>;
+  }
+
   return (
     <div className="text-center">
       <div className="">
         <img
           src={getPlatformImageUrl(link)}
           alt=""
-          className="profile-image m-3"
+          className="  m-3"
+          style={{ height: "100px", width: "100px" }}
         />
         <h4>{link.title ?? ""}</h4>
         <p>{link.headline ?? ""}</p>
@@ -70,7 +75,7 @@ const LinkForm = ({ link, strings }) => {
             </Form.Group>
           )}
           {link.type === "contact" && (
-            <ContactLinkList links={profile.platforms} />
+            <ContactLinkList links={profile?.platforms} />
           )}
 
           <div>

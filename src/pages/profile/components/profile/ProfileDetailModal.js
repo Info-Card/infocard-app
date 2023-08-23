@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { exchangeContact } from "state/ducks/profile/actions";
@@ -8,8 +8,15 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
-  email: yup.string().email().required(),
-  number: yup.string().max(12),
+  email: yup.string().email("Please enter a valid email").required(),
+  number: yup
+    .mixed()
+    .test("valid-number", "Please enter a valid number", (value, context) => {
+      if (value !== "") {
+        return !isNaN(value);
+      }
+      return true;
+    }),
   message: yup.string().max(100),
 });
 
@@ -19,45 +26,41 @@ const ProfileDetailModal = ({
   profile,
   showExchange,
 }) => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-    number: "",
-  });
-  const dispatch = useDispatch();
-  const handleExchange = (event) => {
-    event.preventDefault();
-    console.log(form);
-    dispatch(exchangeContact(profile.id, form));
-    setForm({ name: "", email: "", message: "", number: "" });
+
+  const handleExchange = (data) => {
+    dispatch(exchangeContact(profile.id, data));
     setShowExchange(false);
   };
+  const handleCloseModal = () => {
+    reset();
+    setShowExchange(false);
+  };
+
   return (
     <>
-      <Modal show={showExchange}>
-        <Modal.Header closeButton onHide={(e) => setShowExchange(false)}>
+      <Modal show={showExchange} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
           <Modal.Title>
             {strings["Exchange Contact with"]} {profile.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit(handleExchange)}>
+          <Form onSubmit={handleSubmit(handleExchange)} noValidate>
             <Form.Group controlId="name">
               <Form.Label>{strings["Your Name"]}</Form.Label>
               <Form.Control
                 {...register("name")}
                 type="name"
                 placeholder={strings["Enter name"]}
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
               ></Form.Control>
             </Form.Group>
             <p className="validation-color">{errors.name?.message}</p>
@@ -67,8 +70,6 @@ const ProfileDetailModal = ({
                 {...register("email")}
                 type="email"
                 placeholder={strings["Enter email"]}
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
               ></Form.Control>
 
               <p className="validation-color">{errors.email?.message}</p>
@@ -79,8 +80,6 @@ const ProfileDetailModal = ({
                 {...register("number")}
                 type="text"
                 placeholder={strings["Enter number"]}
-                value={form.number}
-                onChange={(e) => setForm({ ...form, number: e.target.value })}
               ></Form.Control>
             </Form.Group>
 
@@ -91,8 +90,6 @@ const ProfileDetailModal = ({
                 {...register("message")}
                 type="text"
                 placeholder={strings["Enter message"]}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
               ></Form.Control>
             </Form.Group>
             <p className="validation-color">{errors.message?.message}</p>

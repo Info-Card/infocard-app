@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 const LinkedCardsButtons = ({ strings, tag, setSelectedTag }) => {
   const dispatch = useDispatch();
+
   return (
     <>
       <Button
@@ -39,7 +40,9 @@ const LinkedCardsButtons = ({ strings, tag, setSelectedTag }) => {
             cancelButtonText: "No",
           }).then((result) => {
             if (result.isConfirmed) {
-              dispatch(unlinkTag(tag.id));
+              dispatch(unlinkTag(tag.id)).then(() => {
+                window.location.reload();
+              });
             }
           })
         }

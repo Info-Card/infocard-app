@@ -6,6 +6,7 @@ import routes from "./config/routesConfig";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "components/ScrollToTop";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const App = () => {
   return (
     <>
       <Router>
+        <ScrollToTop />
         {rehydrated && (
           <Switch>
             {routes.map((route, index) => (
