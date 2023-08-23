@@ -75,12 +75,13 @@ export const updateVideos = (id, data) => async (dispatch) => {
   }
 };
 
-export const exchangeContact = (profileId, data) => async (dispatch) => {
+export const exchangeContact = (userId, data) => async (dispatch) => {
+  console.log("data in action ", data);
   try {
     dispatch({
       type: types.PROFILE_REQUEST,
     });
-    const res = await UserService.exchangeContact(profileId, data);
+    const res = await UserService.exchangeContact(userId, data);
 
     dispatch({
       type: types.EXCHANGE_CONTACT_SUCCESS,

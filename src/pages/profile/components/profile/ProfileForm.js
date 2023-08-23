@@ -3,7 +3,6 @@ import { CirclePicker } from "react-color";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
-import Message from "components/Message";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
