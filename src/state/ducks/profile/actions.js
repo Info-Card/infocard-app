@@ -75,31 +75,6 @@ export const updateVideos = (id, data) => async (dispatch) => {
   }
 };
 
-export const exchangeContact = (userId, data) => async (dispatch) => {
-  console.log("data in action ", data);
-  try {
-    dispatch({
-      type: types.PROFILE_REQUEST,
-    });
-    const res = await UserService.exchangeContact(userId, data);
-
-    dispatch({
-      type: types.EXCHANGE_CONTACT_SUCCESS,
-      payload: res.data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: types.PROFILE_FAIL,
-      payload: message,
-    });
-    toast.error(message);
-  }
-};
-
 export const addCustomLink = (id, data) => async (dispatch) => {
   try {
     dispatch({

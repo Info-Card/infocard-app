@@ -1,4 +1,4 @@
-import * as types from './types';
+import * as types from "./types";
 
 const initialState = {};
 
@@ -33,6 +33,8 @@ export default function foo(state = initialState, action) {
         user: payload,
         profile,
       };
+    case types.EXCHANGE_CONTACT_SUCCESS:
+      return payload;
     case types.USER_RESET:
       return {};
     default:
