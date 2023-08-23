@@ -55,7 +55,6 @@ export default class ApiService {
           (response) => {
             TokenService.setTokens(response.data);
           }
-
           // (error) => {
           //   TokenService.removeAuthInfo();
           //   window.location = "/login";

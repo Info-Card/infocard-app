@@ -70,7 +70,9 @@ const ProfileDetail = ({ user, profile, strings }) => {
               >
                 About
               </h4>
-              <Col xs={12}>{profile.bio}</Col>
+              <Col style={{ overflowWrap: "break-word" }} xs={12}>
+                {profile.bio}
+              </Col>
             </>
             <div className="pl-3">
               <LinksList links={profile.customLinks} />
