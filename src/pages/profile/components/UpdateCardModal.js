@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { multilanguage } from "redux-multilanguage";
 import { updateTag } from "state/ducks/tags/actions";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Tag name is required is required").max(15),
+});
 
 const UpdateCardModal = ({ strings, tag, setTag }) => {
   const dispatch = useDispatch();
-  const [tagName, setTagName] = useState(tag?.name);
-  const { handleSubmit, register, errors } = useForm();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      name: tag.name,
+    },
+    resolver: yupResolver(schema),
+  });
   const handleUpdateTag = (data) => {
+    console.log(data);
     dispatch(updateTag(tag.id, { name: data.name }));
     setTag(null);
+    reset();
   };
 
   return (
@@ -26,18 +43,11 @@ const UpdateCardModal = ({ strings, tag, setTag }) => {
             <Form.Group controlId="name">
               <Form.Label>{strings["Tag Name"]}</Form.Label>
               <Form.Control
-                type="text"
-                name="name"
+                type="name"
                 placeholder={strings["Enter name"]}
-                value={tagName}
-                onChange={(e) => setTagName(e.target.value)}
-                ref={register({ required: true, maxLength: 15 })}
-              />
-              {errors.name && (
-                <div className="text-danger">
-                  Tag name is required and must be at most 15 characters.
-                </div>
-              )}
+                {...register("name")}
+              ></Form.Control>
+              <p className="validation-color">{errors.name?.message}</p>
             </Form.Group>
             <Button type="submit" variant="primary">
               {strings["Update"]}
