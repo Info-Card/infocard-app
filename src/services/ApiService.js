@@ -54,12 +54,11 @@ export default class ApiService {
         .then(
           (response) => {
             TokenService.setTokens(response.data);
+          },
+          (error) => {
+            TokenService.removeAuthInfo();
+            window.location = "/login";
           }
-
-          // (error) => {
-          //   TokenService.removeAuthInfo();
-          //   window.location = "/login";
-          // }
         );
     } else {
       TokenService.removeAuthInfo();

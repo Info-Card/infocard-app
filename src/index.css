@@ -69,9 +69,23 @@ a {
 }
 
 .max-lines {
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Number of lines to show */
   overflow: hidden;
-  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+@media (max-width: 400px) {
+  .max-lines {
+    font-size: 10px; /* Adjust the font size as needed */
+  }
+}
+
+@media (max-width: 300px) {
+  .max-lines {
+    font-size: 8px; /* Adjust the font size as needed */
+  }
 }
 
 .direct-button {

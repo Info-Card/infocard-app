@@ -46,7 +46,7 @@ const LinkCard = ({ link }) => {
           onClick={() => window.open(link.url)}
         >
           <h6>{link.title}</h6>
-          <span className="max-lines">{link.url}</span>
+          <span className="profile-url">{link.url}</span>
         </div>
         {!params.username && (
           <div className="d-flex ml-auto">

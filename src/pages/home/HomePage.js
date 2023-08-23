@@ -150,7 +150,7 @@ const HomePage = ({ history, strings }) => {
                   </div>
                   <div className="mt-4">
                     <h4>About</h4>
-                    <p>{profile.bio}</p>
+                    <p style={{ overflowWrap: "break-word" }}>{profile.bio}</p>
                   </div>
                   <LinksList links={profile.customLinks} />
                   <VideoList videos={profile.videos} />

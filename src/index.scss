@@ -17,8 +17,9 @@
   }
 }
 
-.max-lines {
+.profile-url {
+  white-space: nowrap;
+  width: 250px;
+  overflow: hidden;
   text-overflow: ellipsis;
-  word-wrap: break-word;
-  max-height: 2.6em;
 }
