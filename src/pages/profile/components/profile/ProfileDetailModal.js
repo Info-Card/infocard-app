@@ -34,7 +34,6 @@ const ProfileDetailModal = ({
     handleSubmit,
     reset,
     formState: { errors },
-    getValues,
   } = useForm({
     resolver: yupResolver(schema),
   });

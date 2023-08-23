@@ -79,7 +79,7 @@ const LinkForm = ({ link, strings }) => {
           )}
 
           <div>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" disabled={loading}>
               {loading ? (
                 <Loader />
               ) : link.id ? (
