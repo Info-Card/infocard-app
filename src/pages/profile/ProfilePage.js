@@ -72,11 +72,10 @@ const ProfilePage = ({ history, match, strings }) => {
           <Col md={5} className="m-auto">
             <div className="">
               {loading && <Loader />}
-              {profile && !profile.isPrivate ? (
+              {!loading && profile && !profile.isPrivate ? (
                 <ProfileDetail user={user} profile={profile} />
-              ) : (
-                <NotFound />
-              )}
+              ) : null}
+              {!loading && (!profile || profile.isPrivate) && <NotFound />}
             </div>
           </Col>
         </Row>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { exchangeContact } from "state/ducks/profile/actions";
+import { exchangeContact } from "state/ducks/users/actions";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,13 +11,14 @@ const schema = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required(),
   number: yup
     .mixed()
+    .required()
     .test("valid-number", "Please enter a valid number", (value, context) => {
       if (value !== "") {
         return !isNaN(value);
       }
       return true;
     }),
-  message: yup.string().max(100),
+  message: yup.string().max(100).required(),
 });
 
 const ProfileDetailModal = ({
@@ -25,6 +26,7 @@ const ProfileDetailModal = ({
   setShowExchange,
   profile,
   showExchange,
+  user,
 }) => {
   const dispatch = useDispatch();
   const {
@@ -37,7 +39,12 @@ const ProfileDetailModal = ({
   });
 
   const handleExchange = (data) => {
-    dispatch(exchangeContact(profile.id, data));
+    console.log(data);
+    dispatch(
+      exchangeContact(user.id, {
+        ...data,
+      })
+    );
     setShowExchange(false);
   };
   const handleCloseModal = () => {
@@ -59,7 +66,7 @@ const ProfileDetailModal = ({
               <Form.Label>{strings["Your Name"]}</Form.Label>
               <Form.Control
                 {...register("name")}
-                type="name"
+                type="text"
                 placeholder={strings["Enter name"]}
               ></Form.Control>
             </Form.Group>
@@ -68,7 +75,7 @@ const ProfileDetailModal = ({
               <Form.Label>{strings["Your Email"]}</Form.Label>
               <Form.Control
                 {...register("email")}
-                type="email"
+                type="text"
                 placeholder={strings["Enter email"]}
               ></Form.Control>
 

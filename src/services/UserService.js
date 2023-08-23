@@ -51,8 +51,9 @@ class UserService extends ApiService {
    * @param {string} profileId * This is the Profile id of user
    * @param {string} data * This is the data of user
    */
-  exchangeContact(profileId, data) {
-    return this.instance.post(`/v1/profile/exchange/${profileId}`, data);
+  exchangeContact(userId, data) {
+    console.log("data in user services", data);
+    return this.instance.post(`/v1/users/exchange-contact/${userId}`, data);
   }
   /**
    * User data update

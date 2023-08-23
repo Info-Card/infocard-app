@@ -95,6 +95,7 @@ const ProfileDetail = ({ user, profile, strings }) => {
             setShowExchange={setShowExchange}
             strings={strings}
             profile={profile}
+            user={user}
           />
         </div>
       ) : (

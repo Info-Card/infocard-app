@@ -3,7 +3,6 @@ import { CirclePicker } from "react-color";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "state/ducks/profile/actions";
-import Message from "components/Message";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import { PROFILE_RESET } from "state/ducks/profile/types";
@@ -29,12 +28,7 @@ const ProfileForm = ({ profile, strings }) => {
 
   const { rehydrated } = useSelector((state) => state._persist);
   const { user: authUser } = useSelector((state) => state.auth);
-  const { error } = useSelector((state) => state.users);
-  const {
-    success,
-    loading,
-    error: profileError,
-  } = useSelector((state) => state.profile);
+  const { success, loading } = useSelector((state) => state.profile);
 
   const {
     register,
