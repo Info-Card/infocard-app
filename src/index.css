@@ -478,3 +478,9 @@ ul.twPc-Arrange {
 .react-tel-input .form-control {
   width: 100% !important;
 }
+.profile-url {
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
