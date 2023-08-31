@@ -149,9 +149,16 @@ const HomePage = ({ history, strings }) => {
                     </Button>
                   </div>
                   <div className="mt-4">
-                    <h4>About</h4>
-                    <p style={{ overflowWrap: "break-word" }}>{profile.bio}</p>
+                    {profile.bio && (
+                      <>
+                        <h4>About</h4>
+                        <p style={{ overflowWrap: "break-word" }}>
+                          {profile.bio}
+                        </p>
+                      </>
+                    )}
                   </div>
+
                   <LinksList links={profile.customLinks} />
                   <VideoList videos={profile.videos} />
                   <div className="d-flex justify-content-between mt-4">

@@ -76,7 +76,6 @@ const ProfilePage = ({ history, match, strings }) => {
               {!loading && profile && !profile.isPrivate ? (
                 <ProfileDetail user={user} profile={profile} />
               ) : null}
-
             </div>
           </Col>
         </Row>
