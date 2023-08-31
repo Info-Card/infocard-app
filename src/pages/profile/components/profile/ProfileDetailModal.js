@@ -11,14 +11,13 @@ const schema = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required(),
   number: yup
     .mixed()
-    .required()
     .test("valid-number", "Please enter a valid number", (value, context) => {
       if (value !== "") {
         return !isNaN(value);
       }
       return true;
     }),
-  message: yup.string().max(100).required(),
+  message: yup.string().max(100),
 });
 
 const ProfileDetailModal = ({
