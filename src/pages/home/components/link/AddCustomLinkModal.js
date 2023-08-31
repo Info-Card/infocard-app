@@ -47,8 +47,10 @@ export const AddCustomLinkModal = ({ show, setShow, link }) => {
     }
     if (link) {
       dispatch(updateCustomLink(profile.id, link.id, data));
+      setShow(false);
     } else {
       dispatch(addCustomLink(profile.id, data));
+      setShow(false);
     }
   };
 
