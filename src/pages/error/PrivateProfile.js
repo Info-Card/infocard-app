@@ -2,15 +2,14 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const NotFound = () => {
+const PrivateProfile = () => {
   return (
     <Container>
       <Row>
-        (
         <Col md={12}>
           <div className="text-center mt-5">
             <h1>Oops!</h1>
-            <h2>404 Not Found</h2>
+            <h2>This Profile is Private</h2>
             <div className="">
               Sorry, an error has occured, Requested page not found!
             </div>
@@ -21,10 +20,9 @@ const NotFound = () => {
             </div>
           </div>
         </Col>
-        )
       </Row>
     </Container>
   );
 };
 
-export default NotFound;
+export default PrivateProfile;
