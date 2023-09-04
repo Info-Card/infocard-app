@@ -12,7 +12,10 @@ const schema = yup.object().shape({
     .string()
     .min(4)
     .max(20)
-    .matches(/^[^\s]+$/, "Spaces are not allowed in the username")
+    .matches(
+      /^[a-zA-Z0-9]+$/,
+      "Only alphanumeric characters are allowed in the username"
+    )
     .required(),
   email: yup.string().email("Email must be valid").required(),
   password: yup.string().min(8).max(32).required(),

@@ -63,17 +63,20 @@ const ProfileDetail = ({ user, profile, strings }) => {
                 />
               </Row>
             </Col>
-            <>
-              <h4
-                className="ml-2"
-                style={{ paddingTop: "20px", paddingLeft: "7px" }}
-              >
-                About
-              </h4>
-              <Col style={{ overflowWrap: "break-word" }} xs={12}>
-                {profile.bio}
-              </Col>
-            </>
+            {profile.bio && (
+              <>
+                <h4
+                  className="ml-2"
+                  style={{ paddingTop: "20px", paddingLeft: "7px" }}
+                >
+                  About
+                </h4>
+                <Col style={{ overflowWrap: "break-word" }} xs={12}>
+                  {profile.bio}
+                </Col>
+              </>
+            )}
+
             <div className="pl-3">
               <LinksList links={profile.customLinks} />
             </div>
