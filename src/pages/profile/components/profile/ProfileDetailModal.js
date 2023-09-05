@@ -17,7 +17,7 @@ const schema = yup.object().shape({
       }
       return true;
     }),
-  message: yup.string().max(100),
+  message: yup.string().max(100).required(),
 });
 
 const ProfileDetailModal = ({
