@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "react-bootstrap";
 import { getProfile } from "state/ducks/profile/actions";
@@ -7,23 +7,20 @@ import ProfileDetail from "./components/profile/ProfileDetail";
 import Loader from "components/Loader";
 import { multilanguage } from "redux-multilanguage";
 import Swal from "sweetalert2";
-import PrivateProfile from "pages/error/PrivateProfile";
 
 const ProfilePage = ({ history, match, strings }) => {
   const username = match.params.username;
   const { user: authUser } = useSelector((state) => state.auth);
-  const { error, profile, user } = useSelector((state) => state.profile);
-  const { tag, error: tagError } = useSelector((state) => state.tags);
+  const { error, profile, user, loading } = useSelector(
+    (state) => state.profile
+  );
+  const {
+    tag,
+    error: tagError,
+    loading: tagLoading,
+  } = useSelector((state) => state.tags);
   const dispatch = useDispatch();
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadingComplete(true);
-    }, 400);
-
-    return () => clearTimeout(timer);
-  }, []);
   useEffect(() => {
     dispatch(getProfile(username, authUser));
   }, [dispatch, username, authUser]);
@@ -73,24 +70,14 @@ const ProfilePage = ({ history, match, strings }) => {
 
   return (
     <Container>
-      <Fragment>
-        <Row>
-          <Col md={5} className="m-auto">
-            <div className="">
-              {!isLoadingComplete && <Loader />}
-              {isLoadingComplete && (
-                <>
-                  {profile && !profile.isPrivate ? (
-                    <ProfileDetail user={user} profile={profile} />
-                  ) : (
-                    <PrivateProfile />
-                  )}
-                </>
-              )}
-            </div>
-          </Col>
-        </Row>
-      </Fragment>
+      {(loading || tagLoading) && <Loader />}
+      <Row>
+        <Col md={5} className="m-auto">
+          <div className="">
+            <ProfileDetail user={user} profile={profile} />
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };
