@@ -484,3 +484,16 @@ ul.twPc-Arrange {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@media screen and (min-width: 260px) and (max-width: 320px) {
+  .mySwiper .swiper-button-next {
+    font-size: 15px;
+    padding-right: 3px;
+  }
+}
+@media screen and (min-width: 260px) and (max-width: 320px) {
+  .mySwiper .swiper-button-prev {
+    font-size: 15px;
+    padding-left: 3px;
+  }
+}
