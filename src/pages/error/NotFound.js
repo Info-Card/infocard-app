@@ -6,7 +6,6 @@ const NotFound = () => {
   return (
     <Container>
       <Row>
-        (
         <Col md={12}>
           <div className="text-center mt-5">
             <h1>Oops!</h1>
@@ -21,7 +20,6 @@ const NotFound = () => {
             </div>
           </div>
         </Col>
-        )
       </Row>
     </Container>
   );
