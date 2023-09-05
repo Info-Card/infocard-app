@@ -14,7 +14,7 @@ const schema = yup.object().shape({
     .max(20)
     .matches(
       /^[a-zA-Z0-9]+$/,
-      "Username can only contain letters, numbers, and underscores"
+      "Username can only contain letters, and numbers."
     )
     .required(),
   email: yup.string().email("Email must be valid").required(),
