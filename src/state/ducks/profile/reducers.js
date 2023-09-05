@@ -16,11 +16,7 @@ export default function foo(state = initialState, action) {
         loading: false,
       };
     case types.GET_PROFILE_SUCCESS:
-      let profile = payload.isPersonal ? payload.personal : payload.business;
-      return {
-        user: payload,
-        profile,
-      };
+      return payload;
     case types.UPDATE_PROFILE_SUCCESS:
       return {
         success: true,

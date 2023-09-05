@@ -10,11 +10,18 @@ export const getProfile = (username, user) => async (dispatch) => {
       type: types.PROFILE_REQUEST,
     });
     const res = await UserService.getProfile(username, user);
-
-    dispatch({
-      type: types.GET_PROFILE_SUCCESS,
-      payload: res.data,
-    });
+    let profile = res.data.isPersonal ? res.data.personal : res.data.business;
+    if (profile.isPrivate) {
+      window.location = "/private-profile";
+    } else {
+      dispatch({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: {
+          user: res.data,
+          profile,
+        },
+      });
+    }
   } catch (error) {
     const message =
       error.response && error.response.data.message

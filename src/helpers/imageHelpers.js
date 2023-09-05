@@ -7,9 +7,9 @@ const { isNullOrEmpty } = require("./helpers");
  */
 export const getLeadImageUrl = (lead) => {
   if (lead && lead.profile && !isNullOrEmpty(lead.profile.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${lead.profile.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${lead.profile.image}`;
   } else if (lead && !isNullOrEmpty(lead.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${lead.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${lead.image}`;
   } else {
     return "/assets/images/placeholder/user.png";
   }
@@ -22,7 +22,7 @@ export const getLeadImageUrl = (lead) => {
  */
 export const getProfileImageUrl = (profile) => {
   if (profile && !isNullOrEmpty(profile.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${profile.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${profile.image}`;
   } else {
     return "/assets/images/placeholder/user.png";
   }
@@ -35,7 +35,7 @@ export const getProfileImageUrl = (profile) => {
  */
 export const getProfileCoverImageUrl = (profile) => {
   if (profile && !isNullOrEmpty(profile.cover)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${profile.cover}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${profile.cover}`;
   } else {
     return "/assets/images/placeholder/cover.png";
   }
@@ -48,7 +48,7 @@ export const getProfileCoverImageUrl = (profile) => {
  */
 export const getPlatformImageUrl = (platform) => {
   if (platform && !isNullOrEmpty(platform.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${platform.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${platform.image}`;
   } else {
     return "/assets/images/placeholder/link.png";
   }
@@ -61,9 +61,9 @@ export const getPlatformImageUrl = (platform) => {
  */
 export const getLinkImageUrl = (link) => {
   if (link && !isNullOrEmpty(link.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${link.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${link.image}`;
   } else if (link && link.platform && !isNullOrEmpty(link.platform.image)) {
-    return `${process.env.REACT_APP_IMAGE_URL}${link.platform.image}`;
+    return `${process.env.REACT_APP_BASE_URL}/v1/${link.platform.image}`;
   } else {
     return "/assets/images/placeholder/link.png";
   }
