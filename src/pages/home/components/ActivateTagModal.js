@@ -13,21 +13,17 @@ const ActivateTagModal = ({ strings }) => {
 
   const { user: authUser } = useSelector((state) => state.auth);
   const { tag, success: tagSuccess } = useSelector((state) => state.tags);
-
   const handleClose1 = () => {
     dispatch({ type: TAG_RESET });
   };
-
   const handleClose = () => {
     localStorage.removeItem("tagId");
     dispatch({ type: TAG_RESET });
   };
-
   const handleSwitchAccount = () => {
     dispatch({ type: LOGOUT });
     history.push("/register");
   };
-
   const handleActivateTag = () => {
     dispatch(linkTag(tag.id));
   };
@@ -42,7 +38,7 @@ const ActivateTagModal = ({ strings }) => {
           <p>
             {
               strings[
-                "If you want to link it with current account please select"
+                "If you want to link it with the current account, please select"
               ]
             }{" "}
             <span>
@@ -52,7 +48,7 @@ const ActivateTagModal = ({ strings }) => {
             </span>{" "}
             {
               strings[
-                "or If you want to link it with different account please select 'Switch Account'"
+                "or If you want to link it with a different account, please select 'Switch Account'"
               ]
             }
           </p>
