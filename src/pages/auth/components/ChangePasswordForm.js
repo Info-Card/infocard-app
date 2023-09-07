@@ -23,6 +23,7 @@ const schema = yup.object().shape({
 
 const ChangePasswordForm = ({ strings }) => {
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ const ChangePasswordForm = ({ strings }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data) => {
     const { password, confirmPassword } = data;
     if (confirmPassword === password) {
@@ -42,6 +44,7 @@ const ChangePasswordForm = ({ strings }) => {
     }
     console.log(data);
   };
+
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
