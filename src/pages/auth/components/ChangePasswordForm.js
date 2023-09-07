@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,8 +22,6 @@ const schema = yup.object().shape({
 });
 
 const ChangePasswordForm = ({ strings }) => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
   const {
     register,
@@ -33,6 +31,7 @@ const ChangePasswordForm = ({ strings }) => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
+    const { password, confirmPassword } = data;
     if (confirmPassword === password) {
       dispatch(updateUser({ password }));
     } else {
@@ -52,8 +51,6 @@ const ChangePasswordForm = ({ strings }) => {
             type="password"
             {...register("password")}
             placeholder={strings["Enter password"]}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <p className="validation-color">{errors.password?.message}</p>
@@ -63,8 +60,6 @@ const ChangePasswordForm = ({ strings }) => {
             type="password"
             {...register("confirmPassword")}
             placeholder={strings["Enter confirm password"]}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <p className="validation-color">{errors.confirmPassword?.message}</p>
