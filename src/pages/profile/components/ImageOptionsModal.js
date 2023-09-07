@@ -3,6 +3,7 @@ import heic2any from "heic2any";
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { updateProfile } from "state/ducks/profile/actions";
 
 const ImageOptionsModal = ({ show, setShow }) => {
@@ -26,25 +27,30 @@ const ImageOptionsModal = ({ show, setShow }) => {
     inputElement.type = "file";
     document.body.appendChild(inputElement);
     inputElement.onchange = async (event) => {
-      console.log(event);
       const file = event.target.files[0];
-      if (file.type === "image/heic" || file.type === "image/heif") {
-        const convertedBlob = await heic2any({
-          blob: file,
-          toType: "image/jpeg",
-        });
-        const convertedFile = new File([convertedBlob], file.name, {
-          type: "image/jpeg",
-        });
-        setImageSrc(URL.createObjectURL(convertedFile));
+      if (file.type.startsWith("image/")) {
+        if (file.type === "image/heic" || file.type === "image/heif") {
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+          });
+          const convertedFile = new File([convertedBlob], file.name, {
+            type: "image/jpeg",
+          });
+          setImageSrc(URL.createObjectURL(convertedFile));
+        } else {
+          const reader = new FileReader();
+          reader.onload = () => {
+            console.log(reader.result);
+            setImageSrc(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
       } else {
-        const reader = new FileReader();
-        reader.onload = () => {
-          console.log(reader.result);
-          setImageSrc(reader.result);
-        };
-        reader.readAsDataURL(file);
+        toast.error("Invalid file type. Please select an image file.");
+        console.error("Invalid file type. Please select an image file.");
       }
+
       document.body.removeChild(inputElement);
     };
     console.log("clicked");
