@@ -10,6 +10,12 @@ import { addCustomLink, updateCustomLink } from "state/ducks/profile/actions";
 const schema = yup.object().shape({
   url: yup.string().required().matches(urlRegex, "Please Enter a valid URL"),
   title: yup.string().max(32).required(),
+  image: yup
+    .mixed()
+    .test("is-image", "Please upload an image file", (value) => {
+      if (!value) return true;
+      return value && value[0].type.startsWith("image/");
+    }),
 });
 
 export const AddCustomLinkModal = ({ show, setShow, link }) => {
