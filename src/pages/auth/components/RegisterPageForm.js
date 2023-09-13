@@ -10,13 +10,11 @@ import { registerUser } from "state/ducks/auth/actions";
 const schema = yup.object().shape({
   username: yup
     .string()
-    .min(4)
-    .max(20)
+    .required()
     .matches(
-      /^[a-zA-Z0-9]+$/,
-      "Username can only contain letters, and numbers."
-    )
-    .required(),
+      /^[a-zA-Z0-9_]{4,20}$/,
+      "Username can only contain alphabets, numbers, and underscores, and must be 4 to 20 characters long"
+    ),
   email: yup.string().email("Email must be valid").required(),
   password: yup.string().min(8).max(32).required(),
   confirmPassword: yup

@@ -152,7 +152,12 @@ const HomePage = ({ history, strings }) => {
                     {profile.bio && (
                       <>
                         <h4>About</h4>
-                        <p style={{ overflowWrap: "break-word" }}>
+                        <p
+                          style={{
+                            overflowWrap: "break-word",
+                            whiteSpace: "pre-wrap",
+                          }}
+                        >
                           {profile.bio}
                         </p>
                       </>

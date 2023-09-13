@@ -67,11 +67,17 @@ const ProfileDetail = ({ user, profile, strings }) => {
               <>
                 <h4
                   className="ml-2"
-                  style={{ paddingTop: "20px", paddingLeft: "7px" }}
+                  style={{
+                    paddingTop: "20px",
+                    paddingLeft: "7px",
+                  }}
                 >
                   About
                 </h4>
-                <Col style={{ overflowWrap: "break-word" }} xs={12}>
+                <Col
+                  style={{ overflowWrap: "break-word", whiteSpace: "pre-wrap" }}
+                  xs={12}
+                >
                   {profile.bio}
                 </Col>
               </>
