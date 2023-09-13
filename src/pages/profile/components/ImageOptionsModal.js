@@ -50,7 +50,7 @@ const ImageOptionsModal = ({ show, setShow }) => {
         toast.error("Invalid file type. Please select an image file.");
         console.error("Invalid file type. Please select an image file.");
       }
-
+      // Remove the input element from the DOM
       document.body.removeChild(inputElement);
     };
     console.log("clicked");
@@ -61,6 +61,22 @@ const ImageOptionsModal = ({ show, setShow }) => {
     setShow(false);
     dispatch(updateProfile(profile.id, { image: "" }));
   };
+
+  useEffect(() => {
+    // Remove the input element from the DOM when the modal is hidden
+    const cleanup = () => {
+      const inputElement = document.querySelector("input[type='file']");
+      if (inputElement) {
+        document.body.removeChild(inputElement);
+      }
+    };
+
+    if (!show) {
+      cleanup();
+    }
+
+    return cleanup;
+  }, [show]);
 
   return (
     <div>
