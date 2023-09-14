@@ -13,8 +13,10 @@ const schema = yup.object().shape({
   image: yup
     .mixed()
     .test("is-image", "Please upload an image file", (value) => {
-      if (!value) return true;
-      return value && value[0].type.startsWith("image/");
+      if (!value || !value[0] || !value[0].type) {
+        return true;
+      }
+      return value[0].type.startsWith("image/");
     }),
 });
 
