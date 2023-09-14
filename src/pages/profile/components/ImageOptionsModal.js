@@ -63,7 +63,6 @@ const ImageOptionsModal = ({ show, setShow }) => {
   };
 
   useEffect(() => {
-    // Remove the input element from the DOM when the modal is hidden
     const cleanup = () => {
       const inputElement = document.querySelector("input[type='file']");
       if (inputElement) {
