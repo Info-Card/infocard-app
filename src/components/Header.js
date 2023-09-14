@@ -10,9 +10,11 @@ import {
 } from "react-bootstrap";
 import { logout } from "state/ducks/auth/actions";
 import { multilanguage } from "redux-multilanguage";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const Header = ({ history, strings }) => {
+const Header = ({ strings }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { user: authUser } = useSelector((state) => state.auth);
 
   const logoutHandler = () => {
