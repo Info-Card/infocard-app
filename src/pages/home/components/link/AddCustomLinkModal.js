@@ -12,9 +12,12 @@ const schema = yup.object().shape({
   title: yup.string().max(32).required(),
   image: yup
     .mixed()
-    .test("is-image", "Please upload an image file", (value) => {
-      if (!value) return true;
-      return value && value[0].type.startsWith("image/");
+    .test("is-image", "Please upload a valid image file", (value) => {
+      if (!value || !value[0] || !value[0].type) {
+        return true;
+      }
+      const supportedFormats = ["image/jpeg", "image/jpg", "image/png"];
+      return supportedFormats.includes(value[0].type);
     }),
 });
 

@@ -43,7 +43,7 @@ const ProfilePage = ({ history, match, strings }) => {
         history.push("/");
       } else {
         Swal.fire({
-          title: `<img src="/apple-touch-icon.png" alt="logo" /><br/><strong>${strings["Activate your product"]}</strong>`,
+          title: `<img src="/apple-touch-icon.png" style="height: 100px; width: 100px; alt="logo" /><br/><strong>${strings["Activate your product"]}</strong>`,
           html: strings[
             "To Activate your product you need to login or register first"
           ],
