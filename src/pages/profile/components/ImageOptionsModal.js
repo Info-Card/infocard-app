@@ -12,6 +12,13 @@ const ImageOptionsModal = ({ show, setShow }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
 
+  const cleanupInputElements = () => {
+    const inputElements = document.querySelectorAll("input[type='file']");
+    inputElements.forEach((inputElement) => {
+      document.body.removeChild(inputElement);
+    });
+  };
+
   useEffect(() => {
     if (croppedImage) {
       console.log(croppedImage);
@@ -23,35 +30,37 @@ const ImageOptionsModal = ({ show, setShow }) => {
   }, [dispatch, croppedImage, profile.id, setShow]);
 
   const selectImage = async () => {
+    cleanupInputElements();
+
     const inputElement = document.createElement("input");
     inputElement.type = "file";
     document.body.appendChild(inputElement);
     inputElement.onchange = async (event) => {
       const file = event.target.files[0];
-      if (file.type.startsWith("image/")) {
-        if (file.type === "image/heic" || file.type === "image/heif") {
-          const convertedBlob = await heic2any({
-            blob: file,
-            toType: "image/jpeg",
-          });
-          const convertedFile = new File([convertedBlob], file.name, {
-            type: "image/jpeg",
-          });
-          setImageSrc(URL.createObjectURL(convertedFile));
+      if (file) {
+        if (file.type.startsWith("image/")) {
+          if (file.type === "image/heic" || file.type === "image/heif") {
+            const convertedBlob = await heic2any({
+              blob: file,
+              toType: "image/jpeg",
+            });
+            const convertedFile = new File([convertedBlob], file.name, {
+              type: "image/jpeg",
+            });
+            setImageSrc(URL.createObjectURL(convertedFile));
+          } else {
+            const reader = new FileReader();
+            reader.onload = () => {
+              console.log(reader.result);
+              setImageSrc(reader.result);
+            };
+            reader.readAsDataURL(file);
+          }
         } else {
-          const reader = new FileReader();
-          reader.onload = () => {
-            console.log(reader.result);
-            setImageSrc(reader.result);
-          };
-          reader.readAsDataURL(file);
+          toast.error("Invalid file type. Please select an image file.");
+          console.error("Invalid file type. Please select an image file.");
         }
-      } else {
-        toast.error("Invalid file type. Please select an image file.");
-        console.error("Invalid file type. Please select an image file.");
       }
-      // Remove the input element from the DOM
-      document.body.removeChild(inputElement);
     };
     console.log("clicked");
     inputElement.click();
@@ -63,18 +72,9 @@ const ImageOptionsModal = ({ show, setShow }) => {
   };
 
   useEffect(() => {
-    const cleanup = () => {
-      const inputElement = document.querySelector("input[type='file']");
-      if (inputElement) {
-        document.body.removeChild(inputElement);
-      }
-    };
-
     if (!show) {
-      cleanup();
+      cleanupInputElements();
     }
-
-    return cleanup;
   }, [show]);
 
   return (
