@@ -14,10 +14,15 @@ const schema = yup.object().shape({
     .mixed()
     .test("is-image", "Please upload a valid image file", (value) => {
       if (!value || !value[0] || !value[0].type) {
-        return true;
+        return false;
       }
       const supportedFormats = ["image/jpeg", "image/jpg", "image/png"];
-      return supportedFormats.includes(value[0].type);
+      const isSupported = supportedFormats.includes(value[0].type);
+      const isJfif = value[0].type === "image/jfif";
+      if (!isSupported || isJfif) {
+        return false;
+      }
+      return true;
     }),
 });
 
