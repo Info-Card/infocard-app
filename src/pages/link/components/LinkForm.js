@@ -46,8 +46,8 @@ const LinkForm = ({ link, strings }) => {
       <div className="">
         <img
           src={getPlatformImageUrl(link)}
-          alt=""
-          className="  m-3"
+          alt="platform"
+          className="m-3"
           style={{ height: "100px", width: "100px" }}
         />
         <h4>{link.title ?? ""}</h4>

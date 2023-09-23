@@ -6,11 +6,11 @@ import { getLink } from "state/ducks/links/actions";
 import LinksList from "pages/home/components/link/LinksList";
 import VideoList from "pages/home/components/video/VideoList";
 import ListPlatForms from "../ListPlatForms";
-import ProfileDetailModal from "./ProfileDetailModal";
 import ProfileDetailsHeader from "./components/ProfileDetailsHeader";
 import ProfileDetailsCard from "./components/ProfileDetailsCard";
 import SaveContectButton from "./components/SaveContectButton";
 import ExchangeButton from "./components/ExchangeButton";
+import ExchangeContactModal from "../ExchangeContactModal";
 
 const ProfileDetail = ({ user, profile, strings }) => {
   const [showExchange, setShowExchange] = useState(false);
@@ -101,9 +101,9 @@ const ProfileDetail = ({ user, profile, strings }) => {
               </div>
             )}
           </Row>
-          <ProfileDetailModal
-            showExchange={showExchange}
-            setShowExchange={setShowExchange}
+          <ExchangeContactModal
+            show={showExchange}
+            setShow={setShowExchange}
             strings={strings}
             profile={profile}
             user={user}
