@@ -1,0 +1,53 @@
+main {
+  min-height: 80vh;
+}
+
+table td,
+table th {
+  text-align: center;
+}
+
+.card{
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  border-radius: 12px;
+}
+
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 20px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: "<";
+  font-size: 20px;
+  color: black;
+}
+
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  color: rgb(0, 0, 0);
+  top: 95% !important;
+}
+
+.mySwiper .swiper-button-prev {
+  padding-left: 120px;
+}
+
+.mySwiper .swiper-button-next {
+  padding-right: 120px;
+}
+
+@media screen and (min-width: 260px) and (max-width: 320px) {
+  .mySwiper .swiper-button-next {
+    font-size: 15px;
+    padding-right: 3px;
+  }
+}
+
+@media screen and (min-width: 260px) and (max-width: 320px) {
+  .mySwiper .swiper-button-prev {
+    font-size: 15px;
+    padding-left: 3px;
+  }
+}
