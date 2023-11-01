@@ -1,11 +1,11 @@
-import { LINKS_URL } from '@/core/utils/constants';
+import { TAGS_URL } from '@/core/utils/constants';
 import { apiSlice } from '../api';
 
 export const tagSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getTags: builder.query({
+    getMyTags: builder.query({
       query: ({ keyword, pageNumber }) => ({
-        url: LINKS_URL,
+        url: `${TAGS_URL}/my-tags`,
         params: { keyword, pageNumber },
       }),
       keepUnusedDataFor: 5,
@@ -13,28 +13,28 @@ export const tagSlice = apiSlice.injectEndpoints({
     }),
     getTag: builder.query({
       query: (tagId) => ({
-        url: `${LINKS_URL}/${tagId}`,
+        url: `${TAGS_URL}/${tagId}`,
       }),
       keepUnusedDataFor: 5,
     }),
     createTag: builder.mutation({
       query: () => ({
-        url: `${LINKS_URL}`,
+        url: `${TAGS_URL}`,
         method: 'POST',
       }),
       invalidatesTags: ['Tag'],
     }),
     updateTag: builder.mutation({
       query: (data) => ({
-        url: `${LINKS_URL}/${data.tagId}`,
-        method: 'PUT',
+        url: `${TAGS_URL}/${data.tagId}`,
+        method: 'PATCH',
         body: data,
       }),
       invalidatesTags: ['Tag'],
     }),
     deleteTag: builder.mutation({
       query: (tagId) => ({
-        url: `${LINKS_URL}/${tagId}`,
+        url: `${TAGS_URL}/${tagId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Tag'],
@@ -43,7 +43,7 @@ export const tagSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetTagsQuery,
+  useGetMyTagsQuery,
   useGetTagQuery,
   useCreateTagMutation,
   useUpdateTagMutation,

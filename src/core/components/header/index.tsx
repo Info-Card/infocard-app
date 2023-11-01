@@ -33,26 +33,26 @@ const Header = () => {
               <Image src={logo} alt="InfoCard" width={80} />
             </Navbar.Brand>
           </Link>
-          <div className="ml-auto">
-            <DropdownButton
-              title="Settings"
-              drop="start"
-              variant="light"
-            >
-              <Link href="/my-qr">
-                <Dropdown.Item>My QR</Dropdown.Item>
-              </Link>
-              <Link href="/profile">
-                <Dropdown.Item>Profile</Dropdown.Item>
-              </Link>
-              <Link href="/change-password">
-                <Dropdown.Item>Change Password</Dropdown.Item>
-              </Link>
-              <Dropdown.Item onClick={logoutHandler}>
-                Logout
-              </Dropdown.Item>
-            </DropdownButton>
-          </div>
+          <DropdownButton
+            title="Settings"
+            drop="start"
+            variant="light"
+            className="ml-auto"
+          >
+            <Dropdown.Item href="/edit-profile">
+              Edit Profile
+            </Dropdown.Item>
+            <Dropdown.Item href="/share">Share</Dropdown.Item>
+            <Dropdown.Item href="/linked-cards">
+              Linked Cards
+            </Dropdown.Item>
+            <Dropdown.Item href="/change-password">
+              Change Password
+            </Dropdown.Item>
+            <Dropdown.Item onClick={logoutHandler}>
+              Logout
+            </Dropdown.Item>
+          </DropdownButton>
         </Container>
       </Navbar>
     </header>

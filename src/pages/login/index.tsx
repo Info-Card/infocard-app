@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -16,6 +16,7 @@ import * as yup from 'yup';
 
 import { setCredentials } from '@/store/auth';
 import { useLoginMutation } from '@/store/user';
+import { useAuth } from '@/hooks/useAuth';
 
 interface FormData {
   email: string;
@@ -31,7 +32,7 @@ const LoginPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state: any) => state.auth);
+  const userInfo = useAuth();
 
   const redirect = searchParams?.get('redirect') || '/';
 

@@ -1,10 +1,5 @@
 import { Controller, FieldError } from 'react-hook-form';
-import {
-  Form,
-  FormControlProps,
-  InputGroup,
-  Button,
-} from 'react-bootstrap';
+import { Form, FormControlProps, InputGroup } from 'react-bootstrap';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { useState } from 'react';
 
@@ -13,7 +8,8 @@ interface CustomFieldProps extends FormControlProps {
   name: string;
   label: string;
   errors: FieldError | undefined;
-  type?: 'text' | 'password' | 'email' | 'number' | 'search' | 'tel';
+  type?: string;
+  as?: 'textarea';
 }
 
 const CustomField: React.FC<CustomFieldProps> = ({
@@ -21,7 +17,8 @@ const CustomField: React.FC<CustomFieldProps> = ({
   name,
   label,
   errors,
-  type = 'text', // Default to 'text' if type is not provided
+  type = 'text',
+  as,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(
@@ -47,6 +44,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
             <Form.Control
               {...field}
               {...rest}
+              as={as}
               type={
                 type === 'password'
                   ? showPassword
@@ -77,9 +75,9 @@ const CustomField: React.FC<CustomFieldProps> = ({
           </InputGroup>
         )}
       />
-      <Form.Control.Feedback type="invalid">
-        {errors?.message}
-      </Form.Control.Feedback>
+      {errors && (
+        <span style={{ color: 'red' }}>{errors?.message}</span>
+      )}
     </Form.Group>
   );
 };

@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
-      <ToastContainer />
+      <ToastContainer position="bottom-left" />
       <Component {...pageProps} />
     </Provider>
   );

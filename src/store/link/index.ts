@@ -12,29 +12,32 @@ export const linkSlice = apiSlice.injectEndpoints({
       providesTags: ['Link'],
     }),
     getLink: builder.query({
-      query: (linkId) => ({
-        url: `${LINKS_URL}/${linkId}`,
+      query: (id) => ({
+        url: `${LINKS_URL}/${id}`,
       }),
       keepUnusedDataFor: 5,
     }),
-    createLink: builder.mutation({
-      query: () => ({
-        url: `${LINKS_URL}`,
-        method: 'POST',
-      }),
+    addLink: builder.mutation({
+      query(body) {
+        return {
+          url: LINKS_URL,
+          method: 'POST',
+          body,
+        };
+      },
       invalidatesTags: ['Link'],
     }),
     updateLink: builder.mutation({
-      query: (data) => ({
-        url: `${LINKS_URL}/${data.linkId}`,
-        method: 'PUT',
-        body: data,
+      query: ({ id, body }) => ({
+        url: `${LINKS_URL}/${id}`,
+        method: 'PATCH',
+        body,
       }),
       invalidatesTags: ['Link'],
     }),
     deleteLink: builder.mutation({
-      query: (linkId) => ({
-        url: `${LINKS_URL}/${linkId}`,
+      query: (id) => ({
+        url: `${LINKS_URL}/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Link'],
@@ -45,7 +48,7 @@ export const linkSlice = apiSlice.injectEndpoints({
 export const {
   useGetLinksQuery,
   useGetLinkQuery,
-  useCreateLinkMutation,
+  useAddLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
 } = linkSlice;

@@ -9,7 +9,6 @@ export const profileSlice = apiSlice.injectEndpoints({
         params: { keyword, pageNumber },
       }),
       keepUnusedDataFor: 5,
-      providesTags: ['Profile'],
     }),
     getProfile: builder.query({
       query: (profileId) => ({
@@ -25,10 +24,10 @@ export const profileSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Profile'],
     }),
     updateProfile: builder.mutation({
-      query: (data) => ({
-        url: `${PROFILES_URL}/${data.profileId}`,
-        method: 'PUT',
-        body: data,
+      query: ({ id, body }) => ({
+        url: `${PROFILES_URL}/${id}`,
+        method: 'PATCH',
+        body,
       }),
       invalidatesTags: ['Profile'],
     }),

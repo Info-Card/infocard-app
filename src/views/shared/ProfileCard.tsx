@@ -1,13 +1,16 @@
 import { getProfileImageUrl } from '@/core/utils/image-helpers';
 import styles from '@/assets/styles/home/HomeProfileCard.module.css';
 import { Col, Row } from 'react-bootstrap';
+import { profile } from 'console';
 
 const ProfileCard = ({ profile }: any) => {
+  console.log(profile);
+
   return (
     <Row
-      className={styles['profile-card']}
+      className={`${styles['profile-card']} mt-4`}
       style={{
-        backgroundColor: profile.color ?? 'white',
+        backgroundColor: profile.color ?? 'black',
       }}
     >
       <Col xs={6} className="p-0">

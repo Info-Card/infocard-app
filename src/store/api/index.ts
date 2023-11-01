@@ -33,7 +33,7 @@ const baseQueryWithReauth: BaseQueryFn<
     const tokens = JSON.parse(localStorage.getItem('tokens') || '');
     const refreshToken = tokens.refresh.token || '';
 
-    const refreshResult = await baseQuery(
+    const refreshResult: any = await baseQuery(
       {
         url: '/v1/auth/refresh-tokens',
         method: 'POST',
@@ -46,7 +46,7 @@ const baseQueryWithReauth: BaseQueryFn<
     if (refreshResult.data) {
       localStorage.setItem(
         'tokens',
-        JSON.stringify(refreshResult.data)
+        JSON.stringify(refreshResult.data.tokens)
       );
       result = await baseQuery(args, api, extraOptions);
     } else {
