@@ -1,4 +1,4 @@
-import { LINKS_URL } from '@/core/utils/constants';
+import { LINKS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const linkSlice = apiSlice.injectEndpoints({
@@ -17,7 +17,7 @@ export const linkSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
-    addLink: builder.mutation({
+    createLink: builder.mutation({
       query(body) {
         return {
           url: LINKS_URL,
@@ -48,7 +48,7 @@ export const linkSlice = apiSlice.injectEndpoints({
 export const {
   useGetLinksQuery,
   useGetLinkQuery,
-  useAddLinkMutation,
+  useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
 } = linkSlice;

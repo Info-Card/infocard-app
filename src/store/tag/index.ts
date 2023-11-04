@@ -1,4 +1,4 @@
-import { TAGS_URL } from '@/core/utils/constants';
+import { TAGS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const tagSlice = apiSlice.injectEndpoints({

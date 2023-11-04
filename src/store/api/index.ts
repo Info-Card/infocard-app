@@ -7,8 +7,7 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
-import { BASE_URL } from '@/core/utils/constants';
-import { logout } from '../auth';
+import { BASE_URL } from '@/configs/constants';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
@@ -50,7 +49,7 @@ const baseQueryWithReauth: BaseQueryFn<
       );
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logout({}));
+      // api.dispatch(logout({}));
     }
   }
   return result;
@@ -58,6 +57,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Profile', 'Link', 'Tag'],
+  tagTypes: ['User', 'Profile', 'Link', 'Product', 'Tag'],
   endpoints: (builder) => ({}),
 });

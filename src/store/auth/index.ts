@@ -1,34 +1,57 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { AUTH_URL } from '@/configs/constants';
+import { apiSlice } from '../api';
 
-const initialState = {
-  userInfo:
-    typeof window !== 'undefined' && localStorage.getItem('userInfo')
-      ? JSON.parse(localStorage.getItem('userInfo') || '')
-      : null,
-};
-
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setCredentials: (state, action) => {
-      state.userInfo = action.payload;
-      localStorage.setItem(
-        'userInfo',
-        JSON.stringify(action.payload.user)
-      );
-      localStorage.setItem(
-        'tokens',
-        JSON.stringify(action.payload.tokens)
-      );
-    },
-    logout: (state, action) => {
-      state.userInfo = null;
-      localStorage.clear();
-    },
-  },
+export const userSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getMe: builder.query({
+      query: () => ({
+        url: `${AUTH_URL}/me`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+    login: builder.mutation({
+      query(body) {
+        return {
+          url: `${AUTH_URL}/login`,
+          method: 'POST',
+          body: body,
+        };
+      },
+    }),
+    register: builder.mutation({
+      query(body) {
+        return {
+          url: `${AUTH_URL}/register`,
+          method: 'POST',
+          body: body,
+        };
+      },
+    }),
+    forgotPassword: builder.mutation({
+      query(body) {
+        return {
+          url: `${AUTH_URL}/forgot-password`,
+          method: 'POST',
+          body: body,
+        };
+      },
+    }),
+    changePassword: builder.mutation({
+      query(body) {
+        return {
+          url: `${AUTH_URL}/login`,
+          method: 'POST',
+          body: body,
+        };
+      },
+    }),
+  }),
 });
 
-export const { setCredentials, logout } = authSlice.actions;
-
-export default authSlice.reducer;
+export const {
+  useGetMeQuery,
+  useLoginMutation,
+  useRegisterMutation,
+  useForgotPasswordMutation,
+  useChangePasswordMutation,
+} = userSlice;

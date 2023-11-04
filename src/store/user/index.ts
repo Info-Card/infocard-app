@@ -1,34 +1,8 @@
-import { AUTH_URL, USERS_URL } from '@/core/utils/constants';
+import { USERS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const userSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
-    login: builder.mutation({
-      query: (data: any) => ({
-        url: `${AUTH_URL}/login`,
-        method: 'POST',
-        body: data,
-      }),
-    }),
-    register: builder.mutation({
-      query: (data: any) => ({
-        url: `${AUTH_URL}/register`,
-        method: 'POST',
-        body: data,
-      }),
-    }),
-    logout: builder.mutation({
-      query: () => ({
-        url: `${AUTH_URL}/logout`,
-        method: 'POST',
-      }),
-    }),
-    getMe: builder.query({
-      query: () => ({
-        url: `${AUTH_URL}/me`,
-      }),
-      keepUnusedDataFor: 5,
-    }),
     getUser: builder.query({
       query: (id: string) => ({
         url: `${USERS_URL}/${id}`,
@@ -43,14 +17,18 @@ export const userSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    exchangeContact: builder.mutation({
+      query: ({ id, body }: any) => ({
+        url: `${USERS_URL}/exchange-contact/${id}`,
+        method: 'POST',
+        body: body,
+      }),
+    }),
   }),
 });
 
 export const {
-  useLoginMutation,
-  useLogoutMutation,
-  useRegisterMutation,
-  useGetMeQuery,
   useGetUserQuery,
   useUpdateUserMutation,
+  useExchangeContactMutation,
 } = userSlice;

@@ -1,4 +1,4 @@
-import { CATEGORIES_URL } from '@/core/utils/constants';
+import { CATEGORIES_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const categorySlice = apiSlice.injectEndpoints({

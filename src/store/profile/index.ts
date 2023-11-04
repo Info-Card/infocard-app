@@ -1,4 +1,4 @@
-import { PROFILES_URL } from '@/core/utils/constants';
+import { PROFILES_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const profileSlice = apiSlice.injectEndpoints({

@@ -1,4 +1,4 @@
-import { PLATFORMS_URL } from '@/core/utils/constants';
+import { PLATFORMS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
 
 export const platformSlice = apiSlice.injectEndpoints({
