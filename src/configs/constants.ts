@@ -1,5 +1,5 @@
-export const BASE_URL = 'http://localhost:4000';
-export const HOST_URL = 'https://app.infocard.me';
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
 export const AUTH_URL = '/v1/auth';
 export const USERS_URL = '/v1/users';
 export const PROFILES_URL = '/v1/profiles';
