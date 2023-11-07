@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 const LinkCard = ({
   link,
   direct,
-  directOn,
+  isDirect,
   handleDirectChange,
 }: any) => {
   const { id } = useParams();
@@ -99,7 +99,7 @@ const LinkCard = ({
               : link.title}{' '}
             <br /> visits: {link.taps}
           </div>
-          {directOn && direct !== link.id ? (
+          {isDirect && direct !== link.id ? (
             <Button
               size="sm"
               variant="outline-dark"

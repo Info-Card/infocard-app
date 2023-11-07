@@ -17,6 +17,8 @@ const Guard = ({ children, authGuard }: any) => {
 };
 
 function MyApp({ Component, pageProps }: any) {
+  const getLayout = Component.getLayout ?? ((page: any) => page);
+
   const authGuard = Component.authGuard ?? true;
 
   return (
@@ -24,7 +26,7 @@ function MyApp({ Component, pageProps }: any) {
       <ToastContainer position="bottom-left" />
       <AuthProvider>
         <Guard authGuard={authGuard}>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </Guard>
       </AuthProvider>
     </Provider>

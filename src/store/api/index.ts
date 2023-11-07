@@ -49,7 +49,8 @@ const baseQueryWithReauth: BaseQueryFn<
       );
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // api.dispatch(logout({}));
+      localStorage.removeItem('tokens');
+      localStorage.removeItem('user');
     }
   }
   return result;
@@ -57,6 +58,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Profile', 'Link', 'Product', 'Tag'],
+  tagTypes: ['User', 'Profile', 'Link', 'Product', 'Category', 'Tag'],
   endpoints: (builder) => ({}),
 });

@@ -12,19 +12,23 @@ import LinksList from '@/sections/home/links/LinksList';
 import { AddProductModal } from '@/sections/home/products/AddProductModal';
 import ProductsList from '@/sections/home/products/ProductsList';
 import ProfileCard from '@/sections/shared/ProfileCard';
-import { Toggle } from 'react-bootstrap/lib/Dropdown';
 import { useAuth } from '@/hooks/use-auth';
+import Toggle from '@/components/toggle';
 
-export default function HomePage() {
+const HomePage = () => {
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showAddProductModal, setShowAddProductModal] =
     useState(false);
 
-  const { user } = useAuth();
+  const { user, refetch }: any = useAuth();
   const { data: profilesData } = useGetMyProfilesQuery<any>({});
 
   const [updateProfile] = useUpdateProfileMutation();
   const [updateUser] = useUpdateUserMutation();
+
+  if (!user) {
+    return;
+  }
 
   const handleSwitchProfile = async (value: string) => {
     try {
@@ -32,7 +36,7 @@ export default function HomePage() {
         live: profilesData.results.find((p: any) => p.title === value)
           .id,
       }).unwrap();
-      // TODO: refetch user
+      refetch();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
     }
@@ -42,9 +46,9 @@ export default function HomePage() {
     try {
       await updateProfile({
         id: user.live.id,
-        body: { directOn: !user.live.directOn },
+        body: { isDirect: !user.live.isDirect },
       }).unwrap();
-      // TODO: refetch user
+      refetch();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
     }
@@ -56,7 +60,7 @@ export default function HomePage() {
         id: user.live.id,
         body: { isPrivate: !user.live.isPrivate },
       }).unwrap();
-      // TODO: refetch user
+      refetch();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
     }
@@ -69,85 +73,87 @@ export default function HomePage() {
   const handleUploadVideo = () => {};
 
   return (
-    <MainLayout>
-      {user && user.live && (
-        <Row>
-          <Col md={7} lg={5} className="m-auto">
-            {profilesData && (
-              <CustomToggle
-                values={profilesData.results.map((p: any) => p.title)}
-                selected={user.live?.title}
-                toggleChanged={handleSwitchProfile}
-              />
-            )}
-
-            {!user.live?.name && (
-              <Alert variant="dark" className="mt-2 text-center">
-                Please complete your profile!
-              </Alert>
-            )}
-            <ProfileCard profile={user.live} isStats={true} />
-            <div className="d-flex justify-content-between my-4">
-              <Button
-                variant="primary"
-                className="flex-grow-1 mr-1"
-                style={{
-                  width: '150px',
-                  backgroundColor: user.live?.color ?? 'black',
-                  border: `2px solid ${user.live?.color ?? 'black'}`,
-                }}
-                onClick={handleAddLink}
-              >
-                Add link
-              </Button>
-              <Button
-                variant="primary"
-                className="flex-grow-1 ml-1"
-                style={{
-                  width: '150px',
-                  backgroundColor: user.live?.color ?? 'black',
-                  border: `2px solid ${user.live?.color ?? 'black'}`,
-                }}
-                onClick={handleUploadVideo}
-              >
-                Upload Video
-              </Button>
-            </div>
-            {user.live?.bio && (
-              <>
-                <h4>About</h4>
-                <p
-                  style={{
-                    overflowWrap: 'break-word',
-                    whiteSpace: 'pre-wrap',
-                  }}
-                >
-                  {user.live?.bio}
-                </p>
-              </>
-            )}
-            <ProductsList profile={user.live} />
-            <div className="d-flex justify-content-between">
-              <CustomToggle
-                checked={user.live?.directOn}
-                onChange={handleDirectChange}
-                label="Direct"
-              />
-              <CustomToggle
-                checked={user.live?.isPrivate}
-                onChange={handlePrivateChange}
-                label="Private"
-              />
-            </div>
-            <LinksList profile={user.live} />
-          </Col>
-          <AddProductModal
-            show={showAddProductModal}
-            setShow={setShowAddProductModal}
-            profileId={user.live?.id}
+    <Row>
+      <Col md={7} lg={5} className="m-auto">
+        {profilesData && (
+          <Toggle
+            values={['Personal', 'Business']}
+            selected={user.live.title}
+            toggleChanged={handleSwitchProfile}
           />
-        </Row>
-      )}
-    </MainLayout>
+        )}
+
+        {!user.live?.name && (
+          <Alert variant="dark" className="mt-2 text-center">
+            Please complete your profile!
+          </Alert>
+        )}
+        <ProfileCard profile={user.live} isStats={true} />
+        <div className="d-flex justify-content-between my-4">
+          <Button
+            variant="primary"
+            className="flex-grow-1 mr-1"
+            style={{
+              width: '150px',
+              backgroundColor: user.live?.color ?? 'black',
+              border: `2px solid ${user.live?.color ?? 'black'}`,
+            }}
+            onClick={handleAddLink}
+          >
+            Add link
+          </Button>
+          <Button
+            variant="primary"
+            className="flex-grow-1 ml-1"
+            style={{
+              width: '150px',
+              backgroundColor: user.live?.color ?? 'black',
+              border: `2px solid ${user.live?.color ?? 'black'}`,
+            }}
+            onClick={handleUploadVideo}
+          >
+            Upload Video
+          </Button>
+        </div>
+        {user.live?.bio && (
+          <>
+            <h4>About</h4>
+            <p
+              style={{
+                overflowWrap: 'break-word',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {user.live?.bio}
+            </p>
+          </>
+        )}
+        <ProductsList profile={user.live} />
+        <div className="d-flex justify-content-between">
+          <CustomToggle
+            id="direct"
+            checked={user.live?.isDirect}
+            onChange={handleDirectChange}
+            label="Direct"
+          />
+          <CustomToggle
+            id="private"
+            checked={user.live?.isPrivate}
+            onChange={handlePrivateChange}
+            label="Private"
+          />
+        </div>
+        <LinksList profile={user.live} />
+      </Col>
+      <AddProductModal
+        show={showAddProductModal}
+        setShow={setShowAddProductModal}
+        profileId={user.live?.id}
+      />
+    </Row>
   );
-}
+};
+
+HomePage.getLayout = (page: any) => <MainLayout>{page}</MainLayout>;
+
+export default HomePage;

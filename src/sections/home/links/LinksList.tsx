@@ -37,7 +37,7 @@ const LinksList = ({ profile }: any) => {
             <LinkCard
               key={link.id}
               link={link}
-              directOn={profile.directOn}
+              isDirect={profile.isDirect}
               direct={profile.direct?.id}
               handleDirectChange={handleDirectChange}
             />
