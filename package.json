@@ -34,6 +34,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-bootstrap": "^0.32.33",
+    "@types/react-color": "^3.0.10",
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",

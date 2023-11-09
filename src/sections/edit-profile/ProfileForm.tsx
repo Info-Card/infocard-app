@@ -198,7 +198,6 @@ const ProfileForm = ({ profile }: any) => {
         <Form.Group controlId="color">
           <Form.Label>Color</Form.Label>
           <CirclePicker
-            name="color"
             className="mb-2"
             colors={colors}
             onChangeComplete={(color: any, event: any) => {

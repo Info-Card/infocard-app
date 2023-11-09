@@ -239,6 +239,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-color@^3.0.10":
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/@types/react-color/-/react-color-3.0.10.tgz#f869ab3a46938fb97a5c2ee568bc6469f82b14dd"
+  integrity sha512-6K5BAn3zyd8lW8UbckIAVeXGxR82Za9jyGD2DBEynsa7fKaguLDVtjfypzs7fgEV7bULgs7uhds8A8v1wABTvQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/reactcss" "*"
+
 "@types/react-dom@latest":
   version "18.2.8"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.8.tgz#338f1b0a646c9f10e0a97208c1d26b9f473dffd6"
@@ -261,6 +269,13 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     csstype "^3.0.2"
+
+"@types/reactcss@*":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@types/reactcss/-/reactcss-1.2.9.tgz#e3ddff5ee18c02e62cdef3588dd408203b275610"
+  integrity sha512-dN2TtynLIZaZZ4gQNK6WM0Nff8GWYCXKl1Kvsp59WgROtx03ixCwuC1UWdesgt2O1P5Qk+0+SIfsy3eiwblMEA==
+  dependencies:
+    "@types/react" "*"
 
 "@types/scheduler@*":
   version "0.16.4"
@@ -1974,11 +1989,6 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-mobile-share@^1.0.30:
-  version "1.0.30"
-  resolved "https://registry.yarnpkg.com/react-mobile-share/-/react-mobile-share-1.0.30.tgz#d57a0a8130c36ce88cd73b82fd186214ce835724"
-  integrity sha512-mP5UxJ1m3cRSbmidR0sB/y470sBSeX9Wuf9uL6cFrFypWQt+zca00IT6j1s9UQ9FzPqCTZSkYGVS3EsOwrGTCQ==
 
 react-qr-code@^2.0.12:
   version "2.0.12"

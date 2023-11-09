@@ -42,7 +42,7 @@ export const AddLinkModal = ({
     reset,
   } = useForm<FormData>({
     defaultValues: {
-      value: link.value,
+      value: link?.value,
     },
     resolver: yupResolver(schema),
   });
@@ -102,13 +102,13 @@ export const AddLinkModal = ({
           />
           <h4>
             {(isNullOrEmpty(link?.title)
-              ? platform.title
-              : link.title) ?? ''}
+              ? platform?.title
+              : link?.title) ?? ''}
           </h4>
           <p>
             {(isNullOrEmpty(link?.headline)
-              ? platform.headline
-              : link.headline) ?? ''}
+              ? platform?.headline
+              : link?.headline) ?? ''}
           </p>
           <CustomField
             control={control}

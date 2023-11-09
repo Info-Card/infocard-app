@@ -1,4 +1,4 @@
-import { getCroppedImage } from '@/core/utils/canvas-utils';
+import { getCroppedImage } from '@/utils/canvas-utils';
 import React, { useCallback, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Cropper from 'react-easy-crop';
@@ -28,7 +28,7 @@ const ImageCropper = ({ show, setShow, image, setImage }: any) => {
     } catch (e) {
       console.error(e);
     }
-  }, [image, croppedAreaPixels, setImage]);
+  }, [image, croppedAreaPixels, setImage, setShow]);
 
   const onHide = () => {
     setShow(false);

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useGetCategoriesQuery } from '@/store/category';
-import Link from 'next/link';
 import { AddLinkModal } from './AddLinkModal';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 
