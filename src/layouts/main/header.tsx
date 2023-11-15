@@ -16,7 +16,7 @@ const Header = () => {
   const navLinks = [
     { href: '/edit-profile', text: 'Edit Profile' },
     { href: '/share', text: 'Share' },
-    { href: '/linked-cards', text: 'Linked Cards' },
+    { href: '/tags', text: 'Linked Cards' },
     { href: '/change-password', text: 'Change Password' },
   ];
 

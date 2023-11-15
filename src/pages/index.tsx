@@ -34,7 +34,6 @@ const HomePage = () => {
 
   const [linkTag] = useLazyLinkTagQuery();
 
-  // Usage in your useEffect
   useEffect(() => {
     if (user && localStorage.getItem('tag')) {
       const tag = JSON.parse(localStorage.getItem('tag') || '');

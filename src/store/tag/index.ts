@@ -25,10 +25,10 @@ export const tagSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Tag'],
     }),
     updateTag: builder.mutation({
-      query: (data) => ({
-        url: `${TAGS_URL}/${data.tagId}`,
+      query: ({ id, body }) => ({
+        url: `${TAGS_URL}/${id}`,
         method: 'PATCH',
-        body: data,
+        body,
       }),
       invalidatesTags: ['Tag'],
     }),
@@ -44,6 +44,11 @@ export const tagSlice = apiSlice.injectEndpoints({
         url: `${TAGS_URL}/link/${tagId}`,
       }),
     }),
+    unLinkTag: builder.query({
+      query: (tagId) => ({
+        url: `${TAGS_URL}/unlink/${tagId}`,
+      }),
+    }),
   }),
 });
 
@@ -54,4 +59,5 @@ export const {
   useUpdateTagMutation,
   useDeleteTagMutation,
   useLazyLinkTagQuery,
+  useLazyUnLinkTagQuery,
 } = tagSlice;

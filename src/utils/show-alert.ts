@@ -1,23 +1,29 @@
 import Swal from 'sweetalert2';
 
-export const showAlert = async (options: any) => {
+export const showAlert = async ({
+  button1Text,
+  button2Text,
+  onButton1Click,
+  onButton2Click,
+  ...options
+}: any) => {
   const result = await Swal.fire({
-    showDenyButton: true,
+    showDenyButton: button2Text,
     showCloseButton: true,
     focusConfirm: false,
     denyButtonColor: 'black',
     confirmButtonColor: 'green',
-    confirmButtonText: options.button1Text,
-    denyButtonText: options.button2Text,
-    onConfirm: options.onButton1Click,
-    onDeny: options.onButton2Click,
+    confirmButtonText: button1Text,
+    denyButtonText: button2Text,
+    onConfirm: onButton1Click,
+    onDeny: onButton2Click,
     ...options,
   });
 
-  if (options.onConfirm && result.isConfirmed) {
-    options.onConfirm();
-  } else if (options.onDeny && result.isDenied) {
-    options.onDeny();
+  if (onButton1Click && result.isConfirmed) {
+    onButton1Click();
+  } else if (onButton2Click && result.isDenied) {
+    onButton2Click();
   } else if (options.onCancel && result.isDismissed) {
     options.onCancel();
   }
