@@ -56,7 +56,7 @@ const VideosList = ({ profile, refetch }: any) => {
     }
   };
 
-  if (profile.videos.length < 1) {
+  if ((profile?.videos || []).length < 1) {
     return <></>;
   }
 
@@ -76,7 +76,7 @@ const VideosList = ({ profile, refetch }: any) => {
         pagination={{ clickable: true, dynamicBullets: true }}
         modules={[Pagination, Navigation]}
       >
-        {profile.videos?.map((video: any, index: any) => (
+        {profile?.videos?.map((video: any, index: any) => (
           <SwiperSlide key={index}>
             <VideoCard
               video={video}

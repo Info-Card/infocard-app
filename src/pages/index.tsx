@@ -128,7 +128,7 @@ const HomePage = () => {
         {profilesData && (
           <Toggle
             values={['Personal', 'Business']}
-            selected={user.live.title}
+            selected={user?.live?.title}
             toggleChanged={handleSwitchProfile}
           />
         )}
@@ -177,23 +177,27 @@ const HomePage = () => {
             </p>
           </>
         )}
-        <VideosList profile={user.live} refetch={refetch} />
-        <ProductsList profile={user.live} />
-        <div className="d-flex justify-content-between">
-          <CustomToggle
-            id="direct"
-            checked={user.live?.isDirect}
-            onChange={handleDirectChange}
-            label="Direct"
-          />
-          <CustomToggle
-            id="private"
-            checked={user.live?.isPrivate}
-            onChange={handlePrivateChange}
-            label="Private"
-          />
-        </div>
-        <LinksList profile={user.live} />
+        {user.live && (
+          <>
+            <VideosList profile={user.live} refetch={refetch} />
+            <ProductsList profile={user.live} />
+            <div className="d-flex justify-content-between">
+              <CustomToggle
+                id="direct"
+                checked={user.live?.isDirect}
+                onChange={handleDirectChange}
+                label="Direct"
+              />
+              <CustomToggle
+                id="private"
+                checked={user.live?.isPrivate}
+                onChange={handlePrivateChange}
+                label="Private"
+              />
+            </div>
+            <LinksList profile={user.live} />
+          </>
+        )}
       </Col>
       <AddProductModal
         show={showAddProductModal}
