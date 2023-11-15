@@ -3,12 +3,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
 import logo from '@/assets/images/logo.png';
+import { useRouter } from 'next/router';
 
 const HeaderLink = ({ href, text }: any) => (
   <Nav.Link href={href}>{text}</Nav.Link>
 );
 
 const Header = () => {
+  const router = useRouter();
   const { logout } = useAuth();
 
   const navLinks = [

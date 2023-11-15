@@ -39,6 +39,11 @@ export const tagSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Tag'],
     }),
+    linkTag: builder.query({
+      query: (tagId) => ({
+        url: `${TAGS_URL}/link/${tagId}`,
+      }),
+    }),
   }),
 });
 
@@ -48,4 +53,5 @@ export const {
   useCreateTagMutation,
   useUpdateTagMutation,
   useDeleteTagMutation,
+  useLazyLinkTagQuery,
 } = tagSlice;

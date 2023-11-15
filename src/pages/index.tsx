@@ -5,7 +5,7 @@ import {
   useUpdateProfileMutation,
 } from '@/store/profile';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomToggle from '@/components/custom-toggle';
 import { MainLayout } from '@/layouts/main/layout';
 import LinksList from '@/sections/home/links/LinksList';
@@ -16,21 +16,68 @@ import { useAuth } from '@/hooks/use-auth';
 import Toggle from '@/components/toggle';
 import { AddVideoModal } from '@/sections/home/videos/AddVideoModal';
 import VideosList from '@/sections/home/videos/VideosList';
+import { useRouter } from 'next/router';
+import { useLazyLinkTagQuery } from '@/store/tag';
+import { showAlert } from '@/utils/show-alert';
 
 const HomePage = () => {
+  const router = useRouter();
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [showAddProductModal, setShowAddProductModal] =
     useState(false);
 
-  const { user, refetch }: any = useAuth();
+  const { user, refetch, logout }: any = useAuth();
   const { data: profilesData } = useGetMyProfilesQuery<any>({});
 
   const [updateProfile] = useUpdateProfileMutation();
   const [updateUser] = useUpdateUserMutation();
 
-  if (!user) {
-    return;
-  }
+  const [linkTag] = useLazyLinkTagQuery();
+
+  // Usage in your useEffect
+  useEffect(() => {
+    if (user && localStorage.getItem('tag')) {
+      const tag = JSON.parse(localStorage.getItem('tag') || '');
+      showAlert({
+        title: 'Activate Your Device',
+        text: "Please click 'Activate' if you want to activate your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to activate with a different account.",
+        button1Text: user?.username
+          ? `Activate to ${user.username}`
+          : 'Activate',
+        button2Text: 'Switch Account',
+        onButton1Click: async () => {
+          try {
+            await linkTag(tag.id);
+            toast.success('Device activated successfully');
+          } catch (error: any) {
+            toast.error(error?.data?.message || error.error);
+          }
+          localStorage.removeItem('tag');
+        },
+        onButton2Click: () => {
+          showAlert({
+            title: 'Activate Your Device',
+            text: 'To Activate your product you need to login or register first',
+            button1Text: 'Register',
+            button2Text: 'Login',
+            onButton1Click: () => {
+              logout();
+              router.replace('/auth/register');
+            },
+            onButton2Click: () => {
+              logout();
+            },
+            onCancel: () => {
+              localStorage.removeItem('tag');
+            },
+          });
+        },
+        onCancel: () => {
+          localStorage.removeItem('tag');
+        },
+      });
+    }
+  }, [user, logout, linkTag, router]);
 
   const handleSwitchProfile = async (value: string) => {
     try {
@@ -86,7 +133,6 @@ const HomePage = () => {
             toggleChanged={handleSwitchProfile}
           />
         )}
-
         {!user.live?.name && (
           <Alert variant="dark" className="mt-2 text-center">
             Please complete your profile!

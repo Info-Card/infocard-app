@@ -19,7 +19,12 @@ interface FormData {
 
 const schema = yup.object().shape({
   password: yup.string().min(8).max(32).required(),
-  confirmPassword: yup.string().min(8).max(32).required(),
+  confirmPassword: yup
+    .string()
+    .min(8)
+    .max(32)
+    .required()
+    .oneOf([yup.ref('password')], 'confirm password must match'),
 });
 
 const ChangePasswordPage = () => {
