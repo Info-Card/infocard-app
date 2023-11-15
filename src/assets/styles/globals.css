@@ -46,3 +46,51 @@ table th {
   font-size: 20px;
   color: black;
 }
+
+/* CSS for profile card */
+.profile-card {
+  color: white;
+  box-shadow: 0 0 10px rgb(200, 200, 200);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-card h5,
+.profile-card h6 {
+  color: white;
+
+  @media (max-width: 400px) {
+    font-size: 10px;
+    /* Adjust the font size as needed for screens <= 400px */
+  }
+
+  @media (max-width: 300px) {
+    font-size: 8px;
+    /* Adjust the font size as needed for screens <= 300px */
+  }
+}
+
+.profile-card p {
+  color: white;
+
+  @media (max-width: 400px) {
+    font-size: 10px;
+    /* Adjust the font size as needed for screens <= 400px */
+  }
+
+  @media (max-width: 300px) {
+    font-size: 8px;
+    /* Adjust the font size as needed for screens <= 300px */
+  }
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  object-fit: contain;
+  display: block;
+  background-color: white;
+  border-radius: 10px 0px 0px 10px;
+}

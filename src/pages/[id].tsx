@@ -1,9 +1,9 @@
 import Loader from '@/components/loader';
 import { BASE_URL } from '@/configs/constants';
 import { useAuth } from '@/hooks/use-auth';
-import LinksList from '@/sections/home/links/LinksList';
-import ProductsList from '@/sections/home/products/ProductsList';
-import VideosList from '@/sections/home/videos/VideosList';
+import LinksList from '@/sections/shared/links/LinksList';
+import ProductsList from '@/sections/shared/products/ProductsList';
+import VideosList from '@/sections/shared/videos/VideosList';
 import { ExchangeContactModal } from '@/sections/profile/ExchangeContactModal';
 import ProfileCard from '@/sections/shared/ProfileCard';
 import { useGetProfileQuery } from '@/store/profile';

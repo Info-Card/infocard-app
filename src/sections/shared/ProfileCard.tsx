@@ -1,23 +1,26 @@
-import styles from '@/assets/styles/home/HomeProfileCard.module.css';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'next/navigation';
 import { getProfileImageUrl } from '@/utils/image-helpers';
+import Image from 'next/image';
 
 const ProfileCard = ({ profile }: any) => {
   const params = useParams();
 
   return (
     <Row
-      className={`${styles['profile-card']} mt-4`}
+      className="profile-card mt-4"
       style={{
         backgroundColor: profile?.color ?? 'black',
       }}
     >
       <Col xs={6} className="p-0">
-        <img
+        <Image
           src={getProfileImageUrl(profile)}
-          alt=""
-          className={styles['profile-image']}
+          alt="profile-image"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="profile-image"
         />
       </Col>
       <Col xs={6}>
