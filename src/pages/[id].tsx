@@ -85,9 +85,9 @@ const ProfilePage = () => {
                     className="flex-grow-1 mr-1"
                     style={{
                       width: '150px',
-                      backgroundColor: profile?.color ?? 'black',
+                      backgroundColor: profile?.themeColor ?? 'black',
                       border: `2px solid ${
-                        profile?.color ?? 'black'
+                        profile?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleSaveContact}
@@ -99,9 +99,9 @@ const ProfilePage = () => {
                     className="flex-grow-1 ml-1"
                     style={{
                       width: '150px',
-                      backgroundColor: profile?.color ?? 'black',
+                      backgroundColor: profile?.themeColor ?? 'black',
                       border: `2px solid ${
-                        profile?.color ?? 'black'
+                        profile?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleExchangeContact}

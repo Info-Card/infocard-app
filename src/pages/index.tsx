@@ -148,8 +148,8 @@ const HomePage = () => {
             className="flex-grow-1 mr-1"
             style={{
               width: '150px',
-              backgroundColor: user.live?.color ?? 'black',
-              border: `2px solid ${user.live?.color ?? 'black'}`,
+              backgroundColor: user.live?.themeColor ?? 'black',
+              border: `2px solid ${user.live?.themeColor ?? 'black'}`,
             }}
             onClick={handleAddLink}
           >
@@ -160,8 +160,8 @@ const HomePage = () => {
             className="flex-grow-1 ml-1"
             style={{
               width: '150px',
-              backgroundColor: user.live?.color ?? 'black',
-              border: `2px solid ${user.live?.color ?? 'black'}`,
+              backgroundColor: user.live?.themeColor ?? 'black',
+              border: `2px solid ${user.live?.themeColor ?? 'black'}`,
             }}
             onClick={handleUploadVideo}
           >

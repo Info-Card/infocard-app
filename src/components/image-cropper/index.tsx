@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Cropper from 'react-easy-crop';
 
-const ImageCropper = ({ show, setShow, image, setImage }: any) => {
+const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -15,55 +15,57 @@ const ImageCropper = ({ show, setShow, image, setImage }: any) => {
     []
   );
 
-  const handleCropImage = useCallback(async () => {
+  const cropImage = useCallback(async () => {
     try {
       if (croppedAreaPixels) {
         const croppedImage = await getCroppedImage(
-          image,
+          file,
           croppedAreaPixels
         );
-        setImage(croppedImage);
-        setShow(false);
+        if (croppedImage) {
+          setCroppedImage(croppedImage);
+          setFile(null);
+        }
       }
     } catch (e) {
       console.error(e);
     }
-  }, [image, croppedAreaPixels, setImage, setShow]);
-
-  const onHide = () => {
-    setShow(false);
-  };
+  }, [file, setFile, croppedAreaPixels, setCroppedImage]);
 
   return (
-    <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
+    <Modal show={file !== null}>
+      <Modal.Header
+        closeButton
+        onHide={() => {
+          setFile(null);
+        }}
+      >
         <Modal.Title>Crop Image</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div
+          className="m-auto"
           style={{
             position: 'relative',
-            width: '100%',
+            width: 250,
             height: 250,
             backgroundColor: '#ffffff',
           }}
         >
           <Cropper
-            image={image}
+            image={file}
             crop={crop}
             zoom={zoom}
-            aspect={0.8}
+            aspect={1}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
           />
         </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleCropImage}>
+        <Button className="mr-auto" onClick={cropImage}>
           Crop
         </Button>
-      </Modal.Footer>
+      </Modal.Body>
     </Modal>
   );
 };

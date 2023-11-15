@@ -10,7 +10,7 @@ const ProfileCard = ({ profile }: any) => {
     <Row
       className="profile-card mt-4"
       style={{
-        backgroundColor: profile?.color ?? 'black',
+        backgroundColor: profile?.themeColor ?? 'black',
       }}
     >
       <Col xs={6} className="p-0">
@@ -21,6 +21,9 @@ const ProfileCard = ({ profile }: any) => {
           height={0}
           sizes="100vw"
           className="profile-image"
+          style={{
+            backgroundColor: profile?.themeColor ?? 'black',
+          }}
         />
       </Col>
       <Col xs={6}>

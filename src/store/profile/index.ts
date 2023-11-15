@@ -1,5 +1,6 @@
 import { PROFILES_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
+import { toFormData } from '@/utils/to-form-data';
 
 export const profileSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,9 +18,10 @@ export const profileSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     createProfile: builder.mutation({
-      query: () => ({
+      query: (body) => ({
         url: `${PROFILES_URL}`,
         method: 'POST',
+        body: toFormData(body),
       }),
       invalidatesTags: ['Profile'],
     }),
@@ -27,7 +29,7 @@ export const profileSlice = apiSlice.injectEndpoints({
       query: ({ id, body }) => ({
         url: `${PROFILES_URL}/${id}`,
         method: 'PATCH',
-        body,
+        body: toFormData(body),
       }),
       invalidatesTags: ['Profile'],
     }),

@@ -9,12 +9,12 @@ import { FaPen } from 'react-icons/fa';
 import Image from 'next/image';
 import { useUpdateProfileMutation } from '@/store/profile';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 import CustomField from '@/components/custom-field';
-import ImageCropper from '@/components/image-croper';
 import Loader from '@/components/loader';
 import { colors } from '@/configs/constants';
 import { getProfileImageUrl } from '@/utils/image-helpers';
+import { showAlert } from '@/utils/show-alert';
+import ImageCropper from '@/components/image-cropper';
 
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
@@ -26,10 +26,11 @@ const schema = yup.object().shape({
 });
 
 const ProfileForm = ({ profile }: any) => {
-  const [image, setImage] = useState(null);
   const [themeColor, setThemeColor] = useState(profile.themeColor);
   const [showImage, setShowImage] = useState(false);
-  const [showImageCropper, setShowImageCropper] = useState(false);
+
+  const [file, setFile] = useState<any>(null);
+  const [image, setImage] = useState();
 
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
@@ -50,11 +51,13 @@ const ProfileForm = ({ profile }: any) => {
   });
 
   const onSubmit = async (data: any) => {
+    console.log(image);
+
     try {
       await updateProfile({
         id: profile.id,
-        body: { themeColor, ...data },
-      }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
+        body: { themeColor, ...data, image },
+      }).unwrap();
       toast.success('Profile updated');
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
@@ -62,27 +65,30 @@ const ProfileForm = ({ profile }: any) => {
   };
 
   const handleImageEdit = () => {
-    Swal.fire({
-      title: '<strong>Warning</strong>',
-      icon: 'warning',
-      html: 'Are you sure you want to unlink this card?',
-      showCloseButton: true,
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        document?.getElementById('fileInput')?.click();
-      } else {
-      }
+    showAlert({
+      title: 'Image Options',
+      button1Text: 'Edit',
+      button2Text: 'Delete',
+      onButton1Click: () => {
+        const inputElement = document.getElementById(
+          'profile-image'
+        ) as HTMLInputElement;
+        inputElement.click();
+      },
+      onButton2Click: () => {},
     });
   };
 
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-    setImage(file);
-    setShowImageCropper(true);
+  const handleInputImageChange = async (event: any) => {
+    const selectedFile = event.target.files?.[0];
+
+    if (selectedFile) {
+      try {
+        setFile(URL.createObjectURL(selectedFile));
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
+    }
   };
 
   return (
@@ -110,7 +116,11 @@ const ProfileForm = ({ profile }: any) => {
             }}
           >
             <Image
-              src={getProfileImageUrl(profile)}
+              src={
+                image
+                  ? URL.createObjectURL(image)
+                  : getProfileImageUrl(profile)
+              }
               className="rounded-circle"
               width={100}
               height={100}
@@ -144,17 +154,16 @@ const ProfileForm = ({ profile }: any) => {
           </div>
         )}
         <input
-          id="fileInput"
+          hidden
           type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          onChange={handleFileChange}
+          accept="image/png, image/jpeg"
+          onChange={handleInputImageChange}
+          id="profile-image"
         />
         <ImageCropper
-          show={showImageCropper}
-          setShow={setShowImageCropper}
-          image={image}
-          setImage={setImage}
+          file={file}
+          setFile={setFile}
+          setCroppedImage={setImage}
         />
         <CustomField
           control={control}
