@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaPen, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
@@ -89,7 +89,7 @@ const LinkCard = ({
           >
             <Image
               src={getLinkImageUrl(link)}
-              alt={link.image}
+              alt="link-image"
               width={50}
               height={50}
               className="mr-2"
@@ -111,17 +111,18 @@ const LinkCard = ({
             </Button>
           ) : (
             <div className="d-flex ml-auto">
-              <FaEdit
-                className="mr-2"
-                color="blue"
-                size={20}
+              <button
+                className="icon-button"
                 onClick={handleEditLink}
-              />
-              <FaTrash
-                color="red"
-                size={20}
+              >
+                <FaPen color="grey" />
+              </button>
+              <button
+                className="icon-button"
                 onClick={handleDeleteLink}
-              />
+              >
+                <FaTrash color="red" />
+              </button>
             </div>
           )}
         </div>

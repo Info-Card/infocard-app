@@ -15,6 +15,26 @@ table th {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.icon-button {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  margin: 1px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgb(200, 200, 200);
+  background-color: #fff;background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  transition: background-color 0.3s ease;
+}
+.icon-button:hover{
+  background-color: #e0e0e0;
+}
+
 .carousel-control-next-icon:after {
   content: ">";
   font-size: 20px;

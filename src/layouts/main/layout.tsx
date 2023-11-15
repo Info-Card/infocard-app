@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import { Header } from './header';
 import { Container } from 'react-bootstrap';
+import Header from './header';
 
 export const MainLayout = (props: any) => {
   const { children } = props;

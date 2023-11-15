@@ -14,6 +14,8 @@ import ProductsList from '@/sections/home/products/ProductsList';
 import ProfileCard from '@/sections/shared/ProfileCard';
 import { useAuth } from '@/hooks/use-auth';
 import Toggle from '@/components/toggle';
+import { AddVideoModal } from '@/sections/home/videos/AddVideoModal';
+import VideosList from '@/sections/home/videos/VideosList';
 
 const HomePage = () => {
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
@@ -70,7 +72,9 @@ const HomePage = () => {
     setShowAddProductModal(true);
   };
 
-  const handleUploadVideo = () => {};
+  const handleUploadVideo = () => {
+    setShowAddVideoModal(true);
+  };
 
   return (
     <Row>
@@ -128,6 +132,7 @@ const HomePage = () => {
             </p>
           </>
         )}
+        <VideosList profile={user.live} refetch={refetch} />
         <ProductsList profile={user.live} />
         <div className="d-flex justify-content-between">
           <CustomToggle
@@ -149,6 +154,12 @@ const HomePage = () => {
         show={showAddProductModal}
         setShow={setShowAddProductModal}
         profileId={user.live?.id}
+      />
+      <AddVideoModal
+        show={showAddVideoModal}
+        setShow={setShowAddVideoModal}
+        profile={user.live}
+        refetch={refetch}
       />
     </Row>
   );

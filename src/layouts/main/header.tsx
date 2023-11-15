@@ -1,50 +1,46 @@
-import {
-  Navbar,
-  Container,
-  DropdownButton,
-  Dropdown,
-} from 'react-bootstrap';
-import logo from '@/assets/images/logo.png';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
+import logo from '@/assets/images/logo.png';
 
-export const Header = () => {
+const HeaderLink = ({ href, text }: any) => (
+  <Nav.Link href={href}>{text}</Nav.Link>
+);
+
+const Header = () => {
   const { logout } = useAuth();
 
-  const logoutHandler = async () => {
-    logout();
-  };
+  const navLinks = [
+    { href: '/edit-profile', text: 'Edit Profile' },
+    { href: '/share', text: 'Share' },
+    { href: '/linked-cards', text: 'Linked Cards' },
+    { href: '/change-password', text: 'Change Password' },
+  ];
 
   return (
-    <Navbar bg="light">
-      <Container>
-        <Link href="/">
-          <Navbar.Brand>
-            <Image src={logo} alt="InfoCard" width={80} />
-          </Navbar.Brand>
-        </Link>
-        <DropdownButton
-          title="Settings"
-          drop="start"
-          variant="light"
-          className="ml-auto"
-        >
-          <Dropdown.Item href="/edit-profile">
-            Edit Profile
-          </Dropdown.Item>
-          <Dropdown.Item href="/share">Share</Dropdown.Item>
-          <Dropdown.Item href="/linked-cards">
-            Linked Cards
-          </Dropdown.Item>
-          <Dropdown.Item href="/change-password">
-            Change Password
-          </Dropdown.Item>
-          <Dropdown.Item onClick={logoutHandler}>
-            Logout
-          </Dropdown.Item>
-        </DropdownButton>
-      </Container>
-    </Navbar>
+    <header>
+      <Navbar bg="light">
+        <Container>
+          <Link href="/">
+            <Navbar.Brand>
+              <Image src={logo} alt="InfoCard" width={80} />
+            </Navbar.Brand>
+          </Link>
+          <NavDropdown title="Settings" className="ml-auto mr-0">
+            {navLinks.map((link, index) => (
+              <NavDropdown.Item key={index} href={link.href}>
+                {link.text}
+              </NavDropdown.Item>
+            ))}
+            <NavDropdown.Item onClick={logout}>
+              Logout
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
+
+export default Header;

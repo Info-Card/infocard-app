@@ -2,6 +2,7 @@ import Loader from '@/components/loader';
 import { BASE_URL } from '@/configs/constants';
 import LinksList from '@/sections/home/links/LinksList';
 import ProductsList from '@/sections/home/products/ProductsList';
+import VideosList from '@/sections/home/videos/VideosList';
 import { ExchangeContactModal } from '@/sections/profile/ExchangeContactModal';
 import ProfileCard from '@/sections/shared/ProfileCard';
 import { useGetProfileQuery } from '@/store/profile';
@@ -80,6 +81,7 @@ export default function ProfilePage() {
               )}
               {profile && (
                 <>
+                  <VideosList profile={profile} />
                   <ProductsList profile={profile} />
                   <LinksList profile={profile} />
                 </>
