@@ -11,7 +11,7 @@ import Loader from '@/components/loader';
 interface FormData {
   name: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
   message?: string;
 }
 
@@ -21,7 +21,7 @@ const validationSchema = yup.object().shape({
     .string()
     .email('Enter a valid email')
     .required('Email is required'),
-  phoneNumber: yup.string().required('Phone number is required'),
+  phone: yup.string().required('Phone number is required'),
   message: yup.string().max(100),
 });
 
@@ -81,9 +81,9 @@ export const ExchangeContactModal = ({
           />
           <CustomField
             control={control}
-            name="phoneNumber"
+            name="phone"
             label="Phone Number"
-            errors={errors.phoneNumber}
+            errors={errors.phone}
           />
           <CustomField
             control={control}
