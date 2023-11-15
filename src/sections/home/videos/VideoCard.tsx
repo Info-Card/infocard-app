@@ -18,7 +18,7 @@ const VideoCard = ({ video, onEdit, onDelete }: any) => {
           <div
             style={{
               position: 'absolute',
-              right: 30,
+              right: 10,
               top: 10,
             }}
           >
