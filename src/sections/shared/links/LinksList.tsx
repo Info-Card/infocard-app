@@ -11,6 +11,7 @@ const LinksList = ({ profile }: any) => {
   const { id } = useParams();
 
   const { data, refetch } = useGetLinksQuery<any>({
+    limit: 100,
     profile: profile.id,
   });
 

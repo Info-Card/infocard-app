@@ -19,6 +19,7 @@ const ProductsList = ({ profile }: any) => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const { data } = useGetProductsQuery<any>({
+    limit: 100,
     profile: profile.id,
   });
 
