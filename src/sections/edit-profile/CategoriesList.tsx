@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useGetCategoriesQuery } from '@/store/category';
-import { AddLinkModal } from './AddLinkModal';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
+import { AddLinkModal } from '../shared/links/AddLinkModal';
+import Image from 'next/image';
 
 const CategoriesList = ({ profileId }: any) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -30,13 +31,16 @@ const CategoriesList = ({ profileId }: any) => {
                     }}
                   >
                     <div className="text-center">
-                      <img
+                      <Image
                         src={getPlatformImageUrl(p)}
                         alt={p.image}
-                        className="img-fluid pb-1"
+                        className="pb-1"
+                        width={0}
+                        height={0}
+                        sizes="100vw"
                         style={{
-                          height: '100%',
                           width: '100%',
+                          height: 'auto',
                         }}
                       />
                       <p style={{ fontSize: '12px' }}>{p.title}</p>

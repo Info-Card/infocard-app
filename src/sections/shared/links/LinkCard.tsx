@@ -1,4 +1,3 @@
-import { AddLinkModal } from '@/sections/edit-profile/AddLinkModal';
 import { useDeleteLinkMutation } from '@/store/link';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getLinkImageUrl } from '@/utils/image-helpers';
@@ -9,6 +8,7 @@ import { Button, Card, Col } from 'react-bootstrap';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { AddLinkModal } from './AddLinkModal';
 
 const LinkCard = ({
   link,
