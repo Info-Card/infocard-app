@@ -8,6 +8,7 @@ export const showAlert = async ({
   ...options
 }: any) => {
   const result = await Swal.fire({
+    showConfirmButton: button1Text,
     showDenyButton: button2Text,
     showCloseButton: true,
     focusConfirm: false,

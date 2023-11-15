@@ -119,7 +119,11 @@ const HomePage = () => {
   };
 
   const handleUploadVideo = () => {
-    setShowAddVideoModal(true);
+    if ((user?.live?.videos || []).length >= 10) {
+      toast.error('You have reached the video link upload limit');
+    } else {
+      setShowAddVideoModal(true);
+    }
   };
 
   return (
