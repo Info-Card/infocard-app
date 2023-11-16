@@ -46,7 +46,7 @@ const LinksList = ({ profile }: any) => {
         })}
       </Row>
       {!id && (
-        <Card className="px-2 py-3 mb-2 text-center">
+        <Card className="px-2 py-3 my-2 text-center">
           <Link
             href={'/edit-profile'}
             style={{ textDecoration: 'none', color: 'black' }}

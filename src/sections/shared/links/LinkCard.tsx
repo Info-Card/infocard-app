@@ -81,7 +81,7 @@ const LinkCard = ({
 
   return (
     <Col xs={12}>
-      <Card className="p-2 mb-2">
+      <Card className="p-2">
         <div className="d-flex align-items-center justify-content-between">
           <div
             className="d-flex align-items-center"
@@ -92,12 +92,22 @@ const LinkCard = ({
               alt="link-image"
               width={50}
               height={50}
-              className="mr-2"
             />
-            {isNullOrEmpty(link.title)
-              ? link.platform?.title
-              : link.title}{' '}
-            <br /> visits: {link.taps}
+            <div
+              className="d-flex flex-column"
+              style={{
+                flexGrow: 1,
+                marginLeft: '10px',
+                marginRight: '10px',
+              }}
+            >
+              <strong>
+                {isNullOrEmpty(link.title)
+                  ? link.platform?.title
+                  : link.title}{' '}
+              </strong>
+              <p>visits: {link.taps}</p>
+            </div>
           </div>
           {isDirect && direct !== link.id ? (
             <Button
