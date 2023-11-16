@@ -1,52 +1,20 @@
-import { useDeleteLinkMutation } from '@/store/link';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getLinkImageUrl } from '@/utils/image-helpers';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import { FaPen, FaTrash } from 'react-icons/fa';
-import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
-import { AddLinkModal } from './AddLinkModal';
 
 const LinkCard = ({
   link,
   direct,
   isDirect,
   handleDirectChange,
+  onEdit,
+  onDelete,
 }: any) => {
   const { id } = useParams();
-
-  const [showAddLinkModal, setShowAddLinkModal] = useState(false);
-
-  const [deleteLink] = useDeleteLinkMutation();
-
-  const handleDeleteLink = () => {
-    try {
-      Swal.fire({
-        title: '<strong>Warning</strong>',
-        icon: 'warning',
-        html: 'Are you sure you want to delete this link?',
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await deleteLink(link.id).unwrap();
-          toast.success('Link deleted');
-        }
-      });
-    } catch (error: any) {
-      toast.error(error?.data?.message || error.error);
-    }
-  };
-
-  const handleEditLink = () => {
-    setShowAddLinkModal(true);
-  };
 
   const handleLinkClick = () => {
     var urlString =
@@ -121,28 +89,16 @@ const LinkCard = ({
             </Button>
           ) : (
             <div className="d-flex ml-auto">
-              <button
-                className="icon-button"
-                onClick={handleEditLink}
-              >
+              <button className="icon-button" onClick={onEdit}>
                 <FaPen color="grey" />
               </button>
-              <button
-                className="icon-button"
-                onClick={handleDeleteLink}
-              >
+              <button className="icon-button" onClick={onDelete}>
                 <FaTrash color="red" />
               </button>
             </div>
           )}
         </div>
       </Card>
-      <AddLinkModal
-        show={showAddLinkModal}
-        setShow={setShowAddLinkModal}
-        platform={link.platform}
-        link={link}
-      />
     </Col>
   );
 };

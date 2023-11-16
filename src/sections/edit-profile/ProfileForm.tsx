@@ -15,6 +15,7 @@ import { colors } from '@/configs/constants';
 import { getProfileImageUrl } from '@/utils/image-helpers';
 import { showAlert } from '@/utils/show-alert';
 import ImageCropper from '@/components/image-cropper';
+import { useGetMeQuery } from '@/store/auth';
 
 const schema = yup.object().shape({
   name: yup.string().max(25).required(),
@@ -31,6 +32,8 @@ const ProfileForm = ({ profile }: any) => {
 
   const [file, setFile] = useState<any>(null);
   const [image, setImage] = useState();
+
+  const { refetch } = useGetMeQuery<any>({});
 
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
@@ -58,6 +61,7 @@ const ProfileForm = ({ profile }: any) => {
         id: profile.id,
         body: { themeColor, ...data, image },
       }).unwrap();
+      refetch();
       toast.success('Profile updated');
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);

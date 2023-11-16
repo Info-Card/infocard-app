@@ -9,7 +9,8 @@ interface CustomFieldProps<T> {
   type?: string;
   accept?: string;
   errors?: any;
-  setValue?: any; // Add setValue prop
+  setValue?: any;
+  as?: any; // Add setValue prop
 }
 
 const CustomField = <T extends FieldValues>({
@@ -20,6 +21,7 @@ const CustomField = <T extends FieldValues>({
   accept,
   errors,
   setValue,
+  as,
 }: CustomFieldProps<T>) => {
   const {
     field,
@@ -57,6 +59,7 @@ const CustomField = <T extends FieldValues>({
         <Form.Control
           type={type}
           {...field}
+          as={as}
           isInvalid={invalid && isTouched}
         />
       )}
