@@ -60,7 +60,7 @@ const ProfilePage = () => {
 
   const handleSaveContact = async () => {
     window.open(
-      `${BASE_URL}/v1/profiles/contact-card/${params.id}`,
+      `${BASE_URL}/v1/profiles/contact-card/${profile.id}`,
       '_blank'
     );
   };
@@ -76,18 +76,18 @@ const ProfilePage = () => {
           {isLoading && <Loader />}
 
           {profile && (
-            <Row>
-              <Col md={7} lg={5} className="m-auto">
+            <Row className="justify-content-center px-2">
+              <Col md={7} lg={5}>
                 <ProfileCard profile={profile} />
-                <div className="d-flex justify-content-between my-4">
+                <div className="d-flex mt-2">
                   <Button
-                    variant="primary"
-                    className="flex-grow-1 mr-1"
+                    className="flex-grow-1 mx-1"
                     style={{
-                      width: '150px',
-                      backgroundColor: profile?.themeColor ?? 'black',
+                      width: '100%',
+                      backgroundColor:
+                        user.live?.themeColor ?? 'black',
                       border: `2px solid ${
-                        profile?.themeColor ?? 'black'
+                        user.live?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleSaveContact}
@@ -95,13 +95,13 @@ const ProfilePage = () => {
                     Save Contact
                   </Button>
                   <Button
-                    variant="primary"
-                    className="flex-grow-1 ml-1"
+                    className="flex-grow-1 mx-1"
                     style={{
-                      width: '150px',
-                      backgroundColor: profile?.themeColor ?? 'black',
+                      width: '100%',
+                      backgroundColor:
+                        user.live?.themeColor ?? 'black',
                       border: `2px solid ${
-                        profile?.themeColor ?? 'black'
+                        user.live?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleExchangeContact}
@@ -110,7 +110,7 @@ const ProfilePage = () => {
                   </Button>
                 </div>
                 {profile?.bio && (
-                  <>
+                  <div className="mt-2">
                     <h4>About</h4>
                     <p
                       style={{
@@ -120,7 +120,7 @@ const ProfilePage = () => {
                     >
                       {profile?.bio}
                     </p>
-                  </>
+                  </div>
                 )}
                 {profile && (
                   <>
