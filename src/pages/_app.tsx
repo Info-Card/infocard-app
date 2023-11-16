@@ -1,6 +1,6 @@
 import store from '@/store';
-import '../assets/styles/bootstrap.custom.css';
-import '../assets/styles/globals.css';
+import '@/styles/bootstrap.custom.css';
+import '@/styles/globals.css';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

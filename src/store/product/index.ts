@@ -1,5 +1,6 @@
 import { PRODUCTS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
+import { toFormData } from 'axios';
 
 export const productSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,7 +23,7 @@ export const productSlice = apiSlice.injectEndpoints({
         return {
           url: PRODUCTS_URL,
           method: 'POST',
-          body,
+          body: toFormData(body),
         };
       },
       invalidatesTags: ['Product'],
@@ -31,7 +32,7 @@ export const productSlice = apiSlice.injectEndpoints({
       query: ({ id, body }) => ({
         url: `${PRODUCTS_URL}/${id}`,
         method: 'PATCH',
-        body,
+        body: toFormData(body),
       }),
       invalidatesTags: ['Product'],
     }),

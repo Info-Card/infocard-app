@@ -62,17 +62,18 @@ export const AddProductModal = ({
   };
 
   const onSubmit = async (data: any) => {
+    const body = { ...data, image };
     try {
       if (product) {
         await updateProduct({
           id: product.id,
-          body: { ...data, image },
+          body,
         }).unwrap();
         toast.success('Product updated');
       } else {
         await createProduct({
           profile: profileId,
-          ...data,
+          ...body,
         }).unwrap();
         toast.success('Product added');
       }

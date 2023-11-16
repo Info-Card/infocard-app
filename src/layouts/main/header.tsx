@@ -2,7 +2,6 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
-import logo from '@/assets/images/logo.png';
 import { useRouter } from 'next/router';
 
 const HeaderLink = ({ href, text }: any) => (
@@ -26,7 +25,12 @@ const Header = () => {
         <Container>
           <Link href="/">
             <Navbar.Brand>
-              <Image src={logo} alt="InfoCard" width={80} />
+              <Image
+                src="/assets/images/logo.png"
+                alt="InfoCard"
+                width={80}
+                height={40}
+              />
             </Navbar.Brand>
           </Link>
           <NavDropdown title="Settings" className="ml-auto mr-0">
