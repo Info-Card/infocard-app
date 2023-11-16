@@ -28,14 +28,17 @@ const ProductCard = ({ product, onEdit, onDelete }: any) => {
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
+          flexGrow: 1,
+          marginLeft: '10px',
+          marginRight: '10px',
         }}
         onClick={() => window.open(product.url)}
       >
-        <h6>{product.title}</h6>
+        <strong>{product.title}</strong>
         <span>{product.url}</span>
       </div>
       {!id && (
-        <div className="d-flex ml-auto">
+        <div className="d-flex">
           <button className="icon-button" onClick={onEdit}>
             <FaPen color="grey" />
           </button>

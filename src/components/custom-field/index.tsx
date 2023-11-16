@@ -1,82 +1,69 @@
-import { Controller, FieldError } from 'react-hook-form';
-import { Form, FormControlProps, InputGroup } from 'react-bootstrap';
-import { FaEyeSlash, FaEye } from 'react-icons/fa';
-import { useState } from 'react';
+import React from 'react';
+import { Form, Row, Col } from 'react-bootstrap';
+import { useController, FieldValues } from 'react-hook-form';
 
-interface CustomFieldProps extends FormControlProps {
-  control: any; // Replace 'any' with the correct type if available
-  name: string;
+interface CustomFieldProps<T> {
+  name: keyof T;
+  control: any;
   label: string;
-  errors: FieldError | undefined;
   type?: string;
-  as?: 'textarea';
+  accept?: string;
+  errors?: any;
+  setValue?: any; // Add setValue prop
 }
 
-const CustomField: React.FC<CustomFieldProps> = ({
-  control,
+const CustomField = <T extends FieldValues>({
   name,
+  control,
   label,
-  errors,
   type = 'text',
-  as,
-  ...rest
-}) => {
-  const [showPassword, setShowPassword] = useState(
-    type !== 'password'
-  );
+  accept,
+  errors,
+  setValue,
+}: CustomFieldProps<T>) => {
+  const {
+    field,
+    fieldState: { invalid, isTouched },
+  } = useController({
+    name: name as string,
+    control,
+    defaultValue: '',
+  });
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // Set the value using setValue when a file is selected
+    if (setValue && event.target.files) {
+      setValue(name, event.target.files);
+    }
   };
 
   return (
     <Form.Group
-      className="mb-3"
-      controlId={name}
+      controlId={name as string}
+      className="mb-2"
       style={{ textAlign: 'left' }}
     >
       <Form.Label>{label}</Form.Label>
-      <Controller
-        control={control}
-        name={name}
-        render={({ field }) => (
-          <InputGroup className="mb-3">
-            <Form.Control
-              {...field}
-              {...rest}
-              as={as}
-              type={
-                type === 'password'
-                  ? showPassword
-                    ? 'text'
-                    : 'password'
-                  : type
-              }
-              isInvalid={!!errors}
-            />
-            {type === 'password' && (
-              <button
-                id="button-show"
-                type="button"
-                onClick={togglePasswordVisibility}
-                style={{
-                  border: 'none',
-                  backgroundColor: '#f7f7f9',
-                  borderLeft: '#dfdfe0 solid 1px',
-                  color: 'grey',
-                  transition: 'border-color 0.2s ease-in-out', // Add a transition for smoother hover effect
-                  outline: 'none',
-                  padding: '0px 15px 0px 15px',
-                }}
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
-              </button>
-            )}
-          </InputGroup>
-        )}
-      />
-      {errors && (
-        <span style={{ color: 'red' }}>{errors?.message}</span>
+      {type === 'file' ? (
+        <Form.Control
+          type={type}
+          accept={accept}
+          onChange={handleFileChange}
+          isInvalid={invalid && isTouched}
+        />
+      ) : (
+        <Form.Control
+          type={type}
+          {...field}
+          isInvalid={invalid && isTouched}
+        />
+      )}
+      {errors && errors[name] && (
+        <Form.Control.Feedback type="invalid">
+          {errors[name].message}
+        </Form.Control.Feedback>
       )}
     </Form.Group>
   );

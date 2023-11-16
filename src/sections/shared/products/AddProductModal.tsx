@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -10,13 +9,13 @@ import {
   useUpdateProductMutation,
 } from '@/store/product';
 import CustomField from '@/components/custom-field';
-import CustomFileField from '@/components/custom-file-field';
 import Loader from '@/components/loader';
 import { titleRegex, urlRegex } from '@/utils/regex';
 
 interface FormData {
   title: string;
   url: string;
+  image?: FileList;
 }
 
 const schema = yup.object().shape({
@@ -28,6 +27,7 @@ const schema = yup.object().shape({
     .string()
     .required()
     .matches(urlRegex, 'please enter a valid url'),
+  image: yup.mixed(),
 });
 
 export const AddProductModal = ({
@@ -36,8 +36,6 @@ export const AddProductModal = ({
   product,
   profileId,
 }: any) => {
-  const [image, setImage] = useState(product ? product.image : null);
-
   const [createProduct, { isLoading: createLoading }] =
     useCreateProductMutation();
   const [updateProduct, { isLoading: updateLoading }] =
@@ -46,12 +44,14 @@ export const AddProductModal = ({
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = useForm<FormData>({
     defaultValues: {
       title: product?.title || '',
       url: product?.url || '',
+      image: product?.image || null,
     },
     resolver: yupResolver(schema),
   });
@@ -62,7 +62,7 @@ export const AddProductModal = ({
   };
 
   const onSubmit = async (data: any) => {
-    const body = { ...data, image };
+    const body = { ...data, image: data.image[0] };
     try {
       if (product) {
         await updateProduct({
@@ -96,19 +96,22 @@ export const AddProductModal = ({
             control={control}
             name="title"
             label="Title"
-            errors={errors.title}
+            errors={errors}
           />
           <CustomField
             control={control}
             name="url"
             label="URL"
-            errors={errors.url}
+            errors={errors}
           />
-          <CustomFileField
+          <CustomField
+            control={control}
+            name="image"
             label="Image"
+            type="file"
             accept="image/*"
-            value={image}
-            setFile={setImage}
+            errors={errors}
+            setValue={setValue}
           />
         </Modal.Body>
         <Modal.Footer>

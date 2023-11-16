@@ -127,8 +127,8 @@ const HomePage = () => {
   };
 
   return (
-    <Row>
-      <Col md={7} lg={5} className="m-auto">
+    <Row className="justify-content-center px-2">
+      <Col md={7} lg={5}>
         {profilesData && (
           <Toggle
             values={['Personal', 'Business']}
@@ -142,12 +142,12 @@ const HomePage = () => {
           </Alert>
         )}
         <ProfileCard profile={user.live} isStats={true} />
-        <div className="d-flex justify-content-between my-4">
+        <div className="d-flex mt-2">
           <Button
             variant="primary"
-            className="flex-grow-1 mr-1"
+            className="flex-grow-1 mx-1"
             style={{
-              width: '150px',
+              width: '100%',
               backgroundColor: user.live?.themeColor ?? 'black',
               border: `2px solid ${user.live?.themeColor ?? 'black'}`,
             }}
@@ -157,9 +157,9 @@ const HomePage = () => {
           </Button>
           <Button
             variant="primary"
-            className="flex-grow-1 ml-1"
+            className="flex-grow-1 mx-1"
             style={{
-              width: '150px',
+              width: '100%',
               backgroundColor: user.live?.themeColor ?? 'black',
               border: `2px solid ${user.live?.themeColor ?? 'black'}`,
             }}
@@ -169,7 +169,7 @@ const HomePage = () => {
           </Button>
         </div>
         {user.live?.bio && (
-          <>
+          <div className=" mt-2">
             <h4>About</h4>
             <p
               style={{
@@ -179,13 +179,13 @@ const HomePage = () => {
             >
               {user.live?.bio}
             </p>
-          </>
+          </div>
         )}
         {user.live && (
           <>
             <VideosList profile={user.live} refetch={refetch} />
             <ProductsList profile={user.live} />
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mx-2">
               <CustomToggle
                 id="direct"
                 checked={user.live?.isDirect}

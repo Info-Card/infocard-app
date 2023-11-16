@@ -9,7 +9,7 @@ const VideoCard = ({ video, onEdit, onDelete }: any) => {
   return (
     <>
       <div
-        className="m-2"
+        className="mb-2"
         style={{
           position: 'relative',
         }}
