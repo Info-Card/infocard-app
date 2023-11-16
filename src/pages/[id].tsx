@@ -6,7 +6,10 @@ import ProductsList from '@/sections/shared/products/ProductsList';
 import VideosList from '@/sections/shared/videos/VideosList';
 import { ExchangeContactModal } from '@/sections/profile/ExchangeContactModal';
 import ProfileCard from '@/sections/shared/ProfileCard';
-import { useGetProfileQuery } from '@/store/profile';
+import {
+  useGetProfileQuery,
+  useGetPublicProfileQuery,
+} from '@/store/profile';
 import { useGetTagQuery } from '@/store/tag';
 import { showAlert } from '@/utils/show-alert';
 import { useParams } from 'next/navigation';
@@ -22,16 +25,26 @@ const ProfilePage = () => {
 
   const [showExchangeContactModal, setShowExchangeContactModal] =
     useState(false);
+  console.log(user);
 
   const {
-    data: profile,
+    data: profileData,
     isLoading,
-    error,
-  } = useGetProfileQuery<any>(params?.id, { skip: !params?.id });
-
-  const { data: tag } = useGetTagQuery<any>(params?.id, {
-    skip: !error,
+    error: profileError,
+  } = useGetProfileQuery<any>(params?.id, {
+    skip: !params?.id || !user,
   });
+
+  const { data: publicProfileData, error: publicProfileError } =
+    useGetPublicProfileQuery<any>(params?.id, {
+      skip: !params?.id || user,
+    });
+
+  const { data: tag, error } = useGetTagQuery<any>(params?.id, {
+    skip: !profileError && !publicProfileError,
+  });
+
+  const profile = publicProfileData || profileData;
 
   useEffect(() => {
     if (tag) {
@@ -56,7 +69,10 @@ const ProfilePage = () => {
         });
       }
     }
-  });
+    if (error) {
+      router.replace('/not-found');
+    }
+  }, [tag, router, user, error]);
 
   const handleSaveContact = async () => {
     window.open(
@@ -84,10 +100,9 @@ const ProfilePage = () => {
                     className="flex-grow-1 mx-1"
                     style={{
                       width: '100%',
-                      backgroundColor:
-                        user.live?.themeColor ?? 'black',
+                      backgroundColor: profile?.themeColor ?? 'black',
                       border: `2px solid ${
-                        user.live?.themeColor ?? 'black'
+                        profile?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleSaveContact}
@@ -98,10 +113,9 @@ const ProfilePage = () => {
                     className="flex-grow-1 mx-1"
                     style={{
                       width: '100%',
-                      backgroundColor:
-                        user.live?.themeColor ?? 'black',
+                      backgroundColor: profile?.themeColor ?? 'black',
                       border: `2px solid ${
-                        user.live?.themeColor ?? 'black'
+                        profile?.themeColor ?? 'black'
                       }`,
                     }}
                     onClick={handleExchangeContact}

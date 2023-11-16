@@ -17,6 +17,12 @@ export const profileSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+    getPublicProfile: builder.query({
+      query: (profileId) => ({
+        url: `${PROFILES_URL}/public/${profileId}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
     createProfile: builder.mutation({
       query: (body) => ({
         url: `${PROFILES_URL}`,
@@ -46,6 +52,7 @@ export const profileSlice = apiSlice.injectEndpoints({
 export const {
   useGetMyProfilesQuery,
   useGetProfileQuery,
+  useGetPublicProfileQuery,
   useCreateProfileMutation,
   useUpdateProfileMutation,
   useDeleteProfileMutation,
