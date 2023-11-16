@@ -35,7 +35,15 @@ const ProductCard = ({ product, onEdit, onDelete }: any) => {
         onClick={() => window.open(product.url)}
       >
         <strong>{product.title}</strong>
-        <span>{product.url}</span>
+        <p
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {product.url}
+        </p>
       </div>
       {!id && (
         <div className="d-flex">
