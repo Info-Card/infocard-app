@@ -16,6 +16,7 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+import Link from 'next/link';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -44,6 +45,16 @@ const ProfilePage = () => {
   });
 
   const profile = publicProfileData || profileData;
+
+  useEffect(() => {
+    if (profile?.isDirect) {
+      var urlString =
+        profile.direct.platform.type === 'url'
+          ? profile.direct.value
+          : profile.direct.platform.webBaseURL + profile.direct.value;
+      window.open(urlString, '_self');
+    }
+  }, [profile]);
 
   useEffect(() => {
     if (tag) {
@@ -83,6 +94,29 @@ const ProfilePage = () => {
   const handleExchangeContact = async () => {
     setShowExchangeContactModal(true);
   };
+
+  if (profile?.isPrivate) {
+    return (
+      <Container>
+        <Row>
+          <Col md={12}>
+            <div className="text-center mt-5">
+              <h1>Oops!</h1>
+              <h2>Private Profile</h2>
+              <p className="lead">
+                Sorry, this profile is set to private.
+              </p>
+              <div className="mt-5">
+                <Link href="/">
+                  <Button>Return to Home</Button>
+                </Link>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 
   return (
     <Fragment>

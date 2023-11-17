@@ -11,15 +11,18 @@ import { toast } from 'react-toastify';
 import { useParams } from 'next/navigation';
 import { AddLinkModal } from './AddLinkModal';
 import Swal from 'sweetalert2';
+import { useAuth } from '@/hooks/use-auth';
 
 const LinksList = ({ profile }: any) => {
   const { id } = useParams();
+
+  const { refetch }: any = useAuth();
 
   const [showAddLinkModal, setShowAddLinkModal] = useState(false);
   const [selectedLink, setSelectedLink] = useState<any>(null);
   const [editModalKey, setEditModalKey] = useState(0);
 
-  const { data, refetch } = useGetLinksQuery<any>({
+  const { data } = useGetLinksQuery<any>({
     limit: 100,
     profile: profile.id,
   });
