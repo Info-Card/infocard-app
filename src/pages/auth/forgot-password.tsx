@@ -7,22 +7,23 @@ import { useAuth } from '@/hooks/use-auth';
 import FormContainer from '@/components/form-container';
 import CustomField from '@/components/custom-field';
 import { AuthLayout } from '@/layouts/auth/layout';
+import { useForgotPasswordMutation } from '@/store/auth';
+import { toast } from 'react-toastify';
 
 interface FormData {
   email: string;
-  password: string;
 }
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(8).max(32).required(),
 });
 
-const LoginPage = () => {
-  const { login } = useAuth();
+const ForgotPasswordPage = () => {
+  const [forgotPassword] = useForgotPasswordMutation();
 
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -30,12 +31,24 @@ const LoginPage = () => {
   });
 
   const onSubmitHandler = async (data: FormData) => {
-    login(data);
+    try {
+      await forgotPassword(data).unwrap();
+      toast.success(
+        'Email sent successfully. Kindly check your mailbox.'
+      );
+      reset();
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1>Forgot Password</h1>
+      <p>
+        Just need to confirm your email to send you instructions to
+        reset your password.
+      </p>
       <Form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <CustomField
           control={control}
@@ -43,33 +56,28 @@ const LoginPage = () => {
           label="Email"
           errors={errors}
         />
-        <CustomField
-          control={control}
-          name="password"
-          label="Password"
-          type="password"
-          errors={errors}
-        />
         <Link
-          href="/auth/forgot-password"
+          href="/auth/login"
           style={{
             color: 'black',
             textDecoration: 'none',
             float: 'right',
           }}
         >
-          Forgot password?
+          Return to login?
         </Link>
         <br />
         <Button type="submit" variant="primary">
-          Sign In
+          Send Link
         </Button>
       </Form>
     </FormContainer>
   );
 };
 
-LoginPage.getLayout = (page: any) => <AuthLayout>{page}</AuthLayout>;
-LoginPage.authGuard = false;
+ForgotPasswordPage.getLayout = (page: any) => (
+  <AuthLayout>{page}</AuthLayout>
+);
+ForgotPasswordPage.authGuard = false;
 
-export default LoginPage;
+export default ForgotPasswordPage;
