@@ -1,3 +1,4 @@
+import CustomToggle from '@/components/custom-toggle';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getLinkImageUrl } from '@/utils/image-helpers';
 import Image from 'next/image';
@@ -9,8 +10,10 @@ import { FaPen, FaTrash } from 'react-icons/fa';
 const LinkCard = ({
   link,
   direct,
+  isContact,
   isDirect,
   handleDirectChange,
+  handleShareChange,
   onEdit,
   onDelete,
 }: any) => {
@@ -74,30 +77,43 @@ const LinkCard = ({
                   ? link.platform?.title
                   : link.title}{' '}
               </strong>
-              <p>visits: {link.taps}</p>
+              {!isContact && <p>visits: {link.taps}</p>}
             </div>
           </div>
-          {isDirect && direct !== link.id ? (
-            <Button
-              size="sm"
-              variant="outline-dark"
-              onClick={() => {
-                handleDirectChange(link.id);
-              }}
-            >
-              Go Direct
-            </Button>
+          {isContact ? (
+            <CustomToggle
+              id="contact"
+              checked={link.isContact}
+              onChange={handleShareChange}
+            />
           ) : (
-            !isDirect && (
-              <div className="d-flex ml-auto">
-                <button className="icon-button" onClick={onEdit}>
-                  <FaPen color="grey" />
-                </button>
-                <button className="icon-button" onClick={onDelete}>
-                  <FaTrash color="red" />
-                </button>
-              </div>
-            )
+            <>
+              {isDirect && direct !== link.id ? (
+                <Button
+                  size="sm"
+                  variant="outline-dark"
+                  onClick={() => {
+                    handleDirectChange(link.id);
+                  }}
+                >
+                  Go Direct
+                </Button>
+              ) : (
+                !isDirect && (
+                  <div className="d-flex ml-auto">
+                    <button className="icon-button" onClick={onEdit}>
+                      <FaPen color="grey" />
+                    </button>
+                    <button
+                      className="icon-button"
+                      onClick={onDelete}
+                    >
+                      <FaTrash color="red" />
+                    </button>
+                  </div>
+                )
+              )}
+            </>
           )}
         </div>
       </Card>

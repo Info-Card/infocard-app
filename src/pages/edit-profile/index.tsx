@@ -52,7 +52,7 @@ const EditProfilePage = () => {
             <ProfileForm key={profileFormKey} profile={user.live} />
           </Col>
           <Col sm={12} lg={7} xl={8} style={{ paddingTop: '20px' }}>
-            <CategoriesList profileId={user.live.id} />
+            <CategoriesList profile={user.live} />
           </Col>
         </Row>
       )}

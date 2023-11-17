@@ -5,7 +5,7 @@ import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { AddLinkModal } from '../shared/links/AddLinkModal';
 import Image from 'next/image';
 
-const CategoriesList = ({ profileId }: any) => {
+const CategoriesList = ({ profile }: any) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [platform, setPlatform] = useState(null);
   const [editModalKey, setEditModalKey] = useState(0);
@@ -57,7 +57,7 @@ const CategoriesList = ({ profileId }: any) => {
         key={editModalKey}
         show={showLinkModal}
         setShow={setShowLinkModal}
-        profileId={profileId}
+        profile={profile}
         platform={platform}
       />
     </div>

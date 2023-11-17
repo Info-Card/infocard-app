@@ -14,6 +14,7 @@ import Loader from '@/components/loader';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { toast } from 'react-toastify';
+import LinksList from './LinksList';
 
 interface FormData {
   value: string;
@@ -28,7 +29,7 @@ const schema = yup.object().shape({
 export const AddLinkModal = ({
   show,
   setShow,
-  profileId,
+  profile,
   platform,
   link,
 }: any) => {
@@ -48,7 +49,7 @@ export const AddLinkModal = ({
     setValue,
   } = useForm<FormData>({
     defaultValues: {
-      value: platform?.type === 'contact' ? profileId : link?.value,
+      value: platform?.type === 'contact' ? profile?.id : link?.value,
     },
     resolver: yupResolver(schema),
   });
@@ -72,7 +73,7 @@ export const AddLinkModal = ({
         toast.success('Link updated');
       } else {
         await createLink({
-          profile: profileId,
+          profile: profile.id,
           platform: platform.id,
           ...body,
         }).unwrap();
@@ -130,6 +131,9 @@ export const AddLinkModal = ({
               errors={errors}
               setValue={setValue}
             />
+          )}
+          {platform?.type === 'contact' && profile && (
+            <LinksList profile={profile} isContact={true} />
           )}
         </Modal.Body>
         <Modal.Footer>
