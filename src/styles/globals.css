@@ -61,6 +61,7 @@ table th {
 .profile-card h5,
 .profile-card h6 {
   color: white;
+  margin-bottom: 5px;
 
   @media (max-width: 400px) {
     font-size: 10px;
@@ -75,6 +76,7 @@ table th {
 
 .profile-card p {
   color: white;
+  margin-bottom: 5px;
 
   @media (max-width: 400px) {
     font-size: 10px;
@@ -89,9 +91,8 @@ table th {
 
 .profile-image {
   width: 100%;
-  height: auto;
-  min-height: 150px;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   display: block;
   border-radius: 10px 0px 0px 10px;
 }

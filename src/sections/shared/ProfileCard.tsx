@@ -8,21 +8,27 @@ const ProfileCard = ({ profile }: any) => {
 
   return (
     <Row
-      className="profile-card mt-2"
+      className="profile-card m-1"
       style={{
         backgroundColor: profile?.themeColor ?? 'black',
       }}
     >
-      <Col xs={6} className="p-0">
+      <Col xs={6} className="p-0" style={{ height: '100%' }}>
         <Image
           src={getProfileImageUrl(profile)}
           alt="profile-image"
           width={0}
           height={0}
-          sizes="100vw"
+          sizes="100vh"
           className="profile-image"
           style={{
             backgroundColor: profile?.themeColor ?? 'black',
+            width: '100%',
+            height: 'auto',
+            minHeight: '150px',
+            objectFit: 'cover',
+            display: 'block',
+            borderRadius: '10px 0px 0px 10px',
           }}
         />
       </Col>
