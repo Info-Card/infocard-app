@@ -10,7 +10,8 @@ interface CustomFieldProps<T> {
   accept?: string;
   errors?: any;
   setValue?: any;
-  as?: any; // Add setValue prop
+  as?: any;
+  hidden?: boolean;
 }
 
 const CustomField = <T extends FieldValues>({
@@ -22,6 +23,7 @@ const CustomField = <T extends FieldValues>({
   errors,
   setValue,
   as,
+  hidden,
 }: CustomFieldProps<T>) => {
   const {
     field,
@@ -45,7 +47,10 @@ const CustomField = <T extends FieldValues>({
     <Form.Group
       controlId={name as string}
       className="mb-2"
-      style={{ textAlign: 'left' }}
+      style={{
+        textAlign: 'left',
+      }}
+      hidden={hidden}
     >
       <Form.Label>{label}</Form.Label>
       {type === 'file' ? (

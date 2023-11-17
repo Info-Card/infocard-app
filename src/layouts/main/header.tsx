@@ -33,7 +33,12 @@ const Header = () => {
               />
             </Navbar.Brand>
           </Link>
-          <NavDropdown title="Settings" className="ml-auto mr-0">
+          <NavDropdown
+            title="Settings"
+            id="basic-nav-dropdown"
+            className="ml-auto mr-0"
+            drop="start"
+          >
             {navLinks.map((link, index) => (
               <NavDropdown.Item key={index} href={link.href}>
                 {link.text}

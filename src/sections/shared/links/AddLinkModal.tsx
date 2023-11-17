@@ -8,19 +8,21 @@ import {
   useCreateLinkMutation,
   useUpdateLinkMutation,
 } from '@/store/link';
-import { toast } from 'react-toastify';
 import Image from 'next/image';
 import CustomField from '@/components/custom-field';
 import Loader from '@/components/loader';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
+import { toast } from 'react-toastify';
 
 interface FormData {
   value: string;
+  file?: FileList;
 }
 
 const schema = yup.object().shape({
   value: yup.string().required(),
+  file: yup.mixed(),
 });
 
 export const AddLinkModal = ({
@@ -30,6 +32,9 @@ export const AddLinkModal = ({
   platform,
   link,
 }: any) => {
+  const hideValue =
+    platform?.type === 'contact' || platform?.type === 'file';
+
   const [createLink, { isLoading: createLoading }] =
     useCreateLinkMutation();
   const [updateLink, { isLoading: updateLoading }] =
@@ -40,9 +45,10 @@ export const AddLinkModal = ({
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
-      value: link?.value,
+      value: platform?.type === 'contact' ? profileId : link?.value,
     },
     resolver: yupResolver(schema),
   });
@@ -53,18 +59,22 @@ export const AddLinkModal = ({
   };
 
   const onSubmit = async (data: any) => {
+    const body = {
+      ...data,
+      file: data.file ? data.file[0] : undefined,
+    };
     try {
       if (link) {
         await updateLink({
           id: link.id,
-          body: data,
+          body,
         }).unwrap();
         toast.success('Link updated');
       } else {
         await createLink({
           profile: profileId,
           platform: platform.id,
-          ...data,
+          ...body,
         }).unwrap();
         toast.success('Link added');
       }
@@ -106,8 +116,21 @@ export const AddLinkModal = ({
             control={control}
             name="value"
             label="Value"
-            errors={errors.value}
+            errors={errors}
+            type=""
+            hidden={hideValue}
           />
+          {platform?.type === 'file' && (
+            <CustomField
+              control={control}
+              name="image"
+              label="Image"
+              type="file"
+              accept="image/*"
+              errors={errors}
+              setValue={setValue}
+            />
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button

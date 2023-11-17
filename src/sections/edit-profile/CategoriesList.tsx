@@ -8,7 +8,7 @@ import Image from 'next/image';
 const CategoriesList = ({ profileId }: any) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [platform, setPlatform] = useState(null);
-  const [link, setLink] = useState(null);
+  const [editModalKey, setEditModalKey] = useState(0);
 
   const { data } = useGetCategoriesQuery<any>({});
 
@@ -27,6 +27,7 @@ const CategoriesList = ({ profileId }: any) => {
                     key={p.id}
                     onClick={() => {
                       setPlatform(p);
+                      setEditModalKey((prevKey) => prevKey + 1);
                       setShowLinkModal(true);
                     }}
                   >
@@ -53,6 +54,7 @@ const CategoriesList = ({ profileId }: any) => {
         );
       })}
       <AddLinkModal
+        key={editModalKey}
         show={showLinkModal}
         setShow={setShowLinkModal}
         profileId={profileId}

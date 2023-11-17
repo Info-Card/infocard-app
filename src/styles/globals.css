@@ -96,3 +96,7 @@ table th {
   display: block;
   border-radius: 10px 0px 0px 10px;
 }
+
+.dropdown-toggle::before {
+  display: none !important;
+}
