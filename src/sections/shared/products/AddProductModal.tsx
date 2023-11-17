@@ -61,8 +61,6 @@ export const AddProductModal = ({
   };
 
   const onSubmit = async (data: any) => {
-    console.log(data.image);
-
     const body = { ...data, image: data.image[0] };
     try {
       if (product) {

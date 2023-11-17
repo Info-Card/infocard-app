@@ -25,7 +25,6 @@ const ProfilePage = () => {
 
   const [showExchangeContactModal, setShowExchangeContactModal] =
     useState(false);
-  console.log(user);
 
   const {
     data: profileData,

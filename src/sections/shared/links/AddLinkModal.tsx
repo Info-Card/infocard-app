@@ -61,14 +61,6 @@ export const AddLinkModal = ({
         }).unwrap();
         toast.success('Link updated');
       } else {
-        console.log({
-          body: {
-            profile: profileId,
-            platform: platform.id,
-            ...data,
-          },
-        });
-
         await createLink({
           profile: profileId,
           platform: platform.id,

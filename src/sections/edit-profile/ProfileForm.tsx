@@ -54,8 +54,6 @@ const ProfileForm = ({ profile }: any) => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log(image);
-
     try {
       await updateProfile({
         id: profile.id,
