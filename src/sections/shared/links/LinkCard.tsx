@@ -88,14 +88,16 @@ const LinkCard = ({
               Go Direct
             </Button>
           ) : (
-            <div className="d-flex ml-auto">
-              <button className="icon-button" onClick={onEdit}>
-                <FaPen color="grey" />
-              </button>
-              <button className="icon-button" onClick={onDelete}>
-                <FaTrash color="red" />
-              </button>
-            </div>
+            !isDirect && (
+              <div className="d-flex ml-auto">
+                <button className="icon-button" onClick={onEdit}>
+                  <FaPen color="grey" />
+                </button>
+                <button className="icon-button" onClick={onDelete}>
+                  <FaTrash color="red" />
+                </button>
+              </div>
+            )
           )}
         </div>
       </Card>

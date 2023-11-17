@@ -55,12 +55,10 @@ export const AddVideoModal = ({
       } else {
         videos = [...videos, data.url];
       }
-
       await updateProfile({
         id: profile.id,
         body: { videos },
       }).unwrap();
-
       refetch();
       toast.success('Profile updated');
       handleClose();
