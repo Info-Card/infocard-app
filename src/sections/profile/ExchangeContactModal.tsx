@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useExchangeContactMutation } from '@/store/user';
 import CustomField from '@/components/custom-field';
 import Loader from '@/components/loader';
+import CustomPhoneField from '@/components/custom-phone-field';
 
 interface FormData {
   name: string;
@@ -79,7 +80,8 @@ export const ExchangeContactModal = ({
             label="Email"
             errors={errors}
           />
-          <CustomField
+
+          <CustomPhoneField
             control={control}
             name="phone"
             label="Phone Number"
