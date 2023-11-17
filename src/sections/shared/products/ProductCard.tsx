@@ -10,7 +10,7 @@ const ProductCard = ({ product, onEdit, onDelete }: any) => {
 
   return (
     <Card
-      className="d-flex flex-row align-items-center justify-content-start px-2 m-2"
+      className="d-flex flex-row align-items-center justify-content-start px-2 m-2 mb-4"
       style={{
         height: '90px',
       }}
