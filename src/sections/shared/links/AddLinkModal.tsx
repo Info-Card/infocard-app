@@ -15,6 +15,7 @@ import { isNullOrEmpty } from '@/utils/helpers';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { toast } from 'react-toastify';
 import LinksList from './LinksList';
+import CustomPhoneField from '@/components/custom-phone-field';
 
 interface FormData {
   value: string;
@@ -113,14 +114,23 @@ export const AddLinkModal = ({
               ? platform?.headline
               : link?.headline) ?? ''}
           </p>
-          <CustomField
-            control={control}
-            name="value"
-            label="Value"
-            errors={errors}
-            type=""
-            hidden={hideValue}
-          />
+          {platform?.type === 'phone' ? (
+            <CustomPhoneField
+              control={control}
+              name="value"
+              label="Value"
+              errors={errors}
+              hidden={hideValue}
+            />
+          ) : (
+            <CustomField
+              control={control}
+              name="value"
+              label="Value"
+              errors={errors}
+              hidden={hideValue}
+            />
+          )}
           {platform?.type === 'file' && (
             <CustomField
               control={control}

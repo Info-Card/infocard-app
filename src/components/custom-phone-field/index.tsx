@@ -43,11 +43,6 @@ const CustomPhoneField = <T extends FieldValues>({
         value={field.value || ''}
         inputStyle={{
           fontSize: 16,
-          fontWeight: 500,
-          lineHeight: '24px',
-          color: 'lightgrey',
-          backgroundColor: 'transparent',
-          borderRadius: 5,
           width: '100%',
           height: '55px',
         }}
