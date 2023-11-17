@@ -71,26 +71,26 @@ export const ExchangeContactModal = ({
             control={control}
             name="name"
             label="Name"
-            errors={errors.name}
+            errors={errors}
           />
           <CustomField
             control={control}
             name="email"
             label="Email"
-            errors={errors.email}
+            errors={errors}
           />
           <CustomField
             control={control}
             name="phone"
             label="Phone Number"
-            errors={errors.phone}
+            errors={errors}
           />
           <CustomField
             control={control}
             name="message"
             label="Message"
             as="textarea"
-            errors={errors.message}
+            errors={errors}
           />
         </Modal.Body>
         <Modal.Footer>

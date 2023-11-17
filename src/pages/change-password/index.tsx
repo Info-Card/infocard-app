@@ -59,14 +59,14 @@ const ChangePasswordPage = () => {
           name="password"
           label="Password"
           type="password"
-          errors={errors.password}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="confirmPassword"
           label="Confirm Password"
           type="password"
-          errors={errors.confirmPassword}
+          errors={errors}
         />
         <br />
         <Button type="submit" variant="primary" disabled={isLoading}>

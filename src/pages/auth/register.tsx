@@ -61,27 +61,27 @@ const RegisterPage = () => {
           control={control}
           name="username"
           label="Username"
-          errors={errors.username}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="email"
           label="Email"
-          errors={errors.email}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="password"
           label="Password"
           type="password"
-          errors={errors.password}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="confirmPassword"
           label="Confirm Password"
           type="password"
-          errors={errors.confirmPassword}
+          errors={errors}
         />
         <div className="d-flex justify-content-end">
           Already have an account?&nbsp;

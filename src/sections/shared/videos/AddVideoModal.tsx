@@ -1,13 +1,12 @@
 import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import CustomField from '@/components/custom-field';
 import Loader from '@/components/loader';
-import { titleRegex, urlRegex, youtubeUrlRegex } from '@/utils/regex';
+import { youtubeUrlRegex } from '@/utils/regex';
 import { useUpdateProfileMutation } from '@/store/profile';
 
 interface FormData {
@@ -18,7 +17,7 @@ const schema = yup.object().shape({
   url: yup
     .string()
     .required()
-    .matches(youtubeUrlRegex, 'please enter a valid url'),
+    .matches(youtubeUrlRegex, 'please enter a valid youtube url'),
 });
 
 export const AddVideoModal = ({
@@ -80,7 +79,7 @@ export const AddVideoModal = ({
             control={control}
             name="url"
             label="URL"
-            errors={errors.url}
+            errors={errors}
           />
         </Modal.Body>
         <Modal.Footer>

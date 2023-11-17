@@ -41,14 +41,14 @@ const LoginPage = () => {
           control={control}
           name="email"
           label="Email"
-          errors={errors.email}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="password"
           label="Password"
           type="password"
-          errors={errors.password}
+          errors={errors}
         />
         <Link
           href="/forgot-password"

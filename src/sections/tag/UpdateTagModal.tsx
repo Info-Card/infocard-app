@@ -60,7 +60,7 @@ export const UpdateTagModal = ({ show, setShow, tag }: any) => {
             control={control}
             name="name"
             label="Name"
-            errors={errors.name}
+            errors={errors}
           />
         </Modal.Body>
         <Modal.Footer>
