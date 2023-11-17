@@ -1,6 +1,6 @@
 import { PROFILES_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
-import { toFormData } from '@/utils/to-form-data';
+import { toFormData } from 'axios';
 
 export const profileSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
