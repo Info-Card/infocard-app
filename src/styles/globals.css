@@ -55,6 +55,7 @@ table th {
   border-radius: 12px;
   display: flex;
   align-items: center;
+  word-wrap: break-word;
 }
 
 .profile-card h5,

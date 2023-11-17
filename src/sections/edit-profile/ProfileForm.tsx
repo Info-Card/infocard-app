@@ -79,7 +79,18 @@ const ProfileForm = ({ profile }: any) => {
         ) as HTMLInputElement;
         inputElement.click();
       },
-      onButton2Click: () => {},
+      onButton2Click: async () => {
+        try {
+          await updateProfile({
+            id: profile.id,
+            body: { image: '' },
+          }).unwrap();
+          refetch();
+          toast.success('Profile updated');
+        } catch (error: any) {
+          toast.error(error?.data?.message || error.error);
+        }
+      },
     });
   };
 
@@ -173,40 +184,40 @@ const ProfileForm = ({ profile }: any) => {
           control={control}
           name="name"
           label="Name"
-          errors={errors.name}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="bio"
           label="Bio"
           as="textarea"
-          errors={errors.bio}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="dateOfBirth"
           label="Date Of Birth"
           type="date"
-          errors={errors.dateOfBirth}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="address"
           label="Address"
           as="textarea"
-          errors={errors.address}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="company"
           label="Company"
-          errors={errors.company}
+          errors={errors}
         />
         <CustomField
           control={control}
           name="jobTitle"
           label="Job Title"
-          errors={errors.jobTitle}
+          errors={errors}
         />
         <Form.Group controlId="color">
           <Form.Label>Color</Form.Label>
