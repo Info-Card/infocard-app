@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -127,6 +128,26 @@ const ProfilePage = () => {
           {profile && (
             <Row className="justify-content-center px-2">
               <Col md={7} lg={5}>
+                <div className="d-flex justify-content-between mx-1">
+                  <Image
+                    src="/assets/images/logo.png"
+                    alt="InfoCard"
+                    width={80}
+                    height={40}
+                  />
+                  <Button
+                    variant="outline-light"
+                    style={{
+                      color: profile?.themeColor ?? 'black',
+                      border: `2px solid ${
+                        profile?.themeColor ?? 'black'
+                      }`,
+                    }}
+                    onClick={() => window.open('https://infocard.me')}
+                  >
+                    Get your card
+                  </Button>
+                </div>
                 <ProfileCard profile={profile} />
                 <div className="d-flex mt-2">
                   <Button
