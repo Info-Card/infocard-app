@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -14,8 +13,8 @@ import Loader from '@/components/loader';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { toast } from 'react-toastify';
-import LinksList from './LinksList';
 import CustomPhoneField from '@/components/custom-phone-field';
+import ContactLinksList from './ContactLinksList';
 
 interface FormData {
   value: string;
@@ -27,13 +26,23 @@ const schema = yup.object().shape({
   file: yup.mixed(),
 });
 
+interface AddLinkModalParams {
+  show: boolean;
+  setShow: any;
+  profile: any;
+  platform: any;
+  link?: any;
+  links: any[];
+}
+
 export const AddLinkModal = ({
   show,
   setShow,
   profile,
   platform,
   link,
-}: any) => {
+  links,
+}: AddLinkModalParams) => {
   const hideValue =
     platform?.type === 'contact' || platform?.type === 'file';
 
@@ -71,15 +80,15 @@ export const AddLinkModal = ({
           id: link.id,
           body,
         }).unwrap();
-        toast.success('Link updated');
       } else {
         await createLink({
           profile: profile.id,
           platform: platform.id,
           ...body,
         }).unwrap();
-        toast.success('Link added');
       }
+      toast.success('Link updated');
+
       handleClose();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
@@ -142,8 +151,8 @@ export const AddLinkModal = ({
               setValue={setValue}
             />
           )}
-          {platform?.type === 'contact' && profile && (
-            <LinksList profile={profile} isContact={true} />
+          {platform?.type === 'contact' && links && (
+            <ContactLinksList links={links} />
           )}
         </Modal.Body>
         <Modal.Footer>

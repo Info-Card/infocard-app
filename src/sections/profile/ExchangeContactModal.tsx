@@ -29,7 +29,7 @@ const validationSchema = yup.object().shape({
 export const ExchangeContactModal = ({
   show,
   setShow,
-  userId,
+  profile,
 }: any) => {
   const [exchangeContact, { isLoading }] =
     useExchangeContactMutation();
@@ -50,7 +50,10 @@ export const ExchangeContactModal = ({
 
   const onSubmit = async (data: FormData) => {
     try {
-      await exchangeContact({ id: userId, body: data }).unwrap();
+      await exchangeContact({
+        id: profile.user,
+        body: data,
+      }).unwrap();
       toast.success('Contact exchanged successfully');
       handleClose();
     } catch (error: any) {
@@ -65,7 +68,9 @@ export const ExchangeContactModal = ({
     <Modal show={show} onHide={handleClose}>
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Modal.Header closeButton>
-          <Modal.Title>Exchange Contact</Modal.Title>
+          <Modal.Title>
+            Exchange Contact With {profile?.name}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
           <CustomField

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import QRCode from 'react-qr-code';
 import { toast } from 'react-toastify';
 import { FaCopy, FaShare } from 'react-icons/fa';
@@ -27,28 +27,23 @@ const SharePage = () => {
             background: 'white',
             padding: '16px',
           }}
-          className="mt-5"
         >
           <QRCode
             value={`${HOST_URL}/${user?.username}`}
             size={180}
           />
         </div>
-        <p>{`${HOST_URL}/${user?.username}`}</p>
-        <Button
-          type="submit"
-          variant="outline-primary"
-          size="sm"
-          className="m-2 rounded-circle bordered"
+        <h5>{`${HOST_URL}/${user?.username}`}</h5>
+        <FaCopy
+          size={30}
+          className="m-2"
           onClick={() => {
             navigator.clipboard.writeText(
               `${HOST_URL}/${user?.username}`
             );
             toast.success('Link copied');
           }}
-        >
-          <FaCopy />
-        </Button>
+        />
         <RWebShare
           data={{
             url: `${HOST_URL}/${user?.username}`,
@@ -56,14 +51,7 @@ const SharePage = () => {
           }}
           onClick={() => console.log('shared successfully!')}
         >
-          <Button
-            type="submit"
-            variant="outline-primary"
-            size="sm"
-            className="m-2 rounded-circle"
-          >
-            <FaShare />
-          </Button>
+          <FaShare size={30} className="m-2" />
         </RWebShare>
       </Col>
     </Row>

@@ -19,6 +19,7 @@ import VideosList from '@/sections/shared/videos/VideosList';
 import { useRouter } from 'next/router';
 import { useLazyLinkTagQuery } from '@/store/tag';
 import { showAlert } from '@/utils/show-alert';
+import { useGetLinksQuery } from '@/store/link';
 
 const HomePage = () => {
   const router = useRouter();
@@ -28,6 +29,10 @@ const HomePage = () => {
 
   const { user, refetch, logout }: any = useAuth();
   const { data: profilesData } = useGetMyProfilesQuery<any>({});
+  const { data: linksData } = useGetLinksQuery<any>({
+    limit: 100,
+    profile: user.live.id,
+  });
 
   const [updateProfile] = useUpdateProfileMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -199,7 +204,10 @@ const HomePage = () => {
                 label="Private"
               />
             </div>
-            <LinksList profile={user.live} />
+            <LinksList
+              profile={user.live}
+              links={linksData?.results}
+            />
           </>
         )}
       </Col>

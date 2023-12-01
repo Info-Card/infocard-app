@@ -4,7 +4,7 @@ import LinkCard from './LinkCard';
 import Link from 'next/link';
 import {
   useDeleteLinkMutation,
-  useGetLinksQuery,
+  useLazyGetLinkQuery,
   useUpdateLinkMutation,
 } from '@/store/link';
 import { useUpdateProfileMutation } from '@/store/profile';
@@ -14,7 +14,12 @@ import { AddLinkModal } from './AddLinkModal';
 import Swal from 'sweetalert2';
 import { useAuth } from '@/hooks/use-auth';
 
-const LinksList = ({ profile, isContact }: any) => {
+interface LinksListParams {
+  links: any[];
+  profile: any;
+}
+
+const LinksList = ({ links, profile }: LinksListParams) => {
   const { id } = useParams();
 
   const { refetch }: any = useAuth();
@@ -23,13 +28,8 @@ const LinksList = ({ profile, isContact }: any) => {
   const [selectedLink, setSelectedLink] = useState<any>(null);
   const [editModalKey, setEditModalKey] = useState(0);
 
-  const { data } = useGetLinksQuery<any>({
-    limit: 100,
-    profile: profile.id,
-  });
-
   const [updateProfile] = useUpdateProfileMutation();
-  const [updateLink] = useUpdateLinkMutation();
+  const [getLink] = useLazyGetLinkQuery();
   const [deleteLink] = useDeleteLinkMutation();
 
   const handleDeleteLink = (index: any) => {
@@ -45,7 +45,7 @@ const LinksList = ({ profile, isContact }: any) => {
         cancelButtonText: 'No',
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await deleteLink(data.results[index].id).unwrap();
+          await deleteLink(links[index].id).unwrap();
           toast.success('Link deleted');
         }
       });
@@ -55,7 +55,7 @@ const LinksList = ({ profile, isContact }: any) => {
   };
 
   const handleEditLink = (index: any) => {
-    setSelectedLink(data.results[index]);
+    setSelectedLink(links[index]);
     setShowAddLinkModal(true);
     setEditModalKey((prevKey) => prevKey + 1);
   };
@@ -72,38 +72,39 @@ const LinksList = ({ profile, isContact }: any) => {
     }
   };
 
-  const handleShareChange = async (index: any) => {
-    try {
-      await updateLink({
-        id: data.results[index].id,
-        body: { isContact: !data.results[index].isContact },
-      }).unwrap();
-    } catch (error: any) {
-      toast.error(error?.data?.message || error.error);
+  const handleLinkClick = async (index: any) => {
+    const link = links[index];
+    if (id) {
+      console.log(link);
+      getLink({ id: link.id, isTapped: true });
     }
+    var urlString =
+      link.platform.type === 'url'
+        ? link.value
+        : link.platform.webBaseURL + link.value;
+    window.open(urlString, '_blank');
   };
 
   return (
     <div className="m-2 mt-2">
-      {!isContact && <h4>Platforms & Analytics</h4>}
+      <h4>Platforms</h4>
       <Row className="g-2">
-        {data?.results.map((link: any, index: any) => {
+        {links?.map((link: any, index: any) => {
           return (
             <LinkCard
               key={link.id}
               link={link}
-              isContact={isContact}
               isDirect={profile.isDirect}
               direct={profile.direct?.id}
               handleDirectChange={handleDirectChange}
-              handleShareChange={() => handleShareChange(index)}
+              handleLinkClick={() => handleLinkClick(index)}
               onEdit={() => handleEditLink(index)}
               onDelete={() => handleDeleteLink(index)}
             />
           );
         })}
       </Row>
-      {!id && !isContact && (
+      {!id && (
         <Card className="px-2 py-3 my-2 text-center">
           <Link
             href={'/edit-profile'}
@@ -117,8 +118,10 @@ const LinksList = ({ profile, isContact }: any) => {
         key={editModalKey}
         show={showAddLinkModal}
         setShow={setShowAddLinkModal}
+        profile={profile}
         platform={selectedLink?.platform}
         link={selectedLink}
+        links={links}
       />
     </div>
   );

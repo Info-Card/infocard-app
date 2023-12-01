@@ -7,25 +7,26 @@ import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import { FaPen, FaTrash } from 'react-icons/fa';
 
+interface LinksListParams {
+  link: any;
+  direct: any;
+  isDirect: boolean;
+  handleDirectChange: any;
+  handleLinkClick: any;
+  onEdit: any;
+  onDelete: any;
+}
+
 const LinkCard = ({
   link,
   direct,
-  isContact,
   isDirect,
   handleDirectChange,
-  handleShareChange,
+  handleLinkClick,
   onEdit,
   onDelete,
-}: any) => {
+}: LinksListParams) => {
   const { id } = useParams();
-
-  const handleLinkClick = () => {
-    var urlString =
-      link.platform.type === 'url'
-        ? link.value
-        : link.platform.webBaseURL + link.value;
-    window.open(urlString, '_blank');
-  };
 
   if (id) {
     return (
@@ -33,19 +34,20 @@ const LinkCard = ({
         <Image
           src={getLinkImageUrl(link)}
           alt={link.image}
-          width={100}
-          height={100}
+          className="p-1"
+          width={0}
+          height={0}
+          sizes="100vw"
           style={{
-            height: '100%',
             width: '100%',
-            objectFit: 'contain',
+            height: 'auto',
           }}
         />
-        <p style={{ fontSize: '12px' }}>
+        <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
           {isNullOrEmpty(link.title)
             ? link.platform.title
             : link.title}
-        </p>
+        </span>
       </Col>
     );
   }
@@ -77,43 +79,30 @@ const LinkCard = ({
                   ? link.platform?.title
                   : link.title}{' '}
               </strong>
-              {!isContact && <p>visits: {link.taps}</p>}
+              <p>visits: {link.taps}</p>
             </div>
           </div>
-          {isContact ? (
-            <CustomToggle
-              id="contact"
-              checked={link.isContact}
-              onChange={handleShareChange}
-            />
+          {isDirect && direct !== link.id ? (
+            <Button
+              size="sm"
+              variant="outline-dark"
+              onClick={() => {
+                handleDirectChange(link.id);
+              }}
+            >
+              Go Direct
+            </Button>
           ) : (
-            <>
-              {isDirect && direct !== link.id ? (
-                <Button
-                  size="sm"
-                  variant="outline-dark"
-                  onClick={() => {
-                    handleDirectChange(link.id);
-                  }}
-                >
-                  Go Direct
-                </Button>
-              ) : (
-                !isDirect && (
-                  <div className="d-flex ml-auto">
-                    <button className="icon-button" onClick={onEdit}>
-                      <FaPen color="grey" />
-                    </button>
-                    <button
-                      className="icon-button"
-                      onClick={onDelete}
-                    >
-                      <FaTrash color="red" />
-                    </button>
-                  </div>
-                )
-              )}
-            </>
+            !isDirect && (
+              <div className="d-flex ml-auto">
+                <button className="icon-button" onClick={onEdit}>
+                  <FaPen color="grey" />
+                </button>
+                <button className="icon-button" onClick={onDelete}>
+                  <FaTrash color="red" />
+                </button>
+              </div>
+            )
           )}
         </div>
       </Card>

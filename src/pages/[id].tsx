@@ -18,6 +18,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useGetLinksQuery } from '@/store/link';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -40,6 +41,16 @@ const ProfilePage = () => {
     useGetPublicProfileQuery<any>(params?.id, {
       skip: !params?.id || user,
     });
+
+  const { data: linksData } = useGetLinksQuery<any>(
+    {
+      limit: 100,
+      profile: profileData?.id || publicProfileData?.id,
+    },
+    {
+      skip: !(profileData || publicProfileData),
+    }
+  );
 
   const { data: tag, error } = useGetTagQuery<any>(params?.id, {
     skip: !profileError && !publicProfileError,
@@ -194,7 +205,10 @@ const ProfilePage = () => {
                   <>
                     <VideosList profile={profile} />
                     <ProductsList profile={profile} />
-                    <LinksList profile={profile} />
+                    <LinksList
+                      profile={profile}
+                      links={linksData?.results}
+                    />
                   </>
                 )}
               </Col>
@@ -203,7 +217,7 @@ const ProfilePage = () => {
           <ExchangeContactModal
             show={showExchangeContactModal}
             setShow={setShowExchangeContactModal}
-            userId={profile?.user}
+            profile={profile}
           />
         </Container>
       </main>

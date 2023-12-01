@@ -33,9 +33,9 @@ const ProfileCard = ({ profile }: any) => {
         />
       </Col>
       <Col xs={6}>
-        <h5>{profile?.name}</h5>
-        <h6>{profile?.company}</h6>
-        <h6>{profile?.jobTitle}</h6>
+        <h4>{profile?.name}</h4>
+        <h5>{profile?.company}</h5>
+        <h5>{profile?.jobTitle}</h5>
         {!params?.id && (
           <p>
             <strong>Views: </strong>

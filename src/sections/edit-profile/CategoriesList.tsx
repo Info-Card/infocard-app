@@ -4,13 +4,19 @@ import { useGetCategoriesQuery } from '@/store/category';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { AddLinkModal } from '../shared/links/AddLinkModal';
 import Image from 'next/image';
+import { useGetLinksQuery } from '@/store/link';
 
 const CategoriesList = ({ profile }: any) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [platform, setPlatform] = useState(null);
+  const [link, setLink] = useState(null);
   const [editModalKey, setEditModalKey] = useState(0);
 
   const { data } = useGetCategoriesQuery<any>({});
+  const { data: linksData } = useGetLinksQuery<any>({
+    limit: 100,
+    profile: profile?.id,
+  });
 
   return (
     <div>
@@ -26,7 +32,15 @@ const CategoriesList = ({ profile }: any) => {
                     md={2}
                     key={p.id}
                     onClick={() => {
+                      const contactCard =
+                        p.type === 'contact'
+                          ? linksData?.results?.find(
+                              (l: any) =>
+                                l.platform.type === 'contact'
+                            )
+                          : undefined;
                       setPlatform(p);
+                      setLink(contactCard);
                       setEditModalKey((prevKey) => prevKey + 1);
                       setShowLinkModal(true);
                     }}
@@ -35,7 +49,7 @@ const CategoriesList = ({ profile }: any) => {
                       <Image
                         src={getPlatformImageUrl(p)}
                         alt={p.image}
-                        className="pb-1"
+                        className="p-1"
                         width={0}
                         height={0}
                         sizes="100vw"
@@ -44,7 +58,14 @@ const CategoriesList = ({ profile }: any) => {
                           height: 'auto',
                         }}
                       />
-                      <p style={{ fontSize: '12px' }}>{p.title}</p>
+                      <span
+                        style={{
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {p.title}
+                      </span>
                     </div>
                   </Col>
                 );
@@ -59,6 +80,8 @@ const CategoriesList = ({ profile }: any) => {
         setShow={setShowLinkModal}
         profile={profile}
         platform={platform}
+        link={link}
+        links={linksData?.results}
       />
     </div>
   );

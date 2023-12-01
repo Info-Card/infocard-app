@@ -12,8 +12,9 @@ export const linkSlice = apiSlice.injectEndpoints({
       providesTags: ['Link'],
     }),
     getLink: builder.query({
-      query: (id) => ({
+      query: ({ id, ...params }) => ({
         url: `${LINKS_URL}/${id}`,
+        params,
       }),
       keepUnusedDataFor: 5,
     }),
@@ -48,6 +49,7 @@ export const linkSlice = apiSlice.injectEndpoints({
 export const {
   useGetLinksQuery,
   useGetLinkQuery,
+  useLazyGetLinkQuery,
   useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,

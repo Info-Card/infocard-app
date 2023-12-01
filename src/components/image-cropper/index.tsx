@@ -56,7 +56,7 @@ const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
             image={file}
             crop={crop}
             zoom={zoom}
-            aspect={1}
+            aspect={0.9}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
