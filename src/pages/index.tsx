@@ -133,7 +133,7 @@ const HomePage = () => {
 
   return (
     <Row className="justify-content-center px-2">
-      <Col md={7} lg={5}>
+      <Col xs={12} md={10} lg={8} xl={6}>
         {profilesData && (
           <Toggle
             values={['Personal', 'Business']}

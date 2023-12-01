@@ -33,16 +33,14 @@ const ProfileCard = ({ profile }: any) => {
         />
       </Col>
       <Col xs={6}>
-        <h4>{profile?.name}</h4>
-        <h5>{profile?.company}</h5>
-        <h5>{profile?.jobTitle}</h5>
+        <p>{profile?.name}</p>
+        <p>{profile?.company}</p>
+        <p>{profile?.jobTitle}</p>
         {!params?.id && (
           <p>
-            <strong>Views: </strong>
-            {profile?.views}
+            Views: {profile?.views}
             <br />
-            <strong>Info Shared: </strong>
-            {profile?.infoShared}
+            Info Shared: {profile?.infoShared}
           </p>
         )}
       </Col>

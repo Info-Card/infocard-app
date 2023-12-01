@@ -138,7 +138,7 @@ const ProfilePage = () => {
 
           {profile && (
             <Row className="justify-content-center px-2">
-              <Col md={7} lg={5}>
+              <Col xs={12} md={8} lg={7} xl={6}>
                 <div className="d-flex justify-content-between mx-1">
                   <Image
                     src="/assets/images/logo.png"
