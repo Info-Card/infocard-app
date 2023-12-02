@@ -59,7 +59,7 @@ const ProfilePage = () => {
   const profile = publicProfileData || profileData;
 
   useEffect(() => {
-    if (profile?.isDirect) {
+    if (profile?.isDirect && profile?.direct) {
       var urlString =
         profile.direct.platform.type === 'url'
           ? profile.direct.value
@@ -128,6 +128,10 @@ const ProfilePage = () => {
         </Row>
       </Container>
     );
+  }
+
+  if (profile?.isDirect && profile?.direct) {
+    return <></>;
   }
 
   return (

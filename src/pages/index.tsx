@@ -97,11 +97,18 @@ const HomePage = () => {
 
   const handleDirectChange = async () => {
     try {
-      await updateProfile({
-        id: user.live.id,
-        body: { isDirect: !user.live.isDirect },
-      }).unwrap();
-      refetch();
+      if ((linksData.results ?? []).length > 0) {
+        await updateProfile({
+          id: user.live.id,
+          body: {
+            isDirect: !user.live.isDirect,
+            direct: linksData.results[0],
+          },
+        }).unwrap();
+        refetch();
+      } else {
+        toast.error('Please add platforms to enable this feature');
+      }
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
     }

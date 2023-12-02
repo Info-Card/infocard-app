@@ -21,6 +21,7 @@ const ProductCard = ({ product, onEdit, onDelete }: any) => {
         className="mr-1"
         width={50}
         height={50}
+        style={{ objectFit: 'contain' }}
       />
       <div
         className="d-flex flex-column"

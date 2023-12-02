@@ -9,11 +9,11 @@ const VideoPlayer = ({ url }: any) => {
       const windowWidth = window.innerWidth;
 
       if (windowWidth <= 575.98) {
-        setHeight(180); // Adjust the height for extra small screens
+        setHeight(200); // Adjust the height for extra small screens
       } else if (windowWidth <= 767.98) {
-        setHeight(200); // Adjust the height for small screens
+        setHeight(300); // Adjust the height for small screens
       } else {
-        setHeight(240); // Default height for larger screens
+        setHeight(350); // Default height for larger screens
       }
     };
 

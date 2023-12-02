@@ -39,7 +39,7 @@ const CustomPhoneField = <T extends FieldValues>({
       <Form.Label>{label}</Form.Label>
       <PhoneInput
         {...field}
-        country="pk"
+        country="in"
         value={field.value || ''}
         inputStyle={{
           fontSize: 16,

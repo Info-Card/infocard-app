@@ -70,17 +70,7 @@ table th {
   }
 }
 
-@media (max-width: 550px) {
-  .profile-card p {
-    font-size: 14px;
-  }
-}
 
-@media (max-width: 450px) {
-  .profile-card p {
-    font-size: 12px;
-  }
-}
 
 .profile-image {
   width: 100%;
