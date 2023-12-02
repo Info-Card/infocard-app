@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import QRCode from 'react-qr-code';
 import { toast } from 'react-toastify';
 import { FaCopy, FaShare } from 'react-icons/fa';
@@ -34,25 +34,35 @@ const SharePage = () => {
           />
         </div>
         <h5>{`${HOST_URL}/${user?.username}`}</h5>
-        <FaCopy
-          size={30}
-          className="m-2"
-          onClick={() => {
-            navigator.clipboard.writeText(
-              `${HOST_URL}/${user?.username}`
-            );
-            toast.success('Link copied');
-          }}
-        />
-        <RWebShare
-          data={{
-            url: `${HOST_URL}/${user?.username}`,
-            title: 'Connect to my profile using this link',
-          }}
-          onClick={() => console.log('shared successfully!')}
+        <Stack
+          className="d-flex flex-row justify-content-center"
+          gap={4}
         >
-          <FaShare size={30} className="m-2" />
-        </RWebShare>
+          <div className="d-flex flex-column">
+            <FaCopy
+              size={30}
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `${HOST_URL}/${user?.username}`
+                );
+                toast.success('Link copied');
+              }}
+            />
+            Copy
+          </div>
+          <RWebShare
+            data={{
+              url: `${HOST_URL}/${user?.username}`,
+              title: 'Connect to my profile using this link',
+            }}
+            onClick={() => console.log('shared successfully!')}
+          >
+            <div className="d-flex flex-column">
+              <FaShare size={30} />
+              Share
+            </div>
+          </RWebShare>
+        </Stack>
       </Col>
     </Row>
   );
