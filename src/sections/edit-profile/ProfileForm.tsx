@@ -21,8 +21,8 @@ const schema = yup.object().shape({
   name: yup.string().max(25).required(),
   bio: yup.string().max(300),
   address: yup.string().max(100),
-  company: yup.string().max(23),
-  jobTitle: yup.string().max(30),
+  company: yup.string().max(25),
+  jobTitle: yup.string().max(25),
   dateOfBirth: yup.string(),
 });
 
@@ -217,6 +217,7 @@ const ProfileForm = ({ profile }: any) => {
           label="Job Title"
           errors={errors}
         />
+
         <Form.Group controlId="color">
           <Form.Label>Color</Form.Label>
           <CirclePicker

@@ -82,12 +82,6 @@ table th {
   }
 }
 
-@media (max-width: 350px) {
-  .profile-card p {
-    font-size: 10px;
-  }
-}
-
 .profile-image {
   width: 100%;
   height: 100%;
