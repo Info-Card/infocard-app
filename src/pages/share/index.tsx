@@ -54,6 +54,7 @@ const SharePage = () => {
             data={{
               url: `${HOST_URL}/${user?.username}`,
               title: 'Connect to my profile using this link',
+              text: 'Connect to my profile using this link',
             }}
             onClick={() => console.log('shared successfully!')}
           >

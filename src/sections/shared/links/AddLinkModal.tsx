@@ -123,7 +123,8 @@ export const AddLinkModal = ({
               ? platform?.headline
               : link?.headline) ?? ''}
           </p>
-          {platform?.type === 'phone' ? (
+          {platform?.type === 'phone' ||
+          platform?.type === 'whatsapp' ? (
             <CustomPhoneField
               control={control}
               name="value"

@@ -19,6 +19,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useGetLinksQuery } from '@/store/link';
+import Head from 'next/head';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -136,6 +137,13 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
+      <Head>
+        <title>Info Card - Fastest Networking Technology</title>
+        <meta
+          name="description"
+          content="Click to see my business card"
+        />
+      </Head>
       <main className="py-3">
         <Container>
           {isLoading && <Loader />}
@@ -144,12 +152,14 @@ const ProfilePage = () => {
             <Row className="justify-content-center px-2">
               <Col xs={12} md={8} lg={7} xl={6}>
                 <div className="d-flex justify-content-between mx-1">
-                  <Image
-                    src="/assets/images/logo.png"
-                    alt="InfoCard"
-                    width={80}
-                    height={40}
-                  />
+                  <Link href="/">
+                    <Image
+                      src="/assets/images/logo.png"
+                      alt="InfoCard"
+                      width={80}
+                      height={40}
+                    />
+                  </Link>
                   <Button
                     variant="outline-light"
                     style={{

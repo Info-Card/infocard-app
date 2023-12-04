@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="light">
+      <Navbar>
         <Container>
           <Link href="/">
             <Navbar.Brand>
