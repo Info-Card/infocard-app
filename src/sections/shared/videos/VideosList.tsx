@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { AddVideoModal } from './AddVideoModal';
-import { useUpdateProfileMutation } from '@/store/profile';
+import { useUpdateVideosMutation } from '@/store/profile';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -19,7 +19,7 @@ const VideosList = ({ profile, refetch }: any) => {
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
 
-  const [updateProfile] = useUpdateProfileMutation();
+  const [updateVideos] = useUpdateVideosMutation();
 
   const handleEditVideo = (index: any) => {
     setSelectedVideoIndex(index);
@@ -38,13 +38,14 @@ const VideosList = ({ profile, refetch }: any) => {
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
       }).then(async (result) => {
+        const videos = profile.videos.filter(
+          (_: any, i: any) => i !== index
+        );
         if (result.isConfirmed) {
-          await updateProfile({
+          await updateVideos({
             id: profile.id,
             body: {
-              videos: profile.videos.filter(
-                (_: any, i: any) => i !== index
-              ),
+              videos,
             },
           }).unwrap();
           refetch();

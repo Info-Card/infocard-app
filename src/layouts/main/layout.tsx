@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import Header from './header';
+import Footer from './footer';
 
 export const MainLayout = (props: any) => {
   const { children } = props;
@@ -10,6 +11,7 @@ export const MainLayout = (props: any) => {
       <main className="py-3">
         <Container>{children}</Container>
       </main>
+      <Footer />
     </Fragment>
   );
 };

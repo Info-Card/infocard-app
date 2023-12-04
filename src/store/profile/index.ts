@@ -39,6 +39,14 @@ export const profileSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Profile'],
     }),
+    updateVideos: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `${PROFILES_URL}/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Profile'],
+    }),
     deleteProfile: builder.mutation({
       query: (profileId) => ({
         url: `${PROFILES_URL}/${profileId}`,
@@ -56,4 +64,5 @@ export const {
   useCreateProfileMutation,
   useUpdateProfileMutation,
   useDeleteProfileMutation,
+  useUpdateVideosMutation,
 } = profileSlice;

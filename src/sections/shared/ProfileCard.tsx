@@ -8,7 +8,7 @@ const ProfileCard = ({ profile }: any) => {
 
   return (
     <Row
-      className="profile-card m-1"
+      className="profile-card m-1 mt-3"
       style={{
         backgroundColor: profile?.themeColor ?? 'black',
       }}

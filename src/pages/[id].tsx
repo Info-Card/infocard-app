@@ -174,7 +174,7 @@ const ProfilePage = () => {
                   </Button>
                 </div>
                 <ProfileCard profile={profile} />
-                <div className="d-flex mt-2">
+                <div className="d-flex mt-3">
                   <Button
                     className="flex-grow-1 mx-1"
                     style={{
@@ -203,7 +203,7 @@ const ProfilePage = () => {
                   </Button>
                 </div>
                 {profile?.bio && (
-                  <div className="mt-2">
+                  <div className="mt-3">
                     <h4>About</h4>
                     <p
                       style={{

@@ -22,7 +22,7 @@ const CategoriesList = ({ profile }: any) => {
     <div>
       {data?.results.map((category: any, key: any) => {
         return (
-          <div className="text-center" key={key}>
+          <div className="text-center mt-3" key={key}>
             <h4>{category.name}</h4>
             <Row>
               {category.platforms.map((p: any) => {

@@ -149,12 +149,12 @@ const HomePage = () => {
           />
         )}
         {!user.live?.name && (
-          <Alert variant="dark" className="mt-2 text-center">
+          <Alert variant="dark" className="mt-3 text-center">
             Please complete your profile!
           </Alert>
         )}
         <ProfileCard profile={user.live} isStats={true} />
-        <div className="d-flex mt-2">
+        <div className="d-flex mt-3">
           <Button
             variant="primary"
             className="flex-grow-1 mx-1"
@@ -181,7 +181,7 @@ const HomePage = () => {
           </Button>
         </div>
         {user.live?.bio && (
-          <div className=" mt-2">
+          <div className=" mt-3">
             <h4>About</h4>
             <p
               style={{
