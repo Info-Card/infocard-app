@@ -48,11 +48,12 @@ export const AddVideoModal = ({
 
   const onSubmit = async (data: any) => {
     try {
+      const url = data.url.split('&')[0];
       let videos = [...(profile.videos || [])];
       if (index >= 0) {
-        videos[index] = data.url;
+        videos[index] = url;
       } else {
-        videos = [...videos, data.url];
+        videos = [...videos, url];
       }
       await updateProfile({
         id: profile.id,
