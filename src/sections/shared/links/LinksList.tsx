@@ -87,7 +87,7 @@ const LinksList = ({ links, profile }: LinksListParams) => {
 
   return (
     <div className="m-2 mt-2">
-      <h4>Platforms</h4>
+      <h4>Platforms & Analytics</h4>
       <Row className="g-2">
         {links?.map((link: any, index: any) => {
           return (

@@ -152,7 +152,11 @@ export const AddLinkModal = ({
             />
           )}
           {platform?.type === 'contact' && links && (
-            <ContactLinksList links={links} />
+            <ContactLinksList
+              links={links.filter(
+                (l) => l.platform.type !== 'contact'
+              )}
+            />
           )}
         </Modal.Body>
         <Modal.Footer>

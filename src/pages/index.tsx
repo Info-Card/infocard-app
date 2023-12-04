@@ -177,7 +177,7 @@ const HomePage = () => {
             }}
             onClick={handleUploadVideo}
           >
-            Upload Video
+            Add Youtube Video
           </Button>
         </div>
         {user.live?.bio && (

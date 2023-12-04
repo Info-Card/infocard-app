@@ -71,7 +71,7 @@ export const AddVideoModal = ({
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Modal.Header closeButton>
           <Modal.Title>
-            {index ? 'Update Video' : 'Add Video'}
+            {index ? 'Update Youtube Video' : 'Add Youtube Video'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">

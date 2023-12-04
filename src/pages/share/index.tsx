@@ -38,7 +38,7 @@ const SharePage = () => {
           className="d-flex flex-row justify-content-center"
           gap={4}
         >
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column align-items-center">
             <FaCopy
               size={30}
               onClick={() => {
@@ -48,7 +48,7 @@ const SharePage = () => {
                 toast.success('Link copied');
               }}
             />
-            Copy
+            Copy Link
           </div>
           <RWebShare
             data={{
@@ -57,9 +57,9 @@ const SharePage = () => {
             }}
             onClick={() => console.log('shared successfully!')}
           >
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column align-items-center">
               <FaShare size={30} />
-              Share
+              Share Link
             </div>
           </RWebShare>
         </Stack>
