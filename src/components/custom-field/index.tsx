@@ -78,7 +78,7 @@ const CustomField = <T extends FieldValues>({
         </InputGroup>
       ) : (
         <Form.Control
-          type={showPassword ? 'text' : 'password'}
+          type={type}
           {...field}
           as={as}
           isInvalid={invalid && isTouched}
