@@ -1,6 +1,7 @@
-import React from 'react';
-import { Form, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Row, Col, InputGroup } from 'react-bootstrap';
 import { useController, FieldValues } from 'react-hook-form';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface CustomFieldProps<T> {
   name: keyof T;
@@ -25,6 +26,8 @@ const CustomField = <T extends FieldValues>({
   as,
   hidden,
 }: CustomFieldProps<T>) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     field,
     fieldState: { invalid, isTouched },
@@ -37,7 +40,6 @@ const CustomField = <T extends FieldValues>({
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // Set the value using setValue when a file is selected
     if (setValue && event.target.files) {
       setValue(name, event.target.files);
     }
@@ -60,14 +62,29 @@ const CustomField = <T extends FieldValues>({
           onChange={handleFileChange}
           isInvalid={invalid && isTouched}
         />
+      ) : type === 'password' ? (
+        <InputGroup>
+          <Form.Control
+            type={showPassword ? 'text' : 'password'}
+            {...field}
+            as={as}
+            isInvalid={invalid && isTouched}
+          />
+          <InputGroup.Text
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </InputGroup.Text>
+        </InputGroup>
       ) : (
         <Form.Control
-          type={type}
+          type={showPassword ? 'text' : 'password'}
           {...field}
           as={as}
           isInvalid={invalid && isTouched}
         />
       )}
+
       {errors && errors[name] && (
         <Form.Control.Feedback type="invalid">
           {errors[name].message}
