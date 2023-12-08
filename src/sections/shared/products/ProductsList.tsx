@@ -36,6 +36,8 @@ const ProductsList = ({ profile }: any) => {
         focusConfirm: false,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
+        cancelButtonColor: 'black',
+        confirmButtonColor: 'black',
       }).then(async (result) => {
         if (result.isConfirmed) {
           await deleteProduct(product.id).unwrap();

@@ -37,6 +37,8 @@ const VideosList = ({ profile, refetch }: any) => {
         focusConfirm: false,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
+        cancelButtonColor: 'black',
+        confirmButtonColor: 'black',
       }).then(async (result) => {
         const videos = profile.videos.filter(
           (_: any, i: any) => i !== index

@@ -100,7 +100,9 @@ export const AddLinkModal = ({
       <Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Modal.Header closeButton>
           <Modal.Title>
-            {link ? 'Update Link' : 'Add Link'}
+            {link
+              ? `Update ${platform?.title}`
+              : `Add ${platform?.title}`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
@@ -128,7 +130,7 @@ export const AddLinkModal = ({
             <CustomPhoneField
               control={control}
               name="value"
-              label="Value"
+              label=""
               errors={errors}
               hidden={hideValue}
             />
@@ -136,7 +138,7 @@ export const AddLinkModal = ({
             <CustomField
               control={control}
               name="value"
-              label="Value"
+              label=""
               errors={errors}
               hidden={hideValue}
             />

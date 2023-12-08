@@ -33,38 +33,40 @@ const SharePage = () => {
             size={180}
           />
         </div>
+      </Col>
+      <div className="text-center mt-3">
         <h5>{`${HOST_URL}/${user?.username}`}</h5>
-        <Stack
-          className="d-flex flex-row justify-content-center"
-          gap={4}
+      </div>
+      <Stack
+        className="d-flex flex-row justify-content-center mt-5"
+        gap={4}
+      >
+        <div className="d-flex flex-column align-items-center">
+          <FaCopy
+            size={30}
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `${HOST_URL}/${user?.username}`
+              );
+              toast.success('Link copied');
+            }}
+          />
+          Copy Link
+        </div>
+        <RWebShare
+          data={{
+            url: `${HOST_URL}/${user?.username}`,
+            title: 'Connect to my profile using this link',
+            text: 'Connect to my profile using this link',
+          }}
+          onClick={() => console.log('shared successfully!')}
         >
           <div className="d-flex flex-column align-items-center">
-            <FaCopy
-              size={30}
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  `${HOST_URL}/${user?.username}`
-                );
-                toast.success('Link copied');
-              }}
-            />
-            Copy Link
+            <FaShare size={30} />
+            Share Link
           </div>
-          <RWebShare
-            data={{
-              url: `${HOST_URL}/${user?.username}`,
-              title: 'Connect to my profile using this link',
-              text: 'Connect to my profile using this link',
-            }}
-            onClick={() => console.log('shared successfully!')}
-          >
-            <div className="d-flex flex-column align-items-center">
-              <FaShare size={30} />
-              Share Link
-            </div>
-          </RWebShare>
-        </Stack>
-      </Col>
+        </RWebShare>
+      </Stack>
     </Row>
   );
 };

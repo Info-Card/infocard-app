@@ -44,7 +44,7 @@ const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
       </Modal.Header>
       <Modal.Body>
         <div
-          className="m-auto"
+          className="m-auto mb-3"
           style={{
             position: 'relative',
             width: 250,

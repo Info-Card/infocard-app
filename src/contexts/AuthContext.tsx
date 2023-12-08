@@ -53,6 +53,8 @@ const AuthProvider = ({ children }: any) => {
         returnUrl && returnUrl !== '/' ? returnUrl : '/';
       router.replace(redirectURL as string);
     } catch (err: any) {
+      console.log(err);
+
       toast.error(err?.data?.message || err.error);
     }
   };

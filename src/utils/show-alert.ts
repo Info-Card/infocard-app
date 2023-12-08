@@ -13,7 +13,7 @@ export const showAlert = async ({
     showCloseButton: true,
     focusConfirm: false,
     denyButtonColor: 'black',
-    confirmButtonColor: 'green',
+    confirmButtonColor: 'black',
     confirmButtonText: button1Text,
     denyButtonText: button2Text,
     onConfirm: onButton1Click,

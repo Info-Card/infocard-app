@@ -20,6 +20,7 @@ const CategoriesList = ({ profile }: any) => {
 
   return (
     <div>
+      <h3>Add Platforms</h3>
       {data?.results.map((category: any, key: any) => {
         return (
           <div className="text-center mt-3" key={key}>

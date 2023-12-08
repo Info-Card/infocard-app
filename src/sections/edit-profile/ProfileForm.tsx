@@ -219,7 +219,7 @@ const ProfileForm = ({ profile }: any) => {
         />
 
         <Form.Group controlId="color">
-          <Form.Label>Color</Form.Label>
+          <Form.Label>Pick a Profile Color</Form.Label>
           <CirclePicker
             className="mb-2"
             colors={colors}

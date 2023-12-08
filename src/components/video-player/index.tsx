@@ -9,9 +9,9 @@ const VideoPlayer = ({ url }: any) => {
       const windowWidth = window.innerWidth;
 
       if (windowWidth <= 575.98) {
-        setHeight(200); // Adjust the height for extra small screens
+        setHeight(230); // Adjust the height for extra small screens
       } else if (windowWidth <= 767.98) {
-        setHeight(300); // Adjust the height for small screens
+        setHeight(280); // Adjust the height for small screens
       } else {
         setHeight(350); // Default height for larger screens
       }
@@ -30,7 +30,12 @@ const VideoPlayer = ({ url }: any) => {
   }, []);
 
   return (
-    <ReactPlayer url={url} width="100%" height={`${height}px`} />
+    <ReactPlayer
+      url={url}
+      width="100%"
+      height={`${height}px`}
+      controls={true}
+    />
   );
 };
 

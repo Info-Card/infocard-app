@@ -43,6 +43,8 @@ const LinksList = ({ links, profile }: LinksListParams) => {
         focusConfirm: false,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
+        cancelButtonColor: 'black',
+        confirmButtonColor: 'black',
       }).then(async (result) => {
         if (result.isConfirmed) {
           await deleteLink(links[index].id).unwrap();
@@ -86,24 +88,26 @@ const LinksList = ({ links, profile }: LinksListParams) => {
   };
 
   return (
-    <div className="m-2 mt-2">
-      <h4>Platforms & Analytics</h4>
-      <Row className="g-2">
-        {links?.map((link: any, index: any) => {
-          return (
-            <LinkCard
-              key={link.id}
-              link={link}
-              isDirect={profile.isDirect}
-              direct={profile.direct?.id}
-              handleDirectChange={handleDirectChange}
-              handleLinkClick={() => handleLinkClick(index)}
-              onEdit={() => handleEditLink(index)}
-              onDelete={() => handleDeleteLink(index)}
-            />
-          );
-        })}
-      </Row>
+    <div className="mt-2">
+      <h4>{id ? 'Platforms' : 'Platforms & Analytics'}</h4>
+      <div className={id ? 'm-2 card p-2' : 'm-2'}>
+        <Row className="g-2">
+          {links?.map((link: any, index: any) => {
+            return (
+              <LinkCard
+                key={link.id}
+                link={link}
+                isDirect={profile.isDirect}
+                direct={profile.direct?.id}
+                handleDirectChange={handleDirectChange}
+                handleLinkClick={() => handleLinkClick(index)}
+                onEdit={() => handleEditLink(index)}
+                onDelete={() => handleDeleteLink(index)}
+              />
+            );
+          })}
+        </Row>
+      </div>
       {!id && (
         <Card className="px-2 py-3 my-2 text-center">
           <Link

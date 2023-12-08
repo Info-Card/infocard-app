@@ -33,7 +33,7 @@ const ProfileCard = ({ profile }: any) => {
         />
       </Col>
       <Col xs={6}>
-        <p>{profile?.name}</p>
+        <h6 style={{ fontWeight: 'bold' }}>{profile?.name}</h6>
         <p>{profile?.company}</p>
         <p>{profile?.jobTitle}</p>
         {!params?.id && (
