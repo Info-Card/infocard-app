@@ -19,7 +19,7 @@ const AuthContext = createContext(defaultProvider);
 const AuthProvider = ({ children }: any) => {
   const router = useRouter();
 
-  const [user, setUser] = useState<any>(); // Provide the type explicitly.
+  const [user, setUser] = useState<any>();
 
   const { data, isLoading, refetch } = useGetMeQuery(
     {},
@@ -53,9 +53,7 @@ const AuthProvider = ({ children }: any) => {
         returnUrl && returnUrl !== '/' ? returnUrl : '/';
       router.replace(redirectURL as string);
     } catch (err: any) {
-      console.log(err);
-
-      toast.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err?.error);
     }
   };
 

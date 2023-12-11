@@ -30,7 +30,7 @@ const LoginPage = () => {
   });
 
   const onSubmitHandler = async (data: FormData) => {
-    login(data);
+    await login(data);
   };
 
   return (
