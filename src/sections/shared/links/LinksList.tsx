@@ -77,7 +77,6 @@ const LinksList = ({ links, profile }: LinksListParams) => {
   const handleLinkClick = async (index: any) => {
     const link = links[index];
     if (id) {
-      console.log(link);
       getLink({ id: link.id, isTapped: true });
     }
     var urlString =
