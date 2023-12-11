@@ -31,7 +31,6 @@ const ProfileForm = ({ profile }: any) => {
   const [showImage, setShowImage] = useState(false);
 
   const [file, setFile] = useState<any>(null);
-  const [image, setImage] = useState();
 
   const { refetch } = useGetMeQuery<any>({});
 
@@ -53,11 +52,24 @@ const ProfileForm = ({ profile }: any) => {
     resolver: yupResolver(schema),
   });
 
+  const setImage = async (image: any) => {
+    try {
+      await updateProfile({
+        id: profile.id,
+        body: { image },
+      }).unwrap();
+      refetch();
+      toast.success('Image updated');
+    } catch (error: any) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
   const onSubmit = async (data: any) => {
     try {
       await updateProfile({
         id: profile.id,
-        body: { themeColor, ...data, image },
+        body: { themeColor, ...data },
       }).unwrap();
       refetch();
       toast.success('Profile updated');
@@ -106,6 +118,7 @@ const ProfileForm = ({ profile }: any) => {
 
   return (
     <Card>
+      {isLoading && <Loader />}
       <Form
         onSubmit={handleSubmit(onSubmit)}
         className="p-2"
@@ -129,11 +142,7 @@ const ProfileForm = ({ profile }: any) => {
             }}
           >
             <Image
-              src={
-                image
-                  ? URL.createObjectURL(image)
-                  : getProfileImageUrl(profile)
-              }
+              src={getProfileImageUrl(profile)}
               className="rounded-circle"
               width={100}
               height={100}
@@ -229,8 +238,8 @@ const ProfileForm = ({ profile }: any) => {
             }}
           />
         </Form.Group>
-        <Button type="submit" variant="primary" className="">
-          {isLoading ? <Loader /> : 'Update'}
+        <Button type="submit" variant="primary" disabled={isLoading}>
+          Update
         </Button>
       </Form>
     </Card>

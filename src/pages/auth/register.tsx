@@ -9,6 +9,7 @@ import CustomField from '@/components/custom-field';
 import { AuthLayout } from '@/layouts/auth/layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Loader from '@/components/loader';
 
 interface FormData {
   username: string;
@@ -29,7 +30,7 @@ const schema = yup.object().shape({
 
 const RegisterPage = () => {
   const router = useRouter();
-  const { register } = useAuth();
+  const { register, isLoading } = useAuth();
 
   const {
     control,
@@ -55,6 +56,7 @@ const RegisterPage = () => {
 
   return (
     <FormContainer>
+      {isLoading && <Loader />}
       <h1>Sign Up</h1>
       <Form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <CustomField
@@ -94,7 +96,7 @@ const RegisterPage = () => {
           </Link>
         </div>
         <br />
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" disabled={isLoading}>
           Sign Up
         </Button>
       </Form>

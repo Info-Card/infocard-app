@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/use-auth';
 import FormContainer from '@/components/form-container';
 import CustomField from '@/components/custom-field';
 import { AuthLayout } from '@/layouts/auth/layout';
+import Loader from '@/components/loader';
 
 interface FormData {
   email: string;
@@ -19,7 +20,7 @@ const schema = yup.object().shape({
 });
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
 
   const {
     control,
@@ -35,6 +36,7 @@ const LoginPage = () => {
 
   return (
     <FormContainer>
+      {isLoading && <Loader />}
       <h1>Sign In</h1>
       <Form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <CustomField
@@ -61,7 +63,7 @@ const LoginPage = () => {
           Forgot password?
         </Link>
         <br />
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" disabled={isLoading}>
           Sign In
         </Button>
       </Form>

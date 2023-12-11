@@ -1,18 +1,24 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-const Loader = () => {
+const Loader = ({ color }: any) => {
   return (
-    <Spinner
-      animation="border"
-      role="status"
+    <div
       style={{
-        margin: 'auto',
-        display: 'block',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
       }}
     >
-      {/* <span className="sr-only">Loading...</span> */}
-    </Spinner>
+      <Spinner
+        animation="border"
+        role="status"
+        style={{
+          color: color,
+        }}
+      />
+    </div>
   );
 };
 

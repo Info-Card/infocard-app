@@ -3,12 +3,12 @@ import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useAuth } from '@/hooks/use-auth';
 import FormContainer from '@/components/form-container';
 import CustomField from '@/components/custom-field';
 import { AuthLayout } from '@/layouts/auth/layout';
 import { useForgotPasswordMutation } from '@/store/auth';
 import { toast } from 'react-toastify';
+import Loader from '@/components/loader';
 
 interface FormData {
   email: string;
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 });
 
 const ForgotPasswordPage = () => {
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const {
     control,
@@ -44,6 +44,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <FormContainer>
+      {isLoading && <Loader />}
       <h1>Forgot Password</h1>
       <p>
         Just need to confirm your email to send you instructions to
@@ -67,7 +68,7 @@ const ForgotPasswordPage = () => {
           Return to login?
         </Link>
         <br />
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" disabled={isLoading}>
           Send Link
         </Button>
       </Form>

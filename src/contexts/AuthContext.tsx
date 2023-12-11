@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 const defaultProvider = {
   user: undefined,
+  isLoading: false,
   login: (params: any) => Promise.resolve(),
   register: (params: any) => Promise.resolve(),
   logout: () => {},
@@ -31,8 +32,9 @@ const AuthProvider = ({ children }: any) => {
     }
   );
 
-  const [login] = useLoginMutation();
-  const [register] = useRegisterMutation();
+  const [login, { isLoading: loginLoading }] = useLoginMutation();
+  const [register, { isLoading: registerLoading }] =
+    useRegisterMutation();
 
   useEffect(() => {
     if (data) {
@@ -80,6 +82,7 @@ const AuthProvider = ({ children }: any) => {
 
   const values = {
     user,
+    isLoading: isLoading || loginLoading || registerLoading,
     refetch,
     login: handleLogin,
     register: handleRegister,
