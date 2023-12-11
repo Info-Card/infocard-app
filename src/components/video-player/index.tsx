@@ -34,7 +34,9 @@ const VideoPlayer = ({ url }: any) => {
       url={url}
       width="100%"
       height={`${height}px`}
-      controls={true}
+      config={{
+        youtube: { playerVars: { controls: 1 } },
+      }}
     />
   );
 };
