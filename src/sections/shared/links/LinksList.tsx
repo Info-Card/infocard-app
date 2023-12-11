@@ -87,6 +87,10 @@ const LinksList = ({ links, profile }: LinksListParams) => {
     window.open(urlString, '_blank');
   };
 
+  if (id && (links ?? []).length < 1) {
+    return <></>;
+  }
+
   return (
     <div className="mt-2">
       <h4>{id ? 'Platforms' : 'Platforms & Analytics'}</h4>
