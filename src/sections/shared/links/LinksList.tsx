@@ -118,7 +118,7 @@ const LinksList = ({ links, profile }: LinksListParams) => {
             href={'/edit-profile'}
             style={{ textDecoration: 'none', color: 'black' }}
           >
-            + Add Links and Contact Info
+            + Add Platforms and Contact Info
           </Link>
         </Card>
       )}
