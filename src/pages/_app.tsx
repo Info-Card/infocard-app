@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from '@/components/loader';
 import AuthGuard from '@/components/auth-guard';
 import { AuthProvider } from '@/contexts/AuthContext';
+import Head from 'next/head';
 
 const Guard = ({ children, authGuard }: any) => {
   if (authGuard) {
@@ -22,14 +23,19 @@ function MyApp({ Component, pageProps }: any) {
   const authGuard = Component.authGuard ?? true;
 
   return (
-    <Provider store={store}>
-      <ToastContainer position="bottom-left" />
-      <AuthProvider>
-        <Guard authGuard={authGuard}>
-          {getLayout(<Component {...pageProps} />)}
-        </Guard>
-      </AuthProvider>
-    </Provider>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Provider store={store}>
+        <ToastContainer position="bottom-left" />
+        <AuthProvider>
+          <Guard authGuard={authGuard}>
+            {getLayout(<Component {...pageProps} />)}
+          </Guard>
+        </AuthProvider>
+      </Provider>
+    </>
   );
 }
 export default MyApp;
