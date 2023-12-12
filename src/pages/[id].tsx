@@ -215,7 +215,7 @@ const ProfilePage = () => {
                     </p>
                   </div>
                 )}
-                {profile && (
+                {/* {profile && (
                   <>
                     <VideosList profile={profile} />
                     <ProductsList profile={profile} />
@@ -224,7 +224,7 @@ const ProfilePage = () => {
                       links={linksData?.results}
                     />
                   </>
-                )}
+                )} */}
               </Col>
             </Row>
           )}
