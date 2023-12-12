@@ -108,6 +108,10 @@ const ProfilePage = () => {
     setShowExchangeContactModal(true);
   };
 
+  if (!profile || (profile?.isDirect && profile?.direct)) {
+    return <></>;
+  }
+
   if (profile?.isPrivate) {
     return (
       <Container>
@@ -131,10 +135,6 @@ const ProfilePage = () => {
     );
   }
 
-  if (profile?.isDirect && profile?.direct) {
-    return <></>;
-  }
-
   return (
     <Fragment>
       <Head>
@@ -147,87 +147,80 @@ const ProfilePage = () => {
       <main className="py-3">
         <Container>
           {isLoading && <Loader />}
-
-          {profile && (
-            <Row className="justify-content-center px-2">
-              <Col xs={12} md={8} lg={7} xl={6}>
-                <div className="d-flex justify-content-between mx-1">
-                  <Link href="/">
-                    <Image
-                      src="/assets/images/logo.png"
-                      alt="InfoCard"
-                      width={80}
-                      height={40}
-                    />
-                  </Link>
-                  <Button
-                    variant="outline-light"
+          <Row className="justify-content-center px-2">
+            <Col xs={12} md={8} lg={7} xl={6}>
+              <div className="d-flex justify-content-between mx-1">
+                <Link href="/">
+                  <Image
+                    src="/assets/images/logo.png"
+                    alt="InfoCard"
+                    width={80}
+                    height={40}
+                  />
+                </Link>
+                <Button
+                  variant="outline-light"
+                  style={{
+                    color: profile?.themeColor ?? 'black',
+                    border: `2px solid ${
+                      profile?.themeColor ?? 'black'
+                    }`,
+                  }}
+                  onClick={() => window.open('https://infocard.me')}
+                >
+                  Get your card
+                </Button>
+              </div>
+              <ProfileCard profile={profile} />
+              <div className="d-flex mt-3">
+                <Button
+                  className="flex-grow-1 mx-1"
+                  style={{
+                    width: '100%',
+                    backgroundColor: profile?.themeColor ?? 'black',
+                    border: `2px solid ${
+                      profile?.themeColor ?? 'black'
+                    }`,
+                  }}
+                  onClick={handleSaveContact}
+                >
+                  Save Contact
+                </Button>
+                <Button
+                  className="flex-grow-1 mx-1"
+                  style={{
+                    width: '100%',
+                    backgroundColor: profile?.themeColor ?? 'black',
+                    border: `2px solid ${
+                      profile?.themeColor ?? 'black'
+                    }`,
+                  }}
+                  onClick={handleExchangeContact}
+                >
+                  Exchange
+                </Button>
+              </div>
+              {profile?.bio && (
+                <div className="mt-3">
+                  <h4>About</h4>
+                  <p
                     style={{
-                      color: profile?.themeColor ?? 'black',
-                      border: `2px solid ${
-                        profile?.themeColor ?? 'black'
-                      }`,
+                      overflowWrap: 'break-word',
+                      whiteSpace: 'pre-wrap',
                     }}
-                    onClick={() => window.open('https://infocard.me')}
                   >
-                    Get your card
-                  </Button>
+                    {profile?.bio}
+                  </p>
                 </div>
-                <ProfileCard profile={profile} />
-                <div className="d-flex mt-3">
-                  <Button
-                    className="flex-grow-1 mx-1"
-                    style={{
-                      width: '100%',
-                      backgroundColor: profile?.themeColor ?? 'black',
-                      border: `2px solid ${
-                        profile?.themeColor ?? 'black'
-                      }`,
-                    }}
-                    onClick={handleSaveContact}
-                  >
-                    Save Contact
-                  </Button>
-                  <Button
-                    className="flex-grow-1 mx-1"
-                    style={{
-                      width: '100%',
-                      backgroundColor: profile?.themeColor ?? 'black',
-                      border: `2px solid ${
-                        profile?.themeColor ?? 'black'
-                      }`,
-                    }}
-                    onClick={handleExchangeContact}
-                  >
-                    Exchange
-                  </Button>
-                </div>
-                {profile?.bio && (
-                  <div className="mt-3">
-                    <h4>About</h4>
-                    <p
-                      style={{
-                        overflowWrap: 'break-word',
-                        whiteSpace: 'pre-wrap',
-                      }}
-                    >
-                      {profile?.bio}
-                    </p>
-                  </div>
-                )}
-                {/* {profile && (
-                  <>
-                    <VideosList profile={profile} />
-                    <ProductsList profile={profile} />
-                    <LinksList
-                      profile={profile}
-                      links={linksData?.results}
-                    />
-                  </>
-                )} */}
-              </Col>
-            </Row>
-          )}
+              )}
+              <VideosList profile={profile} />
+              <ProductsList profile={profile} />
+              <LinksList
+                profile={profile}
+                links={linksData?.results}
+              />
+            </Col>
+          </Row>
           <ExchangeContactModal
             show={showExchangeContactModal}
             setShow={setShowExchangeContactModal}
