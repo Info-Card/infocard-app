@@ -33,7 +33,7 @@ const LinkCard = ({
       <Col xs={4} onClick={handleLinkClick} className="text-center">
         <Image
           src={getLinkImageUrl(link)}
-          alt={link.image}
+          alt="link-image"
           className="p-1"
           width={0}
           height={0}
