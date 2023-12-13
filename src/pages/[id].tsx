@@ -19,7 +19,6 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useGetLinksQuery } from '@/store/link';
-import Head from 'next/head';
 
 const ProfilePage = () => {
   const params = useParams();
