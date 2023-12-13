@@ -170,18 +170,6 @@ const HomePage = () => {
           <Button
             variant="primary"
             className="flex-grow-1 mx-1"
-            href={`/${user.live.id}`}
-            style={{
-              width: '100%',
-              backgroundColor: user.live?.themeColor ?? 'black',
-              border: `2px solid ${user.live?.themeColor ?? 'black'}`,
-            }}
-          >
-            Preview
-          </Button>
-          <Button
-            variant="primary"
-            className="flex-grow-1 mx-1"
             style={{
               width: '100%',
               backgroundColor: user.live?.themeColor ?? 'black',
