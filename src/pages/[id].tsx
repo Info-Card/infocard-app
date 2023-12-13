@@ -54,7 +54,7 @@ const ProfilePage = () => {
       <main className="py-3">
         <Container>
           {(profileLoading || publicProfileLoading) && <Loader />}
-          {profile.name}
+          {profile?.name}
         </Container>
       </main>
     </Fragment>
