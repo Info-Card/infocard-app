@@ -12,35 +12,35 @@ import Loader from '@/components/loader';
 const ProfilePage = () => {
   const params = useParams();
 
-  const { user }: any = useAuth();
+  // const { user }: any = useAuth();
 
-  const {
-    data: profileData,
-    isLoading: profileLoading,
-    error: profileError,
-  } = useGetProfileQuery<any>(params?.id, {
-    skip: !params?.id || !user,
-  });
+  // const {
+  //   data: profileData,
+  //   isLoading: profileLoading,
+  //   error: profileError,
+  // } = useGetProfileQuery<any>(params?.id, {
+  //   skip: !params?.id || !user,
+  // });
 
-  const {
-    data: publicProfileData,
-    isLoading: publicProfileLoading,
-    error: publicProfileError,
-  } = useGetPublicProfileQuery<any>(params?.id, {
-    skip: !params?.id || user !== null,
-  });
+  // const {
+  //   data: publicProfileData,
+  //   isLoading: publicProfileLoading,
+  //   error: publicProfileError,
+  // } = useGetPublicProfileQuery<any>(params?.id, {
+  //   skip: !params?.id || user !== null,
+  // });
 
-  const profile = publicProfileData || profileData;
+  // const profile = publicProfileData || profileData;
 
-  useEffect(() => {
-    if (profile?.isDirect && profile?.direct) {
-      var urlString =
-        profile.direct.platform.type === 'url'
-          ? profile.direct.value
-          : profile.direct.platform.webBaseURL + profile.direct.value;
-      window.open(urlString, '_self');
-    }
-  }, [profile]);
+  // useEffect(() => {
+  //   if (profile?.isDirect && profile?.direct) {
+  //     var urlString =
+  //       profile.direct.platform.type === 'url'
+  //         ? profile.direct.value
+  //         : profile.direct.platform.webBaseURL + profile.direct.value;
+  //     window.open(urlString, '_self');
+  //   }
+  // }, [profile]);
 
   return (
     <Fragment>
@@ -53,8 +53,8 @@ const ProfilePage = () => {
       </Head>
       <main className="py-3">
         <Container>
-          {(profileLoading || publicProfileLoading) && <Loader />}
-          {profile?.name}
+          {/* {(profileLoading || publicProfileLoading) && <Loader />} */}
+          {params?.id}
         </Container>
       </main>
     </Fragment>
