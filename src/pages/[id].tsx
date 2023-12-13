@@ -148,7 +148,7 @@ const ProfilePage = () => {
         />
         <meta
           property="og:image"
-          content="/assets/images/logo1.png"
+          content="https://app.infocard.me/assets/images/logo1.png"
         />
       </Head>
       <main className="py-3">
