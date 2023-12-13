@@ -1,8 +1,15 @@
+import Loader from '@/components/loader';
 import { BASE_URL } from '@/configs/constants';
 import { useAuth } from '@/hooks/use-auth';
 import LinksList from '@/sections/shared/links/LinksList';
+import ProductsList from '@/sections/shared/products/ProductsList';
+import VideosList from '@/sections/shared/videos/VideosList';
 import { ExchangeContactModal } from '@/sections/profile/ExchangeContactModal';
 import ProfileCard from '@/sections/shared/ProfileCard';
+import {
+  useGetProfileQuery,
+  useGetPublicProfileQuery,
+} from '@/store/profile';
 import { useGetTagQuery } from '@/store/tag';
 import { showAlert } from '@/utils/show-alert';
 import { useParams } from 'next/navigation';
@@ -11,8 +18,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useGetLinksQuery } from '@/store/link';
+import Head from 'next/head';
 
-const ProfilePage = ({ profile, links }: any) => {
+const ProfilePage = () => {
   const params = useParams();
   const router = useRouter();
 
@@ -21,9 +30,37 @@ const ProfilePage = ({ profile, links }: any) => {
   const [showExchangeContactModal, setShowExchangeContactModal] =
     useState(false);
 
-  const { data: tag, error } = useGetTagQuery<any>(params?.id, {
-    skip: profile !== null,
+  const {
+    data: profileData,
+    isLoading: profileLoading,
+    error: profileError,
+  } = useGetProfileQuery<any>(params?.id, {
+    skip: !params?.id || !user,
   });
+
+  const {
+    data: publicProfileData,
+    isLoading: publicProfileLoading,
+    error: publicProfileError,
+  } = useGetPublicProfileQuery<any>(params?.id, {
+    skip: !params?.id || user !== null,
+  });
+
+  const { data: linksData } = useGetLinksQuery<any>(
+    {
+      limit: 100,
+      profile: profileData?.id || publicProfileData?.id,
+    },
+    {
+      skip: !(profileData || publicProfileData),
+    }
+  );
+
+  const { data: tag, error } = useGetTagQuery<any>(params?.id, {
+    skip: !profileError && !publicProfileError,
+  });
+
+  const profile = publicProfileData || profileData;
 
   useEffect(() => {
     if (profile?.isDirect && profile?.direct) {
@@ -105,6 +142,7 @@ const ProfilePage = ({ profile, links }: any) => {
     <Fragment>
       <main className="py-3">
         <Container>
+          {(publicProfileLoading || profileLoading) && <Loader />}
           {profile && (
             <Row className="justify-content-center px-2">
               <Col xs={12} md={8} lg={7} xl={6}>
@@ -174,7 +212,12 @@ const ProfilePage = ({ profile, links }: any) => {
                 )}
                 {profile && (
                   <>
-                    <LinksList profile={profile} links={links} />
+                    <VideosList profile={profile} />
+                    <ProductsList profile={profile} />
+                    <LinksList
+                      profile={profile}
+                      links={linksData?.results}
+                    />
                   </>
                 )}
               </Col>
@@ -189,36 +232,6 @@ const ProfilePage = ({ profile, links }: any) => {
       </main>
     </Fragment>
   );
-};
-
-export const getServerSideProps = async (context: any) => {
-  const { id } = context.query;
-
-  try {
-    const response = await fetch(
-      `${BASE_URL}/v1/profiles/public/${id}`
-    );
-    const profile = await response.json();
-
-    const linkResponse = await fetch(
-      `${BASE_URL}/v1/links?profile=${id}&limit=100`
-    );
-    const { results: links } = await linkResponse.json();
-
-    return {
-      props: {
-        profile,
-        links,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching profile:', error);
-    return {
-      props: {
-        profile: null,
-      },
-    };
-  }
 };
 
 ProfilePage.authGuard = false;
