@@ -44,13 +44,6 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>Info Card - Fastest Networking Technology</title>
-        <meta
-          name="description"
-          content="Click to see my business card"
-        />
-      </Head>
       <main className="py-3">
         <Container>
           {/* {(profileLoading || publicProfileLoading) && <Loader />} */}
