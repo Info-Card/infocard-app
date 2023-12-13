@@ -1,60 +1,33 @@
-import Loader from '@/components/loader';
-import { BASE_URL } from '@/configs/constants';
 import { useAuth } from '@/hooks/use-auth';
-import LinksList from '@/sections/shared/links/LinksList';
-import ProductsList from '@/sections/shared/products/ProductsList';
-import VideosList from '@/sections/shared/videos/VideosList';
-import { ExchangeContactModal } from '@/sections/profile/ExchangeContactModal';
-import ProfileCard from '@/sections/shared/ProfileCard';
 import {
   useGetProfileQuery,
   useGetPublicProfileQuery,
 } from '@/store/profile';
-import { useGetTagQuery } from '@/store/tag';
-import { showAlert } from '@/utils/show-alert';
 import { useParams } from 'next/navigation';
-import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useGetLinksQuery } from '@/store/link';
+import { Fragment, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 import Head from 'next/head';
+import Loader from '@/components/loader';
 
 const ProfilePage = () => {
   const params = useParams();
-  const router = useRouter();
 
   const { user }: any = useAuth();
 
-  const [showExchangeContactModal, setShowExchangeContactModal] =
-    useState(false);
-
   const {
     data: profileData,
-    isLoading,
+    isLoading: profileLoading,
     error: profileError,
   } = useGetProfileQuery<any>(params?.id, {
     skip: !params?.id || !user,
   });
 
-  const { data: publicProfileData, error: publicProfileError } =
-    useGetPublicProfileQuery<any>(params?.id, {
-      skip: !params?.id || user,
-    });
-
-  const { data: linksData } = useGetLinksQuery<any>(
-    {
-      limit: 100,
-      profile: profileData?.id || publicProfileData?.id,
-    },
-    {
-      skip: !(profileData || publicProfileData),
-    }
-  );
-
-  const { data: tag, error } = useGetTagQuery<any>(params?.id, {
-    skip: !profileError && !publicProfileError,
+  const {
+    data: publicProfileData,
+    isLoading: publicProfileLoading,
+    error: publicProfileError,
+  } = useGetPublicProfileQuery<any>(params?.id, {
+    skip: !params?.id || user !== null,
   });
 
   const profile = publicProfileData || profileData;
@@ -69,72 +42,6 @@ const ProfilePage = () => {
     }
   }, [profile]);
 
-  useEffect(() => {
-    if (tag) {
-      if (user) {
-        localStorage.setItem('tag', JSON.stringify(tag));
-        router.replace('/');
-      } else {
-        showAlert({
-          title: 'Activate Your Device',
-          text: 'To Activate your product you need to login or register first',
-          button1Text: 'Register',
-          button2Text: 'Login',
-          onButton1Click: () => {
-            router.replace('/auth/register');
-          },
-          onButton2Click: () => {
-            router.replace('/auth/login');
-          },
-          onCancel: () => {
-            localStorage.removeItem('tag');
-          },
-        });
-      }
-    }
-    if (error) {
-      router.replace('/not-found');
-    }
-  }, [tag, router, user, error]);
-
-  const handleSaveContact = async () => {
-    window.open(
-      `${BASE_URL}/v1/profiles/contact-card/${profile.id}`,
-      '_blank'
-    );
-  };
-
-  const handleExchangeContact = async () => {
-    setShowExchangeContactModal(true);
-  };
-
-  if (!profile || (profile?.isDirect && profile?.direct)) {
-    return <></>;
-  }
-
-  if (profile?.isPrivate) {
-    return (
-      <Container>
-        <Row>
-          <Col md={12}>
-            <div className="text-center mt-5">
-              <h1>Oops!</h1>
-              <h2>Private Profile</h2>
-              <p className="lead">
-                Sorry, this profile is set to private.
-              </p>
-              <div className="mt-5">
-                <Link href="/">
-                  <Button>Return to Home</Button>
-                </Link>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-
   return (
     <Fragment>
       <Head>
@@ -145,7 +52,10 @@ const ProfilePage = () => {
         />
       </Head>
       <main className="py-3">
-        <Container>dsad</Container>
+        <Container>
+          {(profileLoading || publicProfileLoading) && <Loader />}
+          {profile.name}
+        </Container>
       </main>
     </Fragment>
   );
