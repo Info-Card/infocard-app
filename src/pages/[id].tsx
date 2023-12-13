@@ -19,6 +19,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useGetLinksQuery } from '@/store/link';
+import Head from 'next/head';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -139,6 +140,17 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
+      <Head>
+        <title>Fastest Networking Technology</title>
+        <meta
+          property="og:description"
+          content="Click to see my business card"
+        />
+        <meta
+          property="og:image"
+          content="/assets/images/logo1.png"
+        />
+      </Head>
       <main className="py-3">
         <Container>
           {(publicProfileLoading || profileLoading) && <Loader />}
