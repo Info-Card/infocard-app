@@ -24,9 +24,6 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Provider store={store}>
         <ToastContainer position="bottom-left" />
         <AuthProvider>
