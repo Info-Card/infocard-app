@@ -74,8 +74,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (tag) {
+      localStorage.setItem('tag', JSON.stringify(tag));
       if (user) {
-        localStorage.setItem('tag', JSON.stringify(tag));
         router.replace('/');
       } else {
         showAlert({
