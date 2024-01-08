@@ -59,10 +59,13 @@ const CategoriesList = ({ profile }: any) => {
                             width: '20px',
                             height: '20px',
                             borderRadius: '50%',
+                            display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
                             color: 'white',
-                            fontSize: '12px',
+                            fontSize: '16px',
+                            marginBottom: '-10px',
+                            fontWeight: 'bold',
                           }}
                         >
                           ✓
