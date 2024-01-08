@@ -17,7 +17,7 @@ const CategoriesList = ({ profile }: any) => {
     limit: 100,
     profile: profile?.id,
   });
-
+  // console.log(linksData);
   return (
     <div>
       <h3>Add Platforms</h3>
@@ -27,6 +27,10 @@ const CategoriesList = ({ profile }: any) => {
             <h4>{category.name}</h4>
             <Row>
               {category.platforms.map((p: any) => {
+                const isAdded = linksData?.results?.find(
+                  (l: any) => l.platform.id === p.id && l.value
+                );
+                console.log(isAdded);
                 return (
                   <Col
                     xs={4}
@@ -40,6 +44,7 @@ const CategoriesList = ({ profile }: any) => {
                                 l.platform.type === 'contact'
                             )
                           : undefined;
+
                       setPlatform(p);
                       setLink(contactCard);
                       setEditModalKey((prevKey) => prevKey + 1);
@@ -47,6 +52,22 @@ const CategoriesList = ({ profile }: any) => {
                     }}
                   >
                     <div className="text-center">
+                      {isAdded !== undefined && (
+                        <div
+                          style={{
+                            background: 'green',
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            color: 'white',
+                            fontSize: '12px',
+                          }}
+                        >
+                          ✓
+                        </div>
+                      )}
                       <Image
                         src={getPlatformImageUrl(p)}
                         alt={p.image}
