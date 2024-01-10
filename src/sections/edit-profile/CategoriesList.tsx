@@ -52,25 +52,6 @@ const CategoriesList = ({ profile }: any) => {
                     }}
                   >
                     <div className="text-center">
-                      {isAdded !== undefined && (
-                        <div
-                          style={{
-                            background: 'green',
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            color: 'white',
-                            fontSize: '16px',
-                            marginBottom: '-10px',
-                            fontWeight: 'bold',
-                          }}
-                        >
-                          ✓
-                        </div>
-                      )}
                       <Image
                         src={getPlatformImageUrl(p)}
                         alt={p.image}
