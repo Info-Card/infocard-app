@@ -17,7 +17,7 @@ const CategoriesList = ({ profile }: any) => {
     limit: 100,
     profile: profile?.id,
   });
-  // console.log(linksData);
+
   return (
     <div>
       <h3>Add Platforms</h3>
@@ -27,10 +27,6 @@ const CategoriesList = ({ profile }: any) => {
             <h4>{category.name}</h4>
             <Row>
               {category.platforms.map((p: any) => {
-                const isAdded = linksData?.results?.find(
-                  (l: any) => l.platform.id === p.id && l.value
-                );
-                console.log(isAdded);
                 return (
                   <Col
                     xs={4}
