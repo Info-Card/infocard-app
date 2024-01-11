@@ -40,6 +40,7 @@ const CategoriesList = ({ profile }: any) => {
                                 l.platform.type === 'contact'
                             )
                           : undefined;
+
                       setPlatform(p);
                       setLink(contactCard);
                       setEditModalKey((prevKey) => prevKey + 1);
