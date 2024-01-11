@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +9,6 @@ import { toast } from 'react-toastify';
 import Loader from '@/components/loader';
 import { useResetPasswordMutation } from '@/store/auth';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 interface FormData {
   password: string;
@@ -26,10 +24,10 @@ const schema = yup.object().shape({
 });
 
 const ResetPasswordPage = () => {
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
-  const [success, setSuccess] = useState(false);
   const router = useRouter();
   const { token } = router.query;
+  const [resetPassword, { isLoading, isSuccess }] =
+    useResetPasswordMutation();
 
   const {
     control,
@@ -46,22 +44,16 @@ const ResetPasswordPage = () => {
         token: token,
         body: { password: data.password },
       }).unwrap();
-      toast.success(
-        'password resent successfully. Kindly login again.'
-      );
-      setSuccess(true);
       reset();
     } catch (err: any) {
       toast.error(err?.data?.message || err.error);
     }
   };
-  const handleGoBack = () => {
-    router.replace('/auth/login');
-  };
 
   return (
     <>
-      {success ? (
+      {isLoading && <Loader />}
+      {isSuccess ? (
         <FormContainer>
           <Alert variant="success">
             <Alert.Heading>Password Updated!</Alert.Heading>
@@ -70,34 +62,28 @@ const ResetPasswordPage = () => {
               new password to log in.
             </p>
           </Alert>
-          <Button variant="primary" onClick={handleGoBack}>
+          <Button variant="primary" href="/auth/login">
             Go to Login
           </Button>
         </FormContainer>
       ) : (
         <FormContainer>
-          {isLoading && <Loader />}
           <h1>Reset Password</h1>
-          <p>
-            Just need to confirm your password to send you
-            instructions to reset your password.
-          </p>
           <Form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
             <CustomField
               control={control}
               name="password"
-              label="password"
+              label="Password"
               type="password"
               errors={errors}
             />
             <CustomField
               control={control}
               name="confirmPassword"
-              label="confirm password"
+              label="Confirm password"
               type="password"
               errors={errors}
             />
-            <br />
             <Button type="submit" variant="primary">
               Reset password
             </Button>
