@@ -26,7 +26,6 @@ const CustomPhoneField = <T extends FieldValues>({
     control,
     defaultValue: '',
   });
-
   return (
     <Form.Group
       controlId={name as string}

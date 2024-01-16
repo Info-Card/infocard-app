@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import { useLazyLinkTagQuery } from '@/store/tag';
 import { showAlert } from '@/utils/show-alert';
 import { useGetLinksQuery } from '@/store/link';
+import InfoIcon from '@mui/icons-material/Info';
 
 const HomePage = () => {
   const router = useRouter();
@@ -46,7 +47,7 @@ const HomePage = () => {
         title: 'Activate Your Device',
         text: "Please click 'Activate' if you want to activate your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to activate with a different account.",
         button1Text: user?.username
-          ? `Activate to ${user.username}`
+          ? `Link to ${user.username}`
           : 'Activate',
         button2Text: 'Switch Account',
         onButton1Click: async () => {
@@ -138,6 +139,23 @@ const HomePage = () => {
     }
   };
 
+  const handleInfoIconClick = (toggle: any) => {
+    if (toggle == 'direct') {
+      showAlert({
+        title: 'Info Card Direct',
+        text: 'To Activate your product you need to login or register first',
+      });
+    } else {
+      showAlert({
+        title: 'Info Card Private',
+        text: 'To Activate your product you need to login or register first',
+        html: `You can use <b>bold text</b>,
+    <a href="#">links</a>,
+    and other HTML tags`,
+      });
+    }
+  };
+
   return (
     <Row className="justify-content-center px-2">
       <Col xs={12} md={10} lg={8} xl={6}>
@@ -198,18 +216,30 @@ const HomePage = () => {
             <VideosList profile={user.live} refetch={refetch} />
             <ProductsList profile={user.live} />
             <div className="d-flex justify-content-between mx-2">
-              <CustomToggle
-                id="direct"
-                checked={user.live?.isDirect}
-                onChange={handleDirectChange}
-                label="Direct"
-              />
-              <CustomToggle
-                id="private"
-                checked={user.live?.isPrivate}
-                onChange={handlePrivateChange}
-                label="Private"
-              />
+              <div className="d-flex ">
+                <InfoIcon
+                  className="mx-2"
+                  onClick={() => handleInfoIconClick('direct')}
+                />
+                <CustomToggle
+                  id="direct"
+                  checked={user.live?.isDirect}
+                  onChange={handleDirectChange}
+                  label="Direct"
+                />
+              </div>
+              <div className="d-flex">
+                <InfoIcon
+                  className="mx-2"
+                  onClick={() => handleInfoIconClick('private')}
+                />
+                <CustomToggle
+                  id="private"
+                  checked={user.live?.isPrivate}
+                  onChange={handlePrivateChange}
+                  label="Private"
+                />
+              </div>
             </div>
             <LinksList
               profile={user.live}

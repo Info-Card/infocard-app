@@ -83,6 +83,7 @@ const LinksList = ({ links, profile }: LinksListParams) => {
       link.platform.type === 'url'
         ? link.value
         : link.platform.webBaseURL + link.value;
+    console.log(urlString);
     window.open(urlString, '_blank');
   };
 
