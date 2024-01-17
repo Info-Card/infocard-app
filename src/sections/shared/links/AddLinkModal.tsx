@@ -70,13 +70,14 @@ export const AddLinkModal = ({
   };
 
   const onSubmit = async (data: any) => {
-    // if (platform?.type === 'phone' || platform?.type === 'whatsapp') {
-    //   data.value = '+' + data.value;
-    // }
+    if (platform?.type === 'phone' || platform?.type === 'whatsapp') {
+      data.value = '+' + data.value;
+    }
     const body = {
       ...data,
       file: data.file ? data.file[0] : undefined,
     };
+
     try {
       if (link) {
         await updateLink({
