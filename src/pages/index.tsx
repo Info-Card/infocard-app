@@ -172,7 +172,7 @@ const HomePage = () => {
           </Alert>
         )}
         <ProfileCard profile={user.live} isStats={true} />
-        <div className="d-flex mt-3">
+        <div className="d-flex my-3">
           <Button
             variant="primary"
             className="flex-grow-1 mx-1"
