@@ -3,7 +3,7 @@ import { Form, InputGroup } from 'react-bootstrap';
 import { useController, FieldValues } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ImageCropper from '../image-cropper';
-import { compressImage } from '@/utils/image-helpers';
+import { compressImage, fileToFileList } from '@/utils/image-helpers';
 
 interface CustomFieldProps<T> {
   name: keyof T;
@@ -29,7 +29,6 @@ const CustomField = <T extends FieldValues>({
   hidden,
 }: CustomFieldProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [file1, setFile1] = useState<File | null>(null);
 
   const {
     field,
@@ -44,25 +43,12 @@ const CustomField = <T extends FieldValues>({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (setValue && event.target.files) {
-      console.log(event.target.files[0]);
-      const selectedFile = event.target.files[0];
+      let selectedFile: any = event.target.files[0];
       if (selectedFile) {
-        setFile1(selectedFile);
-        const processFile = async () => {
-          const compressedFile: any = await compressImage(
-            selectedFile
-          );
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(compressedFile);
-          const modifiedFileList = dataTransfer.files;
-          Object.defineProperty(event.target, 'files', {
-            value: modifiedFileList,
-            writable: false,
-          });
-        };
-        await processFile();
+        const compressedFile: any = await compressImage(selectedFile);
+        selectedFile = fileToFileList(compressedFile);
       }
-      setValue(name, event.target.files);
+      setValue(name, selectedFile);
     }
   };
 

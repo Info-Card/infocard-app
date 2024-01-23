@@ -88,6 +88,7 @@ export const getProductImageUrl = (product: any) => {
     return '/assets/images/placeholder/link.png';
   }
 };
+
 /**
  * Compresses the given image.
  * @param {File} image - The image to be compressed.
@@ -109,6 +110,17 @@ export const compressImage = (image: File) => {
         reject(error);
       },
     });
-    console.log('asfasfsafasfasfddasf', compressImage, image);
   });
+};
+
+/**
+ * convert the given file into fileList.
+ * @param {File} file - The image to be compressed.
+ * @returns {<File>} A fileList.
+ */
+export const fileToFileList = (file: File) => {
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(file);
+  const modifiedFileList = dataTransfer.files;
+  return modifiedFileList;
 };

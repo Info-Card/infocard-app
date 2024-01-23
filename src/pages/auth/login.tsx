@@ -8,6 +8,7 @@ import FormContainer from '@/components/form-container';
 import CustomField from '@/components/custom-field';
 import { AuthLayout } from '@/layouts/auth/layout';
 import Loader from '@/components/loader';
+import { useState } from 'react';
 
 interface FormData {
   email: string;
@@ -21,6 +22,7 @@ const schema = yup.object().shape({
 
 const LoginPage = () => {
   const { login, isLoading } = useAuth();
+  const [loginAttempts, setLoginAttempts] = useState(0);
 
   const {
     control,
@@ -31,6 +33,7 @@ const LoginPage = () => {
   });
 
   const onSubmitHandler = async (data: FormData) => {
+    setLoginAttempts(loginAttempts + 1);
     await login(data);
   };
 
