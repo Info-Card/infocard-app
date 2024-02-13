@@ -63,23 +63,9 @@ const LoginPage = () => {
           Forgot password?
         </Link>
         <br />
-        {isLoading ? (
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={isLoading}
-          >
-            <Loader />
-          </Button>
-        ) : (
-          <Button
-            type="submit"
-            variant="primary"
-            disabled={isLoading}
-          >
-            Sign In
-          </Button>
-        )}
+        <Button type="submit" variant="primary" disabled={isLoading}>
+          Sign In
+        </Button>
       </Form>
     </FormContainer>
   );
