@@ -1,4 +1,5 @@
 import { BASE_URL } from '@/configs/constants';
+import Compressor from 'compressorjs';
 
 const { isNullOrEmpty } = require('./helpers');
 
@@ -86,4 +87,40 @@ export const getProductImageUrl = (product: any) => {
   } else {
     return '/assets/images/placeholder/link.png';
   }
+};
+
+/**
+ * Compresses the given image.
+ * @param {File} image - The image to be compressed.
+ * @returns {Promise<File>} A promise that resolves to the compressed image file.
+ */
+export const compressImage = (image: File) => {
+  return new Promise((resolve, reject) => {
+    new Compressor(image, {
+      quality: 0.6,
+      success(result) {
+        const compressedFile = new File([result], image.name, {
+          type: image.type,
+          lastModified: image.lastModified,
+        });
+        resolve(compressedFile);
+      },
+      error(error) {
+        console.error(error.message);
+        reject(error);
+      },
+    });
+  });
+};
+
+/**
+ * convert the given file into fileList.
+ * @param {File} file - The image to be compressed.
+ * @returns {<File>} A fileList.
+ */
+export const fileToFileList = (file: File) => {
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(file);
+  const modifiedFileList = dataTransfer.files;
+  return modifiedFileList;
 };

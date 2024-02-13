@@ -2,6 +2,7 @@ import { getCroppedImage } from '@/utils/canvas-utils';
 import React, { useCallback, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Cropper from 'react-easy-crop';
+import { compressImage } from '@/utils/image-helpers';
 
 const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -23,7 +24,8 @@ const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
           croppedAreaPixels
         );
         if (croppedImage) {
-          setCroppedImage(croppedImage);
+          const compressedFile = await compressImage(croppedImage);
+          setCroppedImage(compressedFile);
           setFile(null);
         }
       }

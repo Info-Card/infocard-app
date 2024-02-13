@@ -68,13 +68,13 @@ export const AddProductModal = ({
           id: product.id,
           body,
         }).unwrap();
-        toast.success('Product updated');
+        toast.success('Link updated');
       } else {
         await createProduct({
           profile: profileId,
           ...body,
         }).unwrap();
-        toast.success('Product added');
+        toast.success('Link added');
       }
       handleClose();
     } catch (error: any) {

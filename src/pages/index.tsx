@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import { useLazyLinkTagQuery } from '@/store/tag';
 import { showAlert } from '@/utils/show-alert';
 import { useGetLinksQuery } from '@/store/link';
+import { FaInfoCircle } from 'react-icons/fa';
 
 const HomePage = () => {
   const router = useRouter();
@@ -46,7 +47,7 @@ const HomePage = () => {
         title: 'Activate Your Device',
         text: "Please click 'Activate' if you want to activate your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to activate with a different account.",
         button1Text: user?.username
-          ? `Activate to ${user.username}`
+          ? `Link to ${user.username}`
           : 'Activate',
         button2Text: 'Switch Account',
         onButton1Click: async () => {
@@ -138,6 +139,20 @@ const HomePage = () => {
     }
   };
 
+  const handleInfoIconClick = (toggle: any) => {
+    if (toggle == 'direct') {
+      showAlert({
+        title: 'Direct Info Card',
+        text: 'The "Direct" option lets you send clients straight to a specific link, bypassing your full profile for quicker access.',
+      });
+    } else {
+      showAlert({
+        title: 'Private Info Card',
+        text: 'Choosing "Private" for your profile restricts its visibility, keeping your information confidential.',
+      });
+    }
+  };
+
   return (
     <Row className="justify-content-center px-2">
       <Col xs={12} md={10} lg={8} xl={6}>
@@ -154,7 +169,7 @@ const HomePage = () => {
           </Alert>
         )}
         <ProfileCard profile={user.live} isStats={true} />
-        <div className="d-flex mt-3">
+        <div className="d-flex my-3">
           <Button
             variant="primary"
             className="flex-grow-1 mx-1"
@@ -198,18 +213,30 @@ const HomePage = () => {
             <VideosList profile={user.live} refetch={refetch} />
             <ProductsList profile={user.live} />
             <div className="d-flex justify-content-between mx-2">
-              <CustomToggle
-                id="direct"
-                checked={user.live?.isDirect}
-                onChange={handleDirectChange}
-                label="Direct"
-              />
-              <CustomToggle
-                id="private"
-                checked={user.live?.isPrivate}
-                onChange={handlePrivateChange}
-                label="Private"
-              />
+              <div className="d-flex align-items-center">
+                <FaInfoCircle
+                  size={20}
+                  onClick={() => handleInfoIconClick('direct')}
+                />
+                <CustomToggle
+                  id="direct"
+                  checked={user.live?.isDirect}
+                  onChange={handleDirectChange}
+                  label="Direct"
+                />
+              </div>
+              <div className="d-flex align-items-center">
+                <FaInfoCircle
+                  size={20}
+                  onClick={() => handleInfoIconClick('private')}
+                />
+                <CustomToggle
+                  id="private"
+                  checked={user.live?.isPrivate}
+                  onChange={handlePrivateChange}
+                  label="Private"
+                />
+              </div>
             </div>
             <LinksList
               profile={user.live}

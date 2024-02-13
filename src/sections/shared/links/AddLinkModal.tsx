@@ -88,7 +88,6 @@ export const AddLinkModal = ({
         }).unwrap();
       }
       toast.success('Link updated');
-
       handleClose();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);

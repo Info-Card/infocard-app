@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import { useController, FieldValues } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import ImageCropper from '../image-cropper';
+import { compressImage, fileToFileList } from '@/utils/image-helpers';
 
 interface CustomFieldProps<T> {
   name: keyof T;
@@ -37,11 +39,16 @@ const CustomField = <T extends FieldValues>({
     defaultValue: '',
   });
 
-  const handleFileChange = (
+  const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (setValue && event.target.files) {
-      setValue(name, event.target.files);
+      let selectedFile: any = event.target.files[0];
+      if (selectedFile) {
+        const compressedFile: any = await compressImage(selectedFile);
+        selectedFile = fileToFileList(compressedFile);
+      }
+      setValue(name, selectedFile);
     }
   };
 
