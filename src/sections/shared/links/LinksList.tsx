@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   useDeleteLinkMutation,
   useLazyGetLinkQuery,
-  useUpdateLinkMutation,
 } from '@/store/link';
 import { useUpdateProfileMutation } from '@/store/profile';
 import { toast } from 'react-toastify';
