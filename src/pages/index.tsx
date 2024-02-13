@@ -141,16 +141,13 @@ const HomePage = () => {
   const handleInfoIconClick = (toggle: any) => {
     if (toggle == 'direct') {
       showAlert({
-        title: 'Info Card Direct',
-        text: 'To Activate your product you need to login or register first',
+        title: 'Direct Info Card',
+        text: 'The "Direct" option lets you send clients straight to a specific link, bypassing your full profile for quicker access.',
       });
     } else {
       showAlert({
-        title: 'Info Card Private',
-        text: 'To Activate your product you need to login or register first',
-        html: `You can use <b>bold text</b>,
-    <a href="#">links</a>,
-    and other HTML tags`,
+        title: 'Private Info Card',
+        text: 'Choosing "Private" for your profile restricts its visibility, keeping your information confidential.',
       });
     }
   };
