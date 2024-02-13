@@ -17,17 +17,14 @@ const ImageCropper = ({ file, setFile, setCroppedImage }: any) => {
   );
 
   const cropImage = useCallback(async () => {
-    console.log('cropping image is available');
     try {
       if (croppedAreaPixels) {
         const croppedImage = await getCroppedImage(
           file,
           croppedAreaPixels
         );
-
         if (croppedImage) {
           const compressedFile = await compressImage(croppedImage);
-
           setCroppedImage(compressedFile);
           setFile(null);
         }
