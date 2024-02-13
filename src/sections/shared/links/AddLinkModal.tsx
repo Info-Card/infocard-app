@@ -70,14 +70,10 @@ export const AddLinkModal = ({
   };
 
   const onSubmit = async (data: any) => {
-    if (platform?.type === 'phone' || platform?.type === 'whatsapp') {
-      data.value = '+' + data.value;
-    }
     const body = {
       ...data,
       file: data.file ? data.file[0] : undefined,
     };
-
     try {
       if (link) {
         await updateLink({
@@ -92,7 +88,6 @@ export const AddLinkModal = ({
         }).unwrap();
       }
       toast.success('Link updated');
-
       handleClose();
     } catch (error: any) {
       toast.error(error?.data?.message || error.error);
