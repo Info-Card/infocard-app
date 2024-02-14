@@ -67,7 +67,10 @@ const ProfilePage = () => {
       var urlString =
         profile.direct.platform.type === 'url'
           ? profile.direct.value
+          : profile.direct.platform.type === 'file'
+          ? profile.direct.platform.webBaseURL + profile.direct.file
           : profile.direct.platform.webBaseURL + profile.direct.value;
+
       window.open(urlString, '_self');
     }
   }, [profile]);
