@@ -81,6 +81,8 @@ const LinksList = ({ links, profile }: LinksListParams) => {
     var urlString =
       link.platform.type === 'url'
         ? link.value
+        : link.platform.type === 'file'
+        ? link.platform.webBaseURL + link.file
         : link.platform.webBaseURL + link.value;
     window.open(urlString, '_blank');
   };
