@@ -1,5 +1,6 @@
 import { LINKS_URL } from '@/configs/constants';
 import { apiSlice } from '../api';
+import { toFormData } from 'axios';
 
 export const linkSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,7 +24,7 @@ export const linkSlice = apiSlice.injectEndpoints({
         return {
           url: LINKS_URL,
           method: 'POST',
-          body,
+          body: toFormData(body),
         };
       },
       invalidatesTags: ['Link'],
@@ -32,7 +33,7 @@ export const linkSlice = apiSlice.injectEndpoints({
       query: ({ id, body }) => ({
         url: `${LINKS_URL}/${id}`,
         method: 'PATCH',
-        body,
+        body: toFormData(body),
       }),
       invalidatesTags: ['Link'],
     }),

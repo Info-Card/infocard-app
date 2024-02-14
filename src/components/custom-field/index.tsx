@@ -43,12 +43,7 @@ const CustomField = <T extends FieldValues>({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (setValue && event.target.files) {
-      let selectedFile: any = event.target.files[0];
-      if (selectedFile) {
-        const compressedFile: any = await compressImage(selectedFile);
-        selectedFile = fileToFileList(compressedFile);
-      }
-      setValue(name, selectedFile);
+      setValue(name, event.target.files);
     }
   };
 
