@@ -80,8 +80,8 @@ const ProfilePage = () => {
           router.replace('/');
         } else {
           showAlert({
-            title: 'Activate Your Device',
-            text: 'To Activate your product you need to login or register first',
+            title: 'Link Your Device',
+            text: 'To Link your product you need to login or register first',
             button1Text: 'Register',
             button2Text: 'Login',
             onButton1Click: () => {

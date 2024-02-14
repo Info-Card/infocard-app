@@ -44,16 +44,16 @@ const HomePage = () => {
     if (user && localStorage.getItem('tag')) {
       const tag = JSON.parse(localStorage.getItem('tag') || '');
       showAlert({
-        title: 'Activate Your Device',
-        text: "Please click 'Activate' if you want to activate your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to activate with a different account.",
+        title: 'Link Your Device',
+        text: "Please click 'Link' if you want to link your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to link with a different account.",
         button1Text: user?.username
           ? `Link to ${user.username}`
-          : 'Activate',
+          : 'Link',
         button2Text: 'Switch Account',
         onButton1Click: async () => {
           try {
             await linkTag(tag.id);
-            toast.success('Device activated successfully');
+            toast.success('Device linked successfully');
           } catch (error: any) {
             toast.error(error?.data?.message || error.error);
           }
@@ -61,8 +61,8 @@ const HomePage = () => {
         },
         onButton2Click: () => {
           showAlert({
-            title: 'Activate Your Device',
-            text: 'To Activate your product you need to login or register first',
+            title: 'Link Your Device',
+            text: 'To Link your product you need to login or register first',
             button1Text: 'Register',
             button2Text: 'Login',
             onButton1Click: () => {
