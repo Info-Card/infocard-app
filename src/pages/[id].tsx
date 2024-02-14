@@ -74,25 +74,29 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (tag) {
-      localStorage.setItem('tag', JSON.stringify(tag));
-      if (user) {
-        router.replace('/');
+      if (tag.status) {
+        localStorage.setItem('tag', JSON.stringify(tag));
+        if (user) {
+          router.replace('/');
+        } else {
+          showAlert({
+            title: 'Activate Your Device',
+            text: 'To Activate your product you need to login or register first',
+            button1Text: 'Register',
+            button2Text: 'Login',
+            onButton1Click: () => {
+              router.replace('/auth/register');
+            },
+            onButton2Click: () => {
+              router.replace('/auth/login');
+            },
+            onCancel: () => {
+              localStorage.removeItem('tag');
+            },
+          });
+        }
       } else {
-        showAlert({
-          title: 'Activate Your Device',
-          text: 'To Activate your product you need to login or register first',
-          button1Text: 'Register',
-          button2Text: 'Login',
-          onButton1Click: () => {
-            router.replace('/auth/register');
-          },
-          onButton2Click: () => {
-            router.replace('/auth/login');
-          },
-          onCancel: () => {
-            localStorage.removeItem('tag');
-          },
-        });
+        router.replace('/not-found');
       }
     }
     if (error) {
