@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,7 +9,6 @@ import {
 } from '@/store/link';
 import Image from 'next/image';
 import CustomField from '@/components/custom-field';
-import Loader from '@/components/loader';
 import { isNullOrEmpty } from '@/utils/helpers';
 import { getPlatformImageUrl } from '@/utils/image-helpers';
 import { toast } from 'react-toastify';
@@ -57,12 +56,21 @@ export const AddLinkModal = ({
     formState: { errors },
     reset,
     setValue,
+    watch,
   } = useForm<FormData>({
     defaultValues: {
       value: platform?.type === 'contact' ? profile?.id : link?.value,
     },
     resolver: yupResolver(schema),
   });
+
+  const watchedFile = watch('file');
+
+  useEffect(() => {
+    if (watchedFile && watchedFile.length > 0) {
+      setValue('value', watchedFile[0].name);
+    }
+  }, [watchedFile, setValue]);
 
   const handleClose = () => {
     setShow(false);
@@ -145,10 +153,10 @@ export const AddLinkModal = ({
           {platform?.type === 'file' && (
             <CustomField
               control={control}
-              name="image"
-              label="Image"
+              name="file"
+              label=""
               type="file"
-              accept="image/*"
+              accept={platform.accept}
               errors={errors}
               setValue={setValue}
             />
@@ -168,7 +176,7 @@ export const AddLinkModal = ({
             disabled={createLoading || updateLoading}
           >
             {createLoading || updateLoading ? (
-              <Loader />
+              <Spinner color="white" />
             ) : link ? (
               'Update'
             ) : (
