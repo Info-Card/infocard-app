@@ -49,7 +49,6 @@ const HomePage = () => {
         button1Text: user?.username
           ? `Link to ${user.username}`
           : 'Link',
-        button2Text: 'Switch Account',
         onButton1Click: async () => {
           try {
             await linkTag(tag.id);
@@ -58,24 +57,6 @@ const HomePage = () => {
             toast.error(error?.data?.message || error.error);
           }
           localStorage.removeItem('tag');
-        },
-        onButton2Click: () => {
-          showAlert({
-            title: 'Link Your Device',
-            text: 'To Link your product you need to login or register first',
-            button1Text: 'Register',
-            button2Text: 'Login',
-            onButton1Click: () => {
-              logout();
-              router.replace('/auth/register');
-            },
-            onButton2Click: () => {
-              logout();
-            },
-            onCancel: () => {
-              localStorage.removeItem('tag');
-            },
-          });
         },
         onCancel: () => {
           localStorage.removeItem('tag');
