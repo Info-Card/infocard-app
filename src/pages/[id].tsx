@@ -167,7 +167,10 @@ const ProfilePage = () => {
           property="og:description"
           content="Click to see my business card"
         />
-        <meta property="og:image" content={profile?.image} />
+        <meta
+          property="og:image"
+          content="https://app.infocard.me/assets/images/logo1.png"
+        />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
@@ -183,7 +186,10 @@ const ProfilePage = () => {
           property="twitter:description"
           content="Click to see my business card"
         />
-        <meta property="twitter:image" content={profile?.image} />
+        <meta
+          property="twitter:image"
+          content="https://app.infocard.me/assets/images/logo1.png"
+        />
       </Head>
       <main className="py-3">
         <Container>
