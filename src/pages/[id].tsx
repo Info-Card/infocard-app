@@ -157,7 +157,7 @@ const ProfilePage = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://www.infocard.me/${profile.id}`}
+          content={`https://www.infocard.me/${profile?.id}`}
         />
         <meta
           property="og:title"
@@ -167,13 +167,13 @@ const ProfilePage = () => {
           property="og:description"
           content="Click to see my business card"
         />
-        <meta property="og:image" content={profile.image} />
+        <meta property="og:image" content={profile?.image} />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta
           property="twitter:url"
-          content={`https://www.infocard.me/${profile.id}`}
+          content={`https://www.infocard.me/${profile?.id}`}
         />
         <meta
           property="twitter:title"
@@ -183,7 +183,7 @@ const ProfilePage = () => {
           property="twitter:description"
           content="Click to see my business card"
         />
-        <meta property="twitter:image" content={profile.image} />
+        <meta property="twitter:image" content={profile?.image} />
       </Head>
       <main className="py-3">
         <Container>
