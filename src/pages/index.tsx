@@ -44,8 +44,8 @@ const HomePage = () => {
     if (user && localStorage.getItem('tag')) {
       const tag = JSON.parse(localStorage.getItem('tag') || '');
       showAlert({
-        title: 'Link Your Device',
-        text: "Please click 'Link' if you want to link your device with the current logged-in account. Alternatively, choose 'Switch Account' if you wish to link with a different account.",
+        title: 'Welcome to infocard',
+        text: `Please click "${user.username}" to get started`,
         button1Text: user?.username
           ? `Link to ${user.username}`
           : 'Link',
@@ -144,8 +144,8 @@ const HomePage = () => {
             toggleChanged={handleSwitchProfile}
           />
         )}
-        {!user.live?.name && (
-          <Alert variant="dark" className="mt-3 text-center">
+        {user.live?.name && (
+          <Alert className="mt-3 text-center">
             Please complete your profile!
           </Alert>
         )}

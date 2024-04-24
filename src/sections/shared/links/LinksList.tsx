@@ -84,7 +84,11 @@ const LinksList = ({ links, profile }: LinksListParams) => {
         : link.platform.type === 'file'
         ? link.platform.webBaseURL + link.file
         : link.platform.webBaseURL + link.value;
-    window.open(urlString, '_blank');
+
+    window.open(
+      urlString,
+      link.platform.type === 'phone' ? '_self' : '_blank'
+    );
   };
 
   if (id && (links ?? []).length < 1) {

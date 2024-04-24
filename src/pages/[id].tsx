@@ -83,7 +83,7 @@ const ProfilePage = () => {
           router.replace('/');
         } else {
           showAlert({
-            title: 'Link Your Device',
+            title: 'Welcome to infocard',
             text: 'To Link your product you need to login or register first',
             button1Text: 'Register',
             button2Text: 'Login',

@@ -10,6 +10,7 @@ import { AuthLayout } from '@/layouts/auth/layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Loader from '@/components/loader';
+import { passwordRegex, usernameRegex } from '@/utils/regexUtils';
 
 interface FormData {
   username: string;
@@ -19,13 +20,28 @@ interface FormData {
 }
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(8).max(32).required(),
+  username: yup
+    .string()
+    .required('Username is a required')
+    .matches(
+      usernameRegex,
+      'Username must be 3-30 characters long and can only contain letters, numbers, underscores, and hyphens.'
+    ),
+  email: yup
+    .string()
+    .required('Email is a required')
+    .email('Email must be a valid email'),
+  password: yup
+    .string()
+    .required('Password is a required')
+    .matches(
+      passwordRegex,
+      'Password must be at least 8 characters long and contain at least 1 letter and 1 number.'
+    ),
   confirmPassword: yup
     .string()
-    .required('confirm password is a required field')
-    .oneOf([yup.ref('password')], 'confirm password must match'),
+    .required('Confirm password is a required')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 });
 
 const RegisterPage = () => {
