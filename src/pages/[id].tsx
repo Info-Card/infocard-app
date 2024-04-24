@@ -152,13 +152,13 @@ const ProfilePage = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={`Fastest Networking Technology | ${profile.name}`}
+          content={`Fastest Networking Technology | ${profile?.name}`}
         />
         <meta
           property="og:description"
           content="Click to see my business card."
         />
-        <meta property="og:image" content={profile.image} />
+        <meta property="og:image" content={profile?.image} />
       </Head>
       <main className="py-3">
         <Container>
