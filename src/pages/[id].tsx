@@ -67,39 +67,32 @@ const ProfilePage = () => {
       var urlString =
         profile.direct.platform.type === 'url'
           ? profile.direct.value
-          : profile.direct.platform.type === 'file'
-          ? profile.direct.platform.webBaseURL + profile.direct.file
           : profile.direct.platform.webBaseURL + profile.direct.value;
-
       window.open(urlString, '_self');
     }
   }, [profile]);
 
   useEffect(() => {
     if (tag) {
-      if (tag.status) {
+      if (user) {
         localStorage.setItem('tag', JSON.stringify(tag));
-        if (user) {
-          router.replace('/');
-        } else {
-          showAlert({
-            title: 'Welcome to infocard',
-            text: 'To Link your product you need to login or register first',
-            button1Text: 'Register',
-            button2Text: 'Login',
-            onButton1Click: () => {
-              router.replace('/auth/register');
-            },
-            onButton2Click: () => {
-              router.replace('/auth/login');
-            },
-            onCancel: () => {
-              localStorage.removeItem('tag');
-            },
-          });
-        }
+        router.replace('/');
       } else {
-        router.replace('/not-found');
+        showAlert({
+          title: 'Activate Your Device',
+          text: 'To Activate your product you need to login or register first',
+          button1Text: 'Register',
+          button2Text: 'Login',
+          onButton1Click: () => {
+            router.replace('/auth/register');
+          },
+          onButton2Click: () => {
+            router.replace('/auth/login');
+          },
+          onCancel: () => {
+            localStorage.removeItem('tag');
+          },
+        });
       }
     }
     if (error) {
@@ -149,16 +142,14 @@ const ProfilePage = () => {
     <Fragment>
       <Head>
         <title>Fastest Networking Technology</title>
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={`Fastest Networking Technology | ${profile?.name}`}
-        />
         <meta
           property="og:description"
-          content="Click to see my business card."
+          content="Click to see my business card"
         />
-        <meta property="og:image" content={profile?.image} />
+        <meta
+          property="og:image"
+          content="https://app.infocard.me/assets/images/logo1.png"
+        />
       </Head>
       <main className="py-3">
         <Container>
