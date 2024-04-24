@@ -1,4 +1,3 @@
-import { BASE_URL } from '@/configs/constants';
 import Compressor from 'compressorjs';
 
 const { isNullOrEmpty } = require('./helpers');
@@ -10,9 +9,9 @@ const { isNullOrEmpty } = require('./helpers');
  */
 export const getLeadImageUrl = (lead: any) => {
   if (lead && lead.profile && !isNullOrEmpty(lead.profile.image)) {
-    return `${BASE_URL}/v1/${lead.profile.image}`;
+    return `${lead.profile.image}`;
   } else if (lead && !isNullOrEmpty(lead.image)) {
-    return `${BASE_URL}/v1/${lead.image}`;
+    return `${lead.image}`;
   } else {
     return '/assets/images/placeholder/user.png';
   }
@@ -25,7 +24,7 @@ export const getLeadImageUrl = (lead: any) => {
  */
 export const getProfileImageUrl = (profile: any) => {
   if (profile && !isNullOrEmpty(profile.image)) {
-    return `${BASE_URL}/v1/${profile.image}`;
+    return `${profile.image}`;
   } else {
     return '/assets/images/placeholder/user.png';
   }
@@ -38,7 +37,7 @@ export const getProfileImageUrl = (profile: any) => {
  */
 export const getProfileCoverImageUrl = (profile: any) => {
   if (profile && !isNullOrEmpty(profile.cover)) {
-    return `${BASE_URL}/v1/${profile.cover}`;
+    return `${profile.cover}`;
   } else {
     return '/assets/images/placeholder/cover.png';
   }
@@ -51,7 +50,7 @@ export const getProfileCoverImageUrl = (profile: any) => {
  */
 export const getPlatformImageUrl = (platform: any) => {
   if (platform && !isNullOrEmpty(platform.image)) {
-    return `${BASE_URL}/v1/${platform.image}`;
+    return `${platform.image}`;
   } else {
     return '/assets/images/placeholder/link.png';
   }
@@ -64,13 +63,13 @@ export const getPlatformImageUrl = (platform: any) => {
  */
 export const getLinkImageUrl = (link: any) => {
   if (link && !isNullOrEmpty(link.image)) {
-    return `${BASE_URL}/v1/${link.image}`;
+    return `${link.image}`;
   } else if (
     link &&
     link.platform &&
     !isNullOrEmpty(link.platform.image)
   ) {
-    return `${BASE_URL}/v1/${link.platform.image}`;
+    return `${link.platform.image}`;
   } else {
     return '/assets/images/placeholder/link.png';
   }
@@ -83,7 +82,7 @@ export const getLinkImageUrl = (link: any) => {
  */
 export const getProductImageUrl = (product: any) => {
   if (product && !isNullOrEmpty(product.image)) {
-    return `${BASE_URL}/v1/${product.image}`;
+    return `${product.image}`;
   } else {
     return '/assets/images/placeholder/link.png';
   }

@@ -83,7 +83,7 @@ const ProfilePage = () => {
           router.replace('/');
         } else {
           showAlert({
-            title: 'Link Your Device',
+            title: 'Welcome to infocard',
             text: 'To Link your product you need to login or register first',
             button1Text: 'Register',
             button2Text: 'Login',
@@ -150,13 +150,40 @@ const ProfilePage = () => {
       <Head>
         <title>Fastest Networking Technology</title>
         <meta
+          property="description"
+          content="Click to see my business card"
+        />
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://www.infocard.me/${profile.id}`}
+        />
+        <meta
+          property="og:title"
+          content="Fastest Networking Technology"
+        />
+        <meta
           property="og:description"
           content="Click to see my business card"
         />
+        <meta property="og:image" content={profile.image} />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
         <meta
-          property="og:image"
-          content="https://app.infocard.me/assets/images/logo1.png"
+          property="twitter:url"
+          content={`https://www.infocard.me/${profile.id}`}
         />
+        <meta
+          property="twitter:title"
+          content="Fastest Networking Technology"
+        />
+        <meta
+          property="twitter:description"
+          content="Click to see my business card"
+        />
+        <meta property="twitter:image" content={profile.image} />
       </Head>
       <main className="py-3">
         <Container>

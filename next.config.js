@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost', 'api.infocard.me'],
+    domains: ['infocard-bucket.s3.ap-south-1.amazonaws.com'],
   },
 };
 

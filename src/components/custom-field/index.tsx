@@ -56,6 +56,7 @@ const CustomField = <T extends FieldValues>({
       setValue(name, fileToFileList(selectedFile));
     }
   };
+  console.log(errors && errors[name] && errors[name].message);
 
   return (
     <Form.Group
@@ -98,9 +99,9 @@ const CustomField = <T extends FieldValues>({
       )}
 
       {errors && errors[name] && (
-        <Form.Control.Feedback type="invalid">
+        <p style={{ color: 'red', fontSize: 12, padding: 5 }}>
           {errors[name].message}
-        </Form.Control.Feedback>
+        </p>
       )}
     </Form.Group>
   );
