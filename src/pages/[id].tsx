@@ -143,6 +143,10 @@ const ProfilePage = () => {
       <Head>
         <title>Fastest Networking Technology</title>
         <meta
+          property="og:title"
+          content="Fastest Networking Technology | Info Card"
+        />
+        <meta
           property="og:description"
           content="Click to see my business card"
         />
