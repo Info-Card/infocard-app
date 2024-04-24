@@ -150,10 +150,6 @@ const ProfilePage = () => {
           property="og:description"
           content="Click to see my business card"
         />
-        <meta
-          property="og:image"
-          content="https://app.infocard.me/assets/images/logo1.png"
-        />
       </Head>
       <main className="py-3">
         <Container>
