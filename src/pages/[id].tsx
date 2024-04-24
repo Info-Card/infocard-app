@@ -149,47 +149,16 @@ const ProfilePage = () => {
     <Fragment>
       <Head>
         <title>Fastest Networking Technology</title>
-        <meta
-          property="description"
-          content="Click to see my business card"
-        />
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta
-          property="og:url"
-          content={`https://www.infocard.me/${profile?.id}`}
-        />
-        <meta
           property="og:title"
-          content="Fastest Networking Technology"
+          content={`Fastest Networking Technology | ${profile.name}`}
         />
         <meta
           property="og:description"
-          content="Click to see my business card"
+          content="Click to see my business card."
         />
-        <meta
-          property="og:image"
-          content="https://app.infocard.me/assets/images/logo1.png"
-        />
-
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:url"
-          content={`https://www.infocard.me/${profile?.id}`}
-        />
-        <meta
-          property="twitter:title"
-          content="Fastest Networking Technology"
-        />
-        <meta
-          property="twitter:description"
-          content="Click to see my business card"
-        />
-        <meta
-          property="twitter:image"
-          content="https://app.infocard.me/assets/images/logo1.png"
-        />
+        <meta property="og:image" content={profile.image} />
       </Head>
       <main className="py-3">
         <Container>
