@@ -144,7 +144,7 @@ const HomePage = () => {
             toggleChanged={handleSwitchProfile}
           />
         )}
-        {user.live?.name && (
+        {!user.live?.name && (
           <Alert className="mt-3 text-center">
             Please complete your profile!
           </Alert>
