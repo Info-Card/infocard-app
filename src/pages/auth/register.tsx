@@ -104,7 +104,7 @@ const RegisterPage = () => {
         <div className="d-flex justify-content-end">
           Already have an account?&nbsp;
           <Link
-            href="/auth/forgot-password"
+            href="/auth/login"
             className="float-right"
             style={{ color: 'black' }}
           >
